@@ -1,15 +1,11 @@
 <template>
   <div id="app">
-    <scroll ref="listContent" :data="list" class="list-content">
-      <img src="~common/image/test.jpg">
-      <router-view/>
-    </scroll>
+    <router-view/>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
-
   export default {
     name: 'app',
     data() {

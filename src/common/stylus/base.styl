@@ -7,3 +7,35 @@ body, html
   -webkit-tap-highlight-color: transparent
   background: $color-background
   color: $color-text
+
+.flex
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+
+.flex-item
+  -webkit-box-align: center
+  -ms-flex-align: center
+  align-items: center
+
+.flex-justify
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  justify-content: center
+
+.flex-grow
+  -webkit-box-flex: 1
+  -ms-flex-positive: 1
+  flex-grow: 1
+
+.active
+  position: relative
+  .active:after{
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    content: ''
+    height: 1px
+    background-color:$color-line
+  }
