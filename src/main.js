@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 import fastclick from 'fastclick'
 import store from './store'
+import {iosBindTouchstart} from 'common/js/init'
 import 'common/stylus/index.styl'
 import AndroidDriver from 'common/js/drivers/android'
 import IosDriver from 'common/js/drivers/ios'
@@ -45,5 +46,7 @@ new Vue({
       _proxy.os = os
       _proxy.__current__ = _proxy.DRIIVERS[os]
     })()
+    
+    iosBindTouchstart()
   }
 })
