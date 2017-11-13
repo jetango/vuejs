@@ -7,7 +7,9 @@
     <confirm ref="confirm" :text="confirmText"></confirm>
 
     <div class="demo">
-
+      <div class="do-post" @click="doPostTest()">
+        测试doPost
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +17,8 @@
 <script type="text/ecmascript-6">
   import Picker from 'better-picker'
   import Confirm from 'base/confirm/confirm'
+  import {dialog, doPost} from 'common/js/drivers'
+  import * as types from 'config/api-type'
 
   var data1 = [
     {
@@ -104,15 +108,25 @@
     },
     methods: {
       confirmClicked() {
-        this.$refs.confirm.show()
-      },
-      msgClicked() {
+        // this.$refs.confirm.show()
         let picker = new Picker({
           'data': [data1, data2, data3],
           'selectedIndex': [0, 1, 2],
           'title': '我们都是小学生'
         })
         picker.show()
+      },
+      msgClicked() {
+        dialog('测试数据', 'title', 'OK', function() {
+          alert(123)
+        })
+      },
+      doPostTest() {
+        doPost(types.IDENTITY_FETCH, {test: '007'}, {
+          success: function(oData) {
+            console.log('oData', oData)
+          }
+        })
       }
     },
     components: {

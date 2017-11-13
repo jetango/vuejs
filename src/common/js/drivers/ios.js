@@ -1,4 +1,4 @@
-class Driver {
+export default class Driver {
   constructor(name, proxy) {
     this.name = name
     this.proxy = proxy
@@ -10,9 +10,8 @@ class Driver {
   }
 
   _iosCall(url) {
-    let seed = Math.random()
     let iframeDom = document.createElement('iframe')
-    iframeDom.src = `${url}&seed={seed}`
+    iframeDom.src = `${url}&seed={Math.random()}`
     iframeDom.style.display = 'none'
     document.documentElement.appendChild(iframeDom)
   }
@@ -27,7 +26,7 @@ class Driver {
   doPost(api, param, cb) {
     let name = this.proxy.registCB(cb)
     let url = `CALL://${encodeURIComponent(api)}?param=${encodeURIComponent(param)}&cb=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -38,7 +37,7 @@ class Driver {
    */
   log(type, msg) {
     let url = `plugin://log?type=${encodeURIComponent(type)}&content=${encodeURIComponent(msg)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -70,7 +69,7 @@ class Driver {
   dialog(title, desc, type, cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://dialog?class=${encodeURIComponent(type)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(desc)}&callback=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -82,12 +81,12 @@ class Driver {
    * @return {null}
    */
   navigate(pageId, title, param, cb) {
-    if(!cb) {
+    if (!cb) {
       cb = function() {}
     }
     let name = this.proty.registCB(cb)
     let url = `plugin://navigate?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}&callback=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -99,7 +98,7 @@ class Driver {
    */
   popup(pageId, title, param) {
     let url = `plugin://popup?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(param)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -119,7 +118,7 @@ class Driver {
   personIdValid(cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://personIdValid?callback=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -139,13 +138,13 @@ class Driver {
   chooseContact(cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://contact?callback=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   addCard(param, title, cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://addCard?callback=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -167,7 +166,7 @@ class Driver {
   chooseCard(param, title, cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://chooseCard?callback=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -190,7 +189,7 @@ class Driver {
   chooseSchool(param, title, cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://chooseSchool?callback=${encodeURIComponent(name)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -201,7 +200,7 @@ class Driver {
    */
   endPage(param, pageIdentifier) {
     let url = `plugin://endPage?param=${encodeURIComponent(JSON.stringify(param))}&pageIdentifier=${pageIdentifier}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -219,7 +218,7 @@ class Driver {
    */
   eeLogBiz(type, event, identity, properties) {
     let url = `plugin://eeLogBiz?type=${type}&event=${event}&identity=${identity}&properties=${encodeURIComponent(JSON.stringify(properties))}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -229,7 +228,7 @@ class Driver {
    */
   eeLogError(message) {
     let url = `plugin://eeLogError?message=${message}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -241,7 +240,7 @@ class Driver {
    */
   eeLogUBT(action, event, properties) {
     let url = `plugin://eeLogUBT?action=${action}&event=${event}&properties=${encodeURIComponent(JSON.stringify(properties))}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -250,7 +249,7 @@ class Driver {
    */
   setBackBehavior(target) {
     let url = `plugin://setBackBehavior?target=${target}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -272,7 +271,7 @@ class Driver {
   getUrl(pageId, func) {
     let name = this.proxy.registCB(func)
     let url = `plugin://getUrl?pageId=${encodeURIComponent(pageId)}&callback=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -282,7 +281,7 @@ class Driver {
    */
   copyPaste(text) {
     let url = `plugin://copyPaste?text=${encodeURIComponent(text)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -303,7 +302,7 @@ class Driver {
   grantAuth(type, func) {
     let name = this.proxy.registCB(func)
     let url = `plugin://grantAuth?type=${encodeURIComponent(type)}&callback=${encodeURIComponent(name)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -313,7 +312,7 @@ class Driver {
    */
   openApp(appId) {
     let url = `plugin://openApp?appId=${encodeURIComponent(appId)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -325,7 +324,7 @@ class Driver {
    */
   share(title, linkurl, content) {
     let url = `plugin://share?title=${encodeURIComponent(title)}&linkurl=${encodeURIComponent(linkurl)}&content=${encodeURIComponent(content)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -342,7 +341,7 @@ class Driver {
   showBarButton(pageId, title, position, func, targetUrl, cb, param) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://showBarButton?pageId=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&position=${encodeURIComponent(position)}&function=${encodeURIComponent(func)}&targetUrl=${encodeURIComponent(targetUrl)}&callback=${encodeURIComponent(name)}&param=${encodeURIComponent(param)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -353,7 +352,7 @@ class Driver {
    */
   hideBarButton(pageId, param) {
     let url = `plugin://hideBarButton?page=${encodeURIComponent(pageId)}&param=${encodeURIComponent(param)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -364,7 +363,7 @@ class Driver {
    */
   setNavigationBar(pageId, display, param) {
     let url = `plugin://setNavigationBar?pageId=${encodeURIComponent(pageId)}&display=${encodeURIComponent(display)}&param=${encodeURIComponent(param)}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 
   /**
@@ -376,6 +375,6 @@ class Driver {
    */
   openAlbum(pageId, title, param) {
     let url = `plugin://openAlbum?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&=param=${encodeURIComponent(JSON.stringify(param))}`
-    _iosCall(url)
+    this._iosCall(url)
   }
 }

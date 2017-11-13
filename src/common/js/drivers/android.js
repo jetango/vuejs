@@ -1,4 +1,4 @@
-class Driver {
+export default class Driver {
   constructor(name, proxy) {
     this.name = name
     this.proxy = proxy
@@ -96,7 +96,7 @@ class Driver {
   }
 
   share(title, linkUrl, content) {
-    window.android.plugin('share', JSON.stringify({title, linkurl}))
+    window.android.plugin('share', JSON.stringify({title, linkUrl}))
   }
 
   showBarButton(pageId, title, position, func, targetUrl, cb, param) {

@@ -1,0 +1,2 @@
+export const IDENTITY_POST = 'IDENTITY_POST'
+export const IDENTITY_FETCH = 'IDENTITY_FETCH'

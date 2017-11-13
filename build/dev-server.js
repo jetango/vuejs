@@ -12,6 +12,7 @@ const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
 const webpackConfig = require('./webpack.dev.conf')
+const axios = require('axios')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -23,6 +24,34 @@ const proxyTable = config.dev.proxyTable
 
 const app = express()
 const compiler = webpack(webpackConfig)
+var apiRoutes = express.Router()
+
+var responseData = function(res, data) {
+  setTimeout(function() {
+    res.json(data)
+  }, 500)
+}
+
+apiRoutes.get('/identity/fetch', function(req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      realName: '张三',
+      idNumber: '310110198803161768',
+      faceRecognitionFlag: 1,  //是否人脸识别 1识别 0 未识别
+      livingProvinceCode: '浙江省',
+      livingCityCode: '杭州市',
+      livingDistrictCode: '西湖区',
+      livingAddress: '人民路1号',
+      highestDegree: '本科',
+      maritalStatus: '已婚'
+    }
+  }
+  responseData(res, result)
+})
+
+app.use('/api', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
