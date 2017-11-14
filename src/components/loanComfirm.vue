@@ -31,8 +31,7 @@
     <div class="loan-info">
       <div class="loan-info-item item-bank flex flex-item active">
         <span>到账账户:</span>
-        <span>招商银行&nbsp;&nbsp;9743
-            </span>
+        <span>招商银行&nbsp;&nbsp;9743</span>
       </div>
       <!-- <div class="loan-info-item item-bank flex flex-item active">
             <span>手机号:</span>
@@ -45,10 +44,6 @@
         </div> -->
     <p class="comfirm-protocol flex flex-item flex-justify">
       <img id="img" @click="comfirm" src="~common/image/xieyi_tongguo_2x_001.png">
-      <span>我已阅读并同意<span>《用户服务协议》</span></span>
-    </p>
-    <button-item :buttonValue="buttonValue"></button-item>
-      <img src="~common/image/xieyi_tongguo_2x_002.png">
       <span>我已阅读并同意<span>《用户服务协议》</span></span>
     </p>
     <a class="btn" @click="comfirm">借款</a>
@@ -107,13 +102,12 @@
     span
       &:last-of-type
         color: #525252
-        px2rem('font-size', 28)
-
+        font-size: .28rem
   .item-bank
     span
       &:last-of-type
         color: #525252
-        px2rem('font-size', 28)
+        font-size: .28rem
   .input-validate-code
     background-color: #fff
     margin-top: .1rem
