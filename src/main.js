@@ -46,7 +46,6 @@ new Vue({
       _proxy.os = os
       _proxy.__current__ = _proxy.DRIIVERS[os]
     })()
-    
     iosBindTouchstart()
   }
 })

@@ -75,7 +75,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
   @import "~common/stylus/mixin"
-  
+
   .loan-comforim
     px2rem('margin-bottom', 50)
   .loan-info
@@ -83,14 +83,14 @@
     px2rem('margin-top', 10)
   .loan-info-item,.input-validate-code
     px2rem('height', 100)
-    px2rem('font-size', 25)
+    px2rem('font-size', 28)
     px2rem('padding-left', 40)
     span
       color: #525252
       &:last-of-type
         color: #000000
         px2rem('margin-left', 24)
-    
+
   .item-middle
     px2rem('height', 72)
     span
@@ -101,7 +101,7 @@
     span
       &:last-of-type
         color: #525252
-  
+
   .input-validate-code
     background-color: #fff
     px2rem('margin-top', 10)

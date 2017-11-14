@@ -11,6 +11,11 @@
         测试doPost
       </div>
     </div>
+
+    <div class="font-test">
+      <p>字体</p>
+      <i class="icon iconfont icon-162"></i>
+    </div>
   </div>
 </template>
 
@@ -152,4 +157,9 @@
     px2rem('height', 200)
     border: 1px red solid
     box-sizing: border-box
+
+  .font-test i {
+    font-size: 40px
+    color: green
+  }
 </style>

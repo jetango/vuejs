@@ -51,6 +51,28 @@ apiRoutes.get('/identity/fetch', function(req, res) {
   responseData(res, result)
 })
 
+/**
+ * 身份信息保存
+ * @param  {Object} req
+ * @param  {Object} res
+ * {
+ *  idCardFrontPhoto: 'url',
+ *  idCardBackPhoto: 'url',
+ *  realName: '张三'
+ * }
+ * @return {Object}
+ */
+apiRoutes.post('/identity', function(req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      userId: 'YT00089'
+    }
+  }
+  responseData(res, result)
+})
+
 app.use('/api', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
