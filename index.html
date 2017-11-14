@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
   <title>侬要贷</title>
   <script type="text/javascript">
-    (function(){var win=window,doc=window.document,docEl=doc.documentElement,resizeEvt="orientationchange" in window?"orientationchange":"resize",devicePixelRatio=win.devicePixelRatio,recalc=function(){var clientWidth=docEl.clientWidth||doc.body.clientWidth;if(!clientWidth){return}docEl.style.fontSize=clientWidth/10+"px"},viewportEl=doc.querySelector('meta[name="viewport"]'),scale=1/devicePixelRatio;viewportEl.setAttribute("content","width=device-width,initial-scale="+scale+",maximum-scale="+scale+",minimum-scale="+scale+",user-scalable=no");recalc();if(!doc.addEventListener){return}win.addEventListener(resizeEvt,recalc,false);doc.addEventListener("DOMContentLoaded",recalc,false)}());
+    window.__setFontSize__ = (function() {
+      document.documentElement.style.fontSize = Math.min(640, Math.max(document.documentElement.clientWidth, 320)) / 6.4 + 'px';
+    })()
   </script>
 </head>
 

@@ -1,3 +1,5 @@
+import ApiObj from 'config/api'
+
 export default class Driver {
   constructor(name, proxy) {
     this.name = name
@@ -11,7 +13,7 @@ export default class Driver {
 
   doPost(api, param, cb) {
     let name = this.proxy.registCB(cb)
-    window.android.call(api, JSON.stringify(param), name)
+    window.android.call(ApiObj[api], JSON.stringify(param), name)
   }
 
   log(type, content) {

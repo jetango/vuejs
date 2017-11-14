@@ -32,7 +32,7 @@ var responseData = function(res, data) {
   }, 500)
 }
 
-apiRoutes.get('/identity/fetch', function(req, res) {
+apiRoutes.post('/identity/fetch', function(req, res) {
   var result = {
     status: 0,
     msg: 'success',
