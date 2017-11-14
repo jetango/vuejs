@@ -1,3 +1,5 @@
+import ApiObj from 'config/api'
+
 export default class Driver {
   constructor(name, proxy) {
     this.name = name
@@ -25,7 +27,7 @@ export default class Driver {
    */
   doPost(api, param, cb) {
     let name = this.proxy.registCB(cb)
-    let url = `CALL://${encodeURIComponent(api)}?param=${encodeURIComponent(param)}&cb=${encodeURIComponent(name)}`
+    let url = `CALL://${encodeURIComponent(ApiObj[api])}?param=${encodeURIComponent(param)}&cb=${encodeURIComponent(name)}`
     this._iosCall(url)
   }
 

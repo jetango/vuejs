@@ -73,7 +73,11 @@ apiRoutes.post('/identity', function(req, res) {
   responseData(res, result)
 })
 
+const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
+
 app.use('/api', apiRoutes)
+
+// app.use('/api', apiProxy)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
