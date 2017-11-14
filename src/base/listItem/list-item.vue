@@ -1,6 +1,5 @@
 <template>
   <div class="list-item flex flex-item">
-    <img class="item-logo" src="~common/image/WD_jeikuanjilu_2x_001.png">
     <div class="item-content flex flex-item flex-grow active" @click="toPage">
       <div class="flex-grow">
         <p>借款记录</p>

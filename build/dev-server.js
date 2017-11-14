@@ -37,7 +37,7 @@ apiRoutes.post('/identity/fetch', function (req, res) {
     status: 0,
     msg: 'success',
     data: {
-      realName: '张三',
+      realName: '李四',
       idNumber: '310110198803161768',
       faceRecognitionFlag: 1,  //是否人脸识别 1识别 0 未识别
       livingProvinceCode: '浙江省',
@@ -121,7 +121,7 @@ apiRoutes.post('/borrow/confirm', function (req, res) {
     status: 0,
     msg: 'success',
     data: {
-      
+
     }
   }
   responseData(res, result)
