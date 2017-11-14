@@ -30,24 +30,24 @@
   @import "~common/stylus/mixin"
   
   .list-item
-    px2rem('height', 100)
+    height: 1rem
     background-color: #fff
-    px2rem('padding-left', 40)
+    padding-left: .4rem
     .item-logo
-      px2rem('width', 42)
-      px2rem('height', 42)
-      px2rem('margin-right', 24)
+      width: .42rem
+      height: .42rem
+      margin-right: .24rem
     .item-content
-      px2rem('font-size', 25)
+      font-size: .28rem
       text-align: left
       color: #525252
       height: 100%
       div
-        px2rem('margin-top', 3)
+        margin-top: .03rem
       .icon-back
-        px2rem('width', 12)
-        px2rem('height', 20)
-        px2rem('margin-right', 40)
+        width: .12rem
+        height: .2rem
+        margin-right: .4rem
   &:active
     background-color: #e4e5e7
 </style>

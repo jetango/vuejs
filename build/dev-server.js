@@ -26,13 +26,13 @@ const app = express()
 const compiler = webpack(webpackConfig)
 var apiRoutes = express.Router()
 
-var responseData = function(res, data) {
-  setTimeout(function() {
+var responseData = function (res, data) {
+  setTimeout(function () {
     res.json(data)
   }, 500)
 }
 
-apiRoutes.post('/identity/fetch', function(req, res) {
+apiRoutes.post('/identity/fetch', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -52,6 +52,81 @@ apiRoutes.post('/identity/fetch', function(req, res) {
 })
 
 /**
+ * 借款详情接口
+ * @param request {userId: 'userId',orderNo: 'orderNo'}
+ * @return response 
+ * {
+ *  status: 'status',
+ *  msg: 'msg',
+ *  data: object
+ * }
+ */
+apiRoutes.post('/borrow/detail', function (req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      applicationTime: '2017-11-11', //申请时间
+      orderNo: '1681688', //借款编号
+      loanAmount: '1000', //借款金额
+      borrowingTime: '7', //借款时长
+      loanTime: '2017-11-11', //放款日期
+      promiseRepaymentDate: '2017-11-18',//约定还款时间
+      actualRepaymentDate: '2017-11-18', //实际还款时间
+      interest: '100',//利息
+      accountManageFee: '100', //账户管理费
+      repayAmount: '1200',//到期还款额
+      statusDescription: '审核通过' //状态说明
+    }
+  }
+  responseData(res, result)
+})
+/**
+ * 借款详情接口
+ * @param request {userId: 'userId',orderNo: 'orderNo'}
+ * @return response 
+ * {
+ *  status: 'status',
+ *  msg: 'msg',
+ *  data: object
+ * }
+ */
+apiRoutes.post('/borrow/result', function (req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      orderStatusList: []
+    }
+  }
+  responseData(res, result)
+})
+/**
+ * 借款详情接口
+ * @param request 
+ * {
+ *   userId: 'userId',
+ *   financeProductId: '1681688'
+ *   loanAmount: '1000'
+ * }
+ * @return response 
+ * {
+ *  status: 'status',
+ *  msg: 'msg',
+ *  data: object
+ * }
+ */
+apiRoutes.post('/borrow/confirm', function (req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      
+    }
+  }
+  responseData(res, result)
+})
+/**
  * 身份信息保存
  * @param  {Object} req
  * @param  {Object} res
@@ -62,7 +137,7 @@ apiRoutes.post('/identity/fetch', function(req, res) {
  * }
  * @return {Object}
  */
-apiRoutes.post('/identity', function(req, res) {
+apiRoutes.post('/identity', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',

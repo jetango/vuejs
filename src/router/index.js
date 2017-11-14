@@ -10,8 +10,8 @@ const HelloWorld = (resolve) => {
   })
 }
 // 借款确认
-const LoanComfirm = (resolve) => {
-  import('components/loanComfirm').then((module) => {
+const LoanConfirm = (resolve) => {
+  import('components/loanConfirm').then((module) => {
     resolve(module)
   })
 }
@@ -27,6 +27,12 @@ const LoanResult = (resolve) => {
     resolve(module)
   })
 }
+// 借款结果
+const RepaymentLoan = (resolve) => {
+  import('components/repaymentLoan').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
   routes: [
@@ -39,9 +45,9 @@ export default new Router({
       name: 'index',
       component: Index
     }, {
-      path: '/loan-comfirm',
-      name: 'loanComfirm',
-      component: LoanComfirm
+      path: '/loan-confirm',
+      name: 'loanConfirm',
+      component: LoanConfirm
     }, {
       path: '/loan-detail',
       name: 'loanDetail',
@@ -50,6 +56,10 @@ export default new Router({
       path: '/loan-result',
       name: 'loanResult',
       component: LoanResult
+    }, {
+      path: '/repayment-loan',
+      name: 'repaymentLoan',
+      component: RepaymentLoan
     }
   ]
 })

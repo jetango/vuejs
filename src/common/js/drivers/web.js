@@ -16,7 +16,7 @@ export default class Driver {
     console.log('doPost', api, param, cb)
     let name = this.proxy.registCB(cb)
 
-    axios.get(ApiObj[api]).then((response) => {
+    axios.post(ApiObj[api]).then((response) => {
       window.callback(name, response.data)
     })
   }

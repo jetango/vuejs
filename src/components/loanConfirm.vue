@@ -3,50 +3,42 @@
     <div class="loan-info">
       <div class="loan-info-item flex flex-item active">
         <span>贷款金额:</span>
-        <span>800元</span>
+        <span v-html="loanInfo.loanAmount + '元'"></span>
       </div>
       <div class="loan-info-item flex flex-item">
         <span>贷款时间:</span>
-        <span>7天</span>
+        <span v-html="loanInfo.borrowingTime + '天'"></span>
       </div>
     </div>
     <div class="loan-info">
       <div class="loan-info-item item-middle flex flex-item active">
         <span>利息:</span>
-        <span>1元</span>
+        <span v-html="loanInfo.interest + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
         <span>综合费用:</span>
-        <span>9元</span>
+        <span v-html="loanInfo.syntheticalFee + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
         <span>到账金额:</span>
-        <span>990元</span>
+        <span v-html="loanInfo.realLoanAmount + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item">
         <span>应还金额:</span>
-        <span>1010元</span>
+        <span v-html="loanInfo.repayTotalAmount + '元'"></span>
       </div>
     </div>
     <div class="loan-info">
       <div class="loan-info-item item-bank flex flex-item active">
         <span>到账账户:</span>
-        <span>招商银行&nbsp;&nbsp;9743</span>
+        <span v-html="loanInfo.bankName + '&nbsp;&nbsp;' + loanInfo.accountNumber.substr(loanInfo.accountNumber.length-4,loanInfo.accountNumber.length)"></span>
       </div>
-      <!-- <div class="loan-info-item item-bank flex flex-item active">
-            <span>手机号:</span>
-            <span>15959369312</span>
-          </div> -->
     </div>
-    <!-- <div class="input-validate-code flex flex-item">
-            <span>手机号:</span>
-            <input type="text" placeholder="请输入验证码">
-        </div> -->
     <p class="comfirm-protocol flex flex-item flex-justify">
-      <img id="img" @click="comfirm" src="~common/image/xieyi_tongguo_2x_001.png">
+      <i @click="comfirm" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
       <span>我已阅读并同意<span>《用户服务协议》</span></span>
     </p>
-    <a class="btn" @click="comfirm">借款</a>
+    <a class="btn" @click="submit">借款</a>
     <p class="forbid-borrow-stu">禁止学生借款</p>
   </div>
 </template>
@@ -57,18 +49,30 @@
   export default {
     data() {
       return {
-        msg: 'hello',
-        imgName: '../common/image/xieyi_tongguo_2x_002.png',
-        buttonValue: '借款'
+        loanInfo: {
+          loanAmount: '100',
+          borrowingTime: '7',
+          interest: '1',
+          syntheticalFee: '100',
+          realLoanAmount: '900',
+          repayTotalAmount: '1200',
+          bankName: '工商银行',
+          accountNumber: '6228000666688889742'
+        },
+        buttonValue: '借款',
+        isChosed: false
       }
     },
     methods: {
       comfirm: function() {
-        console.log(document.getElementById('img').src)
-        doPost(types.IDENTITY_FETCH, {test: '007'}, {
-          success: function(oData) {
+        this.$data.isChosed = !this.$data.isChosed
+      },
+      submit: function() {
+        let param = this.$data.loanInfo
+        doPost(types.BORROW_CONFIRM, param, {
+          success: (oData) => {
             console.log('oData', oData)
-            alert('callbacksuccess')
+            console.log(oData)
           }
         })
       }
@@ -84,7 +88,7 @@
   @import "~common/stylus/mixin"
 
   .loan-comforim
-    margin-bottom: .5rem
+    margin-bottom: .3rem
   .loan-info
     background-color: #fff
     margin-top: .1rem
@@ -96,6 +100,7 @@
       color: #525252
       &:last-of-type
         color: #000
+        font-size: .3rem
         margin-left: .24rem
   .item-middle
     height: .72rem
@@ -122,14 +127,15 @@
       border-radius: .06rem
       background-color: #eeeff3
 
-  .comfirm-protocol,.loan-notice
+  .comfirm-protocol
     font-size: .2rem
-    margin-top: .1rem
-    img
-      width: .3rem
-      height: .3rem
-      margin-right: .05rem
-      margin-top: -.02rem
+    margin-top: .2rem
+    margin-bottom: .6rem
+    i
+      color: green
+      font-size: .22rem
+      margin-top: -0.02rem
+      margin-right: 0.05rem
     span
       span
         color: #008aff
@@ -151,11 +157,7 @@
     font-size: .22rem
     margin-top: .1rem
 
-  .loan-notice
-    position: fixed
-    bottom: 0
-    left: 0
-    width: 100%
-    height: .5rem
-    background-color: $color-background
+  .icon-not-chose
+    color: lightgrey !important
+
 </style>

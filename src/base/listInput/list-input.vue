@@ -152,23 +152,22 @@
   @import "~common/stylus/mixin"
   
   .list-input
-    px2rem('height', 100)
+    height: 1rem
     background-color: #fff
-    px2rem('padding-left', 40)
-    px2rem('font-size', 25)
+    padding-left: .4rem
+    font-size: .28rem
     text-align: left
     color: #525252
     .icon-back
-      px2rem('width', 12)
-      px2rem('height', 20)
-      px2rem('margin-right', 40)
+      width: .12rem
+      height: .2rem
+      margin-right: .4rem
     div
       p
-        px2rem('margin-top', 3)
         .input-text
           float: right
-          px2rem('margin-right', 24)
-          px2rem('font-size', 23)
+          margin-right: .24rem
+          font-size: .23rem
           color: #afafaf
-          px2rem('margin-top', 1)
+          margin-top: .05rem
 </style>

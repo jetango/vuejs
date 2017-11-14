@@ -24,10 +24,10 @@
     width:90%
     margin: 0 auto
     background-color: #ffa800
-    px2rem('height', 72)
-    px2rem('border-radius', 6)
+    height: .72rem
+    border-radius: .06rem
     text-align: center
-    px2rem('line-height ', 72)
-    px2rem('font-size', 30)
+    line-height: .72rem
+    font-size: .3rem
     color: #fff
 </style>
