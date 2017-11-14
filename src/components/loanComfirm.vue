@@ -44,30 +44,31 @@
             <input type="text" placeholder="请输入验证码">
         </div> -->
     <p class="comfirm-protocol flex flex-item flex-justify">
-      <img @click="comfirm" src="~common/image/xieyi_tongguo_2x_002.png">
+      <img id="img" @click="comfirm" src="~common/image/xieyi_tongguo_2x_001.png">
       <span>我已阅读并同意<span>《用户服务协议》</span></span>
     </p>
-    <a class="btn">借款</a>
+    <button-item :buttonValue="buttonValue"></button-item>
     <p class="forbid-borrow-stu">禁止学生借款</p>
-    <p class="loan-notice flex flex-item flex-justify">
-      <img src="~common/image/xieyi_tongguo_2x_001.png">
-      <span>银行级数据加密防护</span>
-    </p>
   </div>
 </template>
 
 <script>
+  import buttonItem from 'base/button/button-item'
   export default {
     data() {
       return {
         msg: 'hello',
-        imgName: ''
+        imgName: '../common/image/xieyi_tongguo_2x_002.png',
+        buttonValue: '借款'
       }
     },
     methods: {
       comfirm: function() {
-        console.log(this)
+        console.log(document.getElementById('img').src)
       }
+    },
+    components: {
+      buttonItem
     }
   }
 </script>
@@ -77,7 +78,7 @@
   @import "~common/stylus/mixin"
 
   .loan-comforim
-    px2rem('margin-bottom', 50)
+    px2rem('margin-bottom', 30)
   .loan-info
     background-color: #fff
     px2rem('margin-top', 10)
@@ -90,18 +91,19 @@
       &:last-of-type
         color: #000000
         px2rem('margin-left', 24)
-
+        px2rem('font-size', 30)
   .item-middle
     px2rem('height', 72)
     span
       &:last-of-type
         color: #525252
+        px2rem('font-size', 28)
 
   .item-bank
     span
       &:last-of-type
         color: #525252
-
+        px2rem('font-size', 28)
   .input-validate-code
     background-color: #fff
     px2rem('margin-top', 10)
@@ -116,40 +118,24 @@
       px2rem('border-radius', 6)
       background-color: #eeeff3
 
-  .comfirm-protocol,.loan-notice
+  .comfirm-protocol
     px2rem('font-size', 20)
     px2rem('margin-top', 10)
     img
       px2rem('width', 30)
       px2rem('height', 30)
-      px2rem('margin-right', 5)
+      px2rem('margin-right', 3)
       px2rem('margin-top', -2)
     span
       span
         color: #008aff
-  .btn
-    display:block
-    width:90%
-    margin: 0 auto
-    px2rem('margin-top', 20)
-    background-color: RGB(254,167,0)
-    px2rem('height', 72)
-    px2rem('border-radius', 6)
-    text-align: center
-    px2rem('line-height ', 72)
-    px2rem('font-size', 30)
-    color: #fff
+
+  .comfirm-protocol
+    px2rem('margin-bottom',100)
+    px2rem('margin-top',30)
 
   .forbid-borrow-stu
     color: #9d9d9d
     px2rem('font-size', 22)
     px2rem('margin-top', 10)
-
-  .loan-notice
-    position: fixed
-    bottom: 0
-    left: 0
-    width: 100%
-    px2rem('height', 50)
-    background-color: $color-background
 </style>
