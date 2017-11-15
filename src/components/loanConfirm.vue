@@ -40,6 +40,7 @@
     </p>
     <a class="btn" @click="submit">借款</a>
     <p class="forbid-borrow-stu">禁止学生借款</p>
+    <p style="color: red">{{message}}</p>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -60,7 +61,8 @@
           accountNumber: '6228000666688889742'
         },
         buttonValue: '借款',
-        isChosed: false
+        isChosed: false,
+        message: ''
       }
     },
     methods: {
@@ -68,11 +70,13 @@
         this.$data.isChosed = !this.$data.isChosed
       },
       submit: function() {
+        let self = this
         let param = this.$data.loanInfo
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
             console.log('oData', oData)
             console.log(oData)
+            self.message = oData.msg
           }
         })
       }

@@ -54,7 +54,7 @@ apiRoutes.post('/identity/fetch', function (req, res) {
 /**
  * 借款详情接口
  * @param request {userId: 'userId',orderNo: 'orderNo'}
- * @return response 
+ * @return response
  * {
  *  status: 'status',
  *  msg: 'msg',
@@ -84,7 +84,7 @@ apiRoutes.post('/borrow/detail', function (req, res) {
 /**
  * 借款详情接口
  * @param request {userId: 'userId',orderNo: 'orderNo'}
- * @return response 
+ * @return response
  * {
  *  status: 'status',
  *  msg: 'msg',
@@ -103,13 +103,13 @@ apiRoutes.post('/borrow/result', function (req, res) {
 })
 /**
  * 借款详情接口
- * @param request 
+ * @param request
  * {
  *   userId: 'userId',
  *   financeProductId: '1681688'
  *   loanAmount: '1000'
  * }
- * @return response 
+ * @return response
  * {
  *  status: 'status',
  *  msg: 'msg',
@@ -148,7 +148,22 @@ apiRoutes.post('/identity', function (req, res) {
   responseData(res, result)
 })
 
-const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
+apiRoutes.post('/repay', function(req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      repayAmount: '1200',
+      promiseRepaymentDate: '2017-11-18',
+      loadAmount: 1000,
+      applicationTime: '2017-11-11',
+      remainDays: 8
+    }
+  }
+  responseData(res, result)
+})
+
+// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
 
 app.use('/api', apiRoutes)
 

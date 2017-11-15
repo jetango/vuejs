@@ -33,6 +33,12 @@ const RepaymentLoan = (resolve) => {
     resolve(module)
   })
 }
+// 还款提示
+const RepaymentTip = (resolve) => {
+  import('components/repaymentTip').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
   routes: [
@@ -60,6 +66,10 @@ export default new Router({
       path: '/repayment-loan',
       name: 'repaymentLoan',
       component: RepaymentLoan
+    }, {
+      path: '/repayment-tip',
+      name: 'repaymentTip',
+      component: RepaymentTip
     }
   ]
 })

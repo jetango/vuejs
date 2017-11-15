@@ -42,7 +42,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-
+  export default {
+    data() {
+      return {}
+    },
+    created() {
+      console.log('this.$route.query', this.$route.query)
+    },
+    methods: {
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
