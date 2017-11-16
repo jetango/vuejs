@@ -200,7 +200,7 @@ apiRoutes.post('/repay', function(req, res) {
 })
 
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
-const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
+// const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:8888', changeOrigin: true})
 // app.use('/api', apiProxy)
 app.use('/api', apiRoutes)

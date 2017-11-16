@@ -64,16 +64,12 @@ const IdentityInput = (resolve) => {
 }
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
       name: 'Hello',
       component: HelloWorld
-    }, {
-      path: '/index',
-      name: 'index',
-      component: Index
     }, {
       path: '/identity-detail',
       name: 'identityShow',
