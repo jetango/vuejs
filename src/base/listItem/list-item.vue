@@ -2,20 +2,17 @@
   <div class="list-item flex flex-item">
     <div class="item-content flex flex-item flex-grow active" @click="toPage">
       <div class="flex-grow">
-        <p>借款记录</p>
+        <p v-html="'借款记录:&nbsp;' + loanInfo.amount + '元'"></p>
+        <p v-html="loanInfo.isPay ? '已还款' : loanInfo.borrowTime"></p>
       </div>
-      <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
+      <i class="icon iconfont icon-117"></i>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        'msg': 'hello world'
-      }
-    },
+    props: ['loanInfo'],
     methods: {
       toPage: function() {
         console.log(1)
@@ -32,20 +29,24 @@
     height: 1rem
     background-color: #fff
     padding-left: .4rem
+    margin-top: .1rem
     .item-logo
       width: .42rem
       height: .42rem
       margin-right: .24rem
     .item-content
-      font-size: .28rem
+      font-size: .30rem
       text-align: left
-      color: #525252
+      color: #000000
       height: 100%
       div
         margin-top: .03rem
-      .icon-back
-        width: .12rem
-        height: .2rem
+        p
+          &:last-of-type
+            font-size: .28rem
+            margin-top: .08rem
+            color: #525252
+      .icon-117
         margin-right: .4rem
   &:active
     background-color: #e4e5e7

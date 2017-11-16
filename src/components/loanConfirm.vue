@@ -28,11 +28,13 @@
         <span v-html="loanInfo.repayTotalAmount + '元'"></span>
       </div>
     </div>
-    <div class="loan-info">
-      <div class="loan-info-item item-bank flex flex-item active">
+    <div class="loan-info flex flex-item">
+      <div class="loan-info-item item-bank flex flex-item flex-grow active">
         <span>到账账户:</span>
-        <span v-html="loanInfo.bankName + '&nbsp;&nbsp;' + loanInfo.accountNumber.substr(loanInfo.accountNumber.length-4,loanInfo.accountNumber.length)"></span>
+        <span @click="choseBankCard" class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
+        <span @click="choseBankCard" v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
       </div>
+      <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
       <i @click="comfirm" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
@@ -45,40 +47,77 @@
 </template>
 <script type="text/ecmascript-6">
   import buttonItem from 'base/button/button-item'
-  import {doPost} from 'common/js/drivers'
+  import {
+    doPost
+  } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
       return {
         loanInfo: {
-          loanAmount: '100',
-          borrowingTime: '7',
-          interest: '1',
-          syntheticalFee: '100',
-          realLoanAmount: '900',
-          repayTotalAmount: '1200',
-          bankName: '工商银行',
-          accountNumber: '6228000666688889742'
+          loanAmount: '',
+          borrowingTime: '',
+          interest: '',
+          syntheticalFee: '',
+          realLoanAmount: '',
+          repayTotalAmount: '',
+          bankAccount: []
+        },
+        bankCard: {
+          bankName: '',
+          accountNumber: '',
+          flag: false
         },
         buttonValue: '借款',
         isChosed: false,
         message: ''
       }
     },
+    created: function() {
+      let param = {
+        userId: '123456',
+        financeProductId: '1681688',
+        loanAmount: '1000',
+        borrowingTime: '7'
+      }
+      if (sessionStorage.getItem('payCard')) { // 已经选择过到账账户
+        let payCard = JSON.parse(sessionStorage.getItem('payCard'))
+        this.bankCard = payCard
+        this.bankCard.flag = true
+      }
+      doPost(types.BORROW, param, {
+        success: (oData) => {
+          this.loanInfo = oData.data
+          if (oData.data.bankList.length !== 0 && !sessionStorage.getItem('payCard')) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
+            let payCard = oData.data.bankList[0]
+            this.bankCard = payCard
+            this.bankCard.flag = true
+          }
+        }
+      })
+    },
     methods: {
       comfirm: function() {
-        this.$data.isChosed = !this.$data.isChosed
+        this.isChosed = !this.isChosed
       },
       submit: function() {
         let self = this
+        if (this.isChosed) {
+          alert('请同意用户服务协议')
+          return
+        }
         let param = this.$data.loanInfo
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
-            console.log('oData', oData)
-            console.log(oData)
             self.message = oData.msg
+            if (oData.status === 0) {
+              this.$router.push('loan-result')
+            }
           }
         })
+      },
+      choseBankCard: function() {
+        this.$router.push('bank-list')
       }
     },
     components: {
@@ -117,6 +156,8 @@
       &:last-of-type
         color: #525252
         font-size: .28rem
+        text-align: right
+        margin-right: .1rem
   .input-validate-code
     background-color: #fff
     margin-top: .1rem
@@ -159,9 +200,18 @@
   .forbid-borrow-stu
     color: #9d9d9d
     font-size: .22rem
-    margin-top: .1rem
+    margin-top: .15rem
+    text-align: center
 
   .icon-not-chose
     color: lightgrey !important
+
+  .icon-back
+    width: .12rem
+    height: .2rem
+    margin-right: .4rem
+
+  .bank-none
+    color: #008aff !important
 
 </style>

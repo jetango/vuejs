@@ -1,11 +1,11 @@
 <template>
   <div class="">
     <div class="text-center header flex">
-      <a href="#" class="visibility">借款详情</a>
+      <a @click="checkLoanDetail" class="visibility">借款详情</a>
       <div class="flex-grow title">
         借款金额：800元
       </div>
-      <a href="#" class="detail">借款详情</a>
+      <a @click="checkLoanDetail" class="detail">借款详情</a>
     </div>
     <section class="time-line">
       <div class="flex block first actived">
@@ -50,6 +50,9 @@
       console.log('this.$route.query', this.$route.query)
     },
     methods: {
+      checkLoanDetail: function() {
+        this.$router.push('loan-detail')
+      }
     }
   }
 </script>

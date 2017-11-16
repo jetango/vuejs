@@ -4,17 +4,30 @@ export function hasClass(el, className) {
 }
 
 export function addClass(el, className) {
-  if(hasClass(el, className)) {
+  if (hasClass(el, className)) {
     return
   }
-  let newClass = el.className.split('')
+  let newClass = el.className.split(' ')
   newClass.push(className)
   el.className = newClass.join(' ')
 }
 
+export function removeClass(el, className) {
+  if (hasClass(el, className)) {
+    let classArray = el.className.split(' ')
+    let newClass = []
+    classArray.forEach(element => {
+      if (element !== className) {
+        newClass.push(element)
+      }
+    })
+    el.className = newClass.join(' ')
+  }
+}
+
 export function getData(el, name, val) {
   const prefix = 'data-'
-  if(val) {
+  if (val) {
     return el.setAttribute(prefix + name, val)
   }
   return el.getAttribute(prefix + name)
@@ -31,8 +44,8 @@ let vendor = (() => {
     standard: 'transform'
   }
 
-  for(let key in transformNames) {
-    if(elementStyle[transformNames[key]] !== undefined) {
+  for (let key in transformNames) {
+    if (elementStyle[transformNames[key]] !== undefined) {
       return key
     }
   }
@@ -41,13 +54,21 @@ let vendor = (() => {
 })()
 
 export function prefixStyle(style) {
-  if(vendor === false) {
+  if (vendor === false) {
     return false
   }
 
-  if(vendor === 'standard') {
+  if (vendor === 'standard') {
     return style
   }
 
   return vendor + style.charAt(0).toUpperCase + style.substr(1)
+}
+
+export function addSessionStorage(key, value) {
+  sessionStorage.setItem(key, value)
+}
+
+export function removeSessionStorage(key) {
+  if (sessionStorage.getItem(key)) sessionStorage.removeItem(key)
 }

@@ -52,6 +52,42 @@ apiRoutes.post('/identity/fetch', function (req, res) {
 })
 
 /**
+ * 借款信息接口
+ * @param request {userId: 'userId',financeProductId: '1681688', loanAmount: '1000', borrowingTime: '7'}
+ * @return response 
+ * {
+ *  status: 'status',
+ *  msg: 'msg',
+ *  data: object
+ * }
+ */
+apiRoutes.post('/borrow', function (req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      loanAmount: '1000', //借款金额
+      borrowingTime: '7', //借款时长
+      interest: '100', //利息
+      syntheticalFee: '100', //综合费用
+      realLoanAmount: '900', //到账金额
+      repayTotalAmount: '1200', //应还金额
+      bankList: [{
+        bankName: '工商银行', //银行
+        accountNumber: '6228000666688880000' //银行卡号
+      }, {
+        bankName: '工商银行', //银行
+        accountNumber: '6228000666688880000' //银行卡号
+      }, {
+        bankName: '工商银行', //银行
+        accountNumber: '6228000666688880000' //银行卡号
+      }] //借记卡列表
+    }
+  }
+  responseData(res, result)
+})
+
+/**
  * 借款详情接口
  * @param request {userId: 'userId',orderNo: 'orderNo'}
  * @return response
@@ -164,6 +200,7 @@ apiRoutes.post('/repay', function(req, res) {
 })
 
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
+const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
 
 app.use('/api', apiRoutes)
 

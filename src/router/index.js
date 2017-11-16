@@ -27,7 +27,7 @@ const LoanResult = (resolve) => {
     resolve(module)
   })
 }
-// 借款结果
+// 还款计划
 const RepaymentLoan = (resolve) => {
   import('components/repaymentLoan').then((module) => {
     resolve(module)
@@ -39,8 +39,21 @@ const RepaymentTip = (resolve) => {
     resolve(module)
   })
 }
+// 还款方式
+const RepaymentWay = (resolve) => {
+  import('components/repaymentWay').then((module) => {
+    resolve(module)
+  })
+}
+// 借记卡列表
+const BankList = (resolve) => {
+  import('components/bankList').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -70,6 +83,14 @@ export default new Router({
       path: '/repayment-tip',
       name: 'repaymentTip',
       component: RepaymentTip
+    }, {
+      path: '/repayment-way',
+      name: 'repaymentWay',
+      component: RepaymentWay
+    }, {
+      path: '/bank-list',
+      name: 'bankList',
+      component: BankList
     }
   ]
 })

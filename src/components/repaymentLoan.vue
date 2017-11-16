@@ -1,6 +1,6 @@
 <template>
   <div class="repayment-loan">
-    <list-item></list-item>
+    <list-item v-for="item in items" :key="item.borrowTime" :loanInfo="item"></list-item>
   </div>
 </template>
 
@@ -9,7 +9,19 @@
   export default {
     data() {
       return {
-
+        items: [{
+          amount: '8900',
+          isPay: true,
+          borrowTime: '2017-12-09'
+        }, {
+          amount: '8900',
+          isPay: false,
+          borrowTime: '2017-12-09'
+        }, {
+          amount: '8900',
+          isPay: false,
+          borrowTime: '2017-12-09'
+        }]
       }
     },
     components: {
@@ -20,6 +32,5 @@
 
 <style scoped lang="stylus" stylesheet="stylesheet/stylus">
   @import "~common/stylus/base"
-  @import "~common/stylus/mixin"
 
 </style>
