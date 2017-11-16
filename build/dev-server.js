@@ -54,7 +54,7 @@ apiRoutes.post('/identity/fetch', function (req, res) {
 /**
  * 借款信息接口
  * @param request {userId: 'userId',financeProductId: '1681688', loanAmount: '1000', borrowingTime: '7'}
- * @return response 
+ * @return response
  * {
  *  status: 'status',
  *  msg: 'msg',
@@ -201,10 +201,10 @@ apiRoutes.post('/repay', function(req, res) {
 
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
 const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
-
+// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:8888', changeOrigin: true})
+// app.use('/api', apiProxy)
 app.use('/api', apiRoutes)
 
-// app.use('/api', apiProxy)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,

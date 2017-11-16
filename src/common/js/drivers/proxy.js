@@ -62,7 +62,7 @@ export default class Proxy {
     try {
       if (!this.cbFunc[func]) {
         console.log('Not found callback function')
-      } else if (data.status === 0) {
+      } else if (data.status === '0') {
         this.cbFunc[func].success(data)
       } else {
         this.cbFunc[func].error(data)

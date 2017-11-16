@@ -90,15 +90,6 @@
       background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#989898), to(#6d6d6d))
       -webkit-background-clip: text
       -webkit-text-fill-color: transparent
-  .list-view
-    background: #fff
-    .item
-      line-height: 1rem
-      height: 1rem
-      margin-left: .4rem
-      border-bottom: 1px solid #e8e8e8
-      &:last-child
-        border-bottom: 0
   .button-box
     padding: 1rem .4rem 0
 

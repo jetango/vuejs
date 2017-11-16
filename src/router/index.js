@@ -50,6 +50,18 @@ const BankList = (resolve) => {
     resolve(module)
   })
 }
+// 身份信息展示
+const IdentityShow = (resolve) => {
+  import('components/identityShow').then((module) => {
+    resolve(module)
+  })
+}
+// 身份信息录入
+const IdentityInput = (resolve) => {
+  import('components/identityInput').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
   mode: 'history',
@@ -58,6 +70,18 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: HelloWorld
+    }, {
+      path: '/index',
+      name: 'index',
+      component: Index
+    }, {
+      path: '/identity-detail',
+      name: 'identityShow',
+      component: IdentityShow
+    }, {
+      path: '/identity-input',
+      name: 'identityInput',
+      component: IdentityInput
     }, {
       path: '/loan-confirm',
       name: 'loanConfirm',
