@@ -62,6 +62,18 @@ const IdentityInput = (resolve) => {
     resolve(module)
   })
 }
+// 联系人信息
+const ContactInfo = (resolve) => {
+  import('components/contactInfo').then((module) => {
+    resolve(module)
+  })
+}
+// 工作信息
+const WorkInfo = (resolve) => {
+  import('components/workInfo').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
   // mode: 'history',
@@ -106,6 +118,14 @@ export default new Router({
       path: '/bank-list',
       name: 'bankList',
       component: BankList
+    }, {
+      path: '/contact-info',
+      name: 'contactInfo',
+      component: ContactInfo
+    }, {
+      path: '/work-info',
+      name: 'workInfo',
+      component: WorkInfo
     }
   ]
 })

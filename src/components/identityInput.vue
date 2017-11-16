@@ -28,17 +28,17 @@
         <div>去验证</div>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="item flex">
+      <div class="item flex" @click="addressChanged()">
         <div class="flex-grow">常住地址</div>
-        <div>省市区</div>
+        <div>{{fullAddress ? fullAddress : '省市区'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item">
-        <input type="text" placeholder="请填写详细信息">
+        <input type="text" placeholder="请填写详细信息" v-model="identityInfo.livingAddress">
       </div>
-      <div class="item flex">
+      <div class="item flex" @click="educationalChanged()">
         <div class="flex-grow">最高学历</div>
-        <div>请选择</div>
+        <div>{{identityInfo.highestDegree ? identityInfo.highestDegree : '请选择'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex" @click="maritalChanged()">
@@ -59,12 +59,7 @@
   import {doPost} from 'common/js/drivers'
   import Picker from 'better-picker'
   import * as types from 'config/api-type'
-
-  let maritalPicker = new Picker({
-    'data': [[{text: 'hello', value: 'hello'}, {text: 'world', value: 'world'}]],
-    'selectedIndex': [0]
-    // 'title': '我们都是小学生'
-  })
+  import {educational, maritalStatus, provinces, citys, dists} from 'common/js/constants'
 
   export default {
     data() {
@@ -80,9 +75,9 @@
           signOrg: '',
           effectTime: '',
           faceRecognitionFlag: '',
-          livingProvinceCode: '',
-          livingCityCode: '',
-          livingDistrictCode: '',
+          livingProvince: '',
+          livingCity: '',
+          livingDistrict: '',
           livingAddress: '',
           highestDegree: '',
           maritalStatus: ''
@@ -94,7 +89,7 @@
         let {identityInfo} = this.$data
         doPost(types.IDENTITY_POST, identityInfo, {
           success: function(oData) {
-            if (oData.status === 0) {
+            if (oData.status === '0') {
               this.$router.push({
                 path: '/identity-show'
               })
@@ -108,20 +103,72 @@
         })
       },
       maritalChanged() {
-        maritalPicker.show()
+        this.maritalPicker.show()
+      },
+      educationalChanged() {
+        this.educationalPicker.show()
+      },
+      addressChanged() {
+        this.addressPicker.show()
+      },
+      _initMaritalPicker() {
+        this.maritalPicker = new Picker({
+          'data': [maritalStatus],
+          'selectedIndex': [0]
+        })
+        this.maritalPicker.on('picker.select', (val, index) => {
+          this.identityInfo.maritalStatus = val[0]
+        })
+      },
+      _initEducationalPicker() {
+        this.educationalPicker = new Picker({
+          'data': [educational],
+          'selectedIndex': [0]
+        })
+        this.educationalPicker.on('picker.select', (val, index) => {
+          this.identityInfo.highestDegree = val[0]
+        })
+      },
+      _initAddressPicker() {
+        this.addressPicker = new Picker({
+          'data': [provinces, citys[provinces[0].value], dists[provinces[0].value + '$$' + citys[provinces[0].value][0].value]],
+          'selectedIndex': [0, 0, 0]
+        })
+        this.addressPicker.on('picker.select', (val, selectedIndex) => {
+          let pId = provinces[selectedIndex[0]].value
+          let cId = citys[pId][selectedIndex[1]].value
+          let dId = `${pId}$$${cId}`
+          this.identityInfo.livingProvince = provinces[this.provinceIdx].text
+          this.identityInfo.livingCity = citys[pId][this.cityIdx].text
+          this.identityInfo.livingDistrict = dists[dId][selectedIndex[2]].text
+        })
+        this.addressPicker.on('picker.change', (index, selectedIndex) => {
+          if (index === 0) {
+            this.provinceIdx = selectedIndex
+            this.cityIdx = 0
+            this.addressPicker.refillColumn(1, citys[provinces[selectedIndex].value])
+            this.addressPicker.refillColumn(2, dists[provinces[selectedIndex].value + '$$' + citys[provinces[selectedIndex].value][0].value])
+          } else if (index === 1) {
+            this.cityIdx = selectedIndex
+            this.addressPicker.refillColumn(2, dists[provinces[this.provinceIdx].value + '$$' + citys[provinces[this.provinceIdx].value][selectedIndex].value])
+          }
+        })
       }
     },
     computed: {
       isShow() {
         let {idCardFrontPhoto, idCardBackPhoto} = this.identityInfo
         return idCardFrontPhoto || idCardBackPhoto
+      },
+      fullAddress() {
+        let {livingProvince, livingCity, livingDistrict} = this.identityInfo
+        return livingProvince ? `${livingProvince}-${livingCity}-${livingDistrict}` : ''
       }
     },
-    created() {
-      let self = this
-      maritalPicker.on('picker.select', (val, index) => {
-        self.identityInfo.maritalStatus = val[0]
-      })
+    mounted() {
+      this._initMaritalPicker()
+      this._initEducationalPicker()
+      this._initAddressPicker()
     }
   }
 </script>
