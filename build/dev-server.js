@@ -236,6 +236,7 @@ apiRoutes.post('/bankList', function(req, res) {
       }]
     }
   }
+  responseData(res, result)
 })
 /*
  * 借款记录
@@ -319,6 +320,21 @@ apiRoutes.post('/contact/fetch', function(req, res) {
       "majorContactRelation": '司机', //重要联系人关系
       "majorContactName": '李四', //重要联系人姓名
       "majorContactMobile": '13866688866' //重要联系人电话
+    }
+  }
+  responseData(res, result)
+})
+
+/**
+ * 短信验证码发送接口
+ * @type {[type]}
+ */
+apiRoutes.post('/smscode', function(req, res) {
+  var result = {
+    status: '0',
+    msg: 'success',
+    data: {
+      "api": "smscode"
     }
   }
   responseData(res, result)

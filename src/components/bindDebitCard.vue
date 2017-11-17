@@ -63,14 +63,22 @@
       sendValidateCode: function() {
         this.isSend = true
         this.delayTime = 119
-        let timer = setInterval(() => {
-          if (this.delayTime === 1) {
-            this.isSend = false
-            this.delayTime = 0
-            clearInterval(timer)
+        doPost(types.SMSCODE, {
+          accountNumber: '13688866688',
+          smsType: '1'
+        }, {
+          success: (oData) => {
+            console.log(oData)
+            let timer = setInterval(() => {
+              if (this.delayTime === 1) {
+                this.isSend = false
+                this.delayTime = 0
+                clearInterval(timer)
+              }
+              this.delayTime--
+            }, 1000)
           }
-          this.delayTime--
-        }, 1000)
+        })
       },
       submit: function() {
         let reg = new RegExp('^[0-9]*$')
