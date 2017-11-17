@@ -9,7 +9,7 @@ export default {
   [types.BORROW]: '/api/borrow',
   [types.BANK]: '/api/bank',
   [types.BANK_LIST]: '/api/bankList',
-  [types.REPAY_SCHEDULE]: '/api/repay/schedule'
+  [types.REPAY_SCHEDULE]: '/api/repay/schedule',
   [types.BORROW_RECORD]: '/api/borrow/record',
   [types.CONTACT_POST]: '/api/contact',
   [types.CONTACT_FETCH]: '/api/contact/fetch'
