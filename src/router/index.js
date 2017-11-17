@@ -75,6 +75,24 @@ const WorkInfo = (resolve) => {
   })
 }
 
+// 个人信息展示
+const PersonalInfo = (resolve) => {
+  import('components/personalinfo').then((module) => {
+    resolve(module)
+  })
+}
+// 借记卡信息（绑定银行卡）
+const BindDebitCard = (resolve) => {
+  import('components/bindDebitCard').then((module) => {
+    resolve(module)
+  })
+}
+// 信用认证
+const CreditCertification = (resolve) => {
+  import('components/creditCertification').then((module) => {
+    resolve(module)
+  })
+}
 export default new Router({
   // mode: 'history',
   routes: [
@@ -126,6 +144,18 @@ export default new Router({
       path: '/work-info',
       name: 'workInfo',
       component: WorkInfo
+    }, {
+      path: '/personal-info',
+      name: 'personalInfo',
+      component: PersonalInfo
+    }, {
+      path: '/debit-card',
+      name: 'bindDebitCard',
+      component: BindDebitCard
+    }, {
+      path: '/credit-certification',
+      name: 'creditCertification',
+      component: CreditCertification
     }
   ]
 })

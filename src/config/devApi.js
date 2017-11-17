@@ -6,5 +6,6 @@ export default {
   [types.BORROW_DETAIL]: '/api/borrow/detail',
   [types.BORROW_CONFIRM]: '/api/borrow/confirm',
   [types.GET_REPAYMENT_TIP]: '/api/repay',
-  [types.BORROW]: '/api/borrow'
+  [types.BORROW]: '/api/borrow',
+  [types.BANK]: '/api/bank'
 }

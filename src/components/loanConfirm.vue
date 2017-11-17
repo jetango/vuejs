@@ -28,13 +28,25 @@
         <span v-html="loanInfo.repayTotalAmount + '元'"></span>
       </div>
     </div>
-    <div class="loan-info flex flex-item">
-      <div class="loan-info-item item-bank flex flex-item flex-grow active">
-        <span>到账账户:</span>
-        <span @click="choseBankCard" class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
-        <span @click="choseBankCard" v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
+    <div class="loan-info">
+      <div class="flex flex-item flex-grow">
+        <div class="loan-info-item item-bank flex flex-item flex-grow active">
+          <span>到账账户:</span>
+          <span @click="choseBankCard" class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
+          <span @click="choseBankCard" v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
+        </div>
+        <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
-      <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
+      <!-- <div class="loan-info-item flex flex-item active">
+        <span>手机号:</span>
+        <span class="phone-item">15959369312</span>
+      </div>
+      <div class="loan-info-item input-validate flex flex-item">
+        <span>手机号:</span>
+        <span></span>
+        <input type="text" placeholder="请输入验证码">
+        <div>获取验证码</div>
+      </div> -->
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
       <i @click="comfirm" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
@@ -42,7 +54,6 @@
     </p>
     <a class="btn" @click="submit">借款</a>
     <p class="forbid-borrow-stu">禁止学生借款</p>
-    <p style="color: red">{{message}}</p>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -68,9 +79,7 @@
           accountNumber: '',
           flag: false
         },
-        buttonValue: '借款',
-        isChosed: false,
-        message: ''
+        isChosed: false
       }
     },
     created: function() {
@@ -132,10 +141,12 @@
 
   .loan-comforim
     margin-bottom: .3rem
+
   .loan-info
     background-color: #fff
     margin-top: .1rem
-  .loan-info-item,.input-validate-code
+    
+  .loan-info-item
     height: 1rem
     font-size: .28rem
     padding-left: .4rem
@@ -145,12 +156,14 @@
         color: #000
         font-size: .3rem
         margin-left: .24rem
+
   .item-middle
     height: .72rem
     span
       &:last-of-type
         color: #525252
         font-size: .28rem
+
   .item-bank
     span
       &:last-of-type
@@ -158,19 +171,6 @@
         font-size: .28rem
         text-align: right
         margin-right: .1rem
-  .input-validate-code
-    background-color: #fff
-    margin-top: .1rem
-    span
-      &:last-of-type
-        color: #525252
-        margin-left: 0
-    input
-      width: 2.56rem
-      height: .76rem
-      padding-left: .1rem
-      border-radius: .06rem
-      background-color: #eeeff3
 
   .comfirm-protocol
     font-size: .2rem
@@ -184,6 +184,7 @@
     span
       span
         color: #008aff
+
   .btn
     display:block
     width:90%
@@ -213,5 +214,41 @@
 
   .bank-none
     color: #008aff !important
+
+  .phone-item
+    font-size: .28rem !important
+    color: #525252 !important
+
+  .input-validate
+    input 
+      width: 2.4rem
+      border-radius: .06rem
+      height: .76rem
+      background-color: #eeeff3
+      padding-left: .2rem
+      outline: none
+    div
+      margin-right: .35rem
+      width: 1.76rem
+      background-color: #89cd40
+      height: .76rem
+      border-radius: .06rem
+      text-align: center
+      line-height .76rem
+      margin-left: .1rem
+      color: #fff
+
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+    color: #aeaeae
+  } 
+  input:-moz-placeholder, textarea:-moz-placeholder { 
+    color: #aeaeae
+  } 
+  input::-moz-placeholder, textarea::-moz-placeholder { 
+    color: #aeaeae
+  } 
+  input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+    color: #aeaeae
+  } 
 
 </style>

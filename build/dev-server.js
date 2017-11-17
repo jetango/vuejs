@@ -199,6 +199,20 @@ apiRoutes.post('/repay', function(req, res) {
   responseData(res, result)
 })
 
+/**
+ * 银行卡信息保存
+ */
+apiRoutes.post('/bank', function(req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      api: 'bank',
+    }
+  }
+  responseData(res, result)
+})
+
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
 // const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:8888', changeOrigin: true})
