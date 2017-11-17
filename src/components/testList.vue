@@ -1,13 +1,14 @@
 <template>
   <div class="test-list">
     <div class="list-view">
-      <router-link to="/loan-result">
+      <router-link to="/rate-query">
         <div class="item flex">
-          <p class="flex-grow">借款结果页面</p>
+          <p class="flex-grow">费率查询</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
     </div>
+    <h4>信息录入</h4>
     <div class="list-view">
       <router-link to="/identity-input">
         <div class="item flex">
@@ -49,14 +50,31 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/borrow-list">
+      <router-link to="/credit-certification">
         <div class="item flex">
-          <p class="flex-grow">借款记录</p>
+          <p class="flex-grow">信用认证</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
     </div>
 
+    <h4>借款信息</h4>
+    <div class="list-view">
+      <router-link to="/loan-confirm">
+        <div class="item flex">
+          <p class="flex-grow">借款确认</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/loan-result">
+        <div class="item flex">
+          <p class="flex-grow">借款结果页面</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
     <div class="list-view">
       <router-link to="/loan-detail">
         <div class="item flex">
@@ -66,9 +84,19 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/loan-confirm">
+      <router-link to="/debit-card">
         <div class="item flex">
-          <p class="flex-grow">借款确认</p>
+          <p class="flex-grow">绑定银行卡界面</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <h4>还款</h4>
+    <div class="list-view">
+      <router-link to="/repayment-tip">
+        <div class="item flex">
+          <p class="flex-grow">发起还款</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
@@ -83,14 +111,6 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/repayment-tip">
-        <div class="item flex">
-          <p class="flex-grow">发起还款</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
-    <div class="list-view">
       <router-link to="/repayment-way">
         <div class="item flex">
           <p class="flex-grow">还款方式</p>
@@ -99,15 +119,15 @@
       </router-link>
     </div>
 
+    <h4>我的</h4>
     <div class="list-view">
       <router-link to="/borrow-list">
         <div class="item flex">
-          <p class="flex-grow">到账账户选择列表</p>
+          <p class="flex-grow">借款记录</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
     </div>
-
     <div class="list-view">
       <router-link to="/personal-info">
         <div class="item flex">
@@ -124,49 +144,21 @@
         </div>
       </router-link>
     </div>
+
     <div class="list-view">
-      <router-link to="/borrow-list">
-        <div class="item flex">
-          <p class="flex-grow">信用认证</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
-    <div class="list-view">
-      <router-link to="/debit-card">
-        <div class="item flex">
-          <p class="flex-grow">绑定银行卡界面</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
-    <div class="list-view">
-      <router-link to="/borrow-list">
-        <div class="item flex">
-          <p class="flex-grow">更换银行卡界面</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
-    <div class="list-view">
-      <router-link to="/borrow-list">
+      <router-link to="/services-protocols">
         <div class="item flex">
           <p class="flex-grow">我同意XX协议</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
     </div>
-    <div class="list-view">
-      <router-link to="/borrow-list">
-        <div class="item flex">
-          <p class="flex-grow">费率查询</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
+
   </div>
 </template>
-
-<script type="text/ecmascript-6">
-
-</script>
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  h4
+    height: .8rem
+    line-height: .8rem
+    padding-left: .4rem
+</style>
