@@ -288,6 +288,7 @@ apiRoutes.post('/repay/schedule', function(req, res) {
       }]
     }
   }
+  responseData(res, result)
 })
 
 /*
