@@ -13,7 +13,7 @@
         </p>
       </div>
     </div>
-    <a class="btn">去添加</a>
+    <a @click="addBankCard" class="btn">去添加</a>
   </div>
 </template>
 
@@ -21,28 +21,37 @@
   import {
     addSessionStorage
   } from 'common/js/dom'
+  import {
+    doPost
+  } from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        bankList: [{
-          bankName: '工商银行',
-          accountNumber: '6228000666688880000'
-        }, {
-          bankName: '招商银行',
-          accountNumber: '6228000666688884487'
-        }, {
-          bankName: '建设银行',
-          accountNumber: '6228000666688882546'
-        }]
+        bankList: []
       }
     },
+    created: function() {
+      this.init()
+    },
     methods: {
+      init: function() {
+        doPost(types.BANK_LIST, {}, {
+          success: (oData) => {
+            console.log(oData)
+            this.bankList = oData.data.bankList
+          }
+        })
+      },
       choseBankCard: function(obj) {
         addSessionStorage('payCard', JSON.stringify({
           bankName: obj.bankName,
           accountNumber: obj.accountNumber
         }))
         this.$router.push('loan-confirm')
+      },
+      addBankCard: function() {
+        this.$router.push('debit-card')
       }
     }
   }
@@ -52,7 +61,7 @@
   @import "~common/stylus/base"
   
   .bank-item
-    margin-top: .2rem
+    margin-top: .3rem
     background-color: #ffffff
     padding-left: .4rem
     &:active

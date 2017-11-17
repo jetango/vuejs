@@ -213,6 +213,55 @@ apiRoutes.post('/bank', function(req, res) {
   responseData(res, result)
 })
 
+/**
+ * 借记卡列表展示
+ */
+apiRoutes.post('/bankList', function(req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      bankList: [{
+        bankName: '工商银行',
+        accountNumber: '6228000666688880000'
+      }, {
+        bankName: '招商银行',
+        accountNumber: '6228000666688884487'
+      }, {
+        bankName: '建设银行',
+        accountNumber: '6228000666688882546'
+      }]
+    }
+  }
+  responseData(res, result)
+})
+
+/**
+ * 还款计划表接口
+ */
+apiRoutes.post('/repay/schedule', function(req, res) {
+  var result = {
+    status: 0,
+    msg: 'success',
+    data: {
+      repayScheduleList: [{
+        repayAmount: '1200',
+        repayTime: '2017-11-18',
+        repayStatus: 'F05'
+      }, {
+        repayAmount: '1300',
+        repayTime: '2017-11-23',
+        repayStatus: 'F05'
+      }, {
+        repayAmount: '1500',
+        repayTime: '2017-12-19',
+        repayStatus: 'F07'
+      }]
+    }
+  }
+  responseData(res, result)
+})
+
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
 // const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
 // const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:8888', changeOrigin: true})

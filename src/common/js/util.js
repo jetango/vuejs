@@ -14,7 +14,7 @@ export default {
   },
   isIos: function () {
     // android终端
-    return !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+    return navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
   },
   isAndroid: function () {
     // android终端

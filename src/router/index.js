@@ -93,6 +93,18 @@ const CreditCertification = (resolve) => {
     resolve(module)
   })
 }
+// 费率查询
+const RateQuery = (resolve) => {
+  import('components/rateQuery').then((module) => {
+    resolve(module)
+  })
+}
+// 服务与协议页面
+const ServicesProtocols = (resolve) => {
+  import('components/servicesProtocols').then((module) => {
+    resolve(module)
+  })
+}
 export default new Router({
   // mode: 'history',
   routes: [
@@ -156,6 +168,14 @@ export default new Router({
       path: '/credit-certification',
       name: 'creditCertification',
       component: CreditCertification
+    }, {
+      path: '/rate-query',
+      name: 'rateQuery',
+      component: RateQuery
+    }, {
+      path: '/services-protocols',
+      name: 'servicesProtocols',
+      component: ServicesProtocols
     }
   ]
 })

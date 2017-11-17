@@ -64,7 +64,7 @@
         this.isSend = true
         this.delayTime = 119
         let timer = setInterval(() => {
-          if (this.delayTime === 0) {
+          if (this.delayTime === 1) {
             this.isSend = false
             this.delayTime = 0
             clearInterval(timer)

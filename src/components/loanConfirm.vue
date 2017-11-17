@@ -38,15 +38,15 @@
         <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
       <!-- <div class="loan-info-item flex flex-item active">
-        <span>手机号:</span>
-        <span class="phone-item">15959369312</span>
-      </div>
-      <div class="loan-info-item input-validate flex flex-item">
-        <span>手机号:</span>
-        <span></span>
-        <input type="text" placeholder="请输入验证码">
-        <div>获取验证码</div>
-      </div> -->
+              <span>手机号:</span>
+              <span class="phone-item">15959369312</span>
+            </div>
+            <div class="loan-info-item input-validate flex flex-item">
+              <span>手机号:</span>
+              <span></span>
+              <input type="text" placeholder="请输入验证码">
+              <div>获取验证码</div>
+            </div> -->
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
       <i @click="comfirm" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
@@ -59,7 +59,8 @@
 <script type="text/ecmascript-6">
   import buttonItem from 'base/button/button-item'
   import {
-    doPost
+    doPost,
+    popup
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -83,36 +84,38 @@
       }
     },
     created: function() {
-      let param = {
-        userId: '123456',
-        financeProductId: '1681688',
-        loanAmount: '1000',
-        borrowingTime: '7'
-      }
-      if (sessionStorage.getItem('payCard')) { // 已经选择过到账账户
-        let payCard = JSON.parse(sessionStorage.getItem('payCard'))
-        this.bankCard = payCard
-        this.bankCard.flag = true
-      }
-      doPost(types.BORROW, param, {
-        success: (oData) => {
-          this.loanInfo = oData.data
-          if (oData.data.bankList.length !== 0 && !sessionStorage.getItem('payCard')) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
-            let payCard = oData.data.bankList[0]
-            this.bankCard = payCard
-            this.bankCard.flag = true
-          }
-        }
-      })
+      this.init()
     },
     methods: {
+      init: function() {
+        let param = {
+          financeProductId: '1681688',
+          loanAmount: '1000',
+          borrowingTime: '7'
+        }
+        if (sessionStorage.getItem('payCard')) { // 已经选择过到账账户
+          let payCard = JSON.parse(sessionStorage.getItem('payCard'))
+          this.bankCard = payCard
+          this.bankCard.flag = true
+        }
+        doPost(types.BORROW, param, {
+          success: (oData) => {
+            this.loanInfo = oData.data
+            if (oData.data.bankList.length !== 0 && !sessionStorage.getItem('payCard')) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
+              let payCard = oData.data.bankList[0]
+              this.bankCard = payCard
+              this.bankCard.flag = true
+            }
+          }
+        })
+      },
       comfirm: function() {
         this.isChosed = !this.isChosed
       },
       submit: function() {
         let self = this
         if (this.isChosed) {
-          alert('请同意用户服务协议')
+          popup(null, '请同意用户服务协议')
           return
         }
         let param = this.$data.loanInfo
