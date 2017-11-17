@@ -3,8 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const HelloWorld = (resolve) => {
-  import('components/HelloWorld').then((module) => {
+const TestList = (resolve) => {
+  import('components/testList').then((module) => {
     resolve(module)
   })
 }
@@ -105,13 +105,21 @@ const ServicesProtocols = (resolve) => {
     resolve(module)
   })
 }
+
+// 借款记录
+const BorrowList = (resolve) => {
+  import('components/borrowList').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   // mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: HelloWorld
+      name: 'TestList',
+      component: TestList
     }, {
       path: '/identity-detail',
       name: 'identityShow',
@@ -176,6 +184,10 @@ export default new Router({
       path: '/services-protocols',
       name: 'servicesProtocols',
       component: ServicesProtocols
+    }, {
+      path: '/borrow-list',
+      name: 'borrowList',
+      component: BorrowList
     }
   ]
 })

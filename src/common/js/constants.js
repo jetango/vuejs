@@ -28,6 +28,18 @@ export const gender = [
   }
 ]
 
+export const orderStatus = {
+  'F00': '待审核',
+  'F01': '审核中',
+  'F02': '审核完成',
+  'F03': '待放款',
+  'F04': '放款失败',
+  'F05': '已放款',
+  'F06': '还款中',
+  'F07': '逾期中',
+  'F08': '已还清'
+}
+
 export const relationship = [
   {
     text: '配偶',
@@ -38,8 +50,8 @@ export const relationship = [
     value: '父母'
   },
   {
-    text: '兄弟姐妹',
-    value: '兄弟姐妹'
+    text: '兄妹',
+    value: '兄妹'
   },
   {
     text: '亲戚',

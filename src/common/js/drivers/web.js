@@ -16,7 +16,7 @@ export default class Driver {
     console.log('doPost', api, param, cb)
     let name = this.proxy.registCB(cb)
 
-    axios.post(ApiObj[api]).then((response) => {
+    axios.post(ApiObj[api], param).then((response) => {
       window.callback(name, response.data)
     })
   }
@@ -103,16 +103,16 @@ export default class Driver {
 
   chooseContact(cb) {
     let name = this.proxy.registCB(cb)
-    window.callback(name, {
-      status: 1,
-      error: '',
-      message: '',
-      data: {
-        result: 1,
-        name: 'james',
-        tel: '13000330033'
-      }
-    })
+    setTimeout(() => {
+      window.callback(name, {
+        status: 0,
+        msg: '',
+        data: {
+          name: 'james',
+          tel: '13000330033'
+        }
+      })
+    }, 500)
   }
 
   addCard(param, title, cb) {

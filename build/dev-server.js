@@ -13,6 +13,7 @@ const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
 const webpackConfig = require('./webpack.dev.conf')
 const axios = require('axios')
+const bodyParser = require('body-parser')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port
@@ -23,10 +24,12 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
 
 const app = express()
+app.use(bodyParser.urlencoded({extened: false}))
 const compiler = webpack(webpackConfig)
 var apiRoutes = express.Router()
 
 var responseData = function (res, data) {
+  res.setHeader('userId', '21c2c008-d4c3-42f2-b05f-10575071043e')
   setTimeout(function () {
     res.json(data)
   }, 500)
@@ -233,6 +236,32 @@ apiRoutes.post('/bankList', function(req, res) {
       }]
     }
   }
+})
+/*
+ * 借款记录
+ * @type {[type]}
+ */
+apiRoutes.post('/borrow/record', function(req, res) {
+  var result = {
+    status: '0',
+    msg: 'success',
+    data: {
+      'borrowList': [
+        {
+          loanAmount: 1200,
+          orderStatus: 'F01',
+          borrowingTime: '7',
+          orderNo: '201711160036A'
+        },
+        {
+          loanAmount: 1000,
+          orderStatus: 'F04',
+          borrowingTime: '14',
+          orderNo: '201711160036B'
+        }
+      ]
+    }
+  }
   responseData(res, result)
 })
 
@@ -259,12 +288,42 @@ apiRoutes.post('/repay/schedule', function(req, res) {
       }]
     }
   }
+})
+
+/*
+ * 联系人信息保存
+ * @type {[type]}
+ */
+apiRoutes.post('/contact', function(req, res) {
+  console.log('contact_post->>>>>>', req.params, req.query, req.body)
+  var result = {
+    status: '0',
+    msg: 'success'
+  }
   responseData(res, result)
 })
 
-// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true})
-// const apiProxy = proxyMiddleware('/api', { target: 'http://192.168.2.20:8080', changeOrigin: true })
-// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:8888', changeOrigin: true})
+/**
+ * 联系人信息展示
+ * @type {[type]}
+ */
+apiRoutes.post('/contact/fetch', function(req, res) {
+  var result = {
+    status: '0',
+    msg: 'success',
+    data: {
+      "directContactRelation": '保镖', //直接联系人关系
+      "directContactName": '张三', //直接联系人姓名
+      "directContactMobile": '13688866688', //直接联系人电话
+      "majorContactRelation": '司机', //重要联系人关系
+      "majorContactName": '李四', //重要联系人姓名
+      "majorContactMobile": '13866688866' //重要联系人电话
+    }
+  }
+  responseData(res, result)
+})
+
+// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true, headers: {userId: '21c2c008-d4c3-42f2-b05f-10575071043e'}})
 // app.use('/api', apiProxy)
 app.use('/api', apiRoutes)
 
