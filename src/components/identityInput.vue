@@ -130,6 +130,8 @@
         })
       },
       _initAddressPicker() {
+        this.provinceIdx = 0
+        this.cityIdx = 0
         this.addressPicker = new Picker({
           'data': [provinces, citys[provinces[0].value], dists[provinces[0].value + '$$' + citys[provinces[0].value][0].value]],
           'selectedIndex': [0, 0, 0]
@@ -138,9 +140,11 @@
           let pId = provinces[selectedIndex[0]].value
           let cId = citys[pId][selectedIndex[1]].value
           let dId = `${pId}$$${cId}`
-          this.identityInfo.livingProvince = provinces[this.provinceIdx].text
-          this.identityInfo.livingCity = citys[pId][this.cityIdx].text
-          this.identityInfo.livingDistrict = dists[dId][selectedIndex[2]].text
+          if (provinces[this.provinceIdx].text && citys[pId][this.cityIdx].text && dists[dId][selectedIndex[2]].text) {
+            this.identityInfo.livingProvince = provinces[this.provinceIdx].text
+            this.identityInfo.livingCity = citys[pId][this.cityIdx].text
+            this.identityInfo.livingDistrict = dists[dId][selectedIndex[2]].text
+          }
         })
         this.addressPicker.on('picker.change', (index, selectedIndex) => {
           if (index === 0) {

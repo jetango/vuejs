@@ -44,26 +44,37 @@
 <script type="text/ecmascript-6">
   import {positionTypes, positionItems, salarys, provinces, citys, dists} from 'common/js/constants'
   import Picker from 'better-picker'
+  import {doPost, popup} from 'common/js/drivers'
+  import * as types from 'config/api-type'
 
   export default {
     data() {
       return {
         workInfo: {
-          industry: '上班族',
-          company: '上海找一',
-          companyProvince: '上海市',
-          companyCity: '上海市',
-          companyDistrict: '杨浦区',
-          companyAddress: '发发发路888号',
-          telephone: '15767668888',
-          salary: '5000-10000'
+          industry: '',
+          company: '',
+          companyProvince: '',
+          companyCity: '',
+          companyDistrict: '',
+          companyAddress: '',
+          telephone: '',
+          salary: ''
         }
       }
     },
     methods: {
       saveWorkInfo() {
         let {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary} = this.workInfo
-        console.log(industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary)
+        let params = {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary}
+        if (this._validate(params)) {
+          doPost(types.CONTACT_POST, params, {
+            success: function(oData) {
+              if (oData.status === 0) {
+              }
+            },
+            error: function() {}
+          })
+        }
       },
       positionSelected() {
         this.positionPicker.show()
@@ -73,6 +84,14 @@
       },
       addressSelected() {
         this.addressPicker.show()
+      },
+      _validate(params) {
+        debugger
+        if (params.industry) {
+          popup('', '', '请选择职业类型')
+          return false
+        }
+        return true
       },
       _initPositionPicker() {
         this.positionPicker = new Picker({
@@ -100,6 +119,8 @@
         })
       },
       _initAddress() {
+        this.provinceIdx = 0
+        this.cityIdx = 0
         this.addressPicker = new Picker({
           'data': [provinces, citys[provinces[0].value], dists[provinces[0].value + '$$' + citys[provinces[0].value][0].value]],
           'selectedIndex': [0, 0, 0]
@@ -108,9 +129,11 @@
           let pId = provinces[selectedIndex[0]].value
           let cId = citys[pId][selectedIndex[1]].value
           let dId = `${pId}$$${cId}`
-          this.workInfo.companyProvince = provinces[this.provinceIdx].text
-          this.workInfo.companyCity = citys[pId][this.cityIdx].text
-          this.workInfo.companyDistrict = dists[dId][selectedIndex[2]].text
+          if (provinces[this.provinceIdx].text && citys[pId][this.cityIdx].text && dists[dId][selectedIndex[2]].text) {
+            this.workInfo.companyProvince = provinces[this.provinceIdx].text
+            this.workInfo.companyCity = citys[pId][this.cityIdx].text
+            this.workInfo.companyDistrict = dists[dId][selectedIndex[2]].text
+          }
         })
         this.addressPicker.on('picker.change', (index, selectedIndex) => {
           if (index === 0) {

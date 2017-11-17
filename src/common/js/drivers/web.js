@@ -71,7 +71,7 @@ export default class Driver {
 
   popup(pageId, title, param) {
     console.log(pageId, title, param)
-    alert(title)
+    alert(param)
   }
 
   personIdValid(cb) {
