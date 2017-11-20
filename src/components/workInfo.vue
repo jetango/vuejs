@@ -3,7 +3,7 @@
     <div class="list-view h4">
       <div class="item flex" @click="positionSelected()">
         <div class="flex-grow title">职业类型</div>
-        <div>{{workInfo.industry ? workInfo.industry : '请选择'}}</div>
+        <div>{{workInfo.industry ? (workInfo.industry + '-' +  workInfo.profession) : '请选择'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex">
@@ -52,6 +52,7 @@
       return {
         workInfo: {
           industry: '',
+          profession: '',
           company: '',
           companyProvince: '',
           companyCity: '',
@@ -64,12 +65,12 @@
     },
     methods: {
       saveWorkInfo() {
-        let {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary} = this.workInfo
-        let params = {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary}
+        let {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary, profession} = this.workInfo
+        let params = {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary, profession}
         if (this._validate(params)) {
-          doPost(types.CONTACT_POST, params, {
+          doPost(types.JOB_POST, params, {
             success: function(oData) {
-              if (oData.status === 0) {
+              if (oData.status === '0') {
               }
             },
             error: function() {}
@@ -86,21 +87,21 @@
         this.addressPicker.show()
       },
       _validate(params) {
-        debugger
-        if (params.industry) {
+        if (!params.industry) {
           popup('', '', '请选择职业类型')
           return false
         }
         return true
       },
       _initPositionPicker() {
+        this.positionIndex = 0
         this.positionPicker = new Picker({
           'data': [positionTypes, positionItems[positionTypes[0].value]],
           'selectedIndex': [0, 0]
         })
         this.positionPicker.on('picker.select', (val, index) => {
-          this.workInfo.industry = val[0]
-          this.workInfo.industry = `${positionTypes[this.positionIndex].text}-${val[1]}`
+          this.workInfo.industry = positionTypes[index[0]].text
+          this.workInfo.profession = val[1]
         })
         this.positionPicker.on('picker.change', (index, selectedIndex) => {
           if (index === 0) {
@@ -146,6 +147,19 @@
             this.addressPicker.refillColumn(2, dists[provinces[this.provinceIdx].value + '$$' + citys[provinces[this.provinceIdx].value][selectedIndex].value])
           }
         })
+      },
+      _fetchWorkInfo() {
+        let self = this
+        doPost(types.JOB_FETCH, null, {
+          success: function(oData) {
+            if (oData.status === '0') {
+              self.workInfo = oData.data
+            }
+          },
+          error: function(oData) {
+            //
+          }
+        })
       }
     },
     computed: {
@@ -154,9 +168,16 @@
       }
     },
     mounted() {
-      this._initPositionPicker()
-      this._initSalaryPicker()
-      this._initAddress()
+      if (!this.userId) {
+        this._initPositionPicker()
+        this._initSalaryPicker()
+        this._initAddress()
+      } else {
+        this._fetchWorkInfo()
+      }
+    },
+    created() {
+      this.userId = this.$route.query.userId
     }
   }
 </script>

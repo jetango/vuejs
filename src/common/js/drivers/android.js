@@ -117,4 +117,22 @@ export default class Driver {
   openAlbum(pageId, title, param) {
     window.android.plugin('openAlbum', JSON.stringify({pageId, title, param}))
   }
+
+  // 身份证正面信息
+  idCardFrontInfo(cb) {
+    let name = this.proxy.registCB(cb)
+    window.android.plugin('idCardFrontInfo', JSON.stringify({callback: name}))
+  }
+
+  // 身份证反面信息
+  idCardBackInfo(cb) {
+    let name = this.proxy.registCB(cb)
+    window.android.plugin('idCardBackInfo', JSON.stringify({callback: name}))
+  }
+
+  // 人脸识别
+  faceRecognition(cb) {
+    let name = this.proxy.registCB(cb)
+    window.android.plugin('faceRecognition', JSON.stringify({callback: name}))
+  }
 }

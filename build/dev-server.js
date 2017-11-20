@@ -42,7 +42,7 @@ apiRoutes.post('/identity/fetch', function (req, res) {
     data: {
       realName: '李四',
       idNumber: '310110198803161768',
-      faceRecognitionFlag: 1,  //是否人脸识别 1识别 0 未识别
+      faceRecognition: 1,  //是否人脸识别 1识别 0 未识别
       livingProvinceCode: '浙江省',
       livingCityCode: '杭州市',
       livingDistrictCode: '西湖区',
@@ -221,7 +221,7 @@ apiRoutes.post('/bank', function(req, res) {
  */
 apiRoutes.post('/bankList', function(req, res) {
   var result = {
-    status: 0,
+    status: '0',
     msg: 'success',
     data: [{
       bankName: '工商银行',
@@ -341,7 +341,42 @@ apiRoutes.post('/smscode', function(req, res) {
   responseData(res, result)
 })
 
-// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:9000', changeOrigin: true, headers: {userId: '21c2c008-d4c3-42f2-b05f-10575071043e'}})
+/**
+ * 工作信息保存
+ * @type {[type]}
+ */
+apiRoutes.post('/job', function(req, res) {
+  var result = {
+    status: '0',
+    msg: 'success',
+    data: {
+    }
+  }
+  responseData(res, result)
+})
+
+apiRoutes.post('/job/fetch', function(req, res) {
+  var result = {
+    "status": '0',
+    "msg":"success",
+    "data": {
+        "industry": '工薪族', //职业类型
+        "profession": '政府机关',
+        "company": '上海造艺', //单位名称
+        "companyProvince": '上海市', //公司地址省份
+        "companyCity": '上海市', //公司地址城市
+        "companyDistrict": '杨浦区', //公司地址地区
+        "companyAddress": '发财路888号', //公司详细地址
+        "telDistrictNo": '021',   //公司电话区号
+        "telephone": '56881688',  //公司电话
+        "telExtNo": '1',  //分机号
+        "salary": '5000-10000'  //薪资（月收入）
+    }
+  }
+  responseData(res, result)
+})
+
+// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:9000', changeOrigin: true, headers: {userId: 'f62d3cfd-ef3f-43e7-978a-97c0f2f79a84'}})
 // app.use('/api', apiProxy)
 app.use('/api', apiRoutes)
 

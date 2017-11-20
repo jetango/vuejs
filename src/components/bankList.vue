@@ -59,14 +59,14 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-  
+
   .bank-item
     margin-top: .3rem
     background-color: #ffffff
     padding-left: .4rem
     &:active
       background-color: #e4e5e7
-  
+
   .bank-name
     height: 1rem
     &:after
@@ -80,7 +80,7 @@
       font-size: .3rem
       padding-left: .2rem
       color: #000000
-      
+
   .bank-number
     height: .72rem
     p

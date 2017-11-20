@@ -17,7 +17,7 @@
         婚姻状况：{{identityInfo.maritalStatus}}
       </div>
       <div class="item">
-        人脸识别：{{identityInfo.faceRecognitionFlag}}
+        人脸识别：{{identityInfo.faceRecognition}}
       </div>
     </div>
   </div>
@@ -33,10 +33,10 @@
         identityInfo: {
           realName: '',
           idNumber: '',
-          faceRecognitionFlag: 0,
-          livingProvinceCode: '',
-          livingCityCode: '',
-          livingDistrictCode: '',
+          faceRecognition: 0,
+          livingProvince: '',
+          livingCity: '',
+          livingDistrict: '',
           livingAddress: '',
           highestDegree: '',
           maritalStatus: ''
@@ -48,7 +48,7 @@
     },
     computed: {
       fullName() {
-        return `${this.identityInfo.livingProvinceCode}${this.identityInfo.livingCityCode}${this.identityInfo.livingDistrictCode}`
+        return `${this.identityInfo.livingProvince}${this.identityInfo.livingCity}${this.identityInfo.livingDistrict}`
       }
     },
     methods: {

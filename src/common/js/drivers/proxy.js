@@ -160,4 +160,16 @@ export default class Proxy {
   hideBarButton(pageId, param) {
     this.__current__.hideBarButton(pageId, param)
   }
+
+  idCardFrontInfo(cb) {
+    this.__current__.idCardFrontInfo(cb)
+  }
+
+  idCardBackInfo(cb) {
+    this.__current__.idCardBackInfo(cb)
+  }
+
+  faceRecognition(cb) {
+    this.__current__.faceRecognition(cb)
+  }
 }

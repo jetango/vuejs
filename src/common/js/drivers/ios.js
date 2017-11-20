@@ -379,4 +379,25 @@ export default class Driver {
     let url = `plugin://openAlbum?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&=param=${encodeURIComponent(JSON.stringify(param))}`
     this._iosCall(url)
   }
+
+  // 身份证正面信息
+  idCardFrontInfo(cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://idCardFrontInfo?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
+
+  // 身份证反面信息
+  idCardBackInfo(cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://idCardBackInfo?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
+
+  // 人脸识别
+  faceRecognition(cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://faceRecognition?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
 }

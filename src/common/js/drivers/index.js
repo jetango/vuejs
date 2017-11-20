@@ -136,3 +136,15 @@ export function showBarButton(pageId, title, position, func, url, cb, param) {
 export function hideBarButton(pageId, param) {
   _proxy.hideBarButton(pageId, param)
 }
+
+export function idCardFrontInfo(cb) {
+  _proxy.idCardFrontInfo(cb)
+}
+
+export function idCardBackInfo(cb) {
+  _proxy.idCardBackInfo(cb)
+}
+
+export function faceRecognition(cb) {
+  _proxy.faceRecognition(cb)
+}

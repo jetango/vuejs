@@ -3,29 +3,42 @@
     <p class="text-center title">身份证信息将通过公安部认证，非本人信息不得通过审核</p>
     <div class="id-box">
       <div class="flex">
-        <div class="flex-grow text-center">
+        <div class="flex-grow text-center" @click="idCardFrontClicked()">
           <p>身份证人像面</p>
-          <img src="~/common/image/shenfenzheng.png_tu_002.png">
+          <div class="img-box">
+            <img v-show="!identityInfo.idCardFrontPhoto" src="~/common/image/shenfenzheng.png_tu_002.png">
+            <div class="mask-box" v-show="identityInfo.idCardFrontPhoto">
+              <img class="mask-img" src="~/common/image/shenfenzheng.png_tu_001.png">
+              <img :src="identityInfo.idCardFrontPhoto">
+            </div>
+          </div>
         </div>
-        <div class="flex-grow text-center">
+        <div class="flex-grow text-center" @click="idCardBackClicked()">
           <p>身份证国徽面</p>
-          <img src="~/common/image/shenfenzheng.png_tu_0013.png">
+          <div class="img-box">
+            <img v-show="!identityInfo.idCardBackPhoto" src="~/common/image/shenfenzheng.png_tu_0013.png">
+            <div class="mask-box" v-show="identityInfo.idCardBackPhoto">
+              <img class="mask-img" src="~/common/image/shenfenzheng.png_tu_001.png">
+              <img :src="identityInfo.idCardBackPhoto">
+            </div>
+          </div>
         </div>
       </div>
       <div class="text-center tip" :class="{'v-hide': !(identityInfo.idCardFrontPhoto || identityInfo.idCardBackPhoto)}">请核对以下信息，内容有误请修改</div>
     </div>
-    <div class="identity-detail">
-      <p>姓名：Mike</p>
-      <p>身份证号：430990990990909876</p>
-      <p>出生年月：1985年4月</p>
-      <p>民族：汉</p>
-      <p>住址：惺惺惜惺惺想</p>
-      <p>有效期：2014.09.09-2024.09.09</p>
+    <div class="identity-detail" v-show="identityFrontStatus || identityBackStatus">
+      <p v-show="identityFrontStatus">姓名：{{identityInfo.realName}}</p>
+      <p v-show="identityFrontStatus">身份证号：{{identityInfo.idNumber}}</p>
+      <p v-show="identityFrontStatus">出生年月：{{identityInfo.birth}}</p>
+      <p v-show="identityFrontStatus">民族：{{identityInfo.nation}}</p>
+      <p v-show="identityFrontStatus">住址：{{identityInfo.idAddress}}</p>
+      <p v-show="identityBackStatus">签发机关：{{identityInfo.signOrg}}</p>
+      <p v-show="identityBackStatus">有效期：{{identityInfo.effectTime}}</p>
     </div>
     <div class="list-view h4">
-      <div class="item flex">
+      <div class="item flex" @click="faceRecognition()">
         <div class="flex-grow">人脸识别</div>
-        <div>去验证</div>
+        <div>{{identityInfo.faceRecognition === 1 ? '验证成功' : (identityInfo.faceRecognition === 0 ? '验证失败' : '去验证')}}</div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex" @click="addressChanged()">
@@ -56,7 +69,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost} from 'common/js/drivers'
+  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition} from 'common/js/drivers'
   import Picker from 'better-picker'
   import * as types from 'config/api-type'
   import {educational, maritalStatus, provinces, citys, dists} from 'common/js/constants'
@@ -74,24 +87,28 @@
           idAddress: '',
           signOrg: '',
           effectTime: '',
-          faceRecognitionFlag: '',
+          faceRecognition: '',
+          faceRecognitionSimilarity: '',
           livingProvince: '',
           livingCity: '',
           livingDistrict: '',
           livingAddress: '',
           highestDegree: '',
           maritalStatus: ''
-        }
+        },
+        identityFrontStatus: false,
+        identityBackStatus: false
       }
     },
     methods: {
       confirmIdentity() {
         let {identityInfo} = this.$data
+        let self = this
         doPost(types.IDENTITY_POST, identityInfo, {
           success: function(oData) {
             if (oData.status === '0') {
-              this.$router.push({
-                path: '/identity-show'
+              self.$router.push({
+                path: '/identity-detail'
               })
             }
           },
@@ -110,6 +127,62 @@
       },
       addressChanged() {
         this.addressPicker.show()
+      },
+      faceRecognition() {
+        let self = this
+        faceRecognition({
+          success: function(oData) {
+            if (oData.status === '0') {
+              let {faceRecognition, faceRecognitionSimilarity} = oData.data
+              self.identityInfo.faceRecognitionSimilarity = faceRecognitionSimilarity
+              self.identityInfo.faceRecognition = faceRecognition
+            }
+          },
+          error: function(oData) {
+            //
+          }
+        })
+      },
+      idCardFrontClicked() {
+        let self = this
+        idCardFrontInfo({
+          success: function(oData) {
+            if (oData.status === '0') {
+              self.identityFrontStatus = true
+              let {idCardFrontPhoto, realName, idNumber, birth, nation, idAddress} = oData.data
+              self.identityInfo.idCardFrontPhoto = idCardFrontPhoto
+              self.identityInfo.realName = realName
+              self.identityInfo.idNumber = idNumber
+              self.identityInfo.birth = birth
+              self.identityInfo.nation = nation
+              self.identityInfo.idAddress = idAddress
+            } else {
+              self.identityFrontStatus = false
+            }
+          },
+          error: function(oData) {
+            self.identityFrontStatus = false
+          }
+        })
+      },
+      idCardBackClicked() {
+        var self = this
+        idCardBackInfo({
+          success: function(oData) {
+            if (oData.status === '0') {
+              self.identityBackStatus = true
+              let {idCardBackPhoto, signOrg, effectTime} = oData.data
+              self.identityInfo.idCardBackPhoto = idCardBackPhoto
+              self.identityInfo.signOrg = signOrg
+              self.identityInfo.effectTime = effectTime
+            } else {
+              self.identityBackStatus = false
+            }
+          },
+          error: function(oData) {
+            self.identityBackStatus = false
+          }
+        })
       },
       _initMaritalPicker() {
         this.maritalPicker = new Picker({
@@ -205,6 +278,16 @@
         margin-right: .1rem
       &:last-child
         margin-left: .1rem
+    .img-box
+      position: relative
+      .mask-box
+        .mask-img
+          background: rgba(0,0,0,.5)
+          border-radius: .06rem
+          position: absolute
+          width: 100%
+          top: 0
+          left: 0
   .identity-detail
     padding: .17rem .4rem
     background: #fff

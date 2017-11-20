@@ -47,11 +47,9 @@
   export default {
     data() {
       return {
-        msg: 'hello world',
         isSend: false,
         delayTime: 0,
         bankInfo: {
-          userId: '',
           accountName: '',
           accountNumber: '',
           reservedPhone: '',
@@ -142,7 +140,7 @@
         background-color: #eeeff3
         font-size: .28rem
         color: #000000
-        padding-left: .3rem
+        padding: .2rem 0 .2rem .3rem
         width: 100%
         outline: none
       span
@@ -156,7 +154,7 @@
         color: #fff
         font-size: .28rem
         border-radius: .06rem
-  
+
   .input-validate
     margin-left: 0 !important
 
@@ -167,23 +165,23 @@
     margin 1rem .4rem
     background-color: #ffa800
     color: #fff
-    
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
-    color: #aeaeae; 
+
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #aeaeae;
     padding-top: -.05rem
-  } 
-  input:-moz-placeholder, textarea:-moz-placeholder { 
-    color: #aeaeae; 
+  }
+  input:-moz-placeholder, textarea:-moz-placeholder {
+    color: #aeaeae;
     padding-top: -.05rem
-  } 
-  input::-moz-placeholder, textarea::-moz-placeholder { 
-    color: #aeaeae; 
+  }
+  input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #aeaeae;
     padding-top: -.05rem
-  } 
-  input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
-    color: #aeaeae; 
+  }
+  input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: #aeaeae;
     padding-top: -.05rem
-  } 
+  }
 
   .footer
     position: fixed

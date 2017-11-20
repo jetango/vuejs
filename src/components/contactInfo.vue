@@ -52,7 +52,7 @@
 <script type="text/ecmascript-6">
   import {relationship} from 'common/js/constants'
   import Picker from 'better-picker'
-  import {doPost, chooseContact} from 'common/js/drivers'
+  import {doPost, chooseContact, popup} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -99,13 +99,16 @@
       },
       confirmContactInfo() {
         let {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile} = this.$data
-        doPost(types.CONTACT_POST, {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile}, {
-          success: function(oData) {
-            // TODO
-          },
-          error: function(oData) {
-          }
-        })
+        let params = {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile}
+        if (this._validate(params)) {
+          doPost(types.CONTACT_POST, params, {
+            success: function(oData) {
+              // TODO
+            },
+            error: function(oData) {
+            }
+          })
+        }
       },
       _initRelationshipPicker() {
         this.directContactPicker = new Picker({
@@ -113,6 +116,10 @@
           'selectedIndex': [0]
         })
         this.directContactPicker.on('picker.select', (val, selectedIndex) => {
+          if (this.majorContactRelation && val[0] === this.majorContactRelation) {
+            popup('', '', '联系人关系重复选择！')
+            return false
+          }
           this.directContactRelation = val[0]
         })
         this.majorContactPicker = new Picker({
@@ -120,19 +127,64 @@
           'selectedIndex': [0]
         })
         this.majorContactPicker.on('picker.select', (val, selectedIndex) => {
+          if (this.directContactRelation && val[0] === this.directContactRelation) {
+            popup('', '', '联系人关系重复选择！')
+            return false
+          }
           this.majorContactRelation = val[0]
         })
       },
       _destroyPicker() {
         // this.directContactPicker.hide()
         // this.majorContactPicker.hide()
+      },
+      _validate(params) {
+        let {directContactRelation, directContactMobile, majorContactRelation, majorContactMobile} = params
+        if (!directContactRelation) {
+          popup('', '', '请选择直接联系人！')
+          return false
+        } else if (!directContactMobile) {
+          popup('', '', '请选择直接联系人！')
+          return false
+        } else if (!majorContactRelation) {
+          popup('', '', '请选择重要联系人！')
+          return false
+        } else if (!majorContactMobile) {
+          popup('', '', '请选择重要联系人！')
+          return false
+        } else if (majorContactMobile === directContactMobile) {
+          popup('', '', '手机号码不可以相同！')
+          return false
+        }
       }
     },
     mounted() {
-      this._initRelationshipPicker()
+      let self = this
+      if (this.userId) {
+        doPost(types.CONTACT_FETCH, null, {
+          success: function(oData) {
+            if (oData.status === '0') {
+              let {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile} = oData.data
+              self.directContactRelation = directContactRelation
+              self.directContactName = directContactName
+              self.directContactMobile = directContactMobile
+              self.majorContactRelation = majorContactRelation
+              self.majorContactName = majorContactName
+              self.majorContactMobile = majorContactMobile
+            }
+          },
+          error: function(oData) {
+          }
+        })
+      } else {
+        this._initRelationshipPicker()
+      }
     },
     beforeDestroy() {
       this._destroyPicker()
+    },
+    created() {
+      this.userId = this.$route.query.userId
     }
   }
 </script>
