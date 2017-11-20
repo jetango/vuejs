@@ -84,7 +84,7 @@ export default class Driver {
    */
   navigate(pageId, title, param, cb) {
     if (!cb) {
-      cb = function() {}
+      cb = function () { }
     }
     let name = this.proty.registCB(cb)
     let url = `plugin://navigate?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}&callback=${encodeURIComponent(name)}`
@@ -376,7 +376,7 @@ export default class Driver {
    * @return {null}
    */
   openAlbum(pageId, title, param) {
-    let url = `plugin://openAlbum?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&=param=${encodeURIComponent(JSON.stringify(param))}`
+    let url = `plugin://openAlbum?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}`
     this._iosCall(url)
   }
 
@@ -398,6 +398,41 @@ export default class Driver {
   faceRecognition(cb) {
     let name = this.proxy.registCB(cb)
     let url = `plugin://faceRecognition?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
+
+  // 芝麻认证
+  sesameCertification(cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://sesameCertification?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
+
+  // 手机运营商认证
+  phoneCertification(cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://phoneCertification?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
+
+  // 银联支付
+  unionPay(param, cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://unionPay?callback=${encodeURIComponent(name)}&param=${encodeURIComponent(JSON.stringify(param))}`
+    this._iosCall(url)
+  }
+
+  // 微信支付
+  weChatPay(param, cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://weChatPay?callback=${encodeURIComponent(name)}&param=${encodeURIComponent(JSON.stringify(param))}`
+    this._iosCall(url)
+  }
+
+  // 支付宝支付
+  alipay(param, cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://alipay?callback=${encodeURIComponent(name)}&param=${encodeURIComponent(JSON.stringify(param))}`
     this._iosCall(url)
   }
 }

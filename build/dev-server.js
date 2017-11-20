@@ -282,21 +282,19 @@ apiRoutes.post('/repay/schedule', function(req, res) {
   var result = {
     status: 0,
     msg: 'success',
-    data: {
-      repayScheduleList: [{
-        repayAmount: '1200',
-        repayTime: '2017-11-18',
-        repayStatus: 'F05'
-      }, {
-        repayAmount: '1300',
-        repayTime: '2017-11-23',
-        repayStatus: 'F05'
-      }, {
-        repayAmount: '1500',
-        repayTime: '2017-12-19',
-        repayStatus: 'F07'
-      }]
-    }
+    data: [{
+      repayAmount: '1200',
+      repayTime: '2017-11-18',
+      repayStatus: 'F05'
+    }, {
+      repayAmount: '1300',
+      repayTime: '2017-11-23',
+      repayStatus: 'F05'
+    }, {
+      repayAmount: '1500',
+      repayTime: '2017-12-19',
+      repayStatus: 'F07'
+    }]
   }
   responseData(res, result)
 })

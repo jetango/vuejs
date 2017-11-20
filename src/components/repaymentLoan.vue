@@ -29,7 +29,7 @@
         doPost(types.REPAY_SCHEDULE, {}, {
           success: (oData) => {
             console.log(oData)
-            this.items = oData.data.repayScheduleList
+            this.items = oData.data
           }
         })
       },

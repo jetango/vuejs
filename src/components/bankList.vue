@@ -4,7 +4,7 @@
       <div class="bank-name  flex flex-item active">
         <i class="icon iconfont icon-161"></i>
         <p class="flex-grow" v-html="bank.bankName"></p>
-        <i class="icon iconfont icon-117"></i>
+        <!-- <i class="icon iconfont icon-117"></i> -->
       </div>
       <div class="bank-number">
         <p class="bank-number flex flex-item">

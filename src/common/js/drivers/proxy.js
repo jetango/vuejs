@@ -44,7 +44,7 @@ export default class Proxy {
     }
     if (this.cbFunc[name] && this.cbFunc[name].hasOwnProperty) {
       if (!this.cbFunc[name].hasOwnProperty['error']) {
-        this.cbFunc[name].error = function() {
+        this.cbFunc[name].error = function () {
         }
       }
     }
@@ -76,7 +76,7 @@ export default class Proxy {
     if (typeof msg === 'object') {
       try {
         msg = msg.message
-      } catch (e) {}
+      } catch (e) { }
     }
     this.__current__.log(type, msg)
   }
@@ -171,5 +171,25 @@ export default class Proxy {
 
   faceRecognition(cb) {
     this.__current__.faceRecognition(cb)
+  }
+
+  sesameCertification(cb) {
+    this.__current__.sesameCertification(cb)
+  }
+
+  phoneCertification(cb) {
+    this.__current__.phoneCertification(cb)
+  }
+
+  unionPay(param, cb) {
+    this.__current__.unionPay(param, cb)
+  }
+
+  weChatPay(param, cb) {
+    this.__current__.weChatPay(param, cb)
+  }
+
+  alipay(param, cb) {
+    this.__current__.alipay(param, cb)
   }
 }

@@ -1,12 +1,12 @@
 import Proxy from 'common/js/drivers/proxy'
-import {Base64} from 'js-base64'
+import { Base64 } from 'js-base64'
 
 let callbackContent = {}
 let _proxy = Proxy.getInstance()
 
 export function setCallBackContent(func, index, partten) {
   if (!callbackContent.hasOwnProperty(func)) {
-    callbackContent[func] = {count: 0, data: {}}
+    callbackContent[func] = { count: 0, data: {} }
   }
 
   callbackContent[func].count++
@@ -108,7 +108,7 @@ export function setBackBehavior(target) {
 }
 
 export function getUrl(pageId, func) {
-  _proxy.getUrl(pageId, function(data) {
+  _proxy.getUrl(pageId, function (data) {
     func(data.data.url)
   })
 }
@@ -147,4 +147,24 @@ export function idCardBackInfo(cb) {
 
 export function faceRecognition(cb) {
   _proxy.faceRecognition(cb)
+}
+
+export function sesameCertification(cb) {
+  _proxy.sesameCertification(cb)
+}
+
+export function phoneCertification(cb) {
+  _proxy.phoneCertification(cb)
+}
+
+export function unionPay(param, cb) {
+  _proxy.unionPay(cb)
+}
+
+export function weChatPay(param, cb) {
+  _proxy.weChatPay(cb)
+}
+
+export function alipay(param, cb) {
+  _proxy.alipay(cb)
 }

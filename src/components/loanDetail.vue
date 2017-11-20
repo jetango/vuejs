@@ -89,7 +89,6 @@
     methods: {
       init: function() {
         let param = {
-          userId: '123456',
           orderNo: '1681688'
         }
         doPost(types.BORROW_DETAIL, param, {

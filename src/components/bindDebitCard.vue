@@ -81,22 +81,22 @@
       submit: function() {
         let reg = new RegExp('^[0-9]*$')
         if (this.bankInfo.accountName === '') {
-          popup(null, '请输入姓名')
+          popup(null, null, '请输入姓名')
           return false
         } else if (this.bankInfo.accountNumber === '') {
-          popup(null, '请输入银行卡号')
+          popup(null, null, '请输入银行卡号')
           return false
         } else if (this.bankInfo.reservedPhone === '') {
-          popup(null, '请输入手机号')
+          popup(null, null, '请输入手机号')
           return false
         } else if (this.bankInfo.smsCode === '') {
-          popup(null, '请输入验证码')
+          popup(null, null, '请输入验证码')
           return false
         } else if (!reg.test(this.bankInfo.accountNumber)) {
-          popup(null, '银行卡格式不对，请重新输入')
+          popup(null, null, '银行卡格式不对，请重新输入')
           return false
         } else if (!reg.test(this.bankInfo.reservedPhone) || this.bankInfo.reservedPhone.length !== 11) {
-          popup(null, '手机号输入不对，请重新输入')
+          popup(null, null, '手机号输入不对，请重新输入')
           return false
         }
         let param = this.bankInfo

@@ -44,7 +44,7 @@ export default class Driver {
         status: 1,
         error: '',
         message: '',
-        data: {result: 1}
+        data: { result: 1 }
       })
     } else if (type === 'OKCANCEL') {
       if (confirm(desc)) {
@@ -52,14 +52,14 @@ export default class Driver {
           status: 1,
           error: '',
           message: '',
-          data: {result: 1}
+          data: { result: 1 }
         })
       } else {
         window.callback(name, {
           status: 1,
           error: '',
           message: '',
-          data: {result: 0}
+          data: { result: 0 }
         })
       }
     }
@@ -252,5 +252,45 @@ export default class Driver {
 
   hideBarButton(pageId, param) {
     console.log(pageId, param)
+  }
+
+  // 芝麻认证
+  sesameCertification(cb) {
+    let name = this.proxy.registCB(cb)
+    window.callback(name, {
+      status: '0' // 0 认证失败   1认证成功
+    })
+  }
+
+  // 手机运营商认证
+  phoneCertification(cb) {
+    let name = this.proxy.registCB(cb)
+    window.callback(name, {
+      status: '0' // 0 认证失败   1认证成功
+    })
+  }
+
+  // 银联支付
+  unionPay(param, cb) {
+    let name = this.proxy.registCB(cb)
+    window.callback(name, {
+      status: '0' // 0 认证失败   1认证成功
+    })
+  }
+
+  // 微信支付
+  weChatPay(param, cb) {
+    let name = this.proxy.registCB(cb)
+    window.callback(name, {
+      status: '0' // 0 认证失败   1认证成功
+    })
+  }
+
+  // 支付宝支付
+  alipay(param, cb) {
+    let name = this.proxy.registCB(cb)
+    window.callback(name, {
+      status: '0'
+    })
   }
 }
