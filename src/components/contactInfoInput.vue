@@ -106,6 +106,7 @@
               // TODO
             },
             error: function(oData) {
+              popup(null, null, oData.msg || '信息保存失败，请稍后再试')
             }
           })
         }

@@ -13,22 +13,24 @@
         </p>
       </div>
     </div>
+    <div v-if="bankList && bankList.length == 0">
+      <no-data title="暂无绑定银行卡"></no-data>
+    </div>
     <a @click="addBankCard" class="button button-primary">去添加</a>
   </div>
 </template>
 
 <script>
+  import NoData from 'base/noData/noData'
   import {
-    addSessionStorage
-  } from 'common/js/dom'
-  import {
-    doPost
+    doPost,
+    popup
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        bankList: []
+        bankList: null
       }
     },
     created: function() {
@@ -40,19 +42,27 @@
           success: (oData) => {
             console.log(oData)
             this.bankList = oData.data
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '获取数据失败，请稍后再试')
           }
         })
       },
       choseBankCard: function(obj) {
-        addSessionStorage('payCard', JSON.stringify({
-          bankName: obj.bankName,
-          accountNumber: obj.accountNumber
-        }))
-        this.$router.push('loan-confirm')
+        let param = this.$route.query
+        param.bankName = obj.bankName
+        param.accountNumber = obj.accountNumber
+        this.$router.push({
+          path: '/loan-confirm',
+          query: param
+        })
       },
       addBankCard: function() {
         this.$router.push('debit-card')
       }
+    },
+    components: {
+      NoData
     }
   }
 </script>

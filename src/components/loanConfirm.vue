@@ -3,29 +3,29 @@
     <div class="loan-info">
       <div class="loan-info-item flex flex-item active">
         <span>借款金额:</span>
-        <span v-html="loanInfo.loanAmount + '元'"></span>
+        <span v-text="loanInfo.loanAmount + '元'"></span>
       </div>
       <div class="loan-info-item flex flex-item">
         <span>借款时间:</span>
-        <span v-html="loanInfo.borrowingTime + '天'"></span>
+        <span v-text="loanInfo.borrowingTime + '天'"></span>
       </div>
     </div>
     <div class="loan-info">
       <div class="loan-info-item item-middle flex flex-item active">
         <span>利息:</span>
-        <span v-html="loanInfo.interest + '元'"></span>
+        <span v-text="loanInfo.interest + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
         <span>综合费用:</span>
-        <span v-html="loanInfo.syntheticalFee + '元'"></span>
+        <span v-text="loanInfo.syntheticalFee + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
         <span>到账金额:</span>
-        <span v-html="loanInfo.realLoanAmount + '元'"></span>
+        <span v-text="loanInfo.realLoanAmount + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item">
         <span>应还金额:</span>
-        <span v-html="loanInfo.repayTotalAmount + '元'"></span>
+        <span v-text="loanInfo.repayTotalAmount + '元'"></span>
         <a class="flex flex-item flex-grow" @click="seeDetail">
           查看明细
           <i class="icon iconfont icon-117"></i>
@@ -42,15 +42,15 @@
         <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
       <!-- <div class="loan-info-item flex flex-item active">
-                  <span>手机号:</span>
-                  <span class="phone-item">15959369312</span>
-                </div>
-                <div class="loan-info-item input-validate flex flex-item">
-                  <span>手机号:</span>
-                  <span></span>
-                  <input type="text" placeholder="请输入验证码">
-                  <div>获取验证码</div>
-                </div> -->
+                      <span>手机号:</span>
+                      <span class="phone-item">15959369312</span>
+                    </div>
+                    <div class="loan-info-item input-validate flex flex-item">
+                      <span>手机号:</span>
+                      <span></span>
+                      <input type="text" placeholder="请输入验证码">
+                      <div>获取验证码</div>
+                    </div> -->
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
       <i @click="agreeProtocols" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
@@ -92,27 +92,42 @@
       }
     },
     created: function() {
-      let {financeProductId, loanAmount, borrowingTime} = this.$route.query
-      this.params = {financeProductId, loanAmount, borrowingTime}
+      let {
+        financeProductId,
+        loanAmount,
+        borrowingTime
+      } = this.$route.query
+      this.params = {
+        financeProductId,
+        loanAmount,
+        borrowingTime
+      }
     },
     mounted() {
       this.init()
     },
     methods: {
       init: function() {
-        if (sessionStorage.getItem('payCard')) { // 已经选择过到账账户
-          let payCard = JSON.parse(sessionStorage.getItem('payCard'))
-          this.bankCard = payCard
-          this.bankCard.flag = true
+        let bankName = this.$route.query.bankName
+        let accountNumber = this.$route.query.accountNumber
+        if (bankName && accountNumber) { // 已经选择过到账账户
+          this.bankCard = {
+            bankName: bankName,
+            accountNumber: accountNumber,
+            flag: true
+          }
         }
         doPost(types.BORROW, this.params, {
           success: (oData) => {
             this.loanInfo = oData.data
-            if (oData.data.bankList.length !== 0 && !sessionStorage.getItem('payCard')) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
+            if (oData.data.bankList.length !== 0 && !this.$route.query.bankName) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
               let payCard = oData.data.bankList[0]
               this.bankCard = payCard
               this.bankCard.flag = true
             }
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '信息获取失败，请稍后再试！')
           }
         })
       },
@@ -122,13 +137,15 @@
       submit: function() {
         let self = this
         if (this.isChosed) {
-          popup(null, '请同意用户服务协议')
+          popup(null, null, '请同意用户服务协议')
           return
         }
         let param = this.loanInfo
-        let {financeProductId} = this.params
+        let {
+          financeProductId
+        } = this.params
         param.financeProductId = financeProductId
-        param.annualizedRate = '2.5%'
+        param.annualizedRate = '2.5'
         param.bankName = '工商银行'
         param.accountNumber = '6228000666688880000'
         doPost(types.BORROW_CONFIRM, param, {
@@ -137,11 +154,21 @@
             if (oData.status === 0) {
               this.$router.push('loan-result')
             }
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '提交失败，请稍后再试')
           }
         })
       },
       choseBankCard: function() {
-        this.$router.push('bank-list')
+        this.$router.push({
+          path: 'bank-list',
+          query: {
+            financeProductId: 'test2',
+            loanAmount: 1000,
+            borrowingTime: 7
+          }
+        })
       },
       seeDetail: function() {
         setTimeout(() => {

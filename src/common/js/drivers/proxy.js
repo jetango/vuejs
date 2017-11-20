@@ -43,7 +43,7 @@ export default class Proxy {
       this.cbFunc[name] = obj
     }
     if (this.cbFunc[name] && this.cbFunc[name].hasOwnProperty) {
-      if (!this.cbFunc[name].hasOwnProperty['error']) {
+      if (!this.cbFunc[name].hasOwnProperty('error')) {
         this.cbFunc[name].error = function () {
         }
       }

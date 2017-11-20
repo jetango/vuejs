@@ -168,7 +168,7 @@ apiRoutes.post('/borrow/confirm', function (req, res) {
     status: 0,
     msg: 'success',
     data: {
-
+      
     }
   }
   responseData(res, result)
@@ -338,8 +338,8 @@ apiRoutes.post('/contact/fetch', function(req, res) {
  */
 apiRoutes.post('/smscode', function(req, res) {
   var result = {
-    status: '0',
-    msg: 'success',
+    status: '1',
+    msg: '',
     data: {
       "api": "smscode"
     }

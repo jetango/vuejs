@@ -54,7 +54,8 @@
           accountNumber: '',
           reservedPhone: '',
           smsCode: ''
-        }
+        },
+        submitStatus: true
       }
     },
     methods: {
@@ -75,6 +76,9 @@
               }
               this.delayTime--
             }, 1000)
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '校验码发送失败，请稍后再试！')
           }
         })
       },
@@ -100,11 +104,18 @@
           return false
         }
         let param = this.bankInfo
-        doPost(types.BANK, param, {
-          success: (oData) => {
-            console.log(oData)
-          }
-        })
+        if (this.submitStatus) {
+          this.submitStatus = false
+          doPost(types.BANK, param, {
+            success: (oData) => {
+              console.log(oData)
+              this.submitStatus = true
+            },
+            error: (oData) => {
+              popup(null, null, oData.msg || '绑定银行卡失败，请稍后再试！')
+            }
+          })
+        }
       }
     },
     components: {

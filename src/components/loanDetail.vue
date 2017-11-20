@@ -60,7 +60,7 @@
   import FooterNotice from 'base/footerNotice/footer-notice'
   import * as types from 'config/api-type'
   import {
-    doPost
+    doPost, popup
   } from 'common/js/drivers'
   export default {
     data() {
@@ -95,6 +95,9 @@
           success: (oData) => {
             console.log('oData', oData)
             this.$data.loanInfo = oData.data
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '获取数据失败，请稍后再试！')
           }
         })
       },

@@ -48,7 +48,7 @@
             self.borrowList = oData.data.borrowList
           },
           error: function(oData) {
-            popup('', '信息错误', oData.msg)
+            popup('', '信息错误', oData.msg || '获取数据失败，请稍后再试！')
           }
         })
       }

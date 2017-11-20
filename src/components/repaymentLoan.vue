@@ -7,18 +7,23 @@
       </div>
       <i class="icon iconfont icon-117"></i>
     </div>
+    <div v-if="items && items.length == 0">
+      <no-data title="暂无借款记录"></no-data>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import NoData from 'base/noData/noData'
   import {
-    doPost
+    doPost,
+    popup
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        items: []
+        items: null
       }
     },
     created: function() {
@@ -30,12 +35,18 @@
           success: (oData) => {
             console.log(oData)
             this.items = oData.data
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '获取数据失败，请稍后再试！')
           }
         })
       },
       toPage: function(loanInfo) {
         this.$router.push('repayment-tip')
       }
+    },
+    components: {
+      NoData
     }
   }
 </script>

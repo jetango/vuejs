@@ -69,7 +69,7 @@
             }
           },
           error: function(oData) {
-            popup('', '', oData.msg)
+            popup('', '', oData.msg || '信息获取失败，请稍后再试')
           }
         })
       }

@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost} from 'common/js/drivers'
+  import {doPost, popup} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -60,7 +60,8 @@
               self.identityInfo = oData.data
             }
           },
-          error: function() {
+          error: function(oData) {
+            popup(null, null, oData.msg || '信息获取失败，请稍后再试！')
           }
         })
       }

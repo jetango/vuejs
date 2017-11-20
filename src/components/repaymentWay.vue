@@ -17,7 +17,8 @@
 
 <script type="text/ecmascript-6">
   import {
-    doPost
+    doPost,
+    popup
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -60,6 +61,9 @@
               })
             })
             this.confirmPayWay = this.staticPayWay[0]
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '获取数据失败，请稍后再试！')
           }
         })
       },

@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost} from 'common/js/drivers'
+  import {doPost, popup} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   let params = {
@@ -58,6 +58,7 @@
             }
           },
           error: function(oData) {
+            popup(null, null, oData.msg || '获取数据失败，请稍后再试！')
           }
         })
       },
