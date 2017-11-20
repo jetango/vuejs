@@ -7,7 +7,7 @@
       </div>
       <div class="loan-info-item flex flex-item">
         <span>借款时间:</span>
-        <span v-text="loanInfo.borrowingTime + '天'"></span>
+        <span v-html="loanInfo.borrowTime + '天'"></span>
       </div>
     </div>
     <div class="loan-info">
@@ -73,7 +73,7 @@
       return {
         loanInfo: {
           loanAmount: '',
-          borrowingTime: '',
+          borrowTime: '',
           interest: '',
           syntheticalFee: '',
           realLoanAmount: '',
@@ -92,16 +92,8 @@
       }
     },
     created: function() {
-      let {
-        financeProductId,
-        loanAmount,
-        borrowingTime
-      } = this.$route.query
-      this.params = {
-        financeProductId,
-        loanAmount,
-        borrowingTime
-      }
+      let {financeProductId, loanAmount, borrowTime} = this.$route.query
+      this.params = {financeProductId, loanAmount, borrowTime}
     },
     mounted() {
       this.init()

@@ -105,17 +105,17 @@ apiRoutes.post('/borrow/detail', function (req, res) {
     status: 0,
     msg: 'success',
     data: {
-      applicationTime: '2017-11-11', //申请时间
-      orderNo: '1681688', //借款编号
-      loanAmount: '1000', //借款金额
-      borrowingTime: '7', //借款时长
-      loanTime: '2017-11-11', //放款日期
-      promiseRepaymentDate: '2017-11-18',//约定还款时间
-      actualRepaymentDate: '2017-11-18', //实际还款时间
-      interest: '100',//利息
-      accountManageFee: '100', //账户管理费
-      repayAmount: '1200',//到期还款额
-      statusDescription: '审核通过' //状态说明
+      "loanTime": "2017-11-11",     //借款申请时间
+      "orderNo": "1681688",     //借款编号
+      "loanAmount": "1000", //借款金额
+      "borrowingTime": "7", //借款时长
+      "loanTime": "2017-11-11", //放款日期
+      "promiseRepaymentDate": "2017-11-18", //约定还款时间
+      "actualRepaymentDate": "2017-11-18", //实际还款时间
+      "interest": "100", //利息
+      "syntheticalFee": "100", //综合费用
+      "repayTotalAmount": "1200", //到期还款额
+      "statusDescription": "审核通过" //状态说明
     }
   }
   responseData(res, result)
@@ -255,22 +255,20 @@ apiRoutes.post('/borrow/record', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
-    data: {
-      'borrowList': [
+    data:  [
         {
           loanAmount: 1200,
           orderStatus: 'F01',
-          borrowingTime: '7',
+          borrowTime: '7',
           orderNo: '201711160036A'
         },
         {
           loanAmount: 1000,
           orderStatus: 'F04',
-          borrowingTime: '14',
+          borrowTime: '14',
           orderNo: '201711160036B'
         }
       ]
-    }
   }
   responseData(res, result)
 })

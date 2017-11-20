@@ -69,7 +69,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition} from 'common/js/drivers'
+  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition, popup} from 'common/js/drivers'
   import Picker from 'better-picker'
   import * as types from 'config/api-type'
   import {educational, maritalStatus, provinces, citys, dists} from 'common/js/constants'
@@ -104,20 +104,27 @@
       confirmIdentity() {
         let {identityInfo} = this.$data
         let self = this
-        doPost(types.IDENTITY_POST, identityInfo, {
-          success: function(oData) {
-            if (oData.status === '0') {
-              self.$router.push({
-                path: '/identity-detail'
-              })
-            }
-          },
-          error: function(oData) {
-            if (oData.status === 0) {
-              // TODO
-            }
+        if (this._validate()) {
+          if (this.loading) {
+            return
+          } else {
+            this.loading = true
           }
-        })
+          doPost(types.IDENTITY_POST, identityInfo, {
+            success: function(oData) {
+              self.loading = false
+              if (oData.status === '0') {
+                self.$router.push({
+                  path: '/identity-detail'
+                })
+              }
+            },
+            error: function(oData) {
+              self.loading = false
+              popup('', '', oData.msg || '保存信息失败')
+            }
+          })
+        }
       },
       maritalChanged() {
         this.maritalPicker.show()
@@ -130,18 +137,23 @@
       },
       faceRecognition() {
         let self = this
-        faceRecognition({
-          success: function(oData) {
-            if (oData.status === '0') {
-              let {faceRecognition, faceRecognitionSimilarity} = oData.data
-              self.identityInfo.faceRecognitionSimilarity = faceRecognitionSimilarity
-              self.identityInfo.faceRecognition = faceRecognition
+        let {idCardFrontPhoto, idCardBackPhoto} = this.identityInfo
+        if (!idCardFrontPhoto || !idCardBackPhoto) {
+          popup('', '', '请先选择身份证信息！')
+        } else {
+          faceRecognition({
+            success: function(oData) {
+              if (oData.status === '0') {
+                let {faceRecognition, faceRecognitionSimilarity} = oData.data
+                self.identityInfo.faceRecognitionSimilarity = faceRecognitionSimilarity
+                self.identityInfo.faceRecognition = faceRecognition
+              }
+            },
+            error: function(oData) {
+              popup('', '', oData.msg || '请重新进行人脸识别！')
             }
-          },
-          error: function(oData) {
-            //
-          }
-        })
+          })
+        }
       },
       idCardFrontClicked() {
         let self = this
@@ -150,7 +162,7 @@
             if (oData.status === '0') {
               self.identityFrontStatus = true
               let {idCardFrontPhoto, realName, idNumber, birth, nation, idAddress} = oData.data
-              self.identityInfo.idCardFrontPhoto = idCardFrontPhoto
+              self.identityInfo.idCardFrontPhoto = `data:image/png;base64,${idCardFrontPhoto}`
               self.identityInfo.realName = realName
               self.identityInfo.idNumber = idNumber
               self.identityInfo.birth = birth
@@ -172,7 +184,7 @@
             if (oData.status === '0') {
               self.identityBackStatus = true
               let {idCardBackPhoto, signOrg, effectTime} = oData.data
-              self.identityInfo.idCardBackPhoto = idCardBackPhoto
+              self.identityInfo.idCardBackPhoto = `data:image/png;base64,${idCardBackPhoto}`
               self.identityInfo.signOrg = signOrg
               self.identityInfo.effectTime = effectTime
             } else {
@@ -183,6 +195,42 @@
             self.identityBackStatus = false
           }
         })
+      },
+      _validate() {
+        let {idCardFrontPhoto, idCardBackPhoto, faceRecognition, livingProvince, livingAddress, highestDegree, maritalStatus} = this.identityInfo
+        if (!idCardFrontPhoto) {
+          popup('', '', '请验证身份证人像面！')
+          return false
+        }
+        if (!idCardBackPhoto) {
+          popup('', '', '请验证身份证国徽面！')
+          return false
+        }
+        if (faceRecognition === '') {
+          popup('', '', '请验证人脸识别！')
+          return false
+        }
+        if (!livingProvince) {
+          popup('', '', '请选择省市区！')
+          return false
+        }
+        if (!livingAddress) {
+          popup('', '', '请填写详细信息！')
+          return false
+        }
+        if (!livingAddress) {
+          popup('', '', '请填写详细信息！')
+          return false
+        }
+        if (!highestDegree) {
+          popup('', '', '请选择最高学历！')
+          return false
+        }
+        if (!maritalStatus) {
+          popup('', '', '请选择婚姻状况！')
+          return false
+        }
+        return true
       },
       _initMaritalPicker() {
         this.maritalPicker = new Picker({

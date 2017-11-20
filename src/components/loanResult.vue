@@ -1,39 +1,50 @@
 <template>
   <div class="">
     <div class="text-center header flex">
-      <a @click="checkLoanDetail" class="visibility">借款详情</a>
+      <a class="visibility">借款详情</a>
       <div class="flex-grow title">
-        借款金额：800元
+        借款金额：{{loadResult.loanAmount}}元
       </div>
       <a @click="checkLoanDetail" class="detail">借款详情</a>
     </div>
     <section class="time-line">
-      <div class="flex block first actived">
+      <div class="flex block first" :class="{'actived': orderStatusLength >= 1}">
         <div class="icon">
           <i class="iconfont icon-correct-marked"></i>
         </div>
         <div class="content flex-grow">
-          <h1>审核通过</h1>
-          <h4>审核已经通过！感谢支持！</h4>
-          <p><i class="iconfont icon-127"></i>2017-10-27 16:24</p>
+          <h1>审核中</h1>
+          <h4>{{orderStatusLength >= 1 ? '审核已经通过！感谢支持！' : '请耐心等待审核预计需要1分钟'}}</h4>
+          <p v-show="orderStatusLength >= 1"><i class="iconfont icon-127"></i>{{orderStatusLength >= 1 ? loadResult.orderStatusList[0].statusTime : ''}}</p>
         </div>
       </div>
-      <div class="flex block actived">
+      <div class="flex block"  :class="{actived: orderStatusLength >= 2}">
         <div class="icon">
           <i class="iconfont icon-correct-marked"></i>
         </div>
         <div class="content flex-grow">
-          <h1>确认银行卡</h1>
-          <h4>借款将打到您的招商银行卡尾号4444的账户</h4>
-          <p><i class="iconfont icon-127"></i>2017-10-27 16:24</p>
+          <h1>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '未通过审核' : '审核完成'}}</h1>
+          <h4>123</h4>
+          <p v-show="orderStatusLength >= 2"><i class="iconfont icon-127"></i>{{orderStatusLength >= 2 ? loadResult.orderStatusList[1].statusTime : ''}}</p>
         </div>
       </div>
-      <div class="flex block last">
+      <div class="flex block"  :class="{actived: orderStatusLength >= 3}">
         <div class="icon">
           <i class="iconfont icon-correct-marked"></i>
         </div>
         <div class="content flex-grow">
-          <h1>身份认证</h1>
+          <h1>待放款</h1>
+          <h4>请耐心等待预计需要1分钟</h4>
+          <p v-show="orderStatusLength >= 3"><i class="iconfont icon-127"></i>{{orderStatusLength >= 3 ? loadResult.orderStatusList[2].statusTime : ''}}</p>
+        </div>
+      </div>
+      <div class="flex block last" :class="{actived: orderStatusLength >= 4}">
+        <div class="icon">
+          <i class="iconfont icon-correct-marked"></i>
+        </div>
+        <div class="content flex-grow">
+          <h1>{{orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40' ? '放款失败' : '已放款'}}</h1>
+          <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的招商银行卡尾号{{loadResult.bankAccount}}的账户</h4>
           <h4>确认本人借款，确保资金安全</h4>
         </div>
       </div>
@@ -42,16 +53,48 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {doPost} from 'common/js/drivers'
+  import * as types from 'config/api-type'
+
   export default {
     data() {
-      return {}
+      return {
+        loadResult: {
+          loanAmount: '',
+          borrowingTime: '',
+          syntheticalFee: '',
+          auditStatus: 1,
+          bankAccount: '',
+          orderStatusList: []
+        }
+      }
     },
     created() {
-      console.log('this.$route.query', this.$route.query)
+      this.orderNo = this.$route.query.orderNo
+    },
+    computed: {
+      orderStatusLength() {
+        return this.loadResult.orderStatusList.length
+      }
+    },
+    mounted() {
+      this._fetchLoadResult()
     },
     methods: {
       checkLoanDetail: function() {
-        this.$router.push('loan-detail')
+        // this.$router.push('loan-detail')
+      },
+      _fetchLoadResult() {
+        let self = this
+        doPost(types.BORROW_RESULT, {orderNo: this.orderNo}, {
+          success: function(oData) {
+            if (oData.status === '0') {
+              self.loadResult = oData.data
+            }
+          },
+          error: function(oData) {
+          }
+        })
       }
     }
   }

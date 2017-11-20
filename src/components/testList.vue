@@ -76,7 +76,7 @@
 
     <h4>借款信息</h4>
     <div class="list-view">
-      <router-link :to="{path: '/loan-confirm', query: {financeProductId: 'test2', loanAmount: 1000, borrowingTime: 7}}">
+      <router-link :to="{path: '/loan-confirm', query: {financeProductId: 'test2', loanAmount: 1000, borrowTime: 7}}">
         <div class="item flex">
           <p class="flex-grow">借款确认</p>
           <i class="iconfont icon-117"></i>
@@ -84,7 +84,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/loan-result">
+      <router-link :to="{path: '/loan-result', query: {orderNo: '47a6630f-cc42-4dc7-8580-24aaba14aaab'}}">
         <div class="item flex">
           <p class="flex-grow">借款结果页面</p>
           <i class="iconfont icon-117"></i>
@@ -92,7 +92,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/loan-detail">
+      <router-link :to="{path: '/loan-detail', query: {orderNo: '47a6630f-cc42-4dc7-8580-24aaba14aaab'}}">
         <div class="item flex">
           <p class="flex-grow">借款详情</p>
           <i class="iconfont icon-117"></i>

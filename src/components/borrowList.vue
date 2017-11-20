@@ -1,7 +1,7 @@
 <template>
   <div class="borrow-list">
     <div class="borrow-item" v-if="borrowList && borrowList.length > 0" v-for="item in borrowList">
-      <div class="flex header flex-item">
+      <div class="flex header active flex-item">
         <img src="~common/image/Communal_nyd_2x_001.png">
         <div class="flex-grow title">
           申请金额{{item.loanAmount}}元
@@ -12,7 +12,7 @@
       </div>
       <div class="flex content flex-item h6">
         <div class="flex-grow date">
-          期限：{{item.borrowingTime}}天
+          期限：{{item.borrowTime}}天
         </div>
         <div :class="item.orderStatus">
           {{getStatusStr(item.orderStatus)}}
@@ -45,7 +45,7 @@
         let self = this
         doPost(types.BORROW_RECORD, null, {
           success: function(oData) {
-            self.borrowList = oData.data.borrowList
+            self.borrowList = oData.data
           },
           error: function(oData) {
             popup('', '信息错误', oData.msg || '获取数据失败，请稍后再试！')
@@ -69,7 +69,6 @@
     padding-left: .4rem
     .header
       height: .8rem
-      border-bottom: 1px solid #e8e8e8
       padding-right: .4rem
       img
         width: .44rem

@@ -147,17 +147,17 @@
             this.addressPicker.refillColumn(2, dists[provinces[this.provinceIdx].value + '$$' + citys[provinces[this.provinceIdx].value][selectedIndex].value])
           }
         })
-      },
-      computed: {
-        fullName() {
-          return this.workInfo.companyProvince ? `${this.workInfo.companyProvince}-${this.workInfo.companyCity}-${this.workInfo.companyDistrict}` : '省市区'
-        }
-      },
-      mounted() {
-        this._initPositionPicker()
-        this._initSalaryPicker()
-        this._initAddress()
       }
+    },
+    computed: {
+      fullName() {
+        return this.workInfo.companyProvince ? `${this.workInfo.companyProvince}-${this.workInfo.companyCity}-${this.workInfo.companyDistrict}` : '省市区'
+      }
+    },
+    mounted() {
+      this._initPositionPicker()
+      this._initSalaryPicker()
+      this._initAddress()
     }
   }
 </script>
