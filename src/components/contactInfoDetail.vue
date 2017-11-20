@@ -1,0 +1,92 @@
+<template>
+  <div class="contact-info">
+    <div class="list-view h4">
+      <div class="item flex h3">
+        <div class="flex-grow bold">直系联系人</div>
+      </div>
+      <div class="item flex">
+        <div class="flex-grow">关系</div>
+        <div>{{directContactRelation ? directContactRelation : '请选择'}}</div>
+      </div>
+      <div class="item flex">
+        <div class="flex-grow">电话</div>
+        <div>{{directContactMobile ? directContactMobile : '直系亲属电话'}}</div>
+      </div>
+      <div class="item flex">
+        <div class="flex-grow">姓名</div>
+        <div>{{directContactName ? directContactName : '直系亲属姓名'}}</div>
+      </div>
+    </div>
+
+    <div class="list-view h4">
+      <div class="item flex h3">
+        <div class="flex-grow bold">重要联系人</div>
+      </div>
+      <div class="item flex">
+        <div class="flex-grow">关系</div>
+        <div>{{majorContactRelation ? majorContactRelation : '请选择'}}</div>
+      </div>
+      <div class="item flex">
+        <div class="flex-grow">电话</div>
+        <div>{{majorContactMobile ? majorContactMobile : '重要亲属电话'}}</div>
+      </div>
+      <div class="item flex">
+        <div class="flex-grow">姓名</div>
+        <div>{{majorContactName ? majorContactName : '重要亲属姓名'}}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  import {doPost, popup} from 'common/js/drivers'
+  import * as types from 'config/api-type'
+
+  export default {
+    data() {
+      return {
+        directContactRelation: '',
+        directContactName: '',
+        directContactMobile: '',
+        majorContactRelation: '',
+        majorContactName: '',
+        majorContactMobile: ''
+      }
+    },
+    methods: {
+      _fetchContactData() {
+        let self = this
+        doPost(types.CONTACT_FETCH, null, {
+          success: function(oData) {
+            if (oData.status === '0') {
+              let {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile} = oData.data
+              self.directContactRelation = directContactRelation
+              self.directContactName = directContactName
+              self.directContactMobile = directContactMobile
+              self.majorContactRelation = majorContactRelation
+              self.majorContactName = majorContactName
+              self.majorContactMobile = majorContactMobile
+            }
+          },
+          error: function(oData) {
+            popup('', '', oData.msg)
+          }
+        })
+      }
+    },
+    mounted() {
+      this._fetchContactData()
+    }
+  }
+</script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "~common/stylus/base"
+  .contact-info
+    > .list-view
+      margin-top: .1rem
+    .flex-grow
+      color: #000
+  .button-box
+    padding: 1rem .4rem .4rem
+</style>

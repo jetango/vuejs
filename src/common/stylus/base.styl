@@ -66,13 +66,23 @@ body
 .list-view
   background: #fff
   .item
+    position: relative
     line-height: 1rem
     height: 1rem
     margin-left: .4rem
-    border-bottom: 1px solid #e8e8e8
     padding-right: .4rem
-    &:last-child
-      border-bottom: 0
+    &:after
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      content: ''
+      height: 1px
+      background-color: #e8e8e8
+      -webkit-transform: scaleY(.5);
+      transform: scaleY(.5)
+    &:last-child:after
+      height: 0
 .h1
   font-size: .48rem
 .h2
@@ -102,4 +112,14 @@ body
 }
 :-ms-input-placeholder {
   font-size: .28rem
+}
+
+.picker .picker-panel .picker-choose .confirm.confirm-hook {
+  color: #0079ff
+  font-size: .28rem
+}
+
+.picker .picker-panel .picker-choose .cancel.cancel-hook {
+  font-size: .28rem
+  color: #000
 }

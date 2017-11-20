@@ -62,19 +62,30 @@ const IdentityInput = (resolve) => {
     resolve(module)
   })
 }
-// 联系人信息
-const ContactInfo = (resolve) => {
-  import('components/contactInfo').then((module) => {
+// 联系人信息录入
+const ContactInfoInput = (resolve) => {
+  import('components/contactInfoInput').then((module) => {
     resolve(module)
   })
 }
-// 工作信息
-const WorkInfo = (resolve) => {
-  import('components/workInfo').then((module) => {
+// 联系人信息显示
+const ContactInfoDetail = (resolve) => {
+  import('components/contactInfoDetail').then((module) => {
     resolve(module)
   })
 }
-
+// 工作信息录入
+const WorkInfoInput = (resolve) => {
+  import('components/workInfoInput').then((module) => {
+    resolve(module)
+  })
+}
+// 工作信息显示
+const WorkInfoDetail = (resolve) => {
+  import('components/workInfoDetail').then((module) => {
+    resolve(module)
+  })
+}
 // 个人信息展示
 const PersonalInfo = (resolve) => {
   import('components/personalinfo').then((module) => {
@@ -164,13 +175,21 @@ export default new Router({
       name: 'bankList',
       component: BankList
     }, {
-      path: '/contact-info',
-      name: 'contactInfo',
-      component: ContactInfo
+      path: '/contactinfo-input',
+      name: 'contactInfoInput',
+      component: ContactInfoInput
     }, {
-      path: '/work-info',
-      name: 'workInfo',
-      component: WorkInfo
+      path: '/contactinfo-detail',
+      name: 'contactInfoDetail',
+      component: ContactInfoDetail
+    }, {
+      path: '/workinfo-input',
+      name: 'workInfoInput',
+      component: WorkInfoInput
+    }, {
+      path: '/workinfo-detail',
+      name: 'workInfoDetail',
+      component: WorkInfoDetail
     }, {
       path: '/personal-info',
       name: 'personalInfo',

@@ -26,17 +26,33 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/work-info">
+      <router-link to="/workinfo-input">
         <div class="item flex">
-          <p class="flex-grow">工作信息</p>
+          <p class="flex-grow">工作信息录入</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/contact-info">
+      <router-link to="/workInfo-detail">
         <div class="item flex">
-          <p class="flex-grow">联系人信息</p>
+          <p class="flex-grow">工作信息显示</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/contactinfo-input">
+        <div class="item flex">
+          <p class="flex-grow">联系人信息录入</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/contactinfo-detail">
+        <div class="item flex">
+          <p class="flex-grow">联系人信息显示</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>
@@ -60,7 +76,7 @@
 
     <h4>借款信息</h4>
     <div class="list-view">
-      <router-link to="/loan-confirm">
+      <router-link :to="{path: '/loan-confirm', query: {financeProductId: 'test2', loanAmount: 1000, borrowingTime: 7}}">
         <div class="item flex">
           <p class="flex-grow">借款确认</p>
           <i class="iconfont icon-117"></i>

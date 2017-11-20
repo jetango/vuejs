@@ -148,36 +148,16 @@
           }
         })
       },
-      _fetchWorkInfo() {
-        let self = this
-        doPost(types.JOB_FETCH, null, {
-          success: function(oData) {
-            if (oData.status === '0') {
-              self.workInfo = oData.data
-            }
-          },
-          error: function(oData) {
-            //
-          }
-        })
-      }
-    },
-    computed: {
-      fullName() {
-        return this.workInfo.companyProvince ? `${this.workInfo.companyProvince}-${this.workInfo.companyCity}-${this.workInfo.companyDistrict}` : '省市区'
-      }
-    },
-    mounted() {
-      if (!this.userId) {
+      computed: {
+        fullName() {
+          return this.workInfo.companyProvince ? `${this.workInfo.companyProvince}-${this.workInfo.companyCity}-${this.workInfo.companyDistrict}` : '省市区'
+        }
+      },
+      mounted() {
         this._initPositionPicker()
         this._initSalaryPicker()
         this._initAddress()
-      } else {
-        this._fetchWorkInfo()
       }
-    },
-    created() {
-      this.userId = this.$route.query.userId
     }
   }
 </script>

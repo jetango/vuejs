@@ -87,25 +87,25 @@
           flag: false
         },
         isChosed: false,
-        checkDetailFlag: false
+        checkDetailFlag: false,
+        params: {}
       }
     },
     created: function() {
+      let {financeProductId, loanAmount, borrowingTime} = this.$route.query
+      this.params = {financeProductId, loanAmount, borrowingTime}
+    },
+    mounted() {
       this.init()
     },
     methods: {
       init: function() {
-        let param = {
-          financeProductId: '1681688',
-          loanAmount: '1000',
-          borrowingTime: '7'
-        }
         if (sessionStorage.getItem('payCard')) { // 已经选择过到账账户
           let payCard = JSON.parse(sessionStorage.getItem('payCard'))
           this.bankCard = payCard
           this.bankCard.flag = true
         }
-        doPost(types.BORROW, param, {
+        doPost(types.BORROW, this.params, {
           success: (oData) => {
             this.loanInfo = oData.data
             if (oData.data.bankList.length !== 0 && !sessionStorage.getItem('payCard')) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
@@ -125,7 +125,12 @@
           popup(null, '请同意用户服务协议')
           return
         }
-        let param = this.$data.loanInfo
+        let param = this.loanInfo
+        let {financeProductId} = this.params
+        param.financeProductId = financeProductId
+        param.annualizedRate = '2.5%'
+        param.bankName = '工商银行'
+        param.accountNumber = '6228000666688880000'
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
             self.message = oData.msg
@@ -163,7 +168,7 @@
   .loan-info
     background-color: #fff
     margin-top: .1rem
-    
+
   .loan-info-item
     height: 1rem
     font-size: .28rem
@@ -188,7 +193,7 @@
       height: .72rem
       color: #0079ff !important
       top: 0
-      i 
+      i
         color: #0079ff
         font-size: .25rem
         margin-top: -.03rem
@@ -242,7 +247,7 @@
     color: #525252 !important
 
   .input-validate
-    input 
+    input
       width: 2.4rem
       border-radius: .06rem
       height: .76rem
@@ -260,17 +265,17 @@
       margin-left: .1rem
       color: #fff
 
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     color: #aeaeae
-  } 
-  input:-moz-placeholder, textarea:-moz-placeholder { 
+  }
+  input:-moz-placeholder, textarea:-moz-placeholder {
     color: #aeaeae
-  } 
-  input::-moz-placeholder, textarea::-moz-placeholder { 
+  }
+  input::-moz-placeholder, textarea::-moz-placeholder {
     color: #aeaeae
-  } 
-  input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+  }
+  input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     color: #aeaeae
-  } 
+  }
 
 </style>
