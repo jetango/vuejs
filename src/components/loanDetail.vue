@@ -48,6 +48,10 @@
       <span>各种信息</span>
       <span>上海造艺网络科技有限公司</span>
     </div>
+    <p class="check-contract flex flex-item flex-justify">
+      <span @click="checkContract">查看合同</span>
+      <i class="icon iconfont icon-117"></i>
+    </p>
     <footer-notice></footer-notice>
   </div>
 </template>
@@ -80,16 +84,24 @@
       FooterNotice
     },
     created: function() {
-      let param = {
-        userId: '123456',
-        orderNo: '1681688'
-      }
-      doPost(types.BORROW_DETAIL, param, {
-        success: (oData) => {
-          console.log('oData', oData)
-          this.$data.loanInfo = oData.data
+      this.init()
+    },
+    methods: {
+      init: function() {
+        let param = {
+          userId: '123456',
+          orderNo: '1681688'
         }
-      })
+        doPost(types.BORROW_DETAIL, param, {
+          success: (oData) => {
+            console.log('oData', oData)
+            this.$data.loanInfo = oData.data
+          }
+        })
+      },
+      checkContract: function() {
+        console.log('check contract')
+      }
     }
   }
 </script>
@@ -113,5 +125,14 @@
         position: absolute
         line-height: .72rem
         right: .4rem
+  
+  .check-contract
+    text-align: center
+    font-size: .28rem
+    color: #008aff
+    margin-top: .3rem
+    i 
+      font-size: .24rem
+      margin-top: -.025rem
 
 </style>

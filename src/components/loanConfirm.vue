@@ -2,11 +2,11 @@
   <div class="loan-comforim">
     <div class="loan-info">
       <div class="loan-info-item flex flex-item active">
-        <span>贷款金额:</span>
+        <span>借款金额:</span>
         <span v-html="loanInfo.loanAmount + '元'"></span>
       </div>
       <div class="loan-info-item flex flex-item">
-        <span>贷款时间:</span>
+        <span>借款时间:</span>
         <span v-html="loanInfo.borrowingTime + '天'"></span>
       </div>
     </div>
@@ -26,6 +26,10 @@
       <div class="loan-info-item item-middle flex flex-item">
         <span>应还金额:</span>
         <span v-html="loanInfo.repayTotalAmount + '元'"></span>
+        <a class="flex flex-item flex-grow" @click="seeDetail">
+          查看明细
+          <i class="icon iconfont icon-117"></i>
+        </a>
       </div>
     </div>
     <div class="loan-info">
@@ -38,26 +42,27 @@
         <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
       <!-- <div class="loan-info-item flex flex-item active">
-              <span>手机号:</span>
-              <span class="phone-item">15959369312</span>
-            </div>
-            <div class="loan-info-item input-validate flex flex-item">
-              <span>手机号:</span>
-              <span></span>
-              <input type="text" placeholder="请输入验证码">
-              <div>获取验证码</div>
-            </div> -->
+                  <span>手机号:</span>
+                  <span class="phone-item">15959369312</span>
+                </div>
+                <div class="loan-info-item input-validate flex flex-item">
+                  <span>手机号:</span>
+                  <span></span>
+                  <input type="text" placeholder="请输入验证码">
+                  <div>获取验证码</div>
+                </div> -->
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
-      <i @click="comfirm" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
+      <i @click="agreeProtocols" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
       <span>我已阅读并同意<span>《用户服务协议》</span></span>
     </p>
-    <a class="btn" @click="submit">借款</a>
+    <a class="button button-primary" @click="submit">借款</a>
     <p class="forbid-borrow-stu">禁止学生借款</p>
+    <alert-item v-if="checkDetailFlag" :loanDetail="loanInfo" v-on:listenChildEvent="closeAlert"></alert-item>
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import buttonItem from 'base/button/button-item'
+  import AlertItem from 'base/alertItem/alert-item'
   import {
     doPost,
     popup
@@ -73,6 +78,7 @@
           syntheticalFee: '',
           realLoanAmount: '',
           repayTotalAmount: '',
+          annualizedRate: '',
           bankAccount: []
         },
         bankCard: {
@@ -80,7 +86,8 @@
           accountNumber: '',
           flag: false
         },
-        isChosed: false
+        isChosed: false,
+        checkDetailFlag: false
       }
     },
     created: function() {
@@ -109,7 +116,7 @@
           }
         })
       },
-      comfirm: function() {
+      agreeProtocols: function() {
         this.isChosed = !this.isChosed
       },
       submit: function() {
@@ -130,10 +137,18 @@
       },
       choseBankCard: function() {
         this.$router.push('bank-list')
+      },
+      seeDetail: function() {
+        setTimeout(() => {
+          this.checkDetailFlag = true
+        }, 100)
+      },
+      closeAlert: function(isOpen) {
+        this.checkDetailFlag = isOpen
       }
     },
     components: {
-      buttonItem
+      AlertItem
     }
   }
 </script>
@@ -162,10 +177,22 @@
 
   .item-middle
     height: .72rem
+    position: relative
     span
       &:last-of-type
         color: #525252
         font-size: .28rem
+    a
+      position: absolute
+      right: .4rem
+      height: .72rem
+      color: #0079ff !important
+      top: 0
+      i 
+        color: #0079ff
+        font-size: .25rem
+        margin-top: -.03rem
+
 
   .item-bank
     span
@@ -182,24 +209,16 @@
     i
       color: green
       font-size: .22rem
-      margin-top: -0.02rem
+      margin-top: -0.04rem
       margin-right: 0.05rem
     span
       span
         color: #008aff
 
-  .btn
-    display:block
+  .button
     width:90%
     margin: 0 auto
     margin-top: .2rem
-    background-color: RGB(254,167,0)
-    height: .72rem
-    border-radius: .06rem
-    text-align: center
-    line-height: .72rem
-    font-size: .3rem
-    color: #fff
 
   .forbid-borrow-stu
     color: #9d9d9d

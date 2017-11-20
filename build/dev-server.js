@@ -223,18 +223,19 @@ apiRoutes.post('/bankList', function(req, res) {
   var result = {
     status: 0,
     msg: 'success',
-    data: {
-      bankList: [{
-        bankName: '工商银行',
-        accountNumber: '6228000666688880000'
-      }, {
-        bankName: '招商银行',
-        accountNumber: '6228000666688884487'
-      }, {
-        bankName: '建设银行',
-        accountNumber: '6228000666688882546'
-      }]
-    }
+    data: [{
+      bankName: '工商银行',
+      accountType: '借记卡',
+      accountNumber: '6228000666688880000'
+    }, {
+      bankName: '招商银行',
+      accountType: '借记卡',
+      accountNumber: '6228000666688884487'
+    }, {
+      bankName: '建设银行',
+      accountType: '借记卡',
+      accountNumber: '6228000666688882546'
+    }]
   }
   responseData(res, result)
 })
@@ -340,7 +341,7 @@ apiRoutes.post('/smscode', function(req, res) {
   responseData(res, result)
 })
 
-// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.20:8080', changeOrigin: true, headers: {userId: '21c2c008-d4c3-42f2-b05f-10575071043e'}})
+// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:9000', changeOrigin: true, headers: {userId: '21c2c008-d4c3-42f2-b05f-10575071043e'}})
 // app.use('/api', apiProxy)
 app.use('/api', apiRoutes)
 

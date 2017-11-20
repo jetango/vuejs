@@ -9,11 +9,11 @@
       <div class="bank-number">
         <p class="bank-number flex flex-item">
           <span class="flex-grow">卡号：{{'*************' + bank.accountNumber.substring(bank.accountNumber.length-4, bank.accountNumber.length)}}</span>
-          <span class="user-status">可使用</span>
+          <!-- <span class="user-status">可使用</span> -->
         </p>
       </div>
     </div>
-    <a @click="addBankCard" class="btn">去添加</a>
+    <a @click="addBankCard" class="button button-primary">去添加</a>
   </div>
 </template>
 
@@ -39,7 +39,7 @@
         doPost(types.BANK_LIST, {}, {
           success: (oData) => {
             console.log(oData)
-            this.bankList = oData.data.bankList
+            this.bankList = oData.data
           }
         })
       },
@@ -91,17 +91,9 @@
     margin-right: .4rem
     color: #89D378
 
-  .btn
-    display:block
+  .button
     width:90%
     margin: 0 auto
     margin-top: 1rem
-    background-color: RGB(254,167,0)
-    height: .72rem
-    border-radius: .06rem
-    text-align: center
-    line-height: .72rem
-    font-size: .3rem
-    color: #fff
 
 </style>

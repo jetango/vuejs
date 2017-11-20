@@ -11,20 +11,20 @@
         <i @click="chosepayment(item)" :class="['icon', 'iconfont', 'icon-correct-marked', {'chosed': item.isChose} ]"></i>
       </div>
     </div>
-    <a class="btn" @click="payLoan">确认还款</a>
+    <a class="button button-primary" @click="payLoan">确认还款</a>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    doPost
+  } from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
         payAmount: '800',
         staticPayWay: [{
-          iconClass: 'icon-140',
-          payWayName: '借款账户招商银行尾号2563',
-          isChose: true
-        }, {
           iconClass: 'icon-house',
           payWayName: '微信支付',
           isChose: false
@@ -37,13 +37,32 @@
           payWayName: '银联',
           isChose: false
         }],
-        confirmPayWay: {
-          payWayName: '借款账户招商银行尾号2563',
-          isChose: true
-        }
+        confirmPayWay: {}
       }
     },
+    created: function() {
+      this.init()
+    },
     methods: {
+      init: function() {
+        doPost(types.BANK_LIST, {}, {
+          success: (oData) => {
+            console.log(oData)
+            let payWayList = oData.data
+            let len = payWayList.length - 1
+            payWayList.reverse().forEach((element, index) => {
+              let accountNumber = element.accountNumber
+              this.staticPayWay.unshift({
+                iconClass: 'icon-140',
+                payWayName: element.bankName + '&nbsp;&nbsp;' + accountNumber.substring(accountNumber.length - 4, accountNumber.length),
+                accountNumber: accountNumber,
+                isChose: (index === len)
+              })
+            })
+            this.confirmPayWay = this.staticPayWay[0]
+          }
+        })
+      },
       payLoan: function() {
         console.log(JSON.stringify(this.confirmPayWay))
       },
@@ -63,7 +82,6 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-  
 
   .pay-amount
     height: 1rem
@@ -92,17 +110,9 @@
   .chosed
     color: green !important
 
-  .btn
-    display:block
+  .button
     width:90%
     margin: 0 auto
     margin-top: 1.5rem
-    background-color: RGB(254,167,0)
-    height: .72rem
-    border-radius: .06rem
-    text-align: center
-    line-height: .72rem
-    font-size: .3rem
-    color: #fff
 
 </style>

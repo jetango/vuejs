@@ -91,6 +91,14 @@
         </div>
       </router-link>
     </div>
+    <div class="list-view">
+      <router-link to="/loan-contract">
+        <div class="item flex">
+          <p class="flex-grow">借款合同</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
 
     <h4>还款</h4>
     <div class="list-view">

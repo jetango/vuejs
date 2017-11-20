@@ -61,14 +61,14 @@
     },
     methods: {
       sendValidateCode: function() {
-        this.isSend = true
-        this.delayTime = 119
         doPost(types.SMSCODE, {
-          accountNumber: '13688866688',
+          accountNumber: '15959369312',
           smsType: '1'
         }, {
           success: (oData) => {
             console.log(oData)
+            this.isSend = true
+            this.delayTime = 119
             let timer = setInterval(() => {
               if (this.delayTime === 1) {
                 this.isSend = false
