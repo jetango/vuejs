@@ -41,9 +41,11 @@
   import FooterNotice from 'base/footerNotice/footer-notice'
   import {
     doPost,
-    popup
+    popup, endPage
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {pageIdentity} from 'common/js/constants'
+
   export default {
     data() {
       return {
@@ -108,8 +110,8 @@
           this.submitStatus = false
           doPost(types.BANK, param, {
             success: (oData) => {
-              console.log(oData)
               this.submitStatus = true
+              endPage({url: pageIdentity.BANK_LIST})
             },
             error: (oData) => {
               popup(null, null, oData.msg || '绑定银行卡失败，请稍后再试！')

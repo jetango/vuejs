@@ -135,6 +135,7 @@ export const pageIdentity = {
   'DEBIT_CARD': '/debit-card',                                      // 借记卡信息录入
   'CREDIT_CERTIFICATION': '/credit-certification',                  // 信用认证
   'BANK_LIST': '/bank-list',                                        // 银行卡列表
+  'CHOOSE_BANK': '/choose-bank',                                    // 选择银行卡
   'LOAN_CONFIRM': '/loan-confirm',                                  // 借款确认页面
   'LOAN_RESULT': '/loan-result',                                    // 借款结果页面
   'LOAN_DETAIL': '/loan-detail',                                    // 借款详情页面

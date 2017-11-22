@@ -380,8 +380,12 @@ apiRoutes.post('/job/fetch', function(req, res) {
   responseData(res, result)
 })
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
-const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:9000', changeOrigin: true, headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}})
-app.use('/api', apiProxy)
+const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true, headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}})
+const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true, headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}})
+const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9002', changeOrigin: true, headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}})
+app.use('/api/user', apiUserProxy)
+app.use('/api/order', apiOrderProxy)
+app.use('/api/repay', apiRepayProxy)
 // app.use('/api', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {

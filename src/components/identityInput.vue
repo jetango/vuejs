@@ -110,7 +110,11 @@
           } else {
             this.loading = true
           }
-          doPost(types.IDENTITY_POST, identityInfo, {
+          var identityInfoCopy = Object.assign({}, identityInfo)
+          let {idCardFrontPhoto, idCardBackPhoto} = identityInfoCopy
+          identityInfoCopy.idCardFrontPhoto = idCardFrontPhoto.substring(22)
+          identityInfoCopy.idCardBackPhoto = idCardBackPhoto.substring(22)
+          doPost(types.IDENTITY_POST, identityInfoCopy, {
             success: function(oData) {
               log('', oData)
               self.loading = false

@@ -2,29 +2,29 @@
   <div class="loan-comforim">
     <div class="loan-info">
       <div class="loan-info-item flex flex-item active">
-        <span>借款金额:</span>
+        <span>借款金额：</span>
         <span v-text="loanInfo.loanAmount + '元'"></span>
       </div>
       <div class="loan-info-item flex flex-item">
-        <span>借款时间:</span>
-        <span v-text="loanInfo.borrowingTime + '天'"></span>
+        <span>借款时间：</span>
+        <span v-text="loanInfo.borrowTime + '天'"></span>
       </div>
     </div>
     <div class="loan-info">
       <div class="loan-info-item item-middle flex flex-item active">
-        <span>利息:</span>
+        <span>利息：</span>
         <span v-text="loanInfo.interest + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
-        <span>综合费用:</span>
+        <span>综合费用：</span>
         <span v-text="loanInfo.syntheticalFee + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
-        <span>到账金额:</span>
+        <span>到账金额：</span>
         <span v-text="loanInfo.realLoanAmount + '元'"></span>
       </div>
       <div class="loan-info-item item-middle flex flex-item">
-        <span>应还金额:</span>
+        <span>应还金额：</span>
         <span v-text="loanInfo.repayTotalAmount + '元'"></span>
         <a class="flex flex-item flex-grow" @click="seeDetail">
           查看明细
@@ -35,7 +35,7 @@
     <div class="loan-info">
       <div class="flex flex-item flex-grow">
         <div class="loan-info-item item-bank flex flex-item flex-grow active">
-          <span>到账账户:</span>
+          <span>到账账户：</span>
           <span @click="choseBankCard" class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
           <span @click="choseBankCard" v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
         </div>
@@ -65,15 +65,16 @@
   import AlertItem from 'base/alertItem/alert-item'
   import {
     doPost,
-    popup, log
+    popup, log, navigate
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
       return {
         loanInfo: {
           loanAmount: '',
-          borrowingTime: '',
+          borrowTime: '',
           interest: '',
           syntheticalFee: '',
           realLoanAmount: '',
@@ -154,10 +155,12 @@
       },
       choseBankCard: function() {
         let {productCode, loanAmount, borrowTime} = this.$route.query
-        this.$router.push({
-          path: 'bank-list',
-          query: {productCode, loanAmount, borrowTime}
-        })
+        let param = `productCode=${productCode}&loanAmount=${loanAmount}&borrowTime=${borrowTime}`
+        navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK, param})
+        // this.$router.push({
+        //   path: 'bank-list',
+        //   query: {productCode, loanAmount, borrowTime}
+        // })
       },
       seeDetail: function() {
         setTimeout(() => {
