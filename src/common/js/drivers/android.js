@@ -34,6 +34,10 @@ export default class Driver {
     window.android.plugin('popup', JSON.stringify({ pageId, title, param }))
   }
 
+  toast(title) {
+    window.android.plugin('toast', JSON.stringify({ title }))
+  }
+
   personIdValid(cb) {
     let name = this.proxy.registCB(cb)
     window.android.plugin('personIdValid', JSON.stringify({ callback: name }))

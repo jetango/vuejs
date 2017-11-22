@@ -3,31 +3,31 @@
     <div class="input-item flex flex-item">
       <span>姓&nbsp;&nbsp;&nbsp;&nbsp;名:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.accountName" type="text" placeholder="请输入您的姓名">
+        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.accountName" type="text" placeholder="请输入您的姓名">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>银行卡:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.accountNumber" type="tel" placeholder="请输入银行卡">
+        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.accountNumber" type="tel" placeholder="请输入银行卡">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>手机号:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号">
+        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>验证码:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
+        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
         <span v-if="!isSend" @click="sendValidateCode" class="input-validate">获取验证码</span>
         <span v-if="isSend" class="input-validate is-send">{{delayTime}}后重新获取</span>
       </div>
     </div>
     <div @click="submit" class="button">提交</div>
-    <div class="footer">
+    <div class="footer" :class="{'input-footer':isInput}">
       <p class="product-name">侬要贷</p>
       <p class="loan-notice flex flex-item flex-justify">
         <i class="icon iconfont icon-yirenzheng"></i>
@@ -41,11 +41,13 @@
   import FooterNotice from 'base/footerNotice/footer-notice'
   import {
     doPost,
-    popup, endPage
+    popup,
+    endPage
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
-  import {pageIdentity} from 'common/js/constants'
-
+  import {
+    pageIdentity
+  } from 'common/js/constants'
   export default {
     data() {
       return {
@@ -57,7 +59,8 @@
           reservedPhone: '',
           smsCode: ''
         },
-        submitStatus: true
+        submitStatus: true,
+        isInput: false
       }
     },
     methods: {
@@ -125,6 +128,12 @@
             }
           })
         }
+      },
+      changeInputFalse: function() {
+        this.isInput = true
+      },
+      changeInputTrue: function() {
+        this.isInput = false
       }
     },
     created() {
@@ -133,6 +142,14 @@
     },
     components: {
       FooterNotice
+    },
+    mounted: function() {
+      let componentHeight = document.querySelector('.bind-debit-card').offsetHeight
+      let buttonHeight = document.querySelector('.button').offsetHeight
+      let buttonTop = document.querySelector('.button').offsetTop
+      let footerHeight = document.querySelector('.footer').offsetHeight
+      var marginTop = componentHeight - buttonHeight - buttonTop - footerHeight
+      document.querySelector('.footer').style.marginTop = marginTop + 'px'
     }
   }
 </script>
@@ -163,13 +180,12 @@
       input
         background-color: #eeeff3
         font-size: .28rem
-        height: .68rem
-        line-height: .68rem
         color: #000000
         padding: .2rem 0 .2rem .3rem
         width: 100%
         outline: none
-        box-sizing: border-box
+        height: .38rem
+        line-height:.43rem
       span
         display:block
         min-width: 1.8rem
@@ -195,25 +211,22 @@
 
   input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     color: #aeaeae;
-    padding-top: -.05rem
+    line-height:.43rem
   }
   input:-moz-placeholder, textarea:-moz-placeholder {
     color: #aeaeae;
-    padding-top: -.05rem
+    line-height:.43rem
   }
   input::-moz-placeholder, textarea::-moz-placeholder {
     color: #aeaeae;
-    padding-top: -.05rem
+    line-height:.43rem
   }
   input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     color: #aeaeae;
-    padding-top: -.05rem
+    line-height:.43rem
   }
 
   .footer
-    position: fixed
-    bottom: 0
-    left: 0
     width: 100%
     .product-name
       text-align: center

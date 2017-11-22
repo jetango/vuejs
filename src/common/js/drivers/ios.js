@@ -104,6 +104,18 @@ export default class Driver {
   }
 
   /**
+   * JS调用Native弹出框
+   * @param  {String} pageId 画面ID，需要预先定义
+   * @param  {String} title  被调用画面显示标题
+   * @param  {String} param  调用画面参数
+   * @return {null}
+   */
+  toast(title) {
+    let url = `plugin://toast?title=${encodeURIComponent(title)}`
+    this._iosCall(url)
+  }
+
+  /**
    * JS调用Native身份证识别
    * @param  {Function} cb 1. 回调对象ID，识别完成后返回结果, 2. 完成拍照后回调接口
    * @return {null}

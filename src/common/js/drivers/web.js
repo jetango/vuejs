@@ -75,6 +75,11 @@ export default class Driver {
     alert(param)
   }
 
+  toast(title) {
+    console.log(title)
+    alert(title)
+  }
+
   // 身份证正面信息
   idCardFrontInfo(cb) {
     let name = this.proxy.registCB(cb)

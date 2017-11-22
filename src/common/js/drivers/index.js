@@ -66,6 +66,10 @@ export function popup(pageId, title, param) {
   _proxy.popup(pageId, title, param)
 }
 
+export function toast(title) {
+  _proxy.toast(title)
+}
+
 export function personIdValid(cb) {
   _proxy.personIdValid(cb)
 }

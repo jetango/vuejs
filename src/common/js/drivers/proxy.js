@@ -93,6 +93,10 @@ export default class Proxy {
     this.__current__.popup(pageId, title, param)
   }
 
+  toast(title) {
+    this.__current__.toast(title)
+  }
+
   personIdValid(cb) {
     this.__current__.personIdValid(cb)
   }
