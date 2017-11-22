@@ -73,7 +73,9 @@
               if (oData.status === '0') {
               }
             },
-            error: function() {}
+            error: function(oData) {
+              popup(null, null, oData.msg || '数据保存失败，请稍后重试！')
+            }
           })
         }
       },

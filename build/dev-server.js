@@ -380,9 +380,9 @@ apiRoutes.post('/job/fetch', function(req, res) {
   responseData(res, result)
 })
 
-const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:9001', changeOrigin: true, headers: {userId: 'f62d3cfd-ef3f-43e7-978a-97c0f2f79a84'}})
-app.use('/api', apiProxy)
-// app.use('/api', apiRoutes)
+// const apiProxy = proxyMiddleware('/api', {target: 'http://192.168.2.21:9001', changeOrigin: true, headers: {userId: 'f62d3cfd-ef3f-43e7-978a-97c0f2f79a84'}})
+// app.use('/api', apiProxy)
+app.use('/api', apiRoutes)
 
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {

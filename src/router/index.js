@@ -124,9 +124,51 @@ const BorrowList = (resolve) => {
   })
 }
 
-// 弹窗
+// 借款合同
 const LoanContract = (resolve) => {
   import('components/loanContract').then((module) => {
+    resolve(module)
+  })
+}
+
+// 代扣款协议
+const AutoRepayment = (resolve) => {
+  import('base/protocols/autoRepayment').then((module) => {
+    resolve(module)
+  })
+}
+
+// 电子签名授权协议
+const ElecAuthorization = (resolve) => {
+  import('base/protocols/elecAuthorization').then((module) => {
+    resolve(module)
+  })
+}
+
+// 认证授权
+const CreditAuthorization = (resolve) => {
+  import('base/protocols/creditAuthorization').then((module) => {
+    resolve(module)
+  })
+}
+
+// 认证授权
+const ServerProtocols = (resolve) => {
+  import('base/protocols/serverProtocols').then((module) => {
+    resolve(module)
+  })
+}
+
+// 认证授权
+const LoanProtocols = (resolve) => {
+  import('base/protocols/loanProtocols').then((module) => {
+    resolve(module)
+  })
+}
+
+// 认证授权
+const RegisterProtocol = (resolve) => {
+  import('base/protocols/registerProtocol').then((module) => {
     resolve(module)
   })
 }
@@ -218,6 +260,30 @@ export default new Router({
       path: '/loan-contract',
       name: 'loanContract',
       component: LoanContract
+    }, {
+      path: '/auto-repayment',
+      name: 'autoRepayment',
+      component: AutoRepayment
+    }, {
+      path: '/elec-authorization',
+      name: 'elecAuthorization',
+      component: ElecAuthorization
+    }, {
+      path: '/credit-authorization',
+      name: 'creditAuthorization',
+      component: CreditAuthorization
+    }, {
+      path: '/server-protocols',
+      name: 'serverProtocols',
+      component: ServerProtocols
+    }, {
+      path: '/loan-protocols',
+      name: 'loanProtocols',
+      component: LoanProtocols
+    }, {
+      path: '/register-protocol',
+      name: 'registerProtocol',
+      component: RegisterProtocol
     }
   ]
 })

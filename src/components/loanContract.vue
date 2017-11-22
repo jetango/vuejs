@@ -1,19 +1,23 @@
 <template>
   <div class="loan-contract">
+    <div class="contract-item  flex flex-item">
+      <p class="flex-grow">自动还款服务协议</p>
+      <i class="icon iconfont icon-117"></i>
+    </div>
     <div class="contract-item flex flex-item">
-      <p class="flex-grow">借款合同</p>
+      <p class="flex-grow">征信查询授权书</p>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div class="contract-item  flex flex-item">
-      <p class="flex-grow">服务合同</p>
+      <p class="flex-grow">服务协议-单期</p>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div class="contract-item  flex flex-item">
-      <p class="flex-grow">电子签名授权书</p>
+      <p class="flex-grow">银行贷款协议-单期-（借款人与银行）</p>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div class="contract-item  flex flex-item">
-      <p class="flex-grow">代扣协议</p>
+      <p class="flex-grow">电子签名授权协议书</p>
       <i class="icon iconfont icon-117"></i>
     </div>
   </div>

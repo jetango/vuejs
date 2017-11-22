@@ -7,7 +7,7 @@
       </div>
       <div class="loan-info-item flex flex-item">
         <span>借款时间:</span>
-        <span v-html="loanInfo.borrowTime + '天'"></span>
+        <span v-text="loanInfo.borrowingTime + '天'"></span>
       </div>
     </div>
     <div class="loan-info">
@@ -54,7 +54,7 @@
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
       <i @click="agreeProtocols" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
-      <span>我已阅读并同意<span>《用户服务协议》</span></span>
+      <span>我已阅读并同意<span @click="checkServicesProtocols">《用户服务协议》</span></span>
     </p>
     <a class="button button-primary" @click="submit">借款</a>
     <p class="forbid-borrow-stu">禁止学生借款</p>
@@ -73,7 +73,7 @@
       return {
         loanInfo: {
           loanAmount: '',
-          borrowTime: '',
+          borrowingTime: '',
           interest: '',
           syntheticalFee: '',
           realLoanAmount: '',
@@ -169,6 +169,9 @@
       },
       closeAlert: function(isOpen) {
         this.checkDetailFlag = isOpen
+      },
+      checkServicesProtocols: function() {
+        this.$router.push('services-protocols')
       }
     },
     components: {
@@ -179,7 +182,6 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-  @import "~common/stylus/mixin"
 
   .loan-comforim
     margin-bottom: .3rem

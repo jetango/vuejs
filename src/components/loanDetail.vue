@@ -14,7 +14,7 @@
     </div>
     <div class="list-show flex flex-item active">
       <span>借款期限</span>
-      <span v-html="loanInfo.borrowTime+'天'"></span>
+      <span v-html="loanInfo.borrowingTime+'天'"></span>
     </div>
     <div class="list-show flex flex-item active">
       <span>放款日期</span>
@@ -66,7 +66,7 @@
           applicationTime: '',
           orderNo: '',
           loanAmount: '',
-          borrowTime: '',
+          borrowingTime: '',
           loanTime: '',
           promiseRepaymentDate: '',
           actualRepaymentDate: '',
@@ -99,6 +99,7 @@
       },
       checkContract: function() {
         console.log('check contract')
+        this.$router.push('loan-contract')
       },
       getOrderStatusStr(key) {
         return orderStatus['' + key]
@@ -112,7 +113,6 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-  @import "~common/stylus/mixin"
 
   .loan-detail
     margin-top: .1rem
