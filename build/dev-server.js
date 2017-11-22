@@ -385,12 +385,12 @@ apiRoutes.post('/score/fetch', function(req, res) {
     "status": '0',
     "msg":"success",
     "data": {
-        "stepScore": '80', //资料完整度        
+        "stepScore": '80', //资料完整度
         "identityFlag": '1', //身份信息是否填写
         "jobFlag": '1', //工作信息是否填
         "contactFlag": '0', //联系人信息是否填
         "zmxyFlag": '0', //芝麻信用认证
-        "mobileFlag": '1', //运营商认证        
+        "mobileFlag": '1', //运营商认证
         "onlineBankFlag": '0' //网银认证
     }
   }

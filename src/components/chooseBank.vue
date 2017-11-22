@@ -22,10 +22,7 @@
 
 <script>
   import NoData from 'base/noData/noData'
-  import {
-    doPost,
-    popup, navigate
-  } from 'common/js/drivers'
+  import {doPost, popup, navigate, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -50,16 +47,16 @@
         })
       },
       choseBankCard: function(obj) {
-        let param = this.$route.query
-        param.bankName = obj.bankName
-        param.accountNumber = obj.accountNumber
-        this.$router.push({
-          path: '/loan-confirm',
-          query: param
-        })
+        let {bankName, accountNumber} = obj
+        let param = `bankName=${bankName}&accountNumber=${accountNumber}`
+        endPage({param})
+        // this.$router.push({
+        //   path: '/loan-confirm',
+        //   query: param
+        // })
       },
       addBankCard: function() {
-        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD})
+        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'})
       }
     },
     components: {

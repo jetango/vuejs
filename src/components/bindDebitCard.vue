@@ -9,19 +9,19 @@
     <div class="input-item flex flex-item">
       <span>银行卡:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.accountNumber" type="text" placeholder="请输入银行卡">
+        <input v-model="bankInfo.accountNumber" type="tel" placeholder="请输入银行卡">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>手机号:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.reservedPhone" type="text" placeholder="请输入您的银行预留手机号">
+        <input v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>验证码:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.smsCode" type="text" class="input-validate-cord flex-grow" placeholder="请输入验证码">
+        <input v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
         <span v-if="!isSend" @click="sendValidateCode" class="input-validate">获取验证码</span>
         <span v-if="isSend" class="input-validate is-send">{{delayTime}}后重新获取</span>
       </div>
@@ -62,8 +62,13 @@
     },
     methods: {
       sendValidateCode: function() {
+        let phone = this.bankInfo.reservedPhone
+        if (!/^1\d{10}$/.test(phone)) {
+          popup('', null, '请正确输入手机号码！')
+          return
+        }
         doPost(types.SMSCODE, {
-          accountNumber: '15959369312',
+          accountNumber: phone,
           smsType: '1'
         }, {
           success: (oData) => {
@@ -85,24 +90,22 @@
         })
       },
       submit: function() {
+        let self = this
         let reg = new RegExp('^[0-9]*$')
         if (this.bankInfo.accountName === '') {
-          popup(null, null, '请输入姓名')
+          popup(null, null, '请输入姓名！')
           return false
         } else if (this.bankInfo.accountNumber === '') {
-          popup(null, null, '请输入银行卡号')
+          popup(null, null, '请输入银行卡号！')
           return false
-        } else if (this.bankInfo.reservedPhone === '') {
-          popup(null, null, '请输入手机号')
+        } else if (!/^1\d{10}$/.test(this.bankInfo.reservedPhone)) {
+          popup(null, null, '请正确输入手机号！')
           return false
         } else if (this.bankInfo.smsCode === '') {
-          popup(null, null, '请输入验证码')
+          popup(null, null, '请输入验证码！')
           return false
         } else if (!reg.test(this.bankInfo.accountNumber)) {
-          popup(null, null, '银行卡格式不对，请重新输入')
-          return false
-        } else if (!reg.test(this.bankInfo.reservedPhone) || this.bankInfo.reservedPhone.length !== 11) {
-          popup(null, null, '手机号输入不对，请重新输入')
+          popup(null, null, '银行卡格式不对，请重新输入！')
           return false
         }
         let param = this.bankInfo
@@ -111,7 +114,11 @@
           doPost(types.BANK, param, {
             success: (oData) => {
               this.submitStatus = true
-              endPage({url: pageIdentity.BANK_LIST})
+              if (self.from === 'bank_list') {
+                endPage({url: pageIdentity.BANK_LIST})
+              } else if (self.from === 'choose_bank') {
+                endPage({url: pageIdentity.CHOOSE_BANK})
+              }
             },
             error: (oData) => {
               popup(null, null, oData.msg || '绑定银行卡失败，请稍后再试！')
@@ -119,6 +126,10 @@
           })
         }
       }
+    },
+    created() {
+      let {from} = this.$route.query
+      this.from = from
     },
     components: {
       FooterNotice
@@ -152,10 +163,13 @@
       input
         background-color: #eeeff3
         font-size: .28rem
+        height: .68rem
+        line-height: .68rem
         color: #000000
         padding: .2rem 0 .2rem .3rem
         width: 100%
         outline: none
+        box-sizing: border-box
       span
         display:block
         min-width: 1.8rem

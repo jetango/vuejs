@@ -34,10 +34,10 @@
     </div>
     <div class="loan-info">
       <div class="flex flex-item flex-grow">
-        <div class="loan-info-item item-bank flex flex-item flex-grow active">
+        <div class="loan-info-item item-bank flex flex-item flex-grow" @click="choseBankCard">
           <span>到账账户：</span>
-          <span @click="choseBankCard" class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
-          <span @click="choseBankCard" v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
+          <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
+          <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
         </div>
         <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
@@ -144,9 +144,11 @@
         param.mobile = self.$route.query.mobile
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
-            if (oData.status === '0') {
-              this.$router.push('loan-result')
-            }
+            // if (oData.status === '0') {
+            //   this.$router.push('loan-result')
+            // }
+            let param = `orderNo=${oData.data}`
+            navigate('LOAN_RESULT', '借款结果', {url: pageIdentity.LOAN_RESULT, param})
           },
           error: (oData) => {
             popup(null, null, oData.msg || '提交失败，请稍后再试')
@@ -154,9 +156,7 @@
         })
       },
       choseBankCard: function() {
-        let {productCode, loanAmount, borrowTime} = this.$route.query
-        let param = `productCode=${productCode}&loanAmount=${loanAmount}&borrowTime=${borrowTime}`
-        navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK, param})
+        navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK})
         // this.$router.push({
         //   path: 'bank-list',
         //   query: {productCode, loanAmount, borrowTime}

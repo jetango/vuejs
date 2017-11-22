@@ -22,7 +22,7 @@
 
 <script>
   import NoData from 'base/noData/noData'
-  import {doPost, popup, navigate, log} from 'common/js/drivers'
+  import {doPost, popup, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -32,11 +32,7 @@
       }
     },
     created: function() {
-      log('', '------------------> created')
       this.init()
-    },
-    mounted() {
-      log('', '------------------> mounted')
     },
     methods: {
       init: function() {
@@ -51,7 +47,7 @@
         })
       },
       addBankCard: function() {
-        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD})
+        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=bank_list'})
       }
     },
     components: {
