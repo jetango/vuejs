@@ -179,6 +179,20 @@ const RegisterProtocol = (resolve) => {
   })
 }
 
+// 认证授权
+const PrivacyPolicies = (resolve) => {
+  import('base/protocols/privacyPolicies').then((module) => {
+    resolve(module)
+  })
+}
+
+// 认证授权
+const RegisterAndPrivacy = (resolve) => {
+  import('components/registerAndPrivacy').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -294,6 +308,14 @@ export default new Router({
       path: '/register-protocol',
       name: 'registerProtocol',
       component: RegisterProtocol
+    }, {
+      path: '/privacy-policies',
+      name: 'privacyPolicies',
+      component: PrivacyPolicies
+    }, {
+      path: '/register-privacy',
+      name: 'registerAndPrivacy',
+      component: RegisterAndPrivacy
     }
   ]
 })

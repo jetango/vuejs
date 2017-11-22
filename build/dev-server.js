@@ -379,6 +379,24 @@ apiRoutes.post('/job/fetch', function(req, res) {
   }
   responseData(res, result)
 })
+
+apiRoutes.post('/score/fetch', function(req, res) {
+  var result = {
+    "status": '0',
+    "msg":"success",
+    "data": {
+        "stepScore": '80', //资料完整度        
+        "identityFlag": '1', //身份信息是否填写
+        "jobFlag": '1', //工作信息是否填
+        "contactFlag": '0', //联系人信息是否填
+        "zmxyFlag": '0', //芝麻信用认证
+        "mobileFlag": '1', //运营商认证        
+        "onlineBankFlag": '0' //网银认证
+    }
+  }
+  responseData(res, result)
+})
+
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
 const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true, headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}})
 const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true, headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}})

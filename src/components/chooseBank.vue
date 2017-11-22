@@ -71,6 +71,9 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
 
+  .bank-list
+    padding-bottom: 1rem
+
   .bank-item
     margin-top: .3rem
     background-color: #ffffff
