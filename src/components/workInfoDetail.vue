@@ -22,7 +22,7 @@
       <div class="item flex">
         <div class="title tel">单位电话</div>
         <div class="flex-grow">
-          <input type="number" placeholder="(可选填)" v-model="workInfo.telephone" readonly>
+          <input type="text" placeholder="(可选填)" v-model="workInfo.telephone" readonly>
         </div>
       </div>
       <div class="item flex">

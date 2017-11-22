@@ -60,7 +60,7 @@ export default class Driver {
   }
 
   endPage(param, pageIdentifier) {
-    window.android.plugin('endPage', JSON.stringify({ param }))
+    window.android.plugin('endPage', JSON.stringify({ param, pageIdentifier }))
   }
 
   eeLogBiz(type, event, identity, properties) {

@@ -52,7 +52,7 @@
 <script type="text/ecmascript-6">
   import {relationship} from 'common/js/constants'
   import Picker from 'better-picker'
-  import {doPost, chooseContact, popup} from 'common/js/drivers'
+  import {doPost, chooseContact, popup, endPage, log} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -98,14 +98,26 @@
         })
       },
       confirmContactInfo() {
+        let self = this
         let {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile} = this.$data
         let params = {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile}
         if (this._validate(params)) {
+          if (this.loading) {
+            return
+          } else {
+            this.loading = true
+          }
           doPost(types.CONTACT_POST, params, {
             success: function(oData) {
-              // TODO
+              log('', oData)
+              self.loading = false
+              if (oData.status === '0') {
+                endPage()
+              }
             },
             error: function(oData) {
+              log('', oData)
+              self.loading = false
               popup(null, null, oData.msg || '信息保存失败，请稍后再试')
             }
           })
@@ -157,6 +169,7 @@
           popup('', '', '手机号码不可以相同！')
           return false
         }
+        return true
       }
     },
     mounted() {

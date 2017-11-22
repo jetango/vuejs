@@ -24,7 +24,7 @@
         </div>
         <div class="content flex-grow">
           <h1>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '未通过审核' : '审核完成'}}</h1>
-          <h4>123</h4>
+          <h4>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '抱歉审核未通过' : '恭喜你，审核完成！'}}</h4>
           <p v-show="orderStatusLength >= 2"><i class="iconfont icon-127"></i>{{orderStatusLength >= 2 ? loadResult.orderStatusList[1].statusTime : ''}}</p>
         </div>
       </div>

@@ -76,7 +76,7 @@
 
     <h4>借款信息</h4>
     <div class="list-view">
-      <router-link :to="{path: '/loan-confirm', query: {financeProductId: 'test2', loanAmount: 1000, borrowTime: 7}}">
+      <router-link :to="{path: '/loan-confirm', query: {productCode: 'test2', loanAmount: 1000, borrowTime: 7, mobile: '12312312312'}}">
         <div class="item flex">
           <p class="flex-grow">借款确认</p>
           <i class="iconfont icon-117"></i>
@@ -164,6 +164,14 @@
       <router-link to="/bank-list">
         <div class="item flex">
           <p class="flex-grow">借记卡列表</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/choose-bank">
+        <div class="item flex">
+          <p class="flex-grow">选择借记卡</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>

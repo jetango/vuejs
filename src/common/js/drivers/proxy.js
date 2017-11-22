@@ -74,9 +74,9 @@ export default class Proxy {
 
   log(type, msg) {
     if (typeof msg === 'object') {
-      try {
-        msg = msg.message
-      } catch (e) { }
+      // try {
+      //   msg = msg.message
+      // } catch (e) { }
     }
     this.__current__.log(type, msg)
   }

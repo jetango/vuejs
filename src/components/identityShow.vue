@@ -17,7 +17,7 @@
         婚姻状况：{{identityInfo.maritalStatus}}
       </div>
       <div class="item">
-        人脸识别：{{identityInfo.faceRecognition}}
+        人脸识别：<span :class="{'text-danger': identityInfo.faceRecognition == 0}">{{identityInfo.faceRecognition == 1 ? '已识别' : '未成功'}}</span>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="bank-list">
-    <div class="bank-item" v-for="bank in bankList" :key="bank.bankList">
+    <div class="bank-item" v-for="bank in bankList" :key="bank.bankList" @click="choseBankCard(bank)">
       <div class="bank-name  flex flex-item active">
         <i class="icon iconfont icon-161"></i>
         <p class="flex-grow" v-html="bank.bankName"></p>
@@ -22,7 +22,10 @@
 
 <script>
   import NoData from 'base/noData/noData'
-  import {doPost, popup, navigate, log} from 'common/js/drivers'
+  import {
+    doPost,
+    popup, navigate
+  } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -32,11 +35,7 @@
       }
     },
     created: function() {
-      log('', '------------------> created')
       this.init()
-    },
-    mounted() {
-      log('', '------------------> mounted')
     },
     methods: {
       init: function() {
@@ -48,6 +47,15 @@
           error: (oData) => {
             popup(null, null, oData.msg || '获取数据失败，请稍后再试')
           }
+        })
+      },
+      choseBankCard: function(obj) {
+        let param = this.$route.query
+        param.bankName = obj.bankName
+        param.accountNumber = obj.accountNumber
+        this.$router.push({
+          path: '/loan-confirm',
+          query: param
         })
       },
       addBankCard: function() {

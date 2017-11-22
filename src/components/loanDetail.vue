@@ -25,10 +25,6 @@
       <span v-html="loanInfo.promiseRepaymentTime"></span>
     </div>
     <div class="list-show flex flex-item active">
-      <span>实际还款日期</span>
-      <span v-html="loanInfo.actualRepaymentTime"></span>
-    </div>
-    <div class="list-show flex flex-item active">
       <span>利息</span>
       <span v-html="loanInfo.interest+'元'"></span>
     </div>
@@ -42,7 +38,7 @@
     </div>
     <div class="list-show flex flex-item active">
       <span>状态说明</span>
-      <span>{{getOrderStatusStr(loanInfo.orderStatus)}}</span>
+      <span :class="{'text-danger': ([40, 70].indexOf(loanInfo.orderStatus) > -1), 'text-success': ([10, 20, 30, 50].indexOf(loanInfo.orderStatus) > -1)}">{{getOrderStatusStr(loanInfo.orderStatus)}}</span>
     </div>
     <p class="check-contract flex flex-item flex-justify">
       <span @click="checkContract">查看合同</span>

@@ -69,7 +69,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition, popup} from 'common/js/drivers'
+  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition, popup, log, endPage} from 'common/js/drivers'
   import Picker from 'better-picker'
   import * as types from 'config/api-type'
   import {educational, maritalStatus, provinces, citys, dists} from 'common/js/constants'
@@ -112,14 +112,14 @@
           }
           doPost(types.IDENTITY_POST, identityInfo, {
             success: function(oData) {
+              log('', oData)
               self.loading = false
               if (oData.status === '0') {
-                self.$router.push({
-                  path: '/identity-detail'
-                })
+                endPage()
               }
             },
             error: function(oData) {
+              log('', oData)
               self.loading = false
               popup('', '', oData.msg || '保存信息失败')
             }
@@ -150,6 +150,7 @@
               }
             },
             error: function(oData) {
+              log('', oData)
               popup('', '', oData.msg || '请重新进行人脸识别！')
             }
           })

@@ -24,7 +24,7 @@
       <div class="item flex">
         <div class="title tel">单位电话</div>
         <div class="flex-grow">
-          <input type="number" placeholder="(可选填)" v-model="workInfo.telephone">
+          <input type="text" placeholder="(可选填)" v-model="workInfo.telephone">
         </div>
       </div>
       <div class="item flex" @click="salarySelected()">
@@ -44,7 +44,7 @@
 <script type="text/ecmascript-6">
   import {positionTypes, positionItems, salarys, provinces, citys, dists} from 'common/js/constants'
   import Picker from 'better-picker'
-  import {doPost, popup} from 'common/js/drivers'
+  import {doPost, popup, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -65,16 +65,25 @@
     },
     methods: {
       saveWorkInfo() {
+        let self = this
         let {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary, profession} = this.workInfo
         let params = {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary, profession}
         if (this._validate(params)) {
+          if (this.loading) {
+            return
+          } else {
+            this.loading = true
+          }
           doPost(types.JOB_POST, params, {
             success: function(oData) {
+              self.loading = false
               if (oData.status === '0') {
+                endPage()
               }
             },
             error: function(oData) {
-              popup(null, null, oData.msg || '数据保存失败，请稍后重试！')
+              self.loading = false
+              popup('', '', oData.msg || '保存工作信息失败！')
             }
           })
         }

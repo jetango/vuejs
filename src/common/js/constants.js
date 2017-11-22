@@ -125,6 +125,28 @@ export const positionTypes = [
   }
 ]
 
+export const pageIdentity = {
+  'IDENTITY_INPUT': '/identity-input',                              // 身份信息录入
+  'IDENTITY_DETAIL': '/identity-detail',                            // 身份信息显示
+  'CONTACTINFO_INPUT': '/contactinfo-input',                        // 联系人信息录入
+  'CONTACTINFO_DETAIL': '/contactinfo-detail',                      // 联系人信息显示
+  'WORKINFO_INPUT': '/workinfo-input',                              // 工作信息录入
+  'WORKINFO_DETAIL': '/workInfo-detail',                            // 工作信息展示
+  'DEBIT_CARD': '/debit-card',                                      // 借记卡信息录入
+  'CREDIT_CERTIFICATION': '/credit-certification',                  // 信用认证
+  'BANK_LIST': '/bank-list',                                        // 银行卡列表
+  'LOAN_CONFIRM': '/loan-confirm',                                  // 借款确认页面
+  'LOAN_RESULT': '/loan-result',                                    // 借款结果页面
+  'LOAN_DETAIL': '/loan-detail',                                    // 借款详情页面
+  'LOAN_CONTRACT': '/loan-contract',                                // 借款合同
+  'BORROW_LIST': '/borrow-list',                                    // 借款记录
+  'REPAYMENT_TIP': '/repayment-tip',                                // 发起还款页面
+  'REPAYMENT_LOAN': '/repayment-loan',                              // 还款计划
+  'REPAYMENT_WAY': '/repayment-way',                                // 还款方式
+  'RATE_QUERY': '/rate-query',                                      // 还款费率
+  'SERVICES_PROTOCOLS': '/services-protocols'                       // 我同意xxxx协议
+}
+
 export const positionItems = {
   '001': [
     {

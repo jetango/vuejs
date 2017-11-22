@@ -50,6 +50,12 @@ const BankList = (resolve) => {
     resolve(module)
   })
 }
+// 选择借记卡
+const ChooseBank = (resolve) => {
+  import('components/chooseBank').then((module) => {
+    resolve(module)
+  })
+}
 // 身份信息展示
 const IdentityShow = (resolve) => {
   import('components/identityShow').then((module) => {
@@ -216,6 +222,10 @@ export default new Router({
       path: '/bank-list',
       name: 'bankList',
       component: BankList
+    }, {
+      path: '/choose-bank',
+      name: 'chooseBank',
+      component: ChooseBank
     }, {
       path: '/contactinfo-input',
       name: 'contactInfoInput',

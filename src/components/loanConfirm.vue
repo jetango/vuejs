@@ -53,7 +53,7 @@
                     </div> -->
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
-      <i @click="agreeProtocols" :class="['icon', 'iconfont', 'icon-correct-marked', {'icon-not-chose': isChosed}]"></i>
+      <i @click="agreeProtocols" :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>
       <span>我已阅读并同意<span @click="checkServicesProtocols">《用户服务协议》</span></span>
     </p>
     <a class="button button-primary" @click="submit">借款</a>
@@ -65,7 +65,7 @@
   import AlertItem from 'base/alertItem/alert-item'
   import {
     doPost,
-    popup
+    popup, log
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -79,7 +79,7 @@
           realLoanAmount: '',
           repayTotalAmount: '',
           annualizedRate: '',
-          bankAccount: []
+          bankList: []
         },
         bankCard: {
           bankName: '',
@@ -92,11 +92,12 @@
       }
     },
     created: function() {
-      let {financeProductId, loanAmount, borrowTime} = this.$route.query
-      this.params = {financeProductId, loanAmount, borrowTime}
+      let {productCode, loanAmount, borrowTime} = this.$route.query
+      this.params = {productCode, loanAmount, borrowTime}
     },
     mounted() {
       this.init()
+      log('', this.$route.query)
     },
     methods: {
       init: function() {
@@ -134,16 +135,15 @@
         }
         let param = this.loanInfo
         let {
-          financeProductId
+          productCode
         } = this.params
-        param.financeProductId = financeProductId
-        param.annualizedRate = '2.5'
-        param.bankName = '工商银行'
-        param.accountNumber = '6228000666688880000'
+        param.productCode = productCode
+        param.bankName = self.bankCard.bankName
+        param.accountNumber = self.bankCard.accountNumber
+        param.mobile = self.$route.query.mobile
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
-            self.message = oData.msg
-            if (oData.status === 0) {
+            if (oData.status === '0') {
               this.$router.push('loan-result')
             }
           },
@@ -153,13 +153,10 @@
         })
       },
       choseBankCard: function() {
+        let {productCode, loanAmount, borrowTime} = this.$route.query
         this.$router.push({
           path: 'bank-list',
-          query: {
-            financeProductId: 'test2',
-            loanAmount: 1000,
-            borrowingTime: 7
-          }
+          query: {productCode, loanAmount, borrowTime}
         })
       },
       seeDetail: function() {

@@ -39,8 +39,7 @@ export function callback(func, data, codec) {
     _proxy.callback(func, decode(data))
   } catch (e) {
     _proxy.callback(func, {
-      status: 0,
-      error: -1,
+      status: '1',
       message: e.message,
       data: {}
     })
