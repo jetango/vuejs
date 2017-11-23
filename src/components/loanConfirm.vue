@@ -114,7 +114,7 @@
         doPost(types.BORROW, this.params, {
           success: (oData) => {
             this.loanInfo = oData.data
-            if (oData.data.bankList.length !== 0 && !this.$route.query.bankName) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
+            if (oData.data.bankList.length !== 0 && !this.$route.query.bankName && !this.$route.query.accountNumber) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
               let payCard = oData.data.bankList[0]
               this.bankCard = payCard
               this.bankCard.flag = true

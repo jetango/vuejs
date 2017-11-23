@@ -3,25 +3,25 @@
     <div class="input-item flex flex-item">
       <span>姓&nbsp;&nbsp;&nbsp;&nbsp;名:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.accountName" type="text" placeholder="请输入您的姓名">
+        <input v-model="bankInfo.accountName" type="text" placeholder="请输入您的姓名">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>银行卡:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.accountNumber" type="tel" placeholder="请输入银行卡">
+        <input v-model="bankInfo.accountNumber" type="tel" placeholder="请输入银行卡">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>手机号:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号">
+        <input v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>验证码:</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input @blur="changeInputTrue" @focus="changeInputFalse" v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
+        <input v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
         <span v-if="!isSend" @click="sendValidateCode" class="input-validate">获取验证码</span>
         <span v-if="isSend" class="input-validate is-send">{{delayTime}}后重新获取</span>
       </div>
@@ -128,12 +128,6 @@
             }
           })
         }
-      },
-      changeInputFalse: function() {
-        this.isInput = true
-      },
-      changeInputTrue: function() {
-        this.isInput = false
       }
     },
     created() {
