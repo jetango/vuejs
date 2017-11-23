@@ -119,7 +119,7 @@
               log('', oData)
               self.loading = false
               if (oData.status === '0') {
-                endPage()
+                endPage({userId: oData.data.userId})
               }
             },
             error: function(oData) {

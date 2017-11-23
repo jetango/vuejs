@@ -53,8 +53,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost} from 'common/js/drivers'
+  import {doPost, navigate, popup} from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {pageIdentity} from 'common/js/constants'
 
   export default {
     data() {
@@ -82,7 +83,9 @@
     },
     methods: {
       checkLoanDetail: function() {
-        // this.$router.push('loan-detail')
+        let {orderNo} = this.$route.query
+        let param = `orderNo=${orderNo}`
+        navigate('LOAN_DETAIL', '借款详情', {url: pageIdentity.LOAN_DETAIL, param})
       },
       _fetchLoadResult() {
         let self = this
@@ -93,6 +96,7 @@
             }
           },
           error: function(oData) {
+            popup('', '', oData.msg || '获取信息失败')
           }
         })
       }
