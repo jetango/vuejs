@@ -12,15 +12,12 @@ export default {
   [types.SMSCODE]: '/api/user/smscode',
   [types.SCORE_FETCH]: '/api/user/score/fetch',
   [types.SCORE]: '/api/user/score',
-
   [types.BORROW]: '/api/order/borrow',
   [types.BORROW_CONFIRM]: '/api/order/borrow/confirm',
   [types.BORROW_RESULT]: '/api/order/borrow/result',
   [types.BORROW_DETAIL]: '/api/order/borrow/detail',
   [types.BORROW_RECORD]: '/api/order/borrow/record',
-
   [types.GET_REPAYMENT_TIP]: '/api/repay/bill',
   [types.REPAY_SCHEDULE]: '/api/repay/bill-list',
-
   [types.USER_CONTRACT]: '/api/application/agreement'
 }
