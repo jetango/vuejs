@@ -185,6 +185,10 @@ export default class Proxy {
     this.__current__.phoneCertification(cb)
   }
 
+  tbCertification(cb) {
+    this.__current__.tbCertification(cb)
+  }
+
   unionPay(param, cb) {
     this.__current__.unionPay(param, cb)
   }

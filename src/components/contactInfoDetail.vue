@@ -6,15 +6,15 @@
       </div>
       <div class="item flex">
         <div class="flex-grow">关系</div>
-        <div>{{directContactRelation ? directContactRelation : '请选择'}}</div>
+        <div>{{directContactRelation}}</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">电话</div>
-        <div>{{directContactMobile ? directContactMobile : '直系亲属电话'}}</div>
+        <div>{{directContactMobile}}</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">姓名</div>
-        <div>{{directContactName ? directContactName : '直系亲属姓名'}}</div>
+        <div>{{directContactName}}</div>
       </div>
     </div>
 
@@ -24,15 +24,15 @@
       </div>
       <div class="item flex">
         <div class="flex-grow">关系</div>
-        <div>{{majorContactRelation ? majorContactRelation : '请选择'}}</div>
+        <div>{{majorContactRelation}}</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">电话</div>
-        <div>{{majorContactMobile ? majorContactMobile : '重要亲属电话'}}</div>
+        <div>{{majorContactMobile}}</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">姓名</div>
-        <div>{{majorContactName ? majorContactName : '重要亲属姓名'}}</div>
+        <div>{{majorContactName}}</div>
       </div>
     </div>
   </div>

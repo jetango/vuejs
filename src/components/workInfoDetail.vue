@@ -3,11 +3,11 @@
     <div class="list-view h4">
       <div class="item flex">
         <div class="flex-grow title">职业类型</div>
-        <div>{{workInfo.industry ? (workInfo.industry + '-' +  workInfo.profession) : '请选择'}}</div>
+        <div>{{workInfo.industry ? (workInfo.industry + '-' +  workInfo.profession) : ''}}</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">
-          <input type="text" placeholder="请填写单位名称" v-model="workInfo.company" readonly>
+          <input type="text" v-model="workInfo.company" readonly>
         </div>
       </div>
       <div class="item flex">
@@ -16,7 +16,7 @@
       </div>
       <div class="item flex">
         <div class="flex-grow">
-          <input type="text" placeholder="请填写单位详细地址" v-model="workInfo.companyAddress" readonly>
+          <input type="text" v-model="workInfo.companyAddress" readonly>
         </div>
       </div>
       <div class="item flex">
@@ -27,7 +27,7 @@
       </div>
       <div class="item flex">
         <div class="flex-grow title">月收入</div>
-        <div>{{workInfo.salary ? workInfo.salary : '请选择'}}</div>
+        <div>{{workInfo.salary ? workInfo.salary : ''}}</div>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@
     },
     computed: {
       fullName() {
-        return this.workInfo.companyProvince ? `${this.workInfo.companyProvince}-${this.workInfo.companyCity}-${this.workInfo.companyDistrict}` : '省市区'
+        return this.workInfo.companyProvince ? `${this.workInfo.companyProvince}-${this.workInfo.companyCity}-${this.workInfo.companyDistrict}` : ''
       }
     }
   }

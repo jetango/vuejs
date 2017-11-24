@@ -42,7 +42,8 @@
   import {
     doPost,
     popup,
-    endPage
+    endPage,
+    toast
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {
@@ -67,7 +68,7 @@
       sendValidateCode: function() {
         let phone = this.bankInfo.reservedPhone
         if (!/^1\d{10}$/.test(phone)) {
-          popup('', null, '请正确输入手机号码！')
+          popup('', null, '请输入手机号码！')
           return
         }
         doPost(types.SMSCODE, {
@@ -76,6 +77,7 @@
         }, {
           success: (oData) => {
             console.log(oData)
+            toast('验证码已发送，请注意查收！')
             this.isSend = true
             this.delayTime = 119
             let timer = setInterval(() => {

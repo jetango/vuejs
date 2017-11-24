@@ -160,6 +160,10 @@ export function phoneCertification(cb) {
   _proxy.phoneCertification(cb)
 }
 
+export function tbCertification(cb) {
+  _proxy.tbCertification(cb)
+}
+
 export function unionPay(param, cb) {
   _proxy.unionPay(cb)
 }

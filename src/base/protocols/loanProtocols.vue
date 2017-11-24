@@ -304,6 +304,6 @@
         width: .8rem
       td
         &:first-of-type
-          width: .8rem
+          width: 1.2rem
 
 </style>

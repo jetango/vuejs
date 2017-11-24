@@ -152,6 +152,12 @@ export default class Driver {
     window.android.plugin('phoneCertification', JSON.stringify({ callback: name }))
   }
 
+  // 淘宝认证
+  tbCertification(cb) {
+    let name = this.proxy.registCB(cb)
+    window.android.plugin('tbCertification', JSON.stringify({ callback: name }))
+  }
+
   // 银联支付
   unionPay(param, cb) {
     let name = this.proxy.registCB(cb)

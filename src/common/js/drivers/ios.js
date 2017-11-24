@@ -427,6 +427,13 @@ export default class Driver {
     this._iosCall(url)
   }
 
+  // 淘宝认证
+  tbCertification(cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://tbCertification?callback=${encodeURIComponent(name)}`
+    this._iosCall(url)
+  }
+
   // 银联支付
   unionPay(param, cb) {
     let name = this.proxy.registCB(cb)

@@ -3,7 +3,7 @@
     <div class="list-view h4">
       <div class="item flex" @click="positionSelected()">
         <div class="flex-grow title">职业类型</div>
-        <div>{{workInfo.industry ? (workInfo.industry + '-' +  workInfo.profession) : '请选择'}}</div>
+        <div>{{workInfo.industry ? (workInfo.industry + '-' + workInfo.profession) : '请选择'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex">
@@ -42,11 +42,21 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {positionTypes, positionItems, salarys, provinces, citys, dists} from 'common/js/constants'
+  import {
+    positionTypes,
+    positionItems,
+    salarys,
+    provinces,
+    citys,
+    dists
+  } from 'common/js/constants'
   import Picker from 'better-picker'
-  import {doPost, popup, endPage} from 'common/js/drivers'
+  import {
+    doPost,
+    popup,
+    endPage
+  } from 'common/js/drivers'
   import * as types from 'config/api-type'
-
   export default {
     data() {
       return {
@@ -66,8 +76,28 @@
     methods: {
       saveWorkInfo() {
         let self = this
-        let {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary, profession} = this.workInfo
-        let params = {industry, company, companyProvince, companyCity, companyDistrict, companyAddress, telephone, salary, profession}
+        let {
+          industry,
+          company,
+          companyProvince,
+          companyCity,
+          companyDistrict,
+          companyAddress,
+          telephone,
+          salary,
+          profession
+        } = this.workInfo
+        let params = {
+          industry,
+          company,
+          companyProvince,
+          companyCity,
+          companyDistrict,
+          companyAddress,
+          telephone,
+          salary,
+          profession
+        }
         if (this._validate(params)) {
           if (this.loading) {
             return
@@ -100,6 +130,26 @@
       _validate(params) {
         if (!params.industry) {
           popup('', '', '请选择职业类型')
+          return false
+        }
+        if (!params.company) {
+          popup('', '', '请填写单位名称')
+          return false
+        }
+        if (!params.company) {
+          popup('', '', '请填写单位名称')
+          return false
+        }
+        if (!params.companyProvince) {
+          popup('', '', '请选择单位地址')
+          return false
+        }
+        if (!params.companyAddress) {
+          popup('', '', '请填写单位详细地址')
+          return false
+        }
+        if (!params.salary) {
+          popup('', '', '请选择月收入')
           return false
         }
         return true

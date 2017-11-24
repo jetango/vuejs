@@ -11,6 +11,7 @@ export default {
   [types.BANK_LIST]: '/api/user/bankList',
   [types.SMSCODE]: '/api/user/smscode',
   [types.SCORE_FETCH]: '/api/user/score/fetch',
+  [types.SCORE]: '/api/user/score',
 
   [types.BORROW]: '/api/order/borrow',
   [types.BORROW_CONFIRM]: '/api/order/borrow/confirm',
@@ -19,6 +20,7 @@ export default {
   [types.BORROW_RECORD]: '/api/order/borrow/record',
 
   [types.GET_REPAYMENT_TIP]: '/api/repay/repayment',
-  [types.REPAY_SCHEDULE]: '/api/repay/schedule'
+  [types.REPAY_SCHEDULE]: '/api/repay/schedule',
 
+  [types.USER_CONTRACT]: '/api/application/agreement'
 }

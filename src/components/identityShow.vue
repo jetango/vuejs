@@ -17,23 +17,25 @@
         婚姻状况：{{identityInfo.maritalStatus}}
       </div>
       <div class="item">
-        人脸识别：<span :class="{'text-danger': identityInfo.faceRecognition == 0}">{{identityInfo.faceRecognition == 1 ? '已识别' : '未成功'}}</span>
+        人脸识别：<span :class="{'text-danger': identityInfo.faceRecognition == 0}">{{faceRecognitionValue}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup} from 'common/js/drivers'
+  import {
+    doPost,
+    popup
+  } from 'common/js/drivers'
   import * as types from 'config/api-type'
-
   export default {
     data() {
       return {
         identityInfo: {
           realName: '',
           idNumber: '',
-          faceRecognition: 0,
+          faceRecognition: null,
           livingProvince: '',
           livingCity: '',
           livingDistrict: '',
@@ -48,7 +50,11 @@
     },
     computed: {
       fullName() {
+        console.log(this.identityInfo.livingProvince)
         return `${this.identityInfo.livingProvince}${this.identityInfo.livingCity}${this.identityInfo.livingDistrict}`
+      },
+      faceRecognitionValue() {
+        return this.identityInfo.faceRecognition === 1 ? '已识别' : this.identityInfo.faceRecognition === 0 ? '未成功' : ''
       }
     },
     methods: {
@@ -56,9 +62,9 @@
         let self = this
         doPost(types.IDENTITY_FETCH, null, {
           success: function(oData) {
-            if (oData.status === '0') {
-              self.identityInfo = oData.data
-            }
+            console.log(oData)
+            self.identityInfo = oData.data
+            console.log(JSON.stringify(self.identityInfo))
           },
           error: function(oData) {
             popup(null, null, oData.msg || '信息获取失败，请稍后再试！')

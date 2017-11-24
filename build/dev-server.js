@@ -35,7 +35,7 @@ var responseData = function (res, data) {
   }, 500)
 }
 
-apiRoutes.post('/identity/fetch', function (req, res) {
+apiRoutes.post('/user/identity/fetch', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -43,9 +43,9 @@ apiRoutes.post('/identity/fetch', function (req, res) {
       realName: '李四',
       idNumber: '310110198803161768',
       faceRecognition: 1,  //是否人脸识别 1识别 0 未识别
-      livingProvinceCode: '浙江省',
-      livingCityCode: '杭州市',
-      livingDistrictCode: '西湖区',
+      livingProvince: '浙江省',
+      livingCity: '杭州市',
+      livingDistrict: '西湖区',
       livingAddress: '人民路1号',
       highestDegree: '本科',
       maritalStatus: '已婚'
@@ -64,17 +64,18 @@ apiRoutes.post('/identity/fetch', function (req, res) {
  *  data: object
  * }
  */
-apiRoutes.post('/borrow', function (req, res) {
+apiRoutes.post('/order/borrow', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
     data: {
       loanAmount: '1000', //借款金额
-      borrowingTime: '7', //借款时长
+      borrowTime: '7', //借款时长
       interest: '100', //利息
       syntheticalFee: '100', //综合费用
       realLoanAmount: '900', //到账金额
       repayTotalAmount: '1200', //应还金额
+      annualizedRate: '1.3', // 年化利率
       bankList: [{
         bankName: '工商银行', //银行
         accountNumber: '6228000666688880000' //银行卡号
@@ -100,7 +101,7 @@ apiRoutes.post('/borrow', function (req, res) {
  *  data: object
  * }
  */
-apiRoutes.post('/borrow/detail', function (req, res) {
+apiRoutes.post('/order/borrow/detail', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -108,7 +109,7 @@ apiRoutes.post('/borrow/detail', function (req, res) {
       "loanTime": "2017-11-11",     //借款申请时间
       "orderNo": "1681688",     //借款编号
       "loanAmount": "1000", //借款金额
-      "borrowingTime": "7", //借款时长
+      "borrowTime": "7", //借款时长
       "loanTime": "2017-11-11", //放款日期
       "promiseRepaymentDate": "2017-11-18", //约定还款时间
       "actualRepaymentDate": "2017-11-18", //实际还款时间
@@ -130,7 +131,7 @@ apiRoutes.post('/borrow/detail', function (req, res) {
  *  data: object
  * }
  */
-apiRoutes.post('/borrow/result', function (req, res) {
+apiRoutes.post('/order/borrow/result', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -163,7 +164,7 @@ apiRoutes.post('/borrow/result', function (req, res) {
  *  data: object
  * }
  */
-apiRoutes.post('/borrow/confirm', function (req, res) {
+apiRoutes.post('/order/borrow/confirm', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -195,7 +196,7 @@ apiRoutes.post('/identity', function (req, res) {
   responseData(res, result)
 })
 
-apiRoutes.post('/repay', function(req, res) {
+apiRoutes.post('/repay/repayment', function(req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -227,7 +228,7 @@ apiRoutes.post('/bank', function(req, res) {
 /**
  * 借记卡列表展示
  */
-apiRoutes.post('/bankList', function(req, res) {
+apiRoutes.post('/user/bankList', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
@@ -251,7 +252,7 @@ apiRoutes.post('/bankList', function(req, res) {
  * 借款记录
  * @type {[type]}
  */
-apiRoutes.post('/borrow/record', function(req, res) {
+apiRoutes.post('/order/borrow/record', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
@@ -301,7 +302,7 @@ apiRoutes.post('/repay/schedule', function(req, res) {
  * 联系人信息保存
  * @type {[type]}
  */
-apiRoutes.post('/contact', function(req, res) {
+apiRoutes.post('/user/contact', function(req, res) {
   console.log('contact_post->>>>>>', req.params, req.query, req.body)
   var result = {
     status: '0',
@@ -314,7 +315,7 @@ apiRoutes.post('/contact', function(req, res) {
  * 联系人信息展示
  * @type {[type]}
  */
-apiRoutes.post('/contact/fetch', function(req, res) {
+apiRoutes.post('/user/contact/fetch', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
@@ -334,10 +335,10 @@ apiRoutes.post('/contact/fetch', function(req, res) {
  * 短信验证码发送接口
  * @type {[type]}
  */
-apiRoutes.post('/smscode', function(req, res) {
+apiRoutes.post('/user/smscode', function(req, res) {
   var result = {
-    status: '1',
-    msg: '',
+    status: '0',
+    msg: 'success',
     data: {
       "api": "smscode"
     }
@@ -349,7 +350,7 @@ apiRoutes.post('/smscode', function(req, res) {
  * 工作信息保存
  * @type {[type]}
  */
-apiRoutes.post('/job', function(req, res) {
+apiRoutes.post('/user/job', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
@@ -359,7 +360,7 @@ apiRoutes.post('/job', function(req, res) {
   responseData(res, result)
 })
 
-apiRoutes.post('/job/fetch', function(req, res) {
+apiRoutes.post('/user/job/fetch', function(req, res) {
   var result = {
     "status": '0',
     "msg":"success",
@@ -380,7 +381,7 @@ apiRoutes.post('/job/fetch', function(req, res) {
   responseData(res, result)
 })
 
-apiRoutes.post('/score/fetch', function(req, res) {
+apiRoutes.post('/user/score/fetch', function(req, res) {
   var result = {
     "status": '0',
     "msg":"success",
@@ -391,22 +392,50 @@ apiRoutes.post('/score/fetch', function(req, res) {
         "contactFlag": '0', //联系人信息是否填
         "zmxyFlag": '0', //芝麻信用认证
         "mobileFlag": '1', //运营商认证
-        "onlineBankFlag": '0' //网银认证
+        "onlineBankFlag": '0', //网银认证
+        "tbFlag": '0'
     }
   }
   responseData(res, result)
 })
 
+apiRoutes.post('/application/agreement', function(req, res) {
+  var result = {
+    "status": '0',
+    "msg":"success",
+    "data": {
+        "elecAuthorization": 'elec-authorization',
+        "creditAuthorization": 'credit-authorization',
+        "serverProtocol": 'server-protocols',
+        "bankLoanProtocol": 'loan-protocols',
+        "autoRepayProtocol": 'auto-repayment'
+    }
+  }
+  responseData(res, result)
+})
+
+apiRoutes.post('/user/score', function(req, res) {
+  var result = {
+    "status": '0',
+    "msg":"success",
+    "data": {
+        "api": "tbCertification"
+    }
+  }
+  responseData(res, result)
+})
+
+
  // headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
 
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
-const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true})
-const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true})
-const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9002', changeOrigin: true})
-app.use('/api/user', apiUserProxy)
-app.use('/api/order', apiOrderProxy)
-app.use('/api/repay', apiRepayProxy)
-// app.use('/api', apiRoutes)
+// const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true})
+// const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true})
+// const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9002', changeOrigin: true})
+// app.use('/api/user', apiUserProxy)
+// app.use('/api/order', apiOrderProxy)
+// app.use('/api/repay', apiRepayProxy)
+app.use('/api', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
