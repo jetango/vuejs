@@ -77,6 +77,7 @@
         let self = this
         chooseContact({
           success: function(oData) {
+            log('', oData)
             if (Number(oData.status) === 0) {
               let {name, tel} = oData.data
               self.directContactName = name

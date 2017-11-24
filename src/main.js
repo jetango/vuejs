@@ -28,10 +28,10 @@ new Vue({
   created: function() {
     new AndroidDriver('ANDROID', Proxy.getInstance())
     new IosDriver('IOS', Proxy.getInstance())
+    new WebDriver('WEB', Proxy.getInstance())
     if (debug) {
-      new WebDriver('WEB', Proxy.getInstance())
+      //
     }
-
     (function init() {
       let _proxy = Proxy.getInstance()
       let op = _proxy.getUrlParam('op')

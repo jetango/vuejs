@@ -2,8 +2,10 @@
   <div class="repayment-loan">
     <div v-for="loanInfo in items" :key="loanInfo.repayTime" class="item-content flex flex-item flex-grow" @click="toPage(loanInfo)">
       <div class="flex-grow">
-        <p v-html="'需要还款:&nbsp;' + loanInfo.repayAmount + '元'"></p>
-        <p :class="{'overdue': loanInfo.repayStatus == 'F07' ? true : false}">{{loanInfo.repayStatus == 'F07' ? '逾期中' : '还款日:' + loanInfo.repayTime}}</p>
+        <p v-html="'需要还款:&nbsp;' + loanInfo.curRepayAmount + '元'"></p>
+        <p :class="{'overdue': loanInfo.billStatus == '70', 'text-success': loanInfo.repayStatus == '80'}">
+          {{loanInfo.repayStatus == '70' ? '逾期中' : (loanInfo.repayStatus == '80' ? '已还清' : ('还款日:' + loanInfo.promiseRepaymentDate))}}
+        </p>
       </div>
       <i class="icon iconfont icon-117"></i>
     </div>
@@ -15,11 +17,9 @@
 
 <script type="text/ecmascript-6">
   import NoData from 'base/noData/noData'
-  import {
-    doPost,
-    popup
-  } from 'common/js/drivers'
+  import {doPost, popup, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
       return {
@@ -33,7 +33,6 @@
       init: function() {
         doPost(types.REPAY_SCHEDULE, {}, {
           success: (oData) => {
-            console.log(oData)
             this.items = oData.data
           },
           error: (oData) => {
@@ -42,7 +41,8 @@
         })
       },
       toPage: function(loanInfo) {
-        this.$router.push('repayment-tip')
+        let {billNo} = loanInfo
+        navigate('REPAYMENT_TIP', '发起还款', {url: pageIdentity.REPAYMENT_TIP, param: `billNo=${billNo}`})
       }
     },
     components: {

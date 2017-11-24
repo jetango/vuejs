@@ -164,6 +164,7 @@
         let self = this
         idCardFrontInfo({
           success: function(oData) {
+            log('', oData)
             if (oData.status === '0') {
               self.identityFrontStatus = true
               let {idCardFrontPhoto, realName, idNumber, birth, nation, idAddress} = oData.data
@@ -178,6 +179,7 @@
             }
           },
           error: function(oData) {
+            log('', oData)
             self.identityFrontStatus = false
           }
         })
@@ -299,6 +301,7 @@
       this._initMaritalPicker()
       this._initEducationalPicker()
       this._initAddressPicker()
+      log('', '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     }
   }
 </script>

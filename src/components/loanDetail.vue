@@ -51,10 +51,8 @@
 <script>
   import FooterNotice from 'base/footerNotice/footer-notice'
   import * as types from 'config/api-type'
-  import {orderStatus} from 'common/js/constants'
-  import {
-    doPost, popup
-  } from 'common/js/drivers'
+  import {orderStatus, pageIdentity} from 'common/js/constants'
+  import {doPost, popup, navigate} from 'common/js/drivers'
   export default {
     data() {
       return {
@@ -94,8 +92,7 @@
         })
       },
       checkContract: function() {
-        console.log('check contract')
-        this.$router.push('loan-contract')
+        navigate('LOAN_CONTRACT', '借款合同', {url: pageIdentity.LOAN_CONTRACT})
       },
       getOrderStatusStr(key) {
         return orderStatus['' + key]

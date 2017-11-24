@@ -9,13 +9,17 @@ export default class Driver {
   }
 
   _init() {
+    console.log('debugger')
     this.proxy.install(this)
   }
 
-  doPost(api, param, cb) {
+  doPost(api, param = {}, cb) {
     console.log('doPost', api, param, cb)
     let name = this.proxy.registCB(cb)
-
+    if (!param) {
+      param = {}
+    }
+    param.userId = '173281100003'
     axios.post(ApiObj[api], param).then((response) => {
       window.callback(name, response.data)
     })

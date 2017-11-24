@@ -76,7 +76,7 @@
 
     <h4>借款信息</h4>
     <div class="list-view">
-      <router-link :to="{path: '/loan-confirm', query: {productCode: 'test2', loanAmount: 1000, borrowTime: 7, mobile: '12312312312'}}">
+      <router-link :to="{path: '/loan-confirm', query: {productCode: '01', loanAmount: 1000, borrowTime: 7, mobile: '12312312312'}}">
         <div class="item flex">
           <p class="flex-grow">借款确认</p>
           <i class="iconfont icon-117"></i>
@@ -84,7 +84,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link :to="{path: '/loan-result', query: {orderNo: '47a6630f-cc42-4dc7-8580-24aaba14aaab'}}">
+      <router-link :to="{path: '/loan-result', query: {orderNo: '1732811000030120171124'}}">
         <div class="item flex">
           <p class="flex-grow">借款结果页面</p>
           <i class="iconfont icon-117"></i>
@@ -92,7 +92,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link :to="{path: '/loan-detail', query: {orderNo: '47a6630f-cc42-4dc7-8580-24aaba14aaab'}}">
+      <router-link :to="{path: '/loan-detail', query: {orderNo: '1732811000030120171124'}}">
         <div class="item flex">
           <p class="flex-grow">借款详情</p>
           <i class="iconfont icon-117"></i>
@@ -118,7 +118,7 @@
 
     <h4>还款</h4>
     <div class="list-view">
-      <router-link to="/repayment-tip">
+      <router-link :to="{path: '/repayment-tip', query: {billNo: 'james'}}">
         <div class="item flex">
           <p class="flex-grow">发起还款</p>
           <i class="iconfont icon-117"></i>
@@ -186,8 +186,26 @@
       </router-link>
     </div>
 
+    <div class="list-view">
+      <a href="http://120.132.102.112:8768/pay/ali/wapPay">
+        <div class="item flex">
+          <p class="flex-grow">支付宝支付</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </a>
+    </div>
   </div>
 </template>
+<script style="text/ecmascript-6">
+  import {navigate} from 'common/js/drivers'
+  export default {
+    methods: {
+      goPay() {
+        navigate('PAY', '支付宝支付', {url: 'http://120.132.102.112:8768/pay/ali/wapPay'})
+      }
+    }
+  }
+</script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
   h4
     height: .8rem

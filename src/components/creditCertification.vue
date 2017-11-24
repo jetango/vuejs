@@ -150,7 +150,7 @@
       color: #525252
       margin-top: -.03rem
       margin-left: .02rem
-  
+
   .credit
     color: #2ec200 !important
 

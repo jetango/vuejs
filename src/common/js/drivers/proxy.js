@@ -58,7 +58,6 @@ export default class Proxy {
 
   callback(func, data) {
     data = typeof data === 'object' ? data : JSON.parse(data)
-
     try {
       if (!this.cbFunc[func]) {
         console.log('Not found callback function')

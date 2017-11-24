@@ -24,7 +24,7 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
 
 const app = express()
-app.use(bodyParser.urlencoded({extened: false}))
+
 const compiler = webpack(webpackConfig)
 var apiRoutes = express.Router()
 
@@ -92,6 +92,7 @@ apiRoutes.post('/order/borrow', function (req, res) {
 })
 
 /**
+ *
  * 借款详情接口
  * @param request {userId: 'userId',orderNo: 'orderNo'}
  * @return response
@@ -185,7 +186,7 @@ apiRoutes.post('/order/borrow/confirm', function (req, res) {
  * }
  * @return {Object}
  */
-apiRoutes.post('/identity', function (req, res) {
+apiRoutes.post('/user/identity', function (req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -214,7 +215,7 @@ apiRoutes.post('/repay/repayment', function(req, res) {
 /**
  * 银行卡信息保存
  */
-apiRoutes.post('/bank', function(req, res) {
+apiRoutes.post('/user/bank', function(req, res) {
   var result = {
     status: 0,
     msg: 'success',
@@ -228,7 +229,7 @@ apiRoutes.post('/bank', function(req, res) {
 /**
  * 借记卡列表展示
  */
-apiRoutes.post('/user/bankList', function(req, res) {
+apiRoutes.post('/user/bank-list', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
@@ -422,20 +423,67 @@ apiRoutes.post('/user/score', function(req, res) {
         "api": "tbCertification"
     }
   }
+})
+
+/**
+ * 还款计划表接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('repay/bill-list', function(req, res) {
+  var result = {
+    "status": "0",
+    "msg": "success",
+    "data": {
+        "billList": [{    //还款计划列表
+            "curRepayAmount": "1200", //应还金额
+            "billStatus": "F006", //还款状态
+            "promiseRepaymentDate": "2017-11-18", //约定还款日期
+            "curPeriod": "1",//本次期数
+            "periods": "1" //总期数
+        }]
+    }
+  }
   responseData(res, result)
 })
 
+/**
+ * 还款接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('repay/bill', function(req, res) {
+  var result = {
+    "status": "0",
+    "msg": "success",
+    "data": {
+      "curRepayAmount": "1200",     //本次应还金额
+      "promiseRepaymentDate": "2017-11-18", //约定还款时间
+      "overdueDays": 12, // 逾期天数
+      "remainingDays": 12, // 剩余多少天
+      "billStatus": "F006" // 还款状态
+    }
+  }
+})
 
- // headers: {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
+
+
+ // headers:  {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
 
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
-// const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true})
-// const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true})
-// const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9002', changeOrigin: true})
-// app.use('/api/user', apiUserProxy)
-// app.use('/api/order', apiOrderProxy)
-// app.use('/api/repay', apiRepayProxy)
-app.use('/api', apiRoutes)
+
+const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true})
+const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true})
+const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9010', changeOrigin: true})
+
+app.use('/api/user', apiUserProxy)
+app.use('/api/order', apiOrderProxy)
+app.use('/api/repay', apiRepayProxy)
+
+
+// app.use('/api', apiProxy)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,

@@ -144,10 +144,7 @@
         param.mobile = self.$route.query.mobile
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
-            // if (oData.status === '0') {
-            //   this.$router.push('loan-result')
-            // }
-            let param = `orderNo=${oData.data}`
+            let param = `orderNo=${oData.data.orderNo}`
             navigate('LOAN_RESULT', '借款结果', {url: pageIdentity.LOAN_RESULT, param})
           },
           error: (oData) => {
