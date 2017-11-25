@@ -392,7 +392,7 @@ apiRoutes.post('/user/score/fetch', function(req, res) {
         "jobFlag": '1', //工作信息是否填
         "contactFlag": '0', //联系人信息是否填
         "zmxyFlag": '0', //芝麻信用认证
-        "mobileFlag": '1', //运营商认证
+        "mobileFlag": '0', //运营商认证
         "onlineBankFlag": '0', //网银认证
         "tbFlag": '0'
     }

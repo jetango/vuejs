@@ -1,29 +1,29 @@
 <template>
   <div class="credit-certification">
     <!-- <div class="credit-item flex flex-item">
-      <span class="flex-grow">芝麻认证</span>
-      <span v-if="creditStatus.zmxyFlag" :class="{'credit': creditStatus.zmxyFlag}">{{creditStatus.zmxyTextName}}</span>
-      <span v-if="!creditStatus.zmxyFlag" @click="sesameCertification">{{creditStatus.zmxyTextName}}</span>
-      <i class="icon iconfont icon-117"></i>
-    </div> -->
-    <div class="credit-item flex flex-item">
+            <span class="flex-grow">芝麻认证</span>
+            <span v-if="creditStatus.zmxyFlag" :class="{'credit': creditStatus.zmxyFlag}">{{creditStatus.zmxyTextName}}</span>
+            <span v-if="!creditStatus.zmxyFlag" @click="sesameCertification">{{creditStatus.zmxyTextName}}</span>
+            <i class="icon iconfont icon-117"></i>
+          </div> -->
+    <div @click="tbCertification" class="credit-item flex flex-item">
       <span class="flex-grow">淘宝认证</span>
       <span v-if="creditStatus.tbFlag" :class="{'credit': creditStatus.tbFlag}">{{creditStatus.tbTextName}}</span>
-      <span v-if="!creditStatus.tbFlag" @click="tbCertification">{{creditStatus.tbTextName}}</span>
+      <span v-if="!creditStatus.tbFlag">{{creditStatus.tbTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div class="credit-item flex flex-item">
+    <div @click="phoneCertification" class="credit-item flex flex-item">
       <span class="flex-grow">手机运营商认证</span>
       <span v-if="creditStatus.mobileFlag" :class="{'credit': creditStatus.mobileFlag}">{{creditStatus.mobileTextName}}</span>
-      <span v-if="!creditStatus.mobileFlag" @click="phoneCertification">{{creditStatus.mobileTextName}}</span>
+      <span v-if="!creditStatus.mobileFlag">{{creditStatus.mobileTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
     <!-- <div class="credit-item flex flex-item">
-      <span class="flex-grow">网银认证</span>
-      <span v-if="creditStatus.onlineBankFlag" :class="{'credit': creditStatus.onlineBankFlag}">{{creditStatus.onlineBankName}}</span>
-      <span v-if="!creditStatus.onlineBankFlag">{{creditStatus.onlineBankName}}</span>
-      <i class="icon iconfont icon-117"></i>
-    </div> -->
+            <span class="flex-grow">网银认证</span>
+            <span v-if="creditStatus.onlineBankFlag" :class="{'credit': creditStatus.onlineBankFlag}">{{creditStatus.onlineBankName}}</span>
+            <span v-if="!creditStatus.onlineBankFlag">{{creditStatus.onlineBankName}}</span>
+            <i class="icon iconfont icon-117"></i>
+          </div> -->
   </div>
 </template>
 
@@ -70,61 +70,77 @@
         })
       },
       sesameCertification: function() {
-        sesameCertification((data) => {
-          console.log(data)
-          if (data && data.status === '0') {
-            doPost(types.SCORE, {
-              zmxyFlag: '1'
-            }, {
-              success: (data) => {
-                this.creditStatus.zmxyFlag = true
-                this.creditStatus.zmxyTextName = '已认证'
-              },
-              error: (data) => {
-                popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
-              }
-            })
-          } else {
+        sesameCertification({
+          success: (data) => {
+            console.log(data)
+            if (data && data.status === '0') {
+              doPost(types.SCORE, {
+                zmxyFlag: '1'
+              }, {
+                success: (data) => {
+                  this.creditStatus.zmxyFlag = true
+                  this.creditStatus.zmxyTextName = '已认证'
+                },
+                error: (data) => {
+                  popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
+                }
+              })
+            } else {
+              popup(null, null, '认证服务器异常，请稍后再试！')
+            }
+          },
+          error: (data) => {
             popup(null, null, '认证服务器异常，请稍后再试！')
           }
         })
       },
       phoneCertification: function() {
-        phoneCertification((data) => {
-          console.log(data)
-          if (data && data.status === '0') {
-            doPost(types.SCORE, {
-              mobileFlag: '1'
-            }, {
-              success: (data) => {
-                this.creditStatus.mobileFlag = true
-                this.creditStatus.mobileTextName = '已认证'
-              },
-              error: (data) => {
-                popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
-              }
-            })
-          } else {
+        phoneCertification({
+          success: (data) => {
+            console.log(data)
+            if (data && data.status === '0') {
+              doPost(types.SCORE, {
+                mobileFlag: '1'
+              }, {
+                success: (data) => {
+                  this.creditStatus.mobileFlag = true
+                  this.creditStatus.mobileTextName = '已认证'
+                },
+                error: (data) => {
+                  popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
+                }
+              })
+            } else {
+              popup(null, null, '认证服务器异常，请稍后再试！')
+            }
+          },
+          error: (data) => {
             popup(null, null, '认证服务器异常，请稍后再试！')
           }
         })
       },
       tbCertification: function() {
-        tbCertification((data) => {
-          console.log(data)
-          if (data && data.status === '0') {
-            doPost(types.SCORE, {
-              tbFlag: '1'
-            }, {
-              success: (data) => {
-                this.creditStatus.tbFlag = true
-                this.creditStatus.tbTextName = '已认证'
-              },
-              error: (data) => {
-                popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
-              }
-            })
-          } else {
+        tbCertification({
+          success: (data) => {
+            console.log(data)
+            if (data && data.status === '0') {
+              doPost(types.SCORE, {
+                tbFlag: '1'
+              }, {
+                success: (data) => {
+                  this.creditStatus.tbFlag = true
+                  this.creditStatus.tbTextName = '已认证'
+                },
+                error: (data) => {
+                  popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
+                }
+              })
+            } else {
+              popup(null, null, '认证服务器异常，请稍后再试！')
+            }
+          },
+          error: (data) => {
+            console.log(data)
             popup(null, null, '认证服务器异常，请稍后再试！')
           }
         })
