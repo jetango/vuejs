@@ -8,7 +8,7 @@
       </div>
       <div class="bank-number">
         <p class="bank-number flex flex-item">
-          <span class="flex-grow">卡号：{{'*************' + bank.accountNumber.substring(bank.accountNumber.length-4, bank.accountNumber.length)}}</span>
+          <span class="flex-grow">卡号：{{'*************' + bank.bankAccount.substring(bank.bankAccount.length-4, bank.bankAccount.length)}}</span>
           <!-- <span class="user-status">可使用</span> -->
         </p>
       </div>
@@ -47,13 +47,9 @@
         })
       },
       choseBankCard: function(obj) {
-        let {bankName, accountNumber} = obj
-        let param = `bankName=${bankName}&accountNumber=${accountNumber}`
+        let {bankName, bankAccount} = obj
+        let param = `bankName=${bankName}&bankAccount=${bankAccount}`
         endPage({param})
-        // this.$router.push({
-        //   path: '/loan-confirm',
-        //   query: param
-        // })
       },
       addBankCard: function() {
         navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'})

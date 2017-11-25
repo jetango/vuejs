@@ -27,7 +27,7 @@ export default class Driver {
    */
   doPost(api, param, cb) {
     let name = this.proxy.registCB(cb)
-    let url = `CALL://${encodeURIComponent(ApiObj[api])}?param=${encodeURIComponent(param)}&cb=${encodeURIComponent(name)}`
+    let url = `CALL://${encodeURIComponent(ApiObj[api])}?param=${encodeURIComponent(JSON.stringify(param))}&cb=${encodeURIComponent(name)}`
     this._iosCall(url)
   }
 
@@ -213,6 +213,9 @@ export default class Driver {
    * @return {null}
    */
   endPage(param, pageIdentifier) {
+    if (!param) {
+      param = {param: '', url: ''}
+    }
     let url = `plugin://endPage?param=${encodeURIComponent(JSON.stringify(param))}&pageIdentifier=${pageIdentifier}`
     this._iosCall(url)
   }

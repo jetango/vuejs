@@ -116,10 +116,11 @@
           identityInfoCopy.idCardBackPhoto = idCardBackPhoto.substring(22)
           doPost(types.IDENTITY_POST, identityInfoCopy, {
             success: function(oData) {
-              log('', oData)
               self.loading = false
               if (oData.status === '0') {
-                endPage({userId: oData.data.userId})
+                // userInfo({userId: oData.data.userId})
+                // endPage({userId: oData.data.userId})
+                endPage()
               }
             },
             error: function(oData) {
@@ -154,7 +155,6 @@
               }
             },
             error: function(oData) {
-              log('', oData)
               popup('', '', oData.msg || '请重新进行人脸识别！')
             }
           })

@@ -45,7 +45,7 @@
         }
       }
     },
-    created() {
+    mounted() {
       this._fetchIndentityInfo()
     },
     computed: {

@@ -9,7 +9,7 @@
     <div class="input-item flex flex-item">
       <span>银行卡：</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.accountNumber" type="tel" placeholder="请输入银行卡">
+        <input v-model="bankInfo.bankAccount" type="tel" placeholder="请输入银行卡">
       </div>
     </div>
     <div class="input-item flex flex-item">
@@ -56,7 +56,7 @@
         delayTime: 0,
         bankInfo: {
           accountName: '',
-          accountNumber: '',
+          bankAccount: '',
           reservedPhone: '',
           smsCode: ''
         },
@@ -72,7 +72,7 @@
           return
         }
         doPost(types.SMSCODE, {
-          accountNumber: phone,
+          bankAccount: phone,
           smsType: '1'
         }, {
           success: (oData) => {
@@ -100,7 +100,7 @@
         if (this.bankInfo.accountName === '') {
           popup(null, null, '请输入姓名！')
           return false
-        } else if (this.bankInfo.accountNumber === '') {
+        } else if (this.bankInfo.bankAccount === '') {
           popup(null, null, '请输入银行卡号！')
           return false
         } else if (!/^1\d{10}$/.test(this.bankInfo.reservedPhone)) {
@@ -109,7 +109,7 @@
         } else if (this.bankInfo.smsCode === '') {
           popup(null, null, '请输入验证码！')
           return false
-        } else if (!reg.test(this.bankInfo.accountNumber)) {
+        } else if (!reg.test(this.bankInfo.bankAccount)) {
           popup(null, null, '银行卡格式不对，请重新输入！')
           return false
         }

@@ -37,7 +37,7 @@
         <div class="loan-info-item item-bank flex flex-item flex-grow" @click="choseBankCard">
           <span>到账账户：</span>
           <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
-          <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.accountNumber.substring(bankCard.accountNumber.length-4,bankCard.accountNumber.length)" class="flex-grow" v-if="bankCard.flag"></span>
+          <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.bankAccount.substring(bankCard.bankAccount.length-4,bankCard.bankAccount.length)" class="flex-grow" v-if="bankCard.flag"></span>
         </div>
         <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
@@ -84,7 +84,7 @@
         },
         bankCard: {
           bankName: '',
-          accountNumber: '',
+          bankAccount: '',
           flag: false
         },
         isChosed: false,
@@ -103,18 +103,19 @@
     methods: {
       init: function() {
         let bankName = this.$route.query.bankName
-        let accountNumber = this.$route.query.accountNumber
-        if (bankName && accountNumber) { // 已经选择过到账账户
+        let bankAccount = this.$route.query.bankAccount
+        if (bankName || bankAccount) { // 已经选择过到账账户
           this.bankCard = {
             bankName: bankName,
-            accountNumber: accountNumber,
+            bankAccount: bankAccount,
             flag: true
           }
         }
         doPost(types.BORROW, this.params, {
           success: (oData) => {
             this.loanInfo = oData.data
-            if (oData.data.bankList.length !== 0 && !this.$route.query.bankName && !this.$route.query.accountNumber) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
+            let {bankName, bankAccount} = this.$route.query
+            if (oData.data.bankList.length !== 0 && !bankName && !bankAccount) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
               let payCard = oData.data.bankList[0]
               this.bankCard = payCard
               this.bankCard.flag = true
@@ -140,7 +141,7 @@
         } = this.params
         param.productCode = productCode
         param.bankName = self.bankCard.bankName
-        param.accountNumber = self.bankCard.accountNumber
+        param.bankAccount = self.bankCard.bankAccount
         param.mobile = self.$route.query.mobile
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
@@ -154,10 +155,6 @@
       },
       choseBankCard: function() {
         navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK})
-        // this.$router.push({
-        //   path: 'bank-list',
-        //   query: {productCode, loanAmount, borrowTime}
-        // })
       },
       seeDetail: function() {
         setTimeout(() => {

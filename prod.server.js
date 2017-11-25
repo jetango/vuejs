@@ -16,7 +16,7 @@ apiRoutes.get('/test.json', function (req, res) {
 
 const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.2.21:9000', changeOrigin: true})
 const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.2.21:9001', changeOrigin: true})
-const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9002', changeOrigin: true})
+const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.2.21:9010', changeOrigin: true})
 
 app.use('/api/user', apiUserProxy)
 app.use('/api/order', apiOrderProxy)
