@@ -2,7 +2,7 @@
   <div class="repayment-loan">
     <div v-for="loanInfo in items" :key="loanInfo.repayTime" class="item-content flex flex-item flex-grow" @click="toPage(loanInfo)">
       <div class="flex-grow">
-        <p v-html="'需要还款:&nbsp;' + loanInfo.curRepayAmount + '元'"></p>
+        <p v-html="'需要还款：&nbsp;' + loanInfo.curRepayAmount + '元'"></p>
         <p :class="{'overdue': loanInfo.billStatus == '70', 'text-success': loanInfo.repayStatus == '80'}">
           {{loanInfo.repayStatus == '70' ? '逾期中' : (loanInfo.repayStatus == '80' ? '已还清' : ('还款日:' + loanInfo.promiseRepaymentDate))}}
         </p>

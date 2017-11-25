@@ -1,7 +1,7 @@
 <template>
   <div class="repayment-way">
     <div class="pay-amount">
-      <span>本次还款金额:</span>
+      <span>本次还款金额：</span>
       <span v-html="payAmount + '元'"></span>
     </div>
     <div class="pay-way-list">
