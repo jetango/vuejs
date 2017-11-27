@@ -49,7 +49,7 @@
       choseBankCard: function(obj) {
         let {bankName, bankAccount} = obj
         let param = `bankName=${bankName}&bankAccount=${bankAccount}`
-        endPage({param})
+        endPage({param, url: ''})
       },
       addBankCard: function() {
         navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'})

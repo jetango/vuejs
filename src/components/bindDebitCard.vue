@@ -120,9 +120,9 @@
             success: (oData) => {
               this.submitStatus = true
               if (self.from === 'bank_list') {
-                endPage({url: pageIdentity.BANK_LIST})
+                endPage({url: pageIdentity.BANK_LIST, param: ''})
               } else if (self.from === 'choose_bank') {
-                endPage({url: pageIdentity.CHOOSE_BANK})
+                endPage({url: pageIdentity.CHOOSE_BANK, param: ''})
               }
             },
             error: (oData) => {

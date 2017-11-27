@@ -63,10 +63,7 @@
 </template>
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
-  import {
-    doPost,
-    popup, log, navigate
-  } from 'common/js/drivers'
+  import {doPost, popup, log, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -102,8 +99,7 @@
     },
     methods: {
       init: function() {
-        let bankName = this.$route.query.bankName
-        let bankAccount = this.$route.query.bankAccount
+        let {bankName, bankAccount} = this.$route.query
         if (bankName || bankAccount) { // 已经选择过到账账户
           this.bankCard = {
             bankName: bankName,
@@ -114,7 +110,6 @@
         doPost(types.BORROW, this.params, {
           success: (oData) => {
             this.loanInfo = oData.data
-            let {bankName, bankAccount} = this.$route.query
             if (oData.data.bankList.length !== 0 && !bankName && !bankAccount) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
               let payCard = oData.data.bankList[0]
               this.bankCard = payCard
@@ -165,7 +160,7 @@
         this.checkDetailFlag = isOpen
       },
       checkServicesProtocols: function() {
-        this.$router.push('services-protocols')
+        navigate('SERVICES_PROTOCOLS', '用户服务协议', {url: pageIdentity.SERVICES_PROTOCOLS})
       }
     },
     components: {

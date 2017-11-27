@@ -5,10 +5,10 @@
       <span v-html="payAmount + '元'"></span>
     </div>
     <div class="pay-way-list">
-      <div v-for="item in staticPayWay" :key="item.isChose" class="list-item flex flex-item active">
+      <div v-for="item in staticPayWay" :key="item.isChose" class="list-item flex flex-item active" @click="chosepayment(item)">
         <i class="iconfont" :class="item.iconClass"></i>
         <p class="flex-grow" v-html="item.payWayName"></p>
-        <i @click="chosepayment(item)" :class="['icon', 'iconfont', 'icon-correct-marked', {'chosed': item.isChose} ]"></i>
+        <i :class="{'chosed': item.isChose}" class="iconfont icon-correct-marked"></i>
       </div>
     </div>
     <a class="button button-primary" @click="payLoan">确认还款</a>
@@ -16,47 +16,49 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {
-    doPost,
-    popup
-  } from 'common/js/drivers'
+  import {doPost, popup, unionPay, weChatPay, alipay} from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        payAmount: '800',
+        payAmount: '',
         staticPayWay: [{
           iconClass: 'icon-house',
           payWayName: '微信支付',
+          type: 'wechat',
           isChose: false
         }, {
           iconClass: 'icon-102',
           payWayName: '支付宝',
+          type: 'alipay',
           isChose: false
         }, {
           iconClass: 'icon-161',
           payWayName: '银联',
+          type: 'unionPay',
           isChose: false
         }],
         confirmPayWay: {}
       }
     },
     created: function() {
+      let {payAmount, billNo} = this.$route.query
+      this.payAmount = payAmount || 0
+      this.billNo = billNo
       this.init()
     },
     methods: {
       init: function() {
         doPost(types.BANK_LIST, {}, {
           success: (oData) => {
-            console.log(oData)
             let payWayList = oData.data
             let len = payWayList.length - 1
             payWayList.reverse().forEach((element, index) => {
-              let accountNumber = element.accountNumber
+              let bankNumber = element.bankNumber
               this.staticPayWay.unshift({
                 iconClass: 'icon-140',
-                payWayName: element.bankName + '&nbsp;&nbsp;' + accountNumber.substring(accountNumber.length - 4, accountNumber.length),
-                accountNumber: accountNumber,
+                payWayName: element.bankName + '&nbsp;&nbsp;' + bankNumber.substring(bankNumber.length - 4, bankNumber.length),
+                bankNumber: bankNumber,
                 isChose: (index === len)
               })
             })
@@ -68,7 +70,38 @@
         })
       },
       payLoan: function() {
-        console.log(JSON.stringify(this.confirmPayWay))
+        let {type, bankNumber} = this.confirmPayWay
+        let {payAmount, billNo} = this.$route.query
+        if (type === 'wechat') {
+          weChatPay({payAmount, billNo}, {
+            success: function(oData) {
+
+            },
+            error: function(oData) {
+
+            }
+          })
+        } else if (type === 'alipay') {
+          alipay({payAmount, billNo}, {
+            success: function(oData) {
+            },
+            error: function(oData) {
+
+            }
+          })
+        } else if (type === 'unionPay') {
+          unionPay({payAmount, billNo}, {
+            success: function(oData) {
+
+            },
+            error: function(oData) {
+
+            }
+          })
+        } else if (bankNumber) {
+          // 直接代扣
+          doPost()
+        }
       },
       chosepayment: function(res) {
         this.staticPayWay.forEach(element => {
@@ -102,7 +135,7 @@
       margin-top: -.1rem
       &:first-of-type
         margin-right: .15rem
-        font-size: .6rem 
+        font-size: .6rem
 
       &:last-of-type
         color: lightgrey

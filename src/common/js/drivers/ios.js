@@ -38,6 +38,10 @@ export default class Driver {
    * @return {null}
    */
   log(type, msg) {
+    const debug = process.env.NODE_ENV !== 'production'
+    if (debug) {
+      return
+    }
     let url = `plugin://log?type=${encodeURIComponent(type)}&content=${encodeURIComponent(msg)}`
     this._iosCall(url)
   }

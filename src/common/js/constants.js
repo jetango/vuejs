@@ -235,8 +235,8 @@ export const positionItems = {
 
 export const salarys = [
   {
-    text: '2000元以下',
-    value: '2000元以下'
+    text: '2000以下',
+    value: '2000以下'
   },
   {
     text: '2000-3000元',

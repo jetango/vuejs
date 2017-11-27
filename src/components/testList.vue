@@ -84,7 +84,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link :to="{path: '/loan-result', query: {orderNo: '1732811000030120171124'}}">
+      <router-link :to="{path: '/loan-result', query: {orderNo: '1732822000010120171124'}}">
         <div class="item flex">
           <p class="flex-grow">借款结果页面</p>
           <i class="iconfont icon-117"></i>
@@ -92,7 +92,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link :to="{path: '/loan-detail', query: {orderNo: '1732811000030120171124'}}">
+      <router-link :to="{path: '/loan-detail', query: {orderNo: '1732822000010120171124'}}">
         <div class="item flex">
           <p class="flex-grow">借款详情</p>
           <i class="iconfont icon-117"></i>

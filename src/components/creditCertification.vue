@@ -72,7 +72,6 @@
       sesameCertification: function() {
         sesameCertification({
           success: (data) => {
-            console.log(data)
             if (data && data.status === '0') {
               doPost(types.SCORE, {
                 zmxyFlag: '1'
@@ -97,7 +96,6 @@
       phoneCertification: function() {
         phoneCertification({
           success: (data) => {
-            console.log(data)
             if (data && data.status === '0') {
               doPost(types.SCORE, {
                 mobileFlag: '1'
@@ -122,7 +120,6 @@
       tbCertification: function() {
         tbCertification({
           success: (data) => {
-            console.log(data)
             if (data && data.status === '0') {
               doPost(types.SCORE, {
                 tbFlag: '1'
@@ -140,7 +137,6 @@
             }
           },
           error: (data) => {
-            console.log(data)
             popup(null, null, '认证服务器异常，请稍后再试！')
           }
         })

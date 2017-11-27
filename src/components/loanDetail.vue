@@ -92,7 +92,7 @@
         })
       },
       checkContract: function() {
-        navigate('LOAN_CONTRACT', '借款合同', {url: pageIdentity.LOAN_CONTRACT})
+        navigate('LOAN_CONTRACT', '借款合同', {url: pageIdentity.LOAN_CONTRACT, param: `orderNo=${this.$route.query.orderNo}`})
       },
       getOrderStatusStr(key) {
         return orderStatus['' + key]

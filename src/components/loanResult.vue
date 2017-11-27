@@ -3,7 +3,7 @@
     <div class="text-center header flex">
       <a class="visibility">借款详情</a>
       <div class="flex-grow title">
-        借款金额：{{loadResult.loanAmount}}元
+        借款金额：{{loadResult.loanAmount || 0}}元
       </div>
       <a @click="checkLoanDetail" class="detail">借款详情</a>
     </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="content flex-grow">
           <h1>{{orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40' ? '放款失败' : '已放款'}}</h1>
-          <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的招商银行卡尾号{{loadResult.bankAccount}}的账户</h4>
+          <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的招商银行卡尾号{{loadResult.bankAccount.substring(loadResult.bankAccount.length - 4)}}的账户</h4>
           <h4>确认本人借款，确保资金安全</h4>
         </div>
       </div>

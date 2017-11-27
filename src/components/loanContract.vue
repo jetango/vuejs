@@ -25,11 +25,11 @@
 
 <script type="text/ecmascript-6">
   import {
-    doPost,
-    popup,
+    // doPost,
+    // popup,
     navigate
   } from 'common/js/drivers'
-  import * as types from 'config/api-type'
+  // import * as types from 'config/api-type'
   export default {
     data() {
       return {
@@ -43,16 +43,26 @@
     methods: {
       initData: function() {
         /** 获取用户协议合同URL */
-        doPost(types.USER_CONTRACT, {}, {
-          success: (data) => {
-            console.log(data)
-            this.protocolUrl = data.data
-            this.isReturnUrl = true
-          },
-          error: (data) => {
-            popup(null, null, data.msg || '获取协议失败，请稍后再试！')
+        // doPost(types.USER_CONTRACT, {}, {
+        //   success: (data) => {
+        //     this.protocolUrl = data.data
+        //     this.isReturnUrl = true
+        //   },
+        //   error: (data) => {
+        //     popup(null, null, data.msg || '获取协议失败，请稍后再试！')
+        //   }
+        // })
+        let self = this
+        setTimeout(function() {
+          self.protocolUrl = {
+            'elecAuthorization': 'http://www.baidu.com',    // 电子签名授权协议书
+            'creditAuthorization': 'http://www.jd.com', // 征信查询授权书
+            'serverProtocol': 'http://www.alibaba.com', // 服务协议-单期
+            'bankLoanProtocol': 'http://www.qq.com',  // 银行贷款协议-单期-（借款人与银行）
+            'autoRepayProtocol': 'http://www.zaoyi.com' // 自动还款服务协议
           }
-        })
+          self.isReturnUrl = true
+        }, 500)
       },
       checkContract: function(type) {
         if (!this.isReturnUrl) {
@@ -62,31 +72,31 @@
           case 1:
             navigate('AUTOREPAY_PROTOCOL', '自动还款服务协议', {
               url: this.protocolUrl.autoRepayProtocol,
-              param: {}
+              type: 'TARGET'
             })
             break
           case 2:
             navigate('CREDIT_AUTHORIZATION', '征信查询授权书', {
               url: this.protocolUrl.creditAuthorization,
-              param: {}
+              type: 'TARGET'
             })
             break
           case 3:
             navigate('SERVER_PROTOCOL', '服务协议', {
               url: this.protocolUrl.serverProtocol,
-              param: {}
+              type: 'TARGET'
             })
             break
           case 4:
             navigate('BANKLOAN_PROTOCOL', '银行贷款协议', {
               url: this.protocolUrl.bankLoanProtocol,
-              param: {}
+              type: 'TARGET'
             })
             break
           case 5:
             navigate('ELE_AUTHORIZATION', '自动还款服务协议', {
               url: this.protocolUrl.elecAuthorization,
-              param: {}
+              type: 'TARGET'
             })
             break
           default:
@@ -106,7 +116,7 @@
     p
       font-size: .3rem
       color: #000000
-      i 
+      i
         font-size: .32rem
         color: #525252
 

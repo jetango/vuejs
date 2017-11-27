@@ -17,6 +17,10 @@ export default class Driver {
   }
 
   log(type, content) {
+    const debug = process.env.NODE_ENV !== 'production'
+    if (debug) {
+      return
+    }
     window.android.plugin('log', JSON.stringify({ type, content }))
   }
 

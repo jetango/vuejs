@@ -16,9 +16,6 @@
       <div class="item">
         婚姻状况：{{identityInfo.maritalStatus}}
       </div>
-      <div class="item">
-        人脸识别：<span :class="{'text-danger': identityInfo.faceRecognition == 0}">{{faceRecognitionValue}}</span>
-      </div>
     </div>
   </div>
 </template>
@@ -50,8 +47,11 @@
     },
     computed: {
       fullName() {
-        console.log(this.identityInfo.livingProvince)
-        return `${this.identityInfo.livingProvince}${this.identityInfo.livingCity}${this.identityInfo.livingDistrict}`
+        let {livingProvince} = this.identityInfo
+        if (livingProvince) {
+          return `${this.identityInfo.livingProvince}${this.identityInfo.livingCity}${this.identityInfo.livingDistrict}`
+        }
+        return ''
       },
       faceRecognitionValue() {
         return this.identityInfo.faceRecognition === 1 ? '已识别' : this.identityInfo.faceRecognition === 0 ? '未成功' : ''

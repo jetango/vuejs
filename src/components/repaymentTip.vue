@@ -23,8 +23,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup} from 'common/js/drivers'
+  import {doPost, popup, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {pageIdentity} from 'common/js/constants'
 
   let params = {
     billNo: ''
@@ -56,6 +57,7 @@
           success: function(oData) {
             if (oData.status === '0') {
               self.tipInfo = oData.data
+              params.billNo.repayAmount = oData.data.repayAmount
             }
           },
           error: function(oData) {
@@ -64,10 +66,7 @@
         })
       },
       confirmPay() {
-        this.$router.push({
-          path: '/repayment-way',
-          query: params
-        })
+        navigate('REPAYMENT_WAY', '还款方式', {url: pageIdentity.REPAYMENT_WAY, param: `billNo=${params.billNo}&repayAmount=${params.repayAmount}`})
       }
     }
   }
