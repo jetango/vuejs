@@ -46,7 +46,13 @@
         })
       },
       addBankCard: function() {
-        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=bank_list'})
+        let self = this
+        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=bank_list'}, {
+          success: function(oData) {
+            self.init()
+          },
+          error: function() {}
+        })
       }
     },
     components: {

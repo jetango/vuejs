@@ -40,7 +40,7 @@ export function callback(func, data, codec) {
   } catch (e) {
     _proxy.callback(func, {
       status: '1',
-      message: e.message,
+      message: 'decode error',
       data: {}
     })
   }
@@ -58,8 +58,8 @@ export function dialog(title, desc, type, cb) {
   _proxy.dialog(title, desc, type, cb)
 }
 
-export function navigate(pageId, title, param, cb) {
-  _proxy.navigate(pageId, title, param, cb)
+export function navigate(pageId, title, param, cb, backUrl) {
+  _proxy.navigate(pageId, title, param, cb, backUrl)
 }
 
 export function popup(pageId, title, param) {
@@ -86,8 +86,8 @@ export function chooseCard(param, title, cb) {
   _proxy.chooseCard(param, title, cb)
 }
 
-export function endPage(param, pageIdentifier) {
-  _proxy.endPage(param, pageIdentifier)
+export function endPage(param, pageIdentifier, step) {
+  _proxy.endPage(param, pageIdentifier, step)
 }
 
 export function eeLogBiz(type, event, identity, properties) {
@@ -156,12 +156,8 @@ export function sesameCertification(cb) {
   _proxy.sesameCertification(cb)
 }
 
-export function phoneCertification(cb) {
-  _proxy.phoneCertification(cb)
-}
-
-export function tbCertification(cb) {
-  _proxy.tbCertification(cb)
+export function certification(param, cb) {
+  _proxy.certification(param, cb)
 }
 
 export function unionPay(param, cb) {

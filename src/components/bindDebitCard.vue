@@ -31,7 +31,7 @@
       <p class="product-name">侬要贷</p>
       <p class="loan-notice flex flex-item flex-justify">
         <i class="icon iconfont icon-yirenzheng"></i>
-        <span>银行级数据加密防护</span>
+        <span>国安级数据加密防护</span>
       </p>
     </div>
   </div>
@@ -120,9 +120,9 @@
             success: (oData) => {
               this.submitStatus = true
               if (self.from === 'bank_list') {
-                endPage({url: pageIdentity.BANK_LIST, param: ''})
+                endPage({url: pageIdentity.BANK_LIST, param: ''}, 'BANK_LIST')
               } else if (self.from === 'choose_bank') {
-                endPage({url: pageIdentity.CHOOSE_BANK, param: ''})
+                endPage({url: pageIdentity.CHOOSE_BANK, param: ''}, 'CHOOSE_BANK')
               }
             },
             error: (oData) => {
@@ -175,20 +175,21 @@
       margin-left: .1rem
       input
         background-color: #eeeff3
-        font-size: .28rem
+        font-size: 0.28rem
         color: #000000
         padding: .2rem 0 .2rem .3rem
         width: 100%
         outline: none
-        height: .38rem
-        line-height:.43rem
+        height: .28rem
+        line-height: normal
+        vertical-align: middle
       span
         display:block
         min-width: 1.8rem
-        height: .7rem
+        height: .72rem
         background-color: #89cd40
         margin-right: .05rem
-        line-height: .7rem
+        line-height: .72rem
         text-align: center
         color: #fff
         font-size: .28rem

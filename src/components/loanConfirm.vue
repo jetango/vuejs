@@ -63,7 +63,7 @@
 </template>
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
-  import {doPost, popup, log, navigate} from 'common/js/drivers'
+  import {doPost, popup, navigate, log} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -95,7 +95,6 @@
     },
     mounted() {
       this.init()
-      log('', this.$route.query)
     },
     methods: {
       init: function() {
@@ -130,6 +129,10 @@
           popup(null, null, '请同意用户服务协议')
           return
         }
+        if (!self.bankCard.bankAccount) {
+          popup(null, null, '请选择银行卡')
+          return
+        }
         let param = this.loanInfo
         let {
           productCode
@@ -141,7 +144,7 @@
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
             let param = `orderNo=${oData.data.orderNo}`
-            navigate('LOAN_RESULT', '借款结果', {url: pageIdentity.LOAN_RESULT, param})
+            navigate('LOAN_RESULT', '借款结果', {url: pageIdentity.LOAN_RESULT, param}, null, 'ROOT')
           },
           error: (oData) => {
             popup(null, null, oData.msg || '提交失败，请稍后再试')
@@ -149,7 +152,23 @@
         })
       },
       choseBankCard: function() {
-        navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK})
+        let self = this
+        navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK}, {
+          success: function(oData) {
+            log('', '----------------------------------')
+            if (oData.status === '0') {
+              let {bankName, bankAccount} = oData.data
+              self.bankCard = {
+                bankName: bankName,
+                bankAccount: bankAccount,
+                flag: true
+              }
+            }
+          },
+          error: function(oData) {
+            popup(null, null, oData.msg || '请正确选择银行卡')
+          }
+        })
       },
       seeDetail: function() {
         setTimeout(() => {

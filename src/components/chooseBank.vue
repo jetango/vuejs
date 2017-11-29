@@ -38,7 +38,6 @@
       init: function() {
         doPost(types.BANK_LIST, {}, {
           success: (oData) => {
-            console.log(oData)
             this.bankList = oData.data
           },
           error: (oData) => {
@@ -48,11 +47,19 @@
       },
       choseBankCard: function(obj) {
         let {bankName, bankAccount} = obj
-        let param = `bankName=${bankName}&bankAccount=${bankAccount}`
-        endPage({param, url: ''})
+        let param = {bankName, bankAccount}
+        endPage({param, url: ''}, 'LOAN_CONFIRM')
       },
       addBankCard: function() {
-        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'})
+        let self = this
+        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'}, {
+          success: function(oData) {
+            self.init()
+          },
+          error: function(oData) {
+            popup(null, null, oData.msg || '绑定银行卡失败')
+          }
+        })
       }
     },
     components: {

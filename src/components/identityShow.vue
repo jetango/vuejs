@@ -44,6 +44,7 @@
     },
     mounted() {
       this._fetchIndentityInfo()
+      document.title = '身份信息展示'
     },
     computed: {
       fullName() {

@@ -9,7 +9,7 @@ export default {
   [types.CONTACT_FETCH]: '/api/user/contact/fetch',
   [types.BANK]: '/api/user/bank',
   [types.BANK_LIST]: '/api/user/bank-list',
-  [types.SMSCODE]: '/api/user/smscode',
+  [types.SMSCODE]: '/app/user/smscode',
   [types.SCORE_FETCH]: '/api/user/score/fetch',
   [types.SCORE]: '/api/user/score',
   [types.BORROW]: '/api/order/borrow',

@@ -84,8 +84,8 @@ export default class Proxy {
     this.__current__.dialog(title, desc, type, cb)
   }
 
-  navigate(pageId, title, param, cb) {
-    this.__current__.navigate(pageId, title, param, cb)
+  navigate(pageId, title, param, cb, backUrl) {
+    this.__current__.navigate(pageId, title, param, cb, backUrl)
   }
 
   popup(pageId, title, param) {
@@ -112,8 +112,8 @@ export default class Proxy {
     this.__current__.chooseCard(param, title, cb)
   }
 
-  endPage(param, pageIdentifier) {
-    this.__current__.endPage(param, pageIdentifier)
+  endPage(param, pageIdentifier, step) {
+    this.__current__.endPage(param, pageIdentifier, step)
   }
 
   chooseSchool(param, title, cb) {
@@ -180,12 +180,8 @@ export default class Proxy {
     this.__current__.sesameCertification(cb)
   }
 
-  phoneCertification(cb) {
-    this.__current__.phoneCertification(cb)
-  }
-
-  tbCertification(cb) {
-    this.__current__.tbCertification(cb)
+  certification(param, cb) {
+    this.__current__.certification(param, cb)
   }
 
   unionPay(param, cb) {

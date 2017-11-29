@@ -301,7 +301,7 @@
       this._initMaritalPicker()
       this._initEducationalPicker()
       this._initAddressPicker()
-      log('', '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+      document.title = '身份信息录入'
     }
   }
 </script>

@@ -17,6 +17,8 @@ export const maritalStatus = [
   }
 ]
 
+export const unionpayPath = 'http://203.156.237.77:9200/pay/union/wapPay'
+
 export const gender = [
   {
     text: '男',
@@ -70,6 +72,30 @@ export const relationship = [
     value: '其他'
   }
 ]
+
+// 认证平台
+export const certification = {
+  email: 'email',                                 // 邮箱导入
+  bank: 'bank',                                   // 网银导入
+  carrier: 'carrier',                             // 运营商
+  qq: 'qq',                                       // QQ验证
+  ec: 'ec',                                       //
+  alipay: 'alipay',                               // 支付宝
+  taobao: 'taobao',                               // 淘宝
+  jingdong: 'jingdong',                           // 京东
+  insurance: 'insurance',                         // 保险
+  chsi: 'chsi',                                   // 学信网
+  fund: 'fund',                                   // 公积金
+  security: 'security',                           // 社保
+  zhengxin: 'zhengxin',                           // 征信
+  maimai: 'maimai',                               // 脉脉
+  zhixingcourt: 'zhixingcourt',                   // 法院被执行人查询
+  shixincourt: 'shixincourt',                     // 法院失信人查询
+  linkedin: 'linkedin',                           // 领英
+  tax: 'tax',                                     // 个税
+  sametrade: 'sametrade',                         //
+  lifeinsr: 'lifeinsr'                            //
+}
 
 export const educational = [
   {

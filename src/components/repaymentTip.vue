@@ -66,7 +66,7 @@
         })
       },
       confirmPay() {
-        navigate('REPAYMENT_WAY', '还款方式', {url: pageIdentity.REPAYMENT_WAY, param: `billNo=${params.billNo}&repayAmount=${params.repayAmount}`})
+        navigate('REPAYMENT_WAY', '还款方式', {url: pageIdentity.REPAYMENT_WAY, param: `billNo=${params.billNo}&repayAmount=${this.tipInfo.curRepayAmount}`})
       }
     }
   }

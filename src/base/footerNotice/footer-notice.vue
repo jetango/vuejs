@@ -2,7 +2,7 @@
   <div class="footer-notice">
     <p class="loan-notice flex flex-item flex-justify">
       <i class="icon iconfont icon-yirenzheng"></i>
-      <span>银行级数据加密防护</span>
+      <span>国安级数据加密防护</span>
     </p>
   </div>
 </template>

@@ -29,9 +29,8 @@
 
 <script type="text/ecmascript-6">
   import {
+    certification,
     sesameCertification,
-    phoneCertification,
-    tbCertification,
     doPost,
     popup
   } from 'common/js/drivers'
@@ -58,8 +57,8 @@
           success: (data) => {
             let status = data.data
             let showInfo = {
-              zmxyFlag: !!Number.parseInt(status.zmxyFlag),
-              zmxyTextName: status.zmxyFlag === '1' ? '已认证' : '去认证',
+              // zmxyFlag: !!Number.parseInt(status.zmxyFlag),
+              // zmxyTextName: status.zmxyFlag === '1' ? '已认证' : '去认证',
               mobileFlag: !!Number.parseInt(status.mobileFlag),
               mobileTextName: status.mobileFlag === '1' ? '已认证' : '去认证',
               tbFlag: !!Number.parseInt(status.tbFlag),
@@ -94,15 +93,16 @@
         })
       },
       phoneCertification: function() {
-        phoneCertification({
+        let self = this
+        certification({type: 'carrier'}, {
           success: (data) => {
             if (data && data.status === '0') {
               doPost(types.SCORE, {
                 mobileFlag: '1'
               }, {
                 success: (data) => {
-                  this.creditStatus.mobileFlag = true
-                  this.creditStatus.mobileTextName = '已认证'
+                  self.creditStatus.mobileFlag = true
+                  self.creditStatus.mobileTextName = '已认证'
                 },
                 error: (data) => {
                   popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
@@ -118,7 +118,7 @@
         })
       },
       tbCertification: function() {
-        tbCertification({
+        certification({type: 'taobao'}, {
           success: (data) => {
             if (data && data.status === '0') {
               doPost(types.SCORE, {

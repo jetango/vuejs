@@ -70,7 +70,7 @@ export default class Driver {
     }
   }
 
-  navigate(pageId, title, param, cb) {
+  navigate(pageId, title, param, cb, backUrl) {
     //
   }
 
@@ -211,8 +211,8 @@ export default class Driver {
     })
   }
 
-  endPage(param, pageIdentifier) {
-    console.log(param, pageIdentifier)
+  endPage(param, pageIdentifier, step) {
+    console.log(param, pageIdentifier, step)
   }
 
   eeLogBiz(type, event, identity, properties) {
@@ -273,18 +273,10 @@ export default class Driver {
   }
 
   // 手机运营商认证
-  phoneCertification(cb) {
+  certification(param, cb) {
     let name = this.proxy.registCB(cb)
     window.callback(name, {
       status: '0' // 0 认证失败   1认证成功
-    })
-  }
-
-  // 淘宝认证
-  tbCertification(cb) {
-    let name = this.proxy.registCB(cb)
-    window.callback(name, {
-      status: '0' // 1 认证失败   0 认证成功
     })
   }
 

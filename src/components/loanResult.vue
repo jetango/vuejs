@@ -66,12 +66,10 @@
           syntheticalFee: '',
           auditStatus: 1,
           bankAccount: '',
-          orderStatusList: []
+          orderStatusList: [],
+          orderNo: ''
         }
       }
-    },
-    created() {
-      this.orderNo = this.$route.query.orderNo
     },
     computed: {
       orderStatusLength() {
@@ -83,13 +81,13 @@
     },
     methods: {
       checkLoanDetail: function() {
-        let {orderNo} = this.$route.query
+        let {orderNo} = this.loadResult
         let param = `orderNo=${orderNo}`
         navigate('LOAN_DETAIL', '借款详情', {url: pageIdentity.LOAN_DETAIL, param})
       },
       _fetchLoadResult() {
         let self = this
-        doPost(types.BORROW_RESULT, {orderNo: this.orderNo}, {
+        doPost(types.BORROW_RESULT, null, {
           success: function(oData) {
             if (oData.status === '0') {
               self.loadResult = oData.data

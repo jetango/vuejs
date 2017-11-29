@@ -86,12 +86,12 @@ export default class Driver {
    * @param  {Function} cb
    * @return {null}
    */
-  navigate(pageId, title, param, cb) {
+  navigate(pageId, title, param, cb, backUrl) {
     if (!cb) {
       cb = function () { }
     }
-    let name = this.proty.registCB(cb)
-    let url = `plugin://navigate?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}&callback=${encodeURIComponent(name)}`
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://navigate?page=${encodeURIComponent(pageId)}&title=${encodeURIComponent(title)}&param=${encodeURIComponent(JSON.stringify(param))}&callback=${encodeURIComponent(name)}&backUrl=${encodeURIComponent(backUrl)}`
     this._iosCall(url)
   }
 
@@ -427,17 +427,10 @@ export default class Driver {
     this._iosCall(url)
   }
 
-  // 手机运营商认证
-  phoneCertification(cb) {
+  // 认证
+  certification(param, cb) {
     let name = this.proxy.registCB(cb)
-    let url = `plugin://phoneCertification?callback=${encodeURIComponent(name)}`
-    this._iosCall(url)
-  }
-
-  // 淘宝认证
-  tbCertification(cb) {
-    let name = this.proxy.registCB(cb)
-    let url = `plugin://tbCertification?callback=${encodeURIComponent(name)}`
+    let url = `plugin://certification?callback=${encodeURIComponent(name)}&param=${JSON.stringify(param)}`
     this._iosCall(url)
   }
 

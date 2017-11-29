@@ -18,7 +18,7 @@ export default class Driver {
 
   log(type, content) {
     const debug = process.env.NODE_ENV !== 'production'
-    if (debug) {
+    if (!debug) {
       return
     }
     window.android.plugin('log', JSON.stringify({ type, content }))
@@ -29,9 +29,9 @@ export default class Driver {
     window.android.plugin('dialog', JSON.stringify({ 'class': type, callback: name, title, desc }))
   }
 
-  navigate(pageId, title, param, cb) {
+  navigate(pageId, title, param, cb, backUrl) {
     let name = this.proxy.registCB(cb)
-    window.android.plugin('navigate', JSON.stringify({ pageId, title, param, callback: name }))
+    window.android.plugin('navigate', JSON.stringify({ pageId, title, param, backUrl, callback: name }))
   }
 
   popup(pageId, title, param) {
@@ -67,8 +67,11 @@ export default class Driver {
     window.android.plugin('chooseSchool', JSON.stringify({ param, title, callback: name }))
   }
 
-  endPage(param, pageIdentifier) {
-    window.android.plugin('endPage', JSON.stringify({ param, pageIdentifier }))
+  endPage(param, pageIdentifier, step = 1) {
+    if (!param.param) {
+      param.param = {}
+    }
+    window.android.plugin('endPage', JSON.stringify({ param, pageIdentifier, step }))
   }
 
   eeLogBiz(type, event, identity, properties) {
@@ -150,16 +153,10 @@ export default class Driver {
     window.android.plugin('sesameCertification', JSON.stringify({ callback: name }))
   }
 
-  // 手机运营商认证
-  phoneCertification(cb) {
+  // 认证
+  certification(param, cb) {
     let name = this.proxy.registCB(cb)
-    window.android.plugin('phoneCertification', JSON.stringify({ callback: name }))
-  }
-
-  // 淘宝认证
-  tbCertification(cb) {
-    let name = this.proxy.registCB(cb)
-    window.android.plugin('tbCertification', JSON.stringify({ callback: name }))
+    window.android.plugin('certification', JSON.stringify({ callback: name, param: param }))
   }
 
   // 银联支付

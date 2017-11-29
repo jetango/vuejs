@@ -11,13 +11,17 @@
         <i :class="{'chosed': item.isChose}" class="iconfont icon-correct-marked"></i>
       </div>
     </div>
-    <a class="button button-primary" @click="payLoan">确认还款</a>
+    <div class="button-box">
+      <a class="button button-primary" @click="payLoan">确认还款</a>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, unionPay, weChatPay, alipay} from 'common/js/drivers'
+  import {doPost, popup, weChatPay, alipay, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {unionpayPath} from 'common/js/constants'
+
   export default {
     data() {
       return {
@@ -54,11 +58,11 @@
             let payWayList = oData.data
             let len = payWayList.length - 1
             payWayList.reverse().forEach((element, index) => {
-              let bankNumber = element.bankNumber
+              let bankAccount = element.bankAccount
               this.staticPayWay.unshift({
                 iconClass: 'icon-140',
-                payWayName: element.bankName + '&nbsp;&nbsp;' + bankNumber.substring(bankNumber.length - 4, bankNumber.length),
-                bankNumber: bankNumber,
+                payWayName: element.bankName + '&nbsp;&nbsp;' + bankAccount.substring(bankAccount.length - 4, bankAccount.length),
+                bankAccount: bankAccount,
                 isChose: (index === len)
               })
             })
@@ -70,7 +74,7 @@
         })
       },
       payLoan: function() {
-        let {type, bankNumber} = this.confirmPayWay
+        let {type, bankAccount} = this.confirmPayWay
         let {payAmount, billNo} = this.$route.query
         if (type === 'wechat') {
           weChatPay({payAmount, billNo}, {
@@ -90,15 +94,8 @@
             }
           })
         } else if (type === 'unionPay') {
-          unionPay({payAmount, billNo}, {
-            success: function(oData) {
-
-            },
-            error: function(oData) {
-
-            }
-          })
-        } else if (bankNumber) {
+          navigate('UNIONPAY', '中国银联', {url: unionpayPath, param: '', type: 'TARGET'}, null)
+        } else if (bankAccount) {
           // 直接代扣
           doPost()
         }
@@ -148,8 +145,8 @@
     color: green !important
 
   .button
-    width:90%
     margin: 0 auto
-    margin-top: 1.5rem
+  .button-box
+    padding: 1rem .4rem 0
 
 </style>
