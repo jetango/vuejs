@@ -95,7 +95,8 @@
             }
           })
         } else if (type === 'unionPay') {
-          let param = `orderNo=james&userId=12345678`
+          let {payAmount, billNo, orderNo, userId} = this.$route.query
+          let param = `orderNo=${orderNo}&userId=${userId}&billNo=${billNo}&payAmount=${payAmount}`
           let url = `${unionpayPath}?${Base64.encode(param)}`
           navigate('UNIONPAY', '中国银联', {url: url, param: '', type: 'TARGET'}, null)
         } else if (bankAccount) {

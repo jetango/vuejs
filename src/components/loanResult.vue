@@ -1,58 +1,64 @@
 <template>
   <div class="">
-    <div class="text-center header flex">
-      <a class="visibility">借款详情</a>
-      <div class="flex-grow title">
-        借款金额：{{loadResult.loanAmount || 0}}元
+    <div v-if="visibility && loadResult">
+      <div class="text-center header flex">
+        <a class="visibility">借款详情</a>
+        <div class="flex-grow title">
+          借款金额：{{loadResult.loanAmount || 0}}元
+        </div>
+        <a @click="checkLoanDetail" class="detail">借款详情</a>
       </div>
-      <a @click="checkLoanDetail" class="detail">借款详情</a>
+      <section class="time-line">
+        <div class="flex block first" :class="{'actived': orderStatusLength >= 1}">
+          <div class="icon">
+            <i class="iconfont icon-correct-marked"></i>
+          </div>
+          <div class="content flex-grow">
+            <h1>审核中</h1>
+            <h4>{{orderStatusLength >= 1 ? '审核已经通过！感谢支持！' : '请耐心等待审核预计需要1分钟'}}</h4>
+            <p v-show="orderStatusLength >= 1"><i class="iconfont icon-127"></i>{{orderStatusLength >= 1 ? loadResult.orderStatusList[0].statusTime : ''}}</p>
+          </div>
+        </div>
+        <div class="flex block"  :class="{actived: orderStatusLength >= 2}">
+          <div class="icon">
+            <i class="iconfont icon-correct-marked"></i>
+          </div>
+          <div class="content flex-grow">
+            <h1>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '未通过审核' : '审核完成'}}</h1>
+            <h4>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '抱歉审核未通过' : '恭喜你，审核完成！'}}</h4>
+            <p v-show="orderStatusLength >= 2"><i class="iconfont icon-127"></i>{{orderStatusLength >= 2 ? loadResult.orderStatusList[1].statusTime : ''}}</p>
+          </div>
+        </div>
+        <div class="flex block"  :class="{actived: orderStatusLength >= 3}">
+          <div class="icon">
+            <i class="iconfont icon-correct-marked"></i>
+          </div>
+          <div class="content flex-grow">
+            <h1>等待放款</h1>
+            <h4>请耐心等待预计需要1分钟</h4>
+            <p v-show="orderStatusLength >= 3"><i class="iconfont icon-127"></i>{{orderStatusLength >= 3 ? loadResult.orderStatusList[2].statusTime : ''}}</p>
+          </div>
+        </div>
+        <div class="flex block last" :class="{actived: orderStatusLength >= 4}">
+          <div class="icon">
+            <i class="iconfont icon-correct-marked"></i>
+          </div>
+          <div class="content flex-grow">
+            <h1>{{orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40' ? '放款失败' : '已放款'}}</h1>
+            <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的招商银行卡尾号{{loadResult.bankAccount.substring(loadResult.bankAccount.length - 4)}}的账户</h4>
+            <h4>确认本人借款，确保资金安全</h4>
+          </div>
+        </div>
+      </section>
     </div>
-    <section class="time-line">
-      <div class="flex block first" :class="{'actived': orderStatusLength >= 1}">
-        <div class="icon">
-          <i class="iconfont icon-correct-marked"></i>
-        </div>
-        <div class="content flex-grow">
-          <h1>审核中</h1>
-          <h4>{{orderStatusLength >= 1 ? '审核已经通过！感谢支持！' : '请耐心等待审核预计需要1分钟'}}</h4>
-          <p v-show="orderStatusLength >= 1"><i class="iconfont icon-127"></i>{{orderStatusLength >= 1 ? loadResult.orderStatusList[0].statusTime : ''}}</p>
-        </div>
-      </div>
-      <div class="flex block"  :class="{actived: orderStatusLength >= 2}">
-        <div class="icon">
-          <i class="iconfont icon-correct-marked"></i>
-        </div>
-        <div class="content flex-grow">
-          <h1>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '未通过审核' : '审核完成'}}</h1>
-          <h4>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '抱歉审核未通过' : '恭喜你，审核完成！'}}</h4>
-          <p v-show="orderStatusLength >= 2"><i class="iconfont icon-127"></i>{{orderStatusLength >= 2 ? loadResult.orderStatusList[1].statusTime : ''}}</p>
-        </div>
-      </div>
-      <div class="flex block"  :class="{actived: orderStatusLength >= 3}">
-        <div class="icon">
-          <i class="iconfont icon-correct-marked"></i>
-        </div>
-        <div class="content flex-grow">
-          <h1>等待放款</h1>
-          <h4>请耐心等待预计需要1分钟</h4>
-          <p v-show="orderStatusLength >= 3"><i class="iconfont icon-127"></i>{{orderStatusLength >= 3 ? loadResult.orderStatusList[2].statusTime : ''}}</p>
-        </div>
-      </div>
-      <div class="flex block last" :class="{actived: orderStatusLength >= 4}">
-        <div class="icon">
-          <i class="iconfont icon-correct-marked"></i>
-        </div>
-        <div class="content flex-grow">
-          <h1>{{orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40' ? '放款失败' : '已放款'}}</h1>
-          <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的招商银行卡尾号{{loadResult.bankAccount.substring(loadResult.bankAccount.length - 4)}}的账户</h4>
-          <h4>确认本人借款，确保资金安全</h4>
-        </div>
-      </div>
-    </section>
+    <div v-if="visibility && !loadResult">
+      <no-data title="暂无借款记录"></no-data>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import NoData from 'base/noData/noData'
   import {doPost, navigate, popup} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
@@ -68,7 +74,8 @@
           bankAccount: '',
           orderStatusList: [],
           orderNo: ''
-        }
+        },
+        visibility: false
       }
     },
     computed: {
@@ -92,12 +99,17 @@
             if (oData.status === '0') {
               self.loadResult = oData.data
             }
+            self.visibility = true
           },
           error: function(oData) {
+            self.visibility = true
             popup('', '', oData.msg || '获取信息失败')
           }
         })
       }
+    },
+    components: {
+      NoData
     }
   }
 </script>

@@ -118,9 +118,7 @@
             success: function(oData) {
               self.loading = false
               if (oData.status === '0') {
-                // userInfo({userId: oData.data.userId})
-                // endPage({userId: oData.data.userId})
-                endPage({}, 'ROOT')
+                endPage({})
               }
             },
             error: function(oData) {

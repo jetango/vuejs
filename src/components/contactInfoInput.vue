@@ -113,7 +113,7 @@
               log('', oData)
               self.loading = false
               if (oData.status === '0') {
-                endPage({}, 'ROOT')
+                endPage({})
               }
             },
             error: function(oData) {
