@@ -193,6 +193,13 @@ const RegisterAndPrivacy = (resolve) => {
   })
 }
 
+// 自动还款协议
+const AutoRepayProtocol = (resolve) => {
+  import('components/autoRepayProtocol').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -316,6 +323,10 @@ export default new Router({
       path: '/register-privacy',
       name: 'registerAndPrivacy',
       component: RegisterAndPrivacy
+    }, {
+      path: '/autorepay-protocol',
+      name: 'autorepayProtocol',
+      component: AutoRepayProtocol
     }
   ]
 })

@@ -21,6 +21,7 @@
   import {doPost, popup, weChatPay, alipay, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {unionpayPath} from 'common/js/constants'
+  import { Base64 } from 'js-base64'
 
   export default {
     data() {
@@ -94,7 +95,9 @@
             }
           })
         } else if (type === 'unionPay') {
-          navigate('UNIONPAY', '中国银联', {url: unionpayPath, param: '', type: 'TARGET'}, null)
+          let param = `orderNo=james&userId=12345678`
+          let url = `${unionpayPath}?${Base64.encode(param)}`
+          navigate('UNIONPAY', '中国银联', {url: url, param: '', type: 'TARGET'}, null)
         } else if (bankAccount) {
           // 直接代扣
           doPost()
@@ -147,6 +150,6 @@
   .button
     margin: 0 auto
   .button-box
-    padding: 1rem .4rem 0
+    padding: 1rem .4rem
 
 </style>

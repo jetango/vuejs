@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, navigate} from 'common/js/drivers'
+  import {doPost, popup, navigate, dialog, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
 
@@ -43,8 +43,20 @@
       }
     },
     created() {
-      params.billNo = this.$route.query.billNo
-      if (params.billNo === '') {
+      let {billNo, callback} = this.$route.query
+      params.billNo = billNo
+      if (callback === 'success' || callback === 'error') {
+        dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
+          success: function(oData) {
+            if (oData.status === '0' && oData.data.result === '1') {
+              endPage({url: '', param: ''}, 'ROOT')
+            }
+          },
+          error: function(oData) {
+            popup(null, null, oData.msg || '还款提交失败！')
+          }
+        })
+      } else if (params.billNo === '') {
         popup(null, null, '非法进入！')
         return
       }

@@ -33,7 +33,7 @@
           <i class="iconfont icon-correct-marked"></i>
         </div>
         <div class="content flex-grow">
-          <h1>待放款</h1>
+          <h1>等待放款</h1>
           <h4>请耐心等待预计需要1分钟</h4>
           <p v-show="orderStatusLength >= 3"><i class="iconfont icon-127"></i>{{orderStatusLength >= 3 ? loadResult.orderStatusList[2].statusTime : ''}}</p>
         </div>

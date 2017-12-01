@@ -16,7 +16,9 @@
     <div v-if="bankList && bankList.length == 0">
       <no-data title="暂无绑定银行卡"></no-data>
     </div>
-    <a @click="addBankCard" class="button button-primary">去添加</a>
+    <div class="button-box">
+      <a @click="addBankCard" class="button button-primary">去添加</a>
+    </div>
   </div>
 </template>
 
@@ -48,7 +50,7 @@
       choseBankCard: function(obj) {
         let {bankName, bankAccount} = obj
         let param = {bankName, bankAccount}
-        endPage({param, url: ''}, 'LOAN_CONFIRM')
+        endPage({param, url: ''}, 'LOAN_CONFIRM', '-1')
       },
       addBankCard: function() {
         let self = this
@@ -109,5 +111,8 @@
     width:90%
     margin: 0 auto
     margin-top: 1rem
+
+  .button-box
+    padding: 1rem .4rem 0
 
 </style>

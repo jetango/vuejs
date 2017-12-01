@@ -63,7 +63,7 @@
 </template>
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
-  import {doPost, popup, navigate, log} from 'common/js/drivers'
+  import {doPost, popup, navigate} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -155,7 +155,6 @@
         let self = this
         navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK}, {
           success: function(oData) {
-            log('', '----------------------------------')
             if (oData.status === '0') {
               let {bankName, bankAccount} = oData.data
               self.bankCard = {

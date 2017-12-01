@@ -118,7 +118,7 @@
 
     <h4>还款</h4>
     <div class="list-view">
-      <router-link :to="{path: '/repayment-tip'}">
+      <router-link :to="{path: '/repayment-tip', query: {billNo: 'james'}}">
         <div class="item flex">
           <p class="flex-grow">发起还款</p>
           <i class="iconfont icon-117"></i>
@@ -181,6 +181,15 @@
       <router-link to="/services-protocols">
         <div class="item flex">
           <p class="flex-grow">我同意XX协议</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
+      <router-link to="/autorepay-protocol">
+        <div class="item flex">
+          <p class="flex-grow">自动还款协议</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>

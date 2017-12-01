@@ -108,7 +108,7 @@
             success: function(oData) {
               self.loading = false
               if (oData.status === '0') {
-                endPage()
+                endPage({}, 'ROOT')
               }
             },
             error: function(oData) {
@@ -234,5 +234,4 @@
     outline: none
     border: 0
     width: 100%
-    padding: .3rem 0
 </style>

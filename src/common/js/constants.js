@@ -171,7 +171,9 @@ export const pageIdentity = {
   'REPAYMENT_LOAN': '/#/repayment-loan',                              // 还款计划
   'REPAYMENT_WAY': '/#/repayment-way',                                // 还款方式
   'RATE_QUERY': '/#/rate-query',                                      // 还款费率
-  'SERVICES_PROTOCOLS': '/#/services-protocols'                       // 我同意xxxx协议
+  'SERVICES_PROTOCOLS': '/#/services-protocols',                      // 我同意xxxx协议
+  'AUTOREPAY_PROTOCOL': '/#/autorepay-protocol',                      // 同意代扣协议
+  'REGISTER_PRIVACY': '/#/register-privacy'                           // 用户登录协议
 }
 
 export const positionItems = {

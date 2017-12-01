@@ -26,7 +26,11 @@
         <span v-if="isSend" class="input-validate is-send">{{delayTime}}后重新获取</span>
       </div>
     </div>
-    <div @click="submit" class="button">提交</div>
+    <p class="comfirm-protocol flex flex-item flex-justify" @click="agreeProtocols()">
+      <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>
+      <span>我已阅读并同意<span @click.stop="checkServicesProtocols">《用户服务协议》</span></span>
+    </p>
+    <div @click="submit()" class="button">提交</div>
     <div class="footer" :class="{'input-footer':isInput}">
       <p class="product-name">侬要贷</p>
       <p class="loan-notice flex flex-item flex-justify">
@@ -43,7 +47,8 @@
     doPost,
     popup,
     endPage,
-    toast
+    toast,
+    navigate
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {
@@ -61,7 +66,8 @@
           smsCode: ''
         },
         submitStatus: true,
-        isInput: false
+        isInput: false,
+        isChosed: false
       }
     },
     methods: {
@@ -97,6 +103,10 @@
       submit: function() {
         let self = this
         let reg = new RegExp('^[0-9]*$')
+        if (this.isChosed) {
+          popup(null, null, '请同意用户服务协议')
+          return
+        }
         if (this.bankInfo.accountName === '') {
           popup(null, null, '请输入姓名！')
           return false
@@ -120,9 +130,9 @@
             success: (oData) => {
               this.submitStatus = true
               if (self.from === 'bank_list') {
-                endPage({url: pageIdentity.BANK_LIST, param: ''}, 'BANK_LIST')
+                endPage({url: pageIdentity.BANK_LIST, param: ''}, 'BANK_LIST', '-1')
               } else if (self.from === 'choose_bank') {
-                endPage({url: pageIdentity.CHOOSE_BANK, param: ''}, 'CHOOSE_BANK')
+                endPage({url: pageIdentity.CHOOSE_BANK, param: ''}, 'CHOOSE_BANK', '-1')
               }
             },
             error: (oData) => {
@@ -130,6 +140,12 @@
             }
           })
         }
+      },
+      agreeProtocols() {
+        this.isChosed = !this.isChosed
+      },
+      checkServicesProtocols: function() {
+        navigate('AUTOREPAY_PROTOCOL', '用户服务协议', {url: pageIdentity.AUTOREPAY_PROTOCOL})
       }
     },
     created() {
@@ -155,14 +171,14 @@
 
   .bind-debit-card
     position: absolute
-    background-color: #ffffff
+    background-color: #fff
     width: 100%
     height: 100%
 
   .input-item
     height: .8rem
     font-size: .3rem
-    color: #000000
+    color: #000
     margin-top: .3rem
     padding-right: .4rem
     span
@@ -175,14 +191,11 @@
       margin-left: .1rem
       input
         background-color: #eeeff3
-        font-size: 0.28rem
-        color: #000000
-        padding: .2rem 0 .2rem .3rem
+        color: #000
+        padding-left: .2rem
         width: 100%
         outline: none
-        height: .28rem
-        line-height: normal
-        vertical-align: middle
+        border: 0
       span
         display:block
         min-width: 1.8rem
@@ -202,26 +215,23 @@
     background-color: #b6b6b6 !important
 
   .button
-    margin 1rem .4rem
+    margin .4rem 0.4rem 1rem
     background-color: #ffa800
     color: #fff
-
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-    color: #aeaeae;
-    line-height:.43rem
-  }
-  input:-moz-placeholder, textarea:-moz-placeholder {
-    color: #aeaeae;
-    line-height:.43rem
-  }
-  input::-moz-placeholder, textarea::-moz-placeholder {
-    color: #aeaeae;
-    line-height:.43rem
-  }
-  input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-    color: #aeaeae;
-    line-height:.43rem
-  }
+  .icon-not-chose
+    color: lightgrey !important
+  .comfirm-protocol
+    font-size: .2rem
+    margin-top: 1rem
+    margin-bottom: .6rem
+    i
+      color: green
+      font-size: .22rem
+      margin-top: -0.04rem
+      margin-right: 0.05rem
+    span
+      span
+        color: #008aff
 
   .footer
     width: 100%

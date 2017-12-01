@@ -120,7 +120,7 @@
               if (oData.status === '0') {
                 // userInfo({userId: oData.data.userId})
                 // endPage({userId: oData.data.userId})
-                endPage()
+                endPage({}, 'ROOT')
               }
             },
             error: function(oData) {

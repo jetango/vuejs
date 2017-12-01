@@ -476,12 +476,15 @@ apiRoutes.post('repay/bill', function(req, res) {
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
 
 // 192.168.10.23
+//
+const apiUserApplicationProxy = proxyMiddleware('/app/application', {target: 'http://192.168.10.23:9003', changeOrigin: true})
 const apiUserAPPProxy = proxyMiddleware('/app/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
 const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
 const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
 // const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
 const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.10.25:9400', changeOrigin: true})
 
+app.use('/app/application', apiUserApplicationProxy)
 app.use('/app/user', apiUserAPPProxy)
 app.use('/api/user', apiUserProxy)
 app.use('/api/order', apiOrderProxy)
