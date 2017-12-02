@@ -9,13 +9,13 @@
     <div class="input-item flex flex-item">
       <span>银行卡：</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.bankAccount" type="tel" placeholder="请输入银行卡">
+        <input v-model="bankInfo.bankAccount" type="tel" placeholder="请输入银行卡" maxlength="20">
       </div>
     </div>
     <div class="input-item flex flex-item">
       <span>手机号：</span>
       <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号">
+        <input v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号" maxlength="11">
       </div>
     </div>
     <div class="input-item flex flex-item">
