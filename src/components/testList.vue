@@ -196,6 +196,15 @@
     </div>
 
     <div class="list-view">
+      <router-link to="/coupon-list">
+        <div class="item flex">
+          <p class="flex-grow">优惠券</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
       <a href="http://120.132.102.112:8768/pay/ali/wapPay">
         <div class="item flex">
           <p class="flex-grow">支付宝支付</p>

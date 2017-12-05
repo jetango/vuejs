@@ -200,6 +200,13 @@ const AutoRepayProtocol = (resolve) => {
   })
 }
 
+// 优惠券列表
+const CouponList = (resolve) => {
+  import('components/CouponList').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -327,6 +334,10 @@ export default new Router({
       path: '/autorepay-protocol',
       name: 'autorepayProtocol',
       component: AutoRepayProtocol
+    }, {
+      path: '/coupon-list',
+      name: 'couponList',
+      component: CouponList
     }
   ]
 })
