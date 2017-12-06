@@ -18,7 +18,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, weChatPay, alipay, navigate} from 'common/js/drivers'
+  import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {unionpayPath} from 'common/js/constants'
   import { Base64 } from 'js-base64'
@@ -52,6 +52,9 @@
       this.billNo = billNo
       this.init()
     },
+    mounted() {
+      eeLogUBT('RepayWay.Load.Goin', 'goin')
+    },
     methods: {
       init: function() {
         doPost(types.BANK_LIST, {}, {
@@ -77,6 +80,7 @@
       payLoan: function() {
         let {type, bankAccount} = this.confirmPayWay
         let {payAmount, billNo} = this.$route.query
+        eeLogUBT('RepayWay.Action.Submit', 'click')
         if (type === 'wechat') {
           weChatPay({payAmount, billNo}, {
             success: function(oData) {

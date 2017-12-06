@@ -142,7 +142,7 @@
           })
         }
 
-        eeLogUBT('eeLogUBTBankCard.Action.Submit', 'click')
+        eeLogUBT('BankCard.Action.Submit', 'click')
       },
       agreeProtocols() {
         this.isChosed = !this.isChosed

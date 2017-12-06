@@ -52,7 +52,7 @@
   import FooterNotice from 'base/footerNotice/footer-notice'
   import * as types from 'config/api-type'
   import {orderStatus, pageIdentity} from 'common/js/constants'
-  import {doPost, popup, navigate} from 'common/js/drivers'
+  import {doPost, popup, navigate, eeLogUBT} from 'common/js/drivers'
   export default {
     data() {
       return {
@@ -76,6 +76,7 @@
     },
     mounted: function() {
       this.init()
+      eeLogUBT('LoanDetailPage.Load.Goin', 'goin')
     },
     methods: {
       init: function() {
@@ -92,6 +93,7 @@
         })
       },
       checkContract: function() {
+        eeLogUBT('LoanDetailPage.Action.Contract', 'click')
         navigate('LOAN_CONTRACT', '借款合同', {url: pageIdentity.LOAN_CONTRACT, param: `orderNo=${this.$route.query.orderNo}`})
       },
       getOrderStatusStr(key) {

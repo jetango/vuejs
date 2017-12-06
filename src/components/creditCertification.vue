@@ -32,7 +32,7 @@
     certification,
     sesameCertification,
     doPost,
-    popup
+    popup, eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -50,6 +50,9 @@
     },
     created: function() {
       this.init()
+    },
+    mounted() {
+      eeLogUBT('CreditAuth.Load.Goin', 'goin')
     },
     methods: {
       init: function() {
@@ -96,6 +99,7 @@
         if (this.creditStatus.mobileFlag) {
           return
         }
+        eeLogUBT('CreditAuth.Action.Operator', 'click')
         let self = this
         certification({type: 'carrier'}, {
           success: (data) => {
@@ -124,6 +128,7 @@
         if (this.creditStatus.tbFlag) {
           return
         }
+        eeLogUBT('CreditAuth.Action.Taobao', 'click')
         certification({type: 'taobao'}, {
           success: (data) => {
             if (data && data.status === '0') {

@@ -52,7 +52,7 @@
 <script type="text/ecmascript-6">
   import {relationship} from 'common/js/constants'
   import Picker from 'better-picker'
-  import {doPost, chooseContact, popup, endPage, log} from 'common/js/drivers'
+  import {doPost, chooseContact, popup, endPage, log, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -69,9 +69,11 @@
     methods: {
       directContactSelected() {
         this.directContactPicker.show()
+        eeLogUBT('ContactInfomation.Action.DirectRelation', 'click')
       },
       majorContactSelected() {
         this.majorContactPicker.show()
+        eeLogUBT('ContactInfomation.Action.MainRelation', 'click')
       },
       directContactChoosed() {
         let self = this
@@ -85,6 +87,8 @@
             }
           }
         })
+        eeLogUBT('ContactInfomation.Action.DirectPhone', 'click')
+        eeLogUBT('ContactInfomation.Action.DirectName', 'click')
       },
       majorContactChoosed() {
         let self = this
@@ -97,6 +101,8 @@
             }
           }
         })
+        eeLogUBT('ContactInfomation.Action.MainPhone', 'click')
+        eeLogUBT('ContactInfomation.Action.MainName', 'click')
       },
       confirmContactInfo() {
         let self = this
@@ -108,16 +114,15 @@
           } else {
             this.loading = true
           }
+          eeLogUBT('ContactInfomation.Action.Submit', 'click')
           doPost(types.CONTACT_POST, params, {
             success: function(oData) {
-              log('', oData)
               self.loading = false
               if (oData.status === '0') {
                 endPage({})
               }
             },
             error: function(oData) {
-              log('', oData)
               self.loading = false
               popup(null, null, oData.msg || '信息保存失败，请稍后再试')
             }
@@ -194,6 +199,7 @@
       } else {
         this._initRelationshipPicker()
       }
+      eeLogUBT('ContactInfomation.Load.Goin', 'goin')
     },
     beforeDestroy() {
       this._destroyPicker()

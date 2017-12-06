@@ -207,6 +207,13 @@ const CouponList = (resolve) => {
   })
 }
 
+// 优惠券
+const Vip = (resolve) => {
+  import('components/vip').then((module) => {
+    resolve(module)
+  })
+}
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -338,6 +345,10 @@ export default new Router({
       path: '/coupon-list',
       name: 'couponList',
       component: CouponList
+    }, {
+      path: '/vip',
+      name: 'vip',
+      component: Vip
     }
   ]
 })

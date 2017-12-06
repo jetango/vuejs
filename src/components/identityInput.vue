@@ -69,7 +69,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition, popup, log, endPage} from 'common/js/drivers'
+  import {doPost, idCardFrontInfo, idCardBackInfo, faceRecognition, popup, log, endPage, eeLogUBT} from 'common/js/drivers'
   import Picker from 'better-picker'
   import * as types from 'config/api-type'
   import {educational, maritalStatus, provinces, citys, dists} from 'common/js/constants'
@@ -110,6 +110,7 @@
           } else {
             this.loading = true
           }
+          eeLogUBT('PersonalIdentify.Action.Submit', 'click')
           var identityInfoCopy = Object.assign({}, identityInfo)
           let {idCardFrontPhoto, idCardBackPhoto} = identityInfoCopy
           identityInfoCopy.idCardFrontPhoto = idCardFrontPhoto.substring(22)
@@ -130,16 +131,20 @@
         }
       },
       maritalChanged() {
+        eeLogUBT('PersonalIdentify.Action.Marriage', 'click')
         this.maritalPicker.show()
       },
       educationalChanged() {
+        eeLogUBT('PersonalIdentify.Action.Education', 'click')
         this.educationalPicker.show()
       },
       addressChanged() {
+        eeLogUBT('PersonalIdentify.Action.Address', 'click')
         this.addressPicker.show()
       },
       faceRecognition() {
         let self = this
+        eeLogUBT('PersonalIdentify.Action.Face', 'click')
         let {idCardFrontPhoto, idCardBackPhoto} = this.identityInfo
         if (!idCardFrontPhoto || !idCardBackPhoto) {
           popup('', '', '请先选择身份证信息！')
@@ -160,6 +165,7 @@
       },
       idCardFrontClicked() {
         let self = this
+        eeLogUBT('PersonalIdentify.Action.ScanFront', 'click')
         idCardFrontInfo({
           success: function(oData) {
             log('', oData)
@@ -184,6 +190,7 @@
       },
       idCardBackClicked() {
         var self = this
+        eeLogUBT('PersonalIdentify.Action.ScanBack', 'click')
         idCardBackInfo({
           success: function(oData) {
             if (oData.status === '0') {
@@ -300,6 +307,7 @@
       this._initEducationalPicker()
       this._initAddressPicker()
       document.title = '身份信息录入'
+      eeLogUBT('PersonalIdentify.Load.Goin', 'goin')
     }
   }
 </script>

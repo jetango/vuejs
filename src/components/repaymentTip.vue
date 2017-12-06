@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, navigate, dialog, endPage} from 'common/js/drivers'
+  import {doPost, popup, navigate, dialog, endPage, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
 
@@ -41,6 +41,9 @@
           remainDays: ''
         }
       }
+    },
+    mounted() {
+      eeLogUBT('RepayPage.Load.Goin', 'goin')
     },
     created() {
       let {billNo, callback} = this.$route.query
@@ -79,6 +82,7 @@
       },
       confirmPay() {
         let {curRepayAmount, billNo, orderNo, userId} = this.tipInfo
+        eeLogUBT('RepayPage.Action.Submit', 'click')
         navigate('REPAYMENT_WAY', '还款方式', {url: pageIdentity.REPAYMENT_WAY, param: `billNo=${billNo}&repayAmount=${curRepayAmount}&orderNo=${orderNo}&userId=${userId}`})
       }
     }

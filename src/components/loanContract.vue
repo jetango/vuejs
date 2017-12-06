@@ -27,6 +27,7 @@
   import {
     // doPost,
     // popup,
+    eeLogUBT,
     navigate
   } from 'common/js/drivers'
   // import * as types from 'config/api-type'
@@ -39,6 +40,7 @@
     },
     mounted: function() {
       this.initData()
+      eeLogUBT('LoanContractPage.Load.Goin', 'goin')
     },
     methods: {
       initData: function() {

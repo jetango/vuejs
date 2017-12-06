@@ -54,7 +54,7 @@
   import {
     doPost,
     popup,
-    endPage
+    endPage, eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -104,6 +104,7 @@
           } else {
             this.loading = true
           }
+          eeLogUBT('JobInfomation.Action.Submit', 'click')
           doPost(types.JOB_POST, params, {
             success: function(oData) {
               self.loading = false
@@ -120,12 +121,15 @@
       },
       positionSelected() {
         this.positionPicker.show()
+        eeLogUBT('JobInfomation.Action.CareerType', 'click')
       },
       salarySelected() {
         this.salaryPicker.show()
+        eeLogUBT('JobInfomation.Action.InCome', 'click')
       },
       addressSelected() {
         this.addressPicker.show()
+        eeLogUBT('JobInfomation.Action.CompanyAddress', 'click')
       },
       _validate(params) {
         if (!params.industry) {
@@ -219,6 +223,7 @@
       this._initPositionPicker()
       this._initSalaryPicker()
       this._initAddress()
+      eeLogUBT('JobInfomation.Load.Goin', 'goin')
     }
   }
 </script>

@@ -59,7 +59,7 @@
 
 <script type="text/ecmascript-6">
   import NoData from 'base/noData/noData'
-  import {doPost, navigate, popup} from 'common/js/drivers'
+  import {doPost, navigate, popup, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
 
@@ -85,11 +85,13 @@
     },
     mounted() {
       this._fetchLoadResult()
+      eeLogUBT('LoanResultPage.Load.Goin', 'goin')
     },
     methods: {
       checkLoanDetail: function() {
         let {orderNo} = this.loadResult
         let param = `orderNo=${orderNo}`
+        eeLogUBT('LoanResultPage.Action.Detail', 'click')
         navigate('LOAN_DETAIL', '借款详情', {url: pageIdentity.LOAN_DETAIL, param})
       },
       _fetchLoadResult() {

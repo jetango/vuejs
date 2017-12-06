@@ -91,7 +91,7 @@
 </template>
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
-  import {doPost, popup, navigate} from 'common/js/drivers'
+  import {doPost, popup, navigate, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -123,6 +123,7 @@
     },
     mounted() {
       this.init()
+      eeLogUBT('LoanPage.Load.Goin', 'goin')
     },
     methods: {
       init: function() {
@@ -169,6 +170,7 @@
         param.bankName = self.bankCard.bankName
         param.bankAccount = self.bankCard.bankAccount
         param.mobile = self.$route.query.mobile
+        eeLogUBT('LoanPage.Action.Submit', 'click')
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
             let param = `orderNo=${oData.data.orderNo}`
@@ -181,6 +183,7 @@
       },
       choseBankCard: function() {
         let self = this
+        eeLogUBT('LoanPage.Action.BankCard', 'click')
         navigate('CHOOSE_BANK', '选择银行卡', {url: pageIdentity.CHOOSE_BANK}, {
           success: function(oData) {
             if (oData.status === '0') {
@@ -198,6 +201,7 @@
         })
       },
       seeDetail: function() {
+        eeLogUBT('LoanPage.Action.Alert.Detail', 'click')
         setTimeout(() => {
           this.checkDetailFlag = true
         }, 100)
@@ -206,6 +210,7 @@
         this.checkDetailFlag = isOpen
       },
       checkServicesProtocols: function() {
+        eeLogUBT('LoanPage.Action.Agreement', 'click')
         navigate('SERVICES_PROTOCOLS', '用户服务协议', {url: pageIdentity.SERVICES_PROTOCOLS})
       }
     },
