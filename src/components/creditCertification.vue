@@ -93,6 +93,9 @@
         })
       },
       phoneCertification: function() {
+        if (this.creditStatus.mobileFlag) {
+          return
+        }
         let self = this
         certification({type: 'carrier'}, {
           success: (data) => {
@@ -118,6 +121,9 @@
         })
       },
       tbCertification: function() {
+        if (this.creditStatus.tbFlag) {
+          return
+        }
         certification({type: 'taobao'}, {
           success: (data) => {
             if (data && data.status === '0') {

@@ -48,7 +48,7 @@
     popup,
     endPage,
     toast,
-    navigate
+    navigate, eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {
@@ -82,7 +82,6 @@
           smsType: '1'
         }, {
           success: (oData) => {
-            console.log(oData)
             toast('验证码已发送，请注意查收！')
             this.isSend = true
             this.delayTime = 119
@@ -99,6 +98,8 @@
             popup(null, null, oData.msg || '校验码发送失败，请稍后再试！')
           }
         })
+        // 获取验证码
+        eeLogUBT('BankCard.Action.ValidCode', 'click')
       },
       submit: function() {
         let self = this
@@ -140,6 +141,8 @@
             }
           })
         }
+
+        eeLogUBT('eeLogUBTBankCard.Action.Submit', 'click')
       },
       agreeProtocols() {
         this.isChosed = !this.isChosed

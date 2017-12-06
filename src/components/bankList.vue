@@ -24,7 +24,7 @@
 
 <script>
   import NoData from 'base/noData/noData'
-  import {doPost, popup, navigate} from 'common/js/drivers'
+  import {doPost, popup, navigate, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -49,6 +49,7 @@
       },
       addBankCard: function() {
         let self = this
+        eeLogUBT('BankCard.Action.Add.Submit', 'click')
         navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=bank_list'}, {
           success: function(oData) {
             self.init()

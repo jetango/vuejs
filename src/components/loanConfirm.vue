@@ -3,43 +3,71 @@
     <div class="loan-info">
       <div class="loan-info-item flex flex-item active">
         <span>借款金额：</span>
-        <span v-text="loanInfo.loanAmount + '元'"></span>
+        <span class="flex-grow">{{loanInfo.loanAmount || 0}}元</span>
+        <i class="iconfont icon-117"></i>
+      </div>
+      <div class="loan-info-item flex flex-item active">
+        <span>借款时间：</span>
+        <span class="flex-grow">{{loanInfo.borrowTime || 0}}天</span>
+        <i class="iconfont icon-117"></i>
+      </div>
+      <div class="loan-info-item flex flex-item active">
+        <span>借款用途：</span>
+        <span class="flex-grow"></span>
+        <i class="iconfont icon-117"></i>
+      </div>
+      <div class="loan-info-item flex flex-item active">
+        <span>优惠券：</span>
+        <span class="flex-grow gray-text">无可抵用券</span>
+        <i class="iconfont icon-117"></i>
+      </div>
+      <div class="loan-info-item item-bank flex flex-item flex-grow active" @click="choseBankCard">
+        <span>到账账户：</span>
+        <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
+        <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.bankAccount.substring(bankCard.bankAccount.length-4,bankCard.bankAccount.length)" class="flex-grow" v-if="bankCard.flag"></span>
+        <i class="icon iconfont icon-117"></i>
+      </div>
+      <div class="loan-info-item flex flex-item active">
+        <span>会员：</span>
+        <span class="flex-grow gray-text">无可抵用券</span>
+        <i class="iconfont icon-117"></i>
       </div>
       <div class="loan-info-item flex flex-item">
-        <span>借款时间：</span>
-        <span v-text="loanInfo.borrowTime + '天'"></span>
+        <span>验证码：</span>
+        <span class="flex-grow"><input class="identify-code-input" type="tel" placeholder="短信验证码" maxlength="6"></span>
+        <div class="identify-code-btn">发送验证码</div>
       </div>
     </div>
     <div class="loan-info">
       <div class="loan-info-item item-middle flex flex-item active">
         <span>利息：</span>
-        <span v-text="loanInfo.interest + '元'"></span>
+        <span>{{loanInfo.interest || 0}}元</span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
         <span>综合费用：</span>
-        <span v-text="loanInfo.syntheticalFee + '元'"></span>
+        <span>{{loanInfo.syntheticalFee || 0}}元</span>
       </div>
       <div class="loan-info-item item-middle flex flex-item active">
         <span>到账金额：</span>
-        <span v-text="loanInfo.realLoanAmount + '元'"></span>
+        <span>{{loanInfo.realLoanAmount || 0}}元</span>
       </div>
       <div class="loan-info-item item-middle flex flex-item">
         <span>应还金额：</span>
-        <span v-text="loanInfo.repayTotalAmount + '元'"></span>
+        <span>{{loanInfo.repayTotalAmount || 0}}元</span>
         <a class="flex flex-item flex-grow" @click="seeDetail">
           查看明细
           <i class="icon iconfont icon-117"></i>
         </a>
       </div>
     </div>
-    <div class="loan-info">
+    <div class="loan-info hidden">
       <div class="flex flex-item flex-grow">
         <div class="loan-info-item item-bank flex flex-item flex-grow" @click="choseBankCard">
           <span>到账账户：</span>
           <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
           <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.bankAccount.substring(bankCard.bankAccount.length-4,bankCard.bankAccount.length)" class="flex-grow" v-if="bankCard.flag"></span>
+          <i class="icon iconfont icon-117"></i>
         </div>
-        <img class="icon-back" src="~common/image/ICON_Communal_sanjiao_2x_001.png">
       </div>
       <!-- <div class="loan-info-item flex flex-item active">
                       <span>手机号:</span>
@@ -189,7 +217,6 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-
   .loan-comforim
     margin-bottom: .3rem
 
@@ -201,12 +228,23 @@
     height: 1rem
     font-size: .28rem
     padding-left: .4rem
+    padding-right: .4rem
     span
       color: #525252
       &:last-of-type
         color: #000
         font-size: .3rem
         margin-left: .24rem
+    .identify-code-btn
+      color: #0079ff !important
+      width: 1.6rem
+      text-align: center
+    .identify-code-input
+      width: 100%
+      outline: none
+    .gray-text
+      font-size: .2rem!important
+      color: #939393!important
 
   .item-middle
     height: .72rem
@@ -223,7 +261,7 @@
       top: 0
       i
         color: #0079ff
-        font-size: .25rem
+        --font-size: .25rem
         margin-top: -.03rem
 
 

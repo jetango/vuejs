@@ -42,6 +42,31 @@ export const orderStatus = {
   '80': '已还清'
 }
 
+export const loanPurpose = [
+  {
+    text: '购物消费',
+    value: '购物消费'
+  }, {
+    text: '生活消费',
+    value: '生活消费'
+  }, {
+    text: '就医缴费',
+    value: '就医缴费'
+  }, {
+    text: '留学缴费',
+    value: '留学缴费'
+  }, {
+    text: '旅游缴费',
+    value: '旅游缴费'
+  }, {
+    text: '租房缴费',
+    value: '租房缴费'
+  }, {
+    text: '培训缴费',
+    value: '培训缴费'
+  }
+]
+
 export const relationship = [
   {
     text: '配偶',

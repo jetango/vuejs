@@ -42,7 +42,7 @@ export default class Driver {
     if (debug) {
       return
     }
-    let url = `plugin://log?type=${encodeURIComponent(type)}&content=${encodeURIComponent(msg)}`
+    let url = `plugin://log?type=${encodeURIComponent(type)}&content=${encodeURIComponent(JSON.stringify(msg))}`
     this._iosCall(url)
   }
 

@@ -24,7 +24,7 @@
 
 <script>
   import NoData from 'base/noData/noData'
-  import {doPost, popup, navigate, endPage} from 'common/js/drivers'
+  import {doPost, popup, navigate, endPage, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   export default {
@@ -50,10 +50,12 @@
       choseBankCard: function(obj) {
         let {bankName, bankAccount} = obj
         let param = {bankName, bankAccount}
+        eeLogUBT('BankCard.Action.Select', 'click')
         endPage({param, url: ''}, 'LOAN_CONFIRM', '-1')
       },
       addBankCard: function() {
         let self = this
+        eeLogUBT('BankCard.Action.Add.Submit', 'click')
         navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'}, {
           success: function(oData) {
             self.init()
