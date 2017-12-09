@@ -2,7 +2,7 @@
   <div class="contact-info">
     <div class="list-view h4">
       <div class="item flex h3">
-        <div class="flex-grow bold">直系联系人</div>
+        <div class="flex-grow">直系联系人</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">关系</div>
@@ -20,7 +20,7 @@
 
     <div class="list-view h4">
       <div class="item flex h3">
-        <div class="flex-grow bold">重要联系人</div>
+        <div class="flex-grow">重要联系人</div>
       </div>
       <div class="item flex">
         <div class="flex-grow">关系</div>

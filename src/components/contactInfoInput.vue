@@ -2,7 +2,7 @@
   <div class="contact-info">
     <div class="list-view h4">
       <div class="item flex h3">
-        <div class="flex-grow bold">直系联系人</div>
+        <div class="flex-grow">直系联系人</div>
       </div>
       <div class="item flex" @click="directContactSelected()">
         <div class="flex-grow">关系</div>
@@ -11,7 +11,7 @@
       </div>
       <div class="item flex" @click="directContactChoosed()">
         <div class="flex-grow">电话</div>
-        <div>{{directContactMobile ? directContactMobile : '直系亲属电话'}}</div>
+        <div><input type="tel" v-model="directContactMobile" readonly></div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex" @click="directContactChoosed()">
@@ -23,7 +23,7 @@
 
     <div class="list-view h4">
       <div class="item flex h3">
-        <div class="flex-grow bold">重要联系人</div>
+        <div class="flex-grow">重要联系人</div>
       </div>
       <div class="item flex" @click="majorContactSelected()">
         <div class="flex-grow">关系</div>

@@ -112,7 +112,6 @@
   .button
     width:90%
     margin: 0 auto
-    margin-top: 1rem
 
   .button-box
     padding: 1rem .4rem 0

@@ -214,6 +214,24 @@
     </div>
 
     <div class="list-view">
+      <router-link to="/raise-credit">
+        <div class="item flex">
+          <p class="flex-grow">提额</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
+      <router-link to="/activity">
+        <div class="item flex">
+          <p class="flex-grow">活动列表</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
       <a href="http://120.132.102.112:8768/pay/ali/wapPay">
         <div class="item flex">
           <p class="flex-grow">支付宝支付</p>

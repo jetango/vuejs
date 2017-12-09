@@ -7,9 +7,7 @@
         <div class="tips active">
           <p>本金：{{loanDetail.loanAmount}}元</p>
           <p>利息：{{loanDetail.interest}}元</p>
-          <p>综合费用：{{loanDetail.syntheticalFee}}元</p>
           <p>年化利率：{{loanDetail.annualizedRate}}%</p>
-          <p>综合费用将用于支付风险管理，三方代扣、代收、个人信息认证等费用</p>
         </div>
         <p class="button" v-on:click="sendCloseInfo">我知道了</p>
       </div>

@@ -42,6 +42,7 @@ new Vue({
           op = 'ANDROID'
         }
       }
+      alert(op)
       let os = op ? op.toUpperCase() : 'WEB'
       _proxy.os = os
       _proxy.__current__ = _proxy.DRIIVERS[os]

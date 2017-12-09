@@ -23,14 +23,14 @@
       <div class="input-bg flex flex-item flex-grow">
         <input v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
         <span v-if="!isSend" @click="sendValidateCode" class="input-validate">获取验证码</span>
-        <span v-if="isSend" class="input-validate is-send">{{delayTime}}后重新获取</span>
+        <span v-if="isSend" class="input-validate is-send">{{delayTime}}s重新获取</span>
       </div>
     </div>
-    <p class="comfirm-protocol flex flex-item flex-justify" @click="agreeProtocols()">
+    <p class="comfirm-protocol flex flex-item flex-justify text-gary" @click="agreeProtocols()">
       <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>
       <span>我已阅读并同意<span @click.stop="checkServicesProtocols">《用户服务协议》</span></span>
     </p>
-    <div @click="submit()" class="button">提交</div>
+    <div @click="submit()" class="button button-primary">提交</div>
     <div class="footer" :class="{'input-footer':isInput}">
       <p class="product-name">侬要贷</p>
       <p class="loan-notice flex flex-item flex-justify">
@@ -78,7 +78,7 @@
           return
         }
         doPost(types.SMSCODE, {
-          bankAccount: phone,
+          mobile: phone,
           smsType: '1'
         }, {
           success: (oData) => {
@@ -137,6 +137,7 @@
               }
             },
             error: (oData) => {
+              this.submitStatus = true
               popup(null, null, oData.msg || '绑定银行卡失败，请稍后再试！')
             }
           })

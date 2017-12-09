@@ -214,6 +214,11 @@ const Vip = (resolve) => {
   })
 }
 
+// 活动
+const Activity = (resolve) => { import('components/activity').then((module) => { resolve(module) }) }
+// 提额
+const RaiseCredit = (resolve) => { import('components/raiseCredit').then((module) => { resolve(module) }) }
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -349,6 +354,14 @@ export default new Router({
       path: '/vip',
       name: 'vip',
       component: Vip
+    }, {
+      path: '/activity',
+      name: 'activity',
+      component: Activity
+    }, {
+      path: '/raise-credit',
+      name: 'raiseCredit',
+      component: RaiseCredit
     }
   ]
 })

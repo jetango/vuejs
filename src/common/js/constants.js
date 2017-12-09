@@ -42,7 +42,7 @@ export const orderStatus = {
   '80': '已还清'
 }
 
-export const loanPurpose = [
+export const loanPurposeStatus = [
   {
     text: '购物消费',
     value: '购物消费'
@@ -198,7 +198,11 @@ export const pageIdentity = {
   'RATE_QUERY': '/#/rate-query',                                      // 还款费率
   'SERVICES_PROTOCOLS': '/#/services-protocols',                      // 我同意xxxx协议
   'AUTOREPAY_PROTOCOL': '/#/autorepay-protocol',                      // 同意代扣协议
-  'REGISTER_PRIVACY': '/#/register-privacy'                           // 用户登录协议
+  'REGISTER_PRIVACY': '/#/register-privacy',                          // 用户登录协议
+  'COUPON_LIST': '/#/coupon-list',                                    // 优惠券列表
+  'VIP': '/#/vip',                                                    // 会员
+  'RAISE_CREDIT': '/#/raise-credit',                                  // 提额
+  'ACTIVITY': '/#/activity'                                           // 活动列表
 }
 
 export const positionItems = {

@@ -1,41 +1,42 @@
 <template>
   <div class="loan-comforim">
     <div class="loan-info">
-      <div class="loan-info-item flex flex-item active">
+      <div class="loan-info-item flex flex-item active" @click="loanAmountClicked()">
         <span>借款金额：</span>
         <span class="flex-grow">{{loanInfo.loanAmount || 0}}元</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active">
+      <div class="loan-info-item flex flex-item active" @click="loanDayClicked()">
         <span>借款时间：</span>
         <span class="flex-grow">{{loanInfo.borrowTime || 0}}天</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active">
+      <div class="loan-info-item flex flex-item active" @click="loanPurposeClicked()">
         <span>借款用途：</span>
-        <span class="flex-grow"></span>
+        <span class="flex-grow">{{loanInfo.loanPurpose}}</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active">
+      <div class="loan-info-item flex flex-item active hidden">
         <span>优惠券：</span>
         <span class="flex-grow gray-text">无可抵用券</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item item-bank flex flex-item flex-grow active" @click="choseBankCard">
+      <div class="loan-info-item item-bank flex flex-item flex-grow active" @click="choseBankCard()">
         <span>到账账户：</span>
         <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
         <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.bankAccount.substring(bankCard.bankAccount.length-4,bankCard.bankAccount.length)" class="flex-grow" v-if="bankCard.flag"></span>
         <i class="icon iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active">
+      <div class="loan-info-item flex flex-item active" @click="chooseVip()">
         <span>会员：</span>
-        <span class="flex-grow gray-text">无可抵用券</span>
+        <span class="flex-grow">{{loanInfo.expireTime ? '到期时间' + loanInfo.expireTime : '请选择'}}</span>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="loan-info-item flex flex-item">
         <span>验证码：</span>
-        <span class="flex-grow"><input class="identify-code-input" type="tel" placeholder="短信验证码" maxlength="6"></span>
-        <div class="identify-code-btn">发送验证码</div>
+        <span class="flex-grow"><input class="identify-code-input"  v-model="loanInfo.msgCode" type="tel" placeholder="短信验证码" maxlength="6"></span>
+        <div v-if="!isSend" class="identify-code-btn" @click="sendValidateCode()">发送验证码</div>
+        <div v-if="isSend" class="identify-code-btn">{{delayTime}}s重新获取</div>
       </div>
     </div>
     <div class="loan-info">
@@ -43,18 +44,10 @@
         <span>利息：</span>
         <span>{{loanInfo.interest || 0}}元</span>
       </div>
-      <div class="loan-info-item item-middle flex flex-item active">
-        <span>综合费用：</span>
-        <span>{{loanInfo.syntheticalFee || 0}}元</span>
-      </div>
-      <div class="loan-info-item item-middle flex flex-item active">
-        <span>到账金额：</span>
-        <span>{{loanInfo.realLoanAmount || 0}}元</span>
-      </div>
       <div class="loan-info-item item-middle flex flex-item">
         <span>应还金额：</span>
         <span>{{loanInfo.repayTotalAmount || 0}}元</span>
-        <a class="flex flex-item flex-grow" @click="seeDetail">
+        <a class="flex flex-item flex-grow" @click="seeDetail()">
           查看明细
           <i class="icon iconfont icon-117"></i>
         </a>
@@ -69,31 +62,25 @@
           <i class="icon iconfont icon-117"></i>
         </div>
       </div>
-      <!-- <div class="loan-info-item flex flex-item active">
-                      <span>手机号:</span>
-                      <span class="phone-item">15959369312</span>
-                    </div>
-                    <div class="loan-info-item input-validate flex flex-item">
-                      <span>手机号:</span>
-                      <span></span>
-                      <input type="text" placeholder="请输入验证码">
-                      <div>获取验证码</div>
-                    </div> -->
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
-      <i @click="agreeProtocols" :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>
-      <span>我已阅读并同意<span @click="checkServicesProtocols">《用户服务协议》</span></span>
+      <span @click="agreeProtocols" class="text-gary">
+        <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>我已阅读并同意
+        <span @click.stop="checkServicesProtocols">《用户服务协议》</span>
+      </span>
     </p>
-    <a class="button button-primary" @click="submit">借款</a>
     <p class="forbid-borrow-stu">禁止学生借款</p>
+    <a class="button button-primary" @click="submit">借款</a>
     <alert-item v-if="checkDetailFlag" :loanDetail="loanInfo" v-on:listenChildEvent="closeAlert"></alert-item>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
-  import {doPost, popup, navigate, eeLogUBT} from 'common/js/drivers'
+  import {doPost, popup, navigate, eeLogUBT, toast, log} from 'common/js/drivers'
   import * as types from 'config/api-type'
-  import {pageIdentity} from 'common/js/constants'
+  import {pageIdentity, loanPurposeStatus} from 'common/js/constants'
+  import Picker from 'better-picker'
+
   export default {
     data() {
       return {
@@ -105,24 +92,38 @@
           realLoanAmount: '',
           repayTotalAmount: '',
           annualizedRate: '',
-          bankList: []
+          bankList: [],
+          loanPurpose: '',
+          memberExpireDay: '',
+          expireTime: '',
+          mobile: '',
+          productCode: '',
+          msgCode: ''
         },
         bankCard: {
           bankName: '',
           bankAccount: '',
           flag: false
         },
+        amountList: [],
+        dayList: [],
         isChosed: false,
         checkDetailFlag: false,
-        params: {}
+        params: {},
+        isSend: false,
+        delayTime: 0,
+        vipData: {}
       }
     },
     created: function() {
-      let {productCode, loanAmount, borrowTime} = this.$route.query
-      this.params = {productCode, loanAmount, borrowTime}
+      let {productCode, mobile} = this.$route.query
+      this.params = {productCode, mobile}
+      this.loanInfo.productCode = productCode
+      this.loanInfo.mobile = mobile
     },
     mounted() {
       this.init()
+      this._initLoanPurpose()
       eeLogUBT('LoanPage.Load.Goin', 'goin')
     },
     methods: {
@@ -137,7 +138,18 @@
         }
         doPost(types.BORROW, this.params, {
           success: (oData) => {
-            this.loanInfo = oData.data
+            let {dayList, amountList, interestRate, memberExpireDay, expireTime} = oData.data
+            this.dayList = dayList
+            this.amountList = amountList
+            this._initDayPicker()
+            this._initAmountPicker()
+            this.loanInfo.borrowTime = dayList[0].value
+            this.loanInfo.loanAmount = amountList[0].value
+            this.loanInfo.interestRate = interestRate // 日利率
+            this.loanInfo.memberExpireDay = memberExpireDay // 过期天数
+            this.loanInfo.expireTime = expireTime // 过期时间
+            this._resetData()
+            // this.loanInfo = oData.data
             if (oData.data.bankList.length !== 0 && !bankName && !bankAccount) { // 刚进入页面的时候，请求接口拿到数据，获取用户到账账户，默认显示
               let payCard = oData.data.bankList[0]
               this.bankCard = payCard
@@ -149,28 +161,80 @@
           }
         })
       },
+      sendValidateCode() {
+        let {mobile} = this.loanInfo
+        if (!/^1\d{10}$/.test(mobile)) {
+          popup('', null, '请输入手机号码！')
+          return
+        }
+        doPost(types.SMSCODE, {
+          mobile: mobile,
+          smsType: '1'
+        }, {
+          success: (oData) => {
+            toast('验证码已发送，请注意查收！')
+            this.isSend = true
+            this.delayTime = 59
+            let timer = setInterval(() => {
+              if (this.delayTime === 1) {
+                this.isSend = false
+                this.delayTime = 0
+                clearInterval(timer)
+              }
+              this.delayTime--
+            }, 1000)
+          },
+          error: (oData) => {
+            popup(null, null, oData.msg || '校验码发送失败，请稍后再试！')
+          }
+        })
+      },
       agreeProtocols: function() {
         this.isChosed = !this.isChosed
       },
       submit: function() {
         let self = this
         if (this.isChosed) {
-          popup(null, null, '请同意用户服务协议')
+          popup(null, null, '请同意用户服务协议！')
           return
         }
         if (!self.bankCard.bankAccount) {
-          popup(null, null, '请选择银行卡')
+          popup(null, null, '请选择银行卡！')
           return
         }
-        let param = this.loanInfo
-        let {
-          productCode
-        } = this.params
-        param.productCode = productCode
-        param.bankName = self.bankCard.bankName
-        param.bankAccount = self.bankCard.bankAccount
-        param.mobile = self.$route.query.mobile
+        if (!this.loanInfo.memberExpireDay) {
+          if (!this.vipData.type) {
+            popup(null, null, '请购买会员！')
+            return
+          }
+          if (Number(this.vipData.effectTime) < Number(this.loanInfo.borrowTime)) {
+            popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
+            return
+          }
+        } else {
+          if (!this.vipData.type) {
+            if (Number(this.loanInfo.memberExpireDay) < Number(this.loanInfo.borrowTime)) {
+              popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
+              return
+            }
+          } else {
+            if ((Number(this.loanInfo.memberExpireDay) + Number(this.vipData.effectTime)) < Number(this.loanInfo.borrowTime)) {
+              popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
+              return
+            }
+          }
+        }
+
+        if (!this.loanInfo.msgCode) {
+          popup(null, null, '请点击发送验证码！')
+          return
+        }
+
+        let {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount} = this.loanInfo
+        let {bankName, bankAccount} = this.bankCard
+        let {type, realFee} = this.vipData
         eeLogUBT('LoanPage.Action.Submit', 'click')
+        let param = {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: realFee}
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
             let param = `orderNo=${oData.data.orderNo}`
@@ -212,6 +276,66 @@
       checkServicesProtocols: function() {
         eeLogUBT('LoanPage.Action.Agreement', 'click')
         navigate('SERVICES_PROTOCOLS', '用户服务协议', {url: pageIdentity.SERVICES_PROTOCOLS})
+      },
+      loanPurposeClicked() {
+        this.loanPurposePicker.show()
+      },
+      loanDayClicked() {
+        this.dayPicker && this.dayPicker.show()
+      },
+      loanAmountClicked() {
+        this.amountPicker && this.amountPicker.show()
+      },
+      chooseVip() {
+        let self = this
+        navigate('VIP', '会员', {url: pageIdentity.VIP}, {
+          success(oData) {
+            log('', JSON.stringify(oData))
+            let {type, discountFee, effectTime, typeDescribe} = oData.data
+            console.log(type, discountFee, effectTime, typeDescribe)
+            self.vipData = oData.data
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '会员选择失败，请稍后再试！')
+          }
+        })
+      },
+      _initLoanPurpose() {
+        this.loanPurposePicker = new Picker({
+          'data': [loanPurposeStatus],
+          'selectedIndex': [0]
+        })
+        this.loanPurposePicker.on('picker.select', (val, index) => {
+          this.loanInfo.loanPurpose = val[0]
+        })
+      },
+      _initDayPicker() {
+        let self = this
+        this.dayPicker = new Picker({
+          'data': [self.dayList],
+          'selectedIndex': [0]
+        })
+        this.dayPicker.on('picker.select', (val, index) => {
+          this.loanInfo.borrowTime = val[0]
+          this._resetData()
+        })
+      },
+      _initAmountPicker() {
+        let self = this
+        this.amountPicker = new Picker({
+          'data': [self.amountList],
+          'selectedIndex': [0]
+        })
+        this.amountPicker.on('picker.select', (val, index) => {
+          this.loanInfo.loanAmount = val[0]
+          this._resetData()
+        })
+      },
+      _resetData() {
+        let {loanAmount, borrowTime, interestRate} = this.loanInfo
+        this.loanInfo.interest = (borrowTime * loanAmount * interestRate) / 100
+        this.loanInfo.annualizedRate = `${interestRate * 360}`
+        this.loanInfo.repayTotalAmount = Number(loanAmount) + Number(this.loanInfo.interest)
       }
     },
     components: {
@@ -237,12 +361,10 @@
     span
       color: #525252
       &:last-of-type
-        color: #000
-        font-size: .3rem
+        font-size: .28rem
         margin-left: .24rem
     .identify-code-btn
       color: #0079ff !important
-      width: 1.6rem
       text-align: center
     .identify-code-input
       width: 100%
@@ -275,13 +397,11 @@
       &:last-of-type
         color: #525252
         font-size: .28rem
-        text-align: right
         margin-right: .1rem
 
   .comfirm-protocol
     font-size: .2rem
     margin-top: .2rem
-    margin-bottom: .6rem
     i
       color: green
       font-size: .22rem
@@ -298,8 +418,8 @@
 
   .forbid-borrow-stu
     color: #9d9d9d
-    font-size: .22rem
-    margin-top: .15rem
+    font-size: .2rem
+    margin-top: .05rem
     text-align: center
 
   .icon-not-chose
