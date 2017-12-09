@@ -214,6 +214,13 @@ const Vip = (resolve) => {
   })
 }
 
+// 引流页
+const Guide = (resolve) => {
+  import('page/guide').then((module) => {
+    resolve(module)
+  })
+}
+
 // 活动
 const Activity = (resolve) => { import('components/activity').then((module) => { resolve(module) }) }
 // 提额
@@ -362,6 +369,10 @@ export default new Router({
       path: '/raise-credit',
       name: 'raiseCredit',
       component: RaiseCredit
+    }, {
+      path: '/guide',
+      name: 'guide',
+      component: Guide
     }
   ]
 })

@@ -19,7 +19,7 @@ export default class Driver {
     if (!param) {
       param = {}
     }
-    param.userId = '173291700001'
+    // param.userId = '173291700001'
     axios.post(ApiObj[api], param).then((response) => {
       window.callback(name, response.data)
     })
