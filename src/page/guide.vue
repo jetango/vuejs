@@ -3,10 +3,10 @@
     <div class="up-content">
       <div class="input-area">
         <div class="input-bg flex flex-item flex-grow">
-          <input v-model="params.mobile" type="text" name="mobile" placeholder="请输入您的手机号" />
+          <input v-model="params.accountNumber" type="text" name="mobile" placeholder="请输入您的手机号" />
         </div>
         <div class="input-bg flex flex-item flex-grow">
-          <input v-model="params.validate" type="text" name="validate" placeholder="请输入验证码" />
+          <input v-model="params.smsCode" type="text" name="validate" placeholder="请输入验证码" />
           <div v-show="!isSend" class="btn-css" @click="getValidate">获取短信验证码</div>
           <div v-show="isSend" class="btn-css is-send" @click="getValidate">{{delayTime}}S后重新获取</div>
         </div>
@@ -28,9 +28,11 @@
     data() {
       return {
         params: {
-          mobile: '',
-          validate: '',
-          password: ''
+          accountNumber: '',
+          smsCode: '',
+          password: '',
+          chanelUrl: 'yamiki',
+          source: 'yamiki'
         },
         delayTime: 0,
         isSend: false
@@ -38,10 +40,17 @@
     },
     methods: {
       register: function() {
-        console.log(JSON.stringify(this.params))
+        doPost(types.REGISTER, this.params, {
+          success: (res) => {
+            console.log(JSON.stringify(res))
+          },
+          error: (res) => {
+            console.log(JSON.stringify(res))
+          }
+        })
       },
       getValidate: function() {
-        let phone = this.params.mobile
+        let phone = this.params.accountNumber
         if (!/^1\d{10}$/.test(phone)) {
           popup('', null, '请输入手机号码！')
           return false

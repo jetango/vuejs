@@ -20,5 +20,6 @@ export default {
   [types.GET_REPAYMENT_TIP]: '/api/repay/bill',
   [types.REPAY_SCHEDULE]: '/api/repay/bill-list',
   [types.USER_CONTRACT]: '/api/application/agreement',
-  [types.VIP]: '/api/member/fetch'
+  [types.VIP]: '/api/member/fetch',
+  [types.REGISTER]: '/app/user/channel/register'
 }

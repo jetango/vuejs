@@ -595,7 +595,6 @@ const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.10.23
 const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
 const apiMemberProxy = proxyMiddleware('/api/member', {target: 'http://192.168.10.23:9004', changeOrigin: true})
 const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.10.25:9400', changeOrigin: true})
-const apiGuideProxy = proxyMiddleware('/app/user/channel', {target: 'http://192.168.10.23:9000', changeOrigin: true})
 
 app.use('/app/application', apiUserApplicationProxy)
 app.use('/app/user', apiUserAPPProxy)
@@ -603,9 +602,6 @@ app.use('/api/user', apiUserProxy)
 app.use('/api/order', apiOrderProxy)
 app.use('/api/member', apiMemberProxy)
 app.use('/api/repay', apiRepayProxy)
-
-
-app.use('/app/user/channel', apiGuideProxy)
 
 // app.use('/api', apiRoutes)
 
