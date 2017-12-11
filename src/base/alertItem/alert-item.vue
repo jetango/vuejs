@@ -66,9 +66,4 @@
       font-size: .26rem
       color: #000000
       margin-top: .16rem
-      &:last-of-type
-        font-size: .22rem
-        margin-top: .13rem
-        line-height: .35rem
-
 </style>

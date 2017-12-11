@@ -12,6 +12,9 @@
   export default {
     components: {
       NoData
+    },
+    created() {
+      document.title = '优惠券'
     }
   }
 </script>

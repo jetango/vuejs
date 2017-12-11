@@ -36,6 +36,9 @@
     created: function() {
       this.init()
     },
+    mounted() {
+      document.title = '银行卡列表'
+    },
     methods: {
       init: function() {
         doPost(types.BANK_LIST, {}, {

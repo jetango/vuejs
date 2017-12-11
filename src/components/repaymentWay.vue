@@ -34,8 +34,8 @@
           isChose: false
         }, {
           iconClass: 'icon-102',
-          payWayName: '支付宝',
-          type: 'alipay',
+          payWayName: '宝付快捷支付',
+          type: 'baofu',
           isChose: false
         }, {
           iconClass: 'icon-161',
@@ -106,6 +106,8 @@
         } else if (bankAccount) {
           // 直接代扣
           doPost()
+        } else if (type === 'baofu') {
+          // 宝付
         }
       },
       chosepayment: function(res) {

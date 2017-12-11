@@ -7,7 +7,7 @@
     </div>
     <div class="list-view">
       <div class="item h4">
-        还款金额：{{tipInfo.curRepayAmount}}元
+        还款金额：{{tipInfo.waitRepayAmount}}元
       </div>
       <div class="item h4">
         还款日：{{tipInfo.promiseRepaymentDate}}
@@ -81,9 +81,9 @@
         })
       },
       confirmPay() {
-        let {curRepayAmount, billNo, orderNo, userId} = this.tipInfo
+        let {waitRepayAmount, billNo, orderNo, userId} = this.tipInfo
         eeLogUBT('RepayPage.Action.Submit', 'click')
-        navigate('REPAYMENT_WAY', '还款方式', {url: pageIdentity.REPAYMENT_WAY, param: `billNo=${billNo}&repayAmount=${curRepayAmount}&orderNo=${orderNo}&userId=${userId}`})
+        navigate('REPAYMENT_WAY', '还款方式', {url: pageIdentity.REPAYMENT_WAY, param: `billNo=${billNo}&payAmount=${waitRepayAmount}&orderNo=${orderNo}&userId=${userId}`})
       }
     }
   }

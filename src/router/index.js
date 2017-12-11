@@ -221,10 +221,21 @@ const Guide = (resolve) => {
   })
 }
 
+// 宝付快捷支付
+const BaofuFast = (resolve) => {
+  import('components/baofuFast').then((module) => {
+    resolve(module)
+  })
+}
+
 // 活动
 const Activity = (resolve) => { import('components/activity').then((module) => { resolve(module) }) }
 // 提额
 const RaiseCredit = (resolve) => { import('components/raiseCredit').then((module) => { resolve(module) }) }
+// 关于我们
+const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
+// 常见问题
+const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -373,6 +384,18 @@ export default new Router({
       path: '/guide',
       name: 'guide',
       component: Guide
+    }, {
+      path: '/about-us',
+      name: 'aboutus',
+      component: AboutUs
+    }, {
+      path: '/question',
+      name: 'question',
+      component: Question
+    }, {
+      path: '/baofu-fast',
+      name: 'baofuFast',
+      component: BaofuFast
     }
   ]
 })

@@ -29,7 +29,7 @@
       </div>
       <div class="loan-info-item flex flex-item active" @click="chooseVip()">
         <span>会员：</span>
-        <span class="flex-grow">{{loanInfo.expireTime ? '到期时间' + loanInfo.expireTime : '请选择'}}</span>
+        <span class="flex-grow">{{loanInfo.expireTime ? '到期' + loanInfo.expireTime : (vipData.type ? '' : '请选择')}}<span class="selected-vip">{{vipData.type ? '已选择' + vipData.typeDescribe : ''}}</span></span>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="loan-info-item flex flex-item">
@@ -51,16 +51,6 @@
           查看明细
           <i class="icon iconfont icon-117"></i>
         </a>
-      </div>
-    </div>
-    <div class="loan-info hidden">
-      <div class="flex flex-item flex-grow">
-        <div class="loan-info-item item-bank flex flex-item flex-grow" @click="choseBankCard">
-          <span>到账账户：</span>
-          <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
-          <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.bankAccount.substring(bankCard.bankAccount.length-4,bankCard.bankAccount.length)" class="flex-grow" v-if="bankCard.flag"></span>
-          <i class="icon iconfont icon-117"></i>
-        </div>
       </div>
     </div>
     <p class="comfirm-protocol flex flex-item flex-justify">
@@ -196,6 +186,10 @@
         let self = this
         if (this.isChosed) {
           popup(null, null, '请同意用户服务协议！')
+          return
+        }
+        if (!this.loanInfo.loanPurpose) {
+          popup(null, null, '请选择借款用途！')
           return
         }
         if (!self.bankCard.bankAccount) {
@@ -455,6 +449,9 @@
       line-height .76rem
       margin-left: .1rem
       color: #fff
+
+  .selected-vip
+    color: #9d9d9d!important
 
   input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     color: #aeaeae

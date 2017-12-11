@@ -202,7 +202,9 @@ export const pageIdentity = {
   'COUPON_LIST': '/#/coupon-list',                                    // 优惠券列表
   'VIP': '/#/vip',                                                    // 会员
   'RAISE_CREDIT': '/#/raise-credit',                                  // 提额
-  'ACTIVITY': '/#/activity'                                           // 活动列表
+  'ACTIVITY': '/#/activity',                                          // 活动列表
+  'ABOUT_US': '/#/about-us',                                          // 活动列表
+  'QUESTION': '/#/question'                                           // 常见问题
 }
 
 export const positionItems = {

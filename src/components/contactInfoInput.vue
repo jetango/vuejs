@@ -11,7 +11,10 @@
       </div>
       <div class="item flex" @click="directContactChoosed()">
         <div class="flex-grow">电话</div>
-        <div><input type="tel" v-model="directContactMobile" readonly></div>
+        <div v-if="!directContactMobile">直系亲属电话</div>
+        <div v-if="directContactMobile">
+          <input class="text-right text-gary" type="tel" v-model="directContactMobile" readonly>
+        </div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex" @click="directContactChoosed()">
@@ -32,7 +35,10 @@
       </div>
       <div class="item flex" @click="majorContactChoosed()">
         <div class="flex-grow">电话</div>
-        <div>{{majorContactMobile ? majorContactMobile : '重要亲属电话'}}</div>
+        <div v-if="!majorContactMobile">重要亲属电话</div>
+        <div v-if="majorContactMobile">
+          <input class="text-right text-gary" type="tel" v-model="majorContactMobile" readonly>
+        </div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex" @click="majorContactChoosed()">
@@ -107,6 +113,8 @@
       confirmContactInfo() {
         let self = this
         let {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile} = this.$data
+        directContactMobile = this._trim(directContactMobile)
+        majorContactMobile = this._trim(majorContactMobile)
         let params = {directContactRelation, directContactName, directContactMobile, majorContactRelation, majorContactName, majorContactMobile}
         if (this._validate(params)) {
           if (this.loading) {
@@ -128,6 +136,9 @@
             }
           })
         }
+      },
+      _trim(str) {
+        return str.replace(/\s+/g, '')
       },
       _initRelationshipPicker() {
         this.directContactPicker = new Picker({
@@ -219,4 +230,6 @@
       color: #000
   .button-box
     padding: 1rem .4rem .4rem
+  .text-gary
+    color: #525252
 </style>

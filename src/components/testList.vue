@@ -232,6 +232,15 @@
     </div>
 
     <div class="list-view">
+      <router-link :to="{path: '/about-us', query: {version: '0.0.1'}}">
+        <div class="item flex">
+          <p class="flex-grow">关于我们</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
       <a href="http://120.132.102.112:8768/pay/ali/wapPay">
         <div class="item flex">
           <p class="flex-grow">支付宝支付</p>

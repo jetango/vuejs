@@ -45,7 +45,7 @@
         let self = this
         doPost(types.BORROW_RECORD, null, {
           success: function(oData) {
-            self.borrowList = oData.data
+            self.borrowList = oData.data ? oData.data : []
           },
           error: function(oData) {
             popup('', '信息错误', oData.msg || '获取数据失败，请稍后再试！')
@@ -55,6 +55,7 @@
     },
     mounted() {
       this._fetchBorrowList()
+      document.title = '借款记录'
     },
     components: {
       NoData
