@@ -84,7 +84,7 @@
           success: (oData) => {
             toast('验证码已发送，请注意查收！')
             this.isSend = true
-            this.delayTime = 119
+            this.delayTime = 59
             let timer = setInterval(() => {
               if (this.delayTime === 1) {
                 this.isSend = false
