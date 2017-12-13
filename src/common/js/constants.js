@@ -204,7 +204,8 @@ export const pageIdentity = {
   'RAISE_CREDIT': '/#/raise-credit',                                  // 提额
   'ACTIVITY': '/#/activity',                                          // 活动列表
   'ABOUT_US': '/#/about-us',                                          // 活动列表
-  'QUESTION': '/#/question'                                           // 常见问题
+  'QUESTION': '/#/question',                                          // 常见问题
+  'BAOFUFAST': '/#/baofu-fast'                                        // 快捷支付
 }
 
 export const positionItems = {

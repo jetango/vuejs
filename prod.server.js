@@ -14,21 +14,17 @@ apiRoutes.get('/test.json', function (req, res) {
 
 // app.use('/api', apiRoutes)
 
-const apiUserApplicationProxy = proxyMiddleware('/app/application', {target: 'http://192.168.10.23:9003', changeOrigin: true})
-const apiUserAPPProxy = proxyMiddleware('/app/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
-const apiUserProxy = proxyMiddleware('/api/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
-const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
-// const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
-const apiRepayProxy = proxyMiddleware('/api/repay', {target: 'http://192.168.10.25:9400', changeOrigin: true})
-const apiMemberProxy = proxyMiddleware('/api/member', {target: 'http://192.168.10.23:9004', changeOrigin: true})
+const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://192.168.10.23:9003', changeOrigin: true})
+const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
+const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
+const apiMemberProxy = proxyMiddleware('/member', {target: 'http://192.168.10.23:9004', changeOrigin: true})
+const apiRepayProxy = proxyMiddleware('/repay', {target: 'http://192.168.10.25:9400', changeOrigin: true})
 
-
-app.use('/app/application', apiUserApplicationProxy)
-app.use('/app/user', apiUserAPPProxy)
-app.use('/api/user', apiUserProxy)
-app.use('/api/order', apiOrderProxy)
-app.use('/api/repay', apiRepayProxy)
-app.use('/api/member', apiMemberProxy)
+app.use('/application', apiUserApplicationProxy)
+app.use('/user', apiUserAPPProxy)
+app.use('/order', apiOrderProxy)
+app.use('/member', apiMemberProxy)
+app.use('/repay', apiRepayProxy)
 
 app.use(express.static('./dist'))
 

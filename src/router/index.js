@@ -193,6 +193,12 @@ const RegisterAndPrivacy = (resolve) => {
   })
 }
 
+const RegisterAndPrivacyBaoshan = (resolve) => {
+  import('components/registerAndPrivacyBaoshan').then((module) => {
+    resolve(module)
+  })
+}
+
 // 自动还款协议
 const AutoRepayProtocol = (resolve) => {
   import('components/autoRepayProtocol').then((module) => {
@@ -234,6 +240,8 @@ const Activity = (resolve) => { import('components/activity').then((module) => {
 const RaiseCredit = (resolve) => { import('components/raiseCredit').then((module) => { resolve(module) }) }
 // 关于我们
 const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
+// 关于我们
+const AboutUsBaoshan = (resolve) => { import('components/AboutUsBaoshan').then((module) => { resolve(module) }) }
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
@@ -361,6 +369,10 @@ export default new Router({
       name: 'registerAndPrivacy',
       component: RegisterAndPrivacy
     }, {
+      path: '/register-privacy-baoshan',
+      name: 'registerAndPrivacyBaoshan',
+      component: RegisterAndPrivacyBaoshan
+    }, {
       path: '/autorepay-protocol',
       name: 'autorepayProtocol',
       component: AutoRepayProtocol
@@ -388,6 +400,10 @@ export default new Router({
       path: '/about-us',
       name: 'aboutus',
       component: AboutUs
+    }, {
+      path: '/about-us-baoshan',
+      name: 'aboutusbaoshan',
+      component: AboutUsBaoshan
     }, {
       path: '/question',
       name: 'question',

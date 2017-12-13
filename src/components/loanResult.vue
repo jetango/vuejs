@@ -15,7 +15,7 @@
           </div>
           <div class="content flex-grow">
             <h1>审核中</h1>
-            <h4>{{orderStatusLength >= 1 ? '审核已经通过！感谢支持！' : '请耐心等待审核预计需要1分钟'}}</h4>
+            <h4>{{orderStatusLength >= 1 ? '请耐心等待审核预计需要1分钟' : '请耐心等待审核预计需要1分钟'}}</h4>
             <p v-show="orderStatusLength >= 1"><i class="iconfont icon-127"></i>{{orderStatusLength >= 1 ? loadResult.orderStatusList[0].statusTime : ''}}</p>
           </div>
         </div>
@@ -24,9 +24,12 @@
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '未通过审核' : '审核完成'}}</h1>
-            <h4>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '抱歉审核未通过' : '恭喜你，审核完成！'}}</h4>
+            <h1>{{orderStatusLength >= 2 && loadResult.orderStatusList[1].statusCode != '20' ? '审核未通过' : '审核通过'}}</h1>
+            <h4>{{orderStatusLength >= 2 && loadResult.orderStatusList[1].statusCode != '20' ? '抱歉审核未通过' : '恭喜你，审核已经通过！'}}</h4>
             <p v-show="orderStatusLength >= 2"><i class="iconfont icon-127"></i>{{orderStatusLength >= 2 ? loadResult.orderStatusList[1].statusTime : ''}}</p>
+            <!-- <h1>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '未通过审核' : '审核完成'}}</h1>
+            <h4>{{orderStatusLength >= 2 && loadResult.auditStatus == 0 ? '抱歉审核未通过' : '恭喜你，审核完成！'}}</h4>
+            <p v-show="orderStatusLength >= 2"><i class="iconfont icon-127"></i>{{orderStatusLength >= 2 ? loadResult.orderStatusList[1].statusTime : ''}}</p> -->
           </div>
         </div>
         <div class="flex block"  :class="{actived: orderStatusLength >= 3}">
@@ -45,7 +48,7 @@
           </div>
           <div class="content flex-grow">
             <h1>{{orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40' ? '放款失败' : '已放款'}}</h1>
-            <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的招商银行卡尾号{{loadResult.bankAccount.substring(loadResult.bankAccount.length - 4)}}的账户</h4>
+            <h4 v-show="!(orderStatusLength >= 4 && loadResult.orderStatusList[3].statusCode == '40')">借款{{orderStatusLength < 4 ? '将' : '已经'}}打到您的银行卡尾号{{loadResult.bankAccount.substring(loadResult.bankAccount.length - 4)}}的账户</h4>
             <h4>确认本人借款，确保资金安全</h4>
           </div>
         </div>

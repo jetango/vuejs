@@ -44,7 +44,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, toast} from 'common/js/drivers'
+  import {doPost, popup, toast, dialog, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -59,6 +59,16 @@
     },
     methods: {
       submit() {
+        dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
+          success: function(oData) {
+            if (oData.status === '0' && oData.data.result === '1') {
+              endPage({url: '', param: ''}, 'ROOT')
+            }
+          },
+          error: function(oData) {
+            popup(null, null, oData.msg || '还款提交失败！')
+          }
+        })
       },
       sendValidateCode() {
         let {mobile} = this.postData
