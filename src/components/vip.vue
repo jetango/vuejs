@@ -125,6 +125,10 @@
         this.selectedObj = obj
       },
       confirmIdentity() {
+        if (this.isChosed) {
+          popup(null, null, '请先阅读会员协议！')
+          return
+        }
         let param = this.selectedObj
         endPage({param, url: ''}, 'LOAN_CONFIRM', '-1')
       },
