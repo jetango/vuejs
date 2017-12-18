@@ -252,6 +252,9 @@ const AboutUsBaoshan = (resolve) => { import('components/AboutUsBaoshan').then((
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
+// 合利宝
+const Helibao = (resolve) => { import('components/helibaoFast').then((module) => { resolve(module) }) }
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -423,6 +426,10 @@ export default new Router({
       path: '/vip-protocol',
       name: 'VipProtocol',
       component: VipProtocol
+    }, {
+      path: '/helibao-fast',
+      name: 'helibao',
+      component: Helibao
     }
   ]
 })
