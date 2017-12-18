@@ -354,7 +354,7 @@
       },
       _resetData() {
         let {loanAmount, borrowTime, interestRate} = this.loanInfo
-        this.loanInfo.interest = (borrowTime * loanAmount * interestRate) / 100
+        this.loanInfo.interest = (interestRate * 1000000 * borrowTime * loanAmount) / 100000000
         this.loanInfo.annualizedRate = `${interestRate * 360}`
         this.loanInfo.repayTotalAmount = Number(loanAmount) + Number(this.loanInfo.interest)
       }
