@@ -200,7 +200,7 @@
 
     .font-weight
       font-weight: 600
-    
+
     .h4
       font-size: .3rem
       padding: 0 .4rem

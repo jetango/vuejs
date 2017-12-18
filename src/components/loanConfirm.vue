@@ -32,12 +32,12 @@
         <span class="flex-grow">{{loanInfo.expireTime ? '到期' + loanInfo.expireTime : (vipData.type ? '' : '请选择')}}<span class="selected-vip">{{vipData.type ? '已选择' + vipData.typeDescribe : ''}}</span></span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item">
+      <!-- <div class="loan-info-item flex flex-item">
         <span>验证码：</span>
         <span class="flex-grow"><input class="identify-code-input"  v-model="loanInfo.msgCode" type="tel" placeholder="短信验证码" maxlength="6"></span>
         <div v-if="!isSend" class="identify-code-btn" @click="sendValidateCode()">发送验证码</div>
         <div v-if="isSend" class="identify-code-btn">{{delayTime}}s重新获取</div>
-      </div>
+      </div> -->
     </div>
     <div class="loan-info">
       <div class="loan-info-item item-middle flex flex-item active">
@@ -60,12 +60,14 @@
       </span>
     </p>
     <p class="forbid-borrow-stu">禁止学生借款</p>
-    <a class="button button-primary" @click="submit">借款</a>
+    <a class="button button-primary" @click="submit(null)">借款</a>
     <alert-item v-if="checkDetailFlag" :loanDetail="loanInfo" v-on:listenChildEvent="closeAlert"></alert-item>
+    <captcha v-if="captchaShow" v-on:listenChildEvent="closeCaptcha"></captcha>
   </div>
 </template>
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
+  import Captcha from 'base/captcha/captcha'
   import {doPost, popup, navigate, eeLogUBT, toast, log} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity, loanPurposeStatus} from 'common/js/constants'
@@ -88,7 +90,8 @@
           expireTime: '',
           mobile: '',
           productCode: '',
-          msgCode: ''
+          msgCode: '',
+          p2pId: ''
         },
         bankCard: {
           bankName: '',
@@ -102,7 +105,8 @@
         params: {},
         isSend: false,
         delayTime: 0,
-        vipData: {}
+        vipData: {},
+        captchaShow: false
       }
     },
     created: function() {
@@ -182,7 +186,16 @@
       agreeProtocols: function() {
         this.isChosed = !this.isChosed
       },
-      submit: function() {
+      closeCaptcha(oData) {
+        this.loanInfo.msgCode = oData.code
+        if (!this.loanInfo.msgCode) {
+          popup(null, null, '请点击发送验证码！')
+          return
+        }
+        this.captchaShow = false
+        this.submit(true)
+      },
+      submit: function(p2pSendFlag) {
         let self = this
         if (this.isChosed) {
           popup(null, null, '请同意用户服务协议！')
@@ -219,22 +232,36 @@
           }
         }
 
-        if (!this.loanInfo.msgCode) {
-          popup(null, null, '请点击发送验证码！')
-          return
-        }
-
-        let {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount} = this.loanInfo
+        let {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, p2pId} = this.loanInfo
         let {bankName, bankAccount} = this.bankCard
         let {type, realFee} = this.vipData
         eeLogUBT('LoanPage.Action.Submit', 'click')
-        let param = {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: realFee}
+        let param = {borrowTime, interest, loanPurpose, mobile, productCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: realFee}
+        if (p2pSendFlag) {
+          param.msgCode = msgCode
+        }
+        if (p2pId) {
+          param.p2pId = p2pId
+        }
+        if (!this.confirmLoading) {
+          this.confirmLoading = true
+        } else {
+          return
+        }
         doPost(types.BORROW_CONFIRM, param, {
           success: (oData) => {
-            let param = `orderNo=${oData.data.orderNo}`
-            navigate('LOAN_RESULT', '借款结果', {url: pageIdentity.LOAN_RESULT, param}, null, 'ROOT')
+            self.confirmLoading = false
+            if (oData.data.p2pSendFlag) {
+              self.captchaShow = true
+              this.loanInfo.p2pId = oData.data.p2pId
+            } else {
+              self.captchaShow = false
+              let param = `orderNo=${oData.data.orderNo}`
+              navigate('LOAN_RESULT', '借款结果', {url: pageIdentity.LOAN_RESULT, param}, null, 'ROOT')
+            }
           },
           error: (oData) => {
+            self.confirmLoading = false
             popup(null, null, oData.msg || '提交失败，请稍后再试')
           }
         })
@@ -333,7 +360,8 @@
       }
     },
     components: {
-      AlertItem
+      AlertItem,
+      Captcha
     }
   }
 </script>

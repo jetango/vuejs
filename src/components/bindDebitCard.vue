@@ -1,24 +1,29 @@
 <template>
   <div class="bind-debit-card">
-    <div class="input-item flex flex-item">
+    <div class="input-item flex flex-item active" @click="binCarsChoose()">
+      <span class="flex-grow">银行卡类型：</span>
+      <span>{{bankInfo.bankName ? bankInfo.bankName : '请选择'}}</span>
+      <i class="iconfont icon-117"></i>
+    </div>
+    <div class="input-item flex flex-item active">
+      <span>银行卡号：</span>
+      <div class="input-bg flex flex-item flex-grow">
+        <input v-model="bankInfo.bankAccount" type="tel" placeholder="请输入银行卡" maxlength="20">
+      </div>
+    </div>
+    <div class="input-item flex flex-item active">
       <span>姓&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
       <div class="input-bg flex flex-item flex-grow">
         <input v-model="bankInfo.accountName" type="text" placeholder="请输入您的姓名">
       </div>
     </div>
-    <div class="input-item flex flex-item">
-      <span>银行卡：</span>
-      <div class="input-bg flex flex-item flex-grow">
-        <input v-model="bankInfo.bankAccount" type="tel" placeholder="请输入银行卡" maxlength="20">
-      </div>
-    </div>
-    <div class="input-item flex flex-item">
+    <div class="input-item flex flex-item active">
       <span>手机号：</span>
       <div class="input-bg flex flex-item flex-grow">
         <input v-model="bankInfo.reservedPhone" type="tel" placeholder="请输入您的银行预留手机号" maxlength="11">
       </div>
     </div>
-    <div class="input-item flex flex-item">
+    <div class="input-item flex flex-item active">
       <span>验证码：</span>
       <div class="input-bg flex flex-item flex-grow">
         <input v-model="bankInfo.smsCode" type="tel" class="input-validate-cord flex-grow" placeholder="请输入验证码">
@@ -51,8 +56,9 @@
     navigate, eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import Picker from 'better-picker'
   import {
-    pageIdentity
+    pageIdentity, bins
   } from 'common/js/constants'
   export default {
     data() {
@@ -63,11 +69,13 @@
           accountName: '',
           bankAccount: '',
           reservedPhone: '',
-          smsCode: ''
+          smsCode: '',
+          bankName: ''
         },
         submitStatus: true,
         isInput: false,
-        isChosed: false
+        isChosed: false,
+        binText: []
       }
     },
     methods: {
@@ -105,8 +113,12 @@
         let self = this
         let reg = new RegExp('^[0-9]*$')
         if (this.isChosed) {
-          popup(null, null, '请同意用户服务协议')
+          popup(null, null, '请同意用户服务协议！')
           return
+        }
+        if (!this.bankInfo.bankName) {
+          popup(null, null, '请选择银行卡类型！')
+          return false
         }
         if (this.bankInfo.accountName === '') {
           popup(null, null, '请输入姓名！')
@@ -124,6 +136,18 @@
           popup(null, null, '银行卡格式不对，请重新输入！')
           return false
         }
+        let {bankAccount} = this.bankInfo
+        if (this.selectedBin) {
+          let binCodes = bins[this.selectedBin].bin
+          let isExist = binCodes.some((code) => {
+            return bankAccount.indexOf(code) === 0
+          })
+          if (!isExist) {
+            popup(null, null, '银行卡格式不对，请重新输入！')
+            return false
+          }
+        }
+
         let param = this.bankInfo
         if (this.submitStatus) {
           this.submitStatus = false
@@ -150,11 +174,37 @@
       },
       checkServicesProtocols: function() {
         navigate('AUTOREPAY_PROTOCOL', '用户服务协议', {url: pageIdentity.AUTOREPAY_PROTOCOL})
+      },
+      binCarsChoose() {
+        this.binPicker.show()
+      },
+      _handBins() {
+        let binText = []
+        for (let key in bins) {
+          binText.push({
+            value: key,
+            text: bins[key].name
+          })
+        }
+        this.binText = binText
+      },
+      _initBinPicker() {
+        let self = this
+        this.binPicker = new Picker({
+          'data': [self.binText],
+          'selectedIndex': [0]
+        })
+        this.binPicker.on('picker.select', (val, index) => {
+          this.selectedBin = val[0]
+          this.bankInfo.bankName = bins[val[0]].name
+        })
       }
     },
     created() {
       let {from} = this.$route.query
       this.from = from
+      this._handBins()
+      this._initBinPicker()
     },
     components: {
       FooterNotice
@@ -174,27 +224,25 @@
   @import "~common/stylus/base"
 
   .bind-debit-card
+    padding-top: .1rem
     position: absolute
     background-color: #fff
     width: 100%
     height: 100%
 
   .input-item
-    height: .8rem
+    height: 1rem
     font-size: .3rem
-    color: #000
-    margin-top: .3rem
+    color: #525252
     padding-right: .4rem
     span
       margin-left: .4rem
       min-width: 1.05rem
     div
-      background-color:#eeeff3
       border-radius: .06rem
       height: .8rem
       margin-left: .1rem
       input
-        background-color: #eeeff3
         color: #000
         padding-left: .2rem
         width: 100%
@@ -204,11 +252,10 @@
         display:block
         min-width: 1.8rem
         height: .72rem
-        background-color: #89cd40
         margin-right: .05rem
         line-height: .72rem
         text-align: center
-        color: #fff
+        color: #008aff
         font-size: .28rem
         border-radius: .06rem
 

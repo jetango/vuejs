@@ -182,8 +182,8 @@
         所有因本《隐私政策》的解释或履行引起的争议，应首先由各方通过友好协商解决。协商不成的，任何一方均有权将相关争议提交上海市仲裁委员会按仲裁委员会当时有效仲裁规则采用中文于上海进行仲裁。仲裁裁决将是终局的，对各方均具约束力。
       </dd>
     </dl>
-    <p style="text-indent:0;font-weight:600">平台方：___________</p>
-    <p style="text-indent:0;font-weight:600">用户：___________</p>
+    <p style="text-indent:0;font-weight:600">平台方：上海造艺网络科技有限公司</p>
+    <p style="text-indent:0;font-weight:600;display:none">用户：___________</p>
     <p style="text-indent:0;font-weight:600">签署时间：______年____月____日</p>
   </div>
 </template>
@@ -233,7 +233,7 @@
 
     .font-weight
       font-weight: 600
-    
+
     .h4
       font-size: .3rem
       padding: 0 .4rem

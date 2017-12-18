@@ -9,18 +9,18 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import AutoRepayment from 'base/protocols/autoRepayment'
+  // import AutoRepayment from 'base/protocols/autoRepayment'
   import CreditAuthorization from 'base/protocols/creditAuthorization'
   import ElecAuthorization from 'base/protocols/elecAuthorization'
   import LoanProtocols from 'base/protocols/loanProtocols'
   import ServerProtocols from 'base/protocols/serverProtocols'
   export default {
     components: {
-      AutoRepayment,
-      CreditAuthorization,
-      ElecAuthorization,
-      LoanProtocols,
-      ServerProtocols
+      // AutoRepayment,
+      CreditAuthorization, // 征信查询授权书
+      ElecAuthorization, // 电子签名授权协议书
+      LoanProtocols, // 贷款协议
+      ServerProtocols // 借款居间服务协议
     }
   }
 </script>

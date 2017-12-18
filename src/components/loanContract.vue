@@ -12,7 +12,7 @@
       <p class="flex-grow">服务协议-单期</p>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="checkContract(4)" class="contract-item  flex flex-item">
+    <div @click="checkContract(4)" class="contract-item  flex flex-item" style="display:none">
       <p class="flex-grow">银行贷款协议-单期-（借款人与银行）</p>
       <i class="icon iconfont icon-117"></i>
     </div>
@@ -57,11 +57,11 @@
         let self = this
         setTimeout(function() {
           self.protocolUrl = {
-            'elecAuthorization': 'http://www.baidu.com',    // 电子签名授权协议书
-            'creditAuthorization': 'http://www.jd.com', // 征信查询授权书
-            'serverProtocol': 'http://www.alibaba.com', // 服务协议-单期
-            'bankLoanProtocol': 'http://www.qq.com',  // 银行贷款协议-单期-（借款人与银行）
-            'autoRepayProtocol': 'http://www.zaoyi.com' // 自动还款服务协议
+            'elecAuthorization': 'https://h5.nongyaodai.com/#/elec-authorization',    // 电子签名授权协议书
+            'creditAuthorization': 'https://h5.nongyaodai.com/#/credit-authorization', // 征信查询授权书
+            'serverProtocol': 'https://h5.nongyaodai.com/#/server-protocols', // 服务协议-单期
+            'bankLoanProtocol': 'https://h5.nongyaodai.com/#/loan-protocols',  // 银行贷款协议-单期-（借款人与银行）
+            'autoRepayProtocol': 'https://h5.nongyaodai.com/#/autorepay-protocol' // 自动还款服务协议
           }
           self.isReturnUrl = true
         }, 500)

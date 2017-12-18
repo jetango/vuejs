@@ -12,7 +12,7 @@
     </div>
     <div class="vip-category-box">
       <div class="vip-category flex flex-item">
-        <div class="item flex-grow flex flex-item" :class='{selected: (selectedType == vipData.memberConfigList[0].type || !selectedType)}' @click="selectedVipType(vipData.memberConfigList[0])">
+        <div v-if="vipData.memberConfigList[0]" class="item flex-grow flex flex-item" :class='{selected: (selectedType == vipData.memberConfigList[0].type || !selectedType)}' @click="selectedVipType(vipData.memberConfigList[0])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
             <img src="~/common/image/yeuka_ka_001.png"/>
@@ -23,7 +23,7 @@
             <div class="fake">¥{{vipData.memberConfigList[0].discountFee}}</div>
           </div>
         </div>
-        <div class="item flex-grow flex flex-item" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[1].type)}' @click="selectedVipType(vipData.memberConfigList[1])">
+        <div v-if="vipData.memberConfigList[1]" class="item flex-grow flex flex-item" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[1].type)}' @click="selectedVipType(vipData.memberConfigList[1])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
             <img src="~/common/image/yeuka_ka_002.png"/>
@@ -34,7 +34,7 @@
             <div class="fake">¥{{vipData.memberConfigList[1].discountFee}}</div>
           </div>
         </div>
-        <div class="item flex-grow flex flex-item flex-justify" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[2].type)}' @click="selectedVipType(vipData.memberConfigList[2])">
+        <div  v-if="vipData.memberConfigList[2]" class="item flex-grow flex flex-item flex-justify" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[2].type)}' @click="selectedVipType(vipData.memberConfigList[2])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
             <img src="~/common/image/yeuka_ka_003.png"/>
@@ -63,6 +63,7 @@
 <script type="text/ecmascript-6">
   import * as types from 'config/api-type'
   import { doPost, popup, navigate, endPage } from 'common/js/drivers'
+  import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
       return {
@@ -109,6 +110,8 @@
         doPost(types.VIP, {}, {
           success: (oData) => {
             this.vipData = oData.data
+            this.selectedType = oData.data.memberConfigList[0].type
+            this.selectedObj = oData.data.memberConfigList[0]
           },
           error: (oData) => {
             popup(null, null, oData.msg || '信息获取失败，请稍后再试！')
@@ -127,9 +130,7 @@
         this.isChosed = !this.isChosed
       },
       checkServicesProtocols() {
-        // TODO
-        navigate()
-        // navigate('AUTOREPAY_PROTOCOL', '会员协议', {url: pageIdentity.AUTOREPAY_PROTOCOL})
+        navigate('VIP_PROTOCOL', '会员协议', {url: pageIdentity.VIP_PROTOCOL})
       }
     }
   }

@@ -206,6 +206,13 @@ const AutoRepayProtocol = (resolve) => {
   })
 }
 
+// 会员服务协议
+const VipProtocol = (resolve) => {
+  import('base/protocols/vipService').then((module) => {
+    resolve(module)
+  })
+}
+
 // 优惠券列表
 const CouponList = (resolve) => {
   import('components/CouponList').then((module) => {
@@ -412,6 +419,10 @@ export default new Router({
       path: '/baofu-fast',
       name: 'baofuFast',
       component: BaofuFast
+    }, {
+      path: '/vip-protocol',
+      name: 'VipProtocol',
+      component: VipProtocol
     }
   ]
 })
