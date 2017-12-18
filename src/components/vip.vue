@@ -12,10 +12,11 @@
     </div>
     <div class="vip-category-box">
       <div class="vip-category flex flex-item">
+        <!-- 办月卡 -->
         <div v-if="vipData.memberConfigList[0]" class="item flex-grow flex flex-item" :class='{selected: (selectedType == vipData.memberConfigList[0].type || !selectedType)}' @click="selectedVipType(vipData.memberConfigList[0])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
-            <img src="~/common/image/yeuka_ka_001.png"/>
+            <img src="~/common/image/banyeuka_ka_002.png"/>
             <div class="date">{{vipData.memberConfigList[0].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
@@ -23,10 +24,11 @@
             <div class="fake">¥{{vipData.memberConfigList[0].discountFee}}</div>
           </div>
         </div>
+        <!-- 月卡 -->
         <div v-if="vipData.memberConfigList[1]" class="item flex-grow flex flex-item" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[1].type)}' @click="selectedVipType(vipData.memberConfigList[1])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
-            <img src="~/common/image/yeuka_ka_002.png"/>
+            <img src="~/common/image/yeuka_ka_001.png"/>
             <div class="date">{{vipData.memberConfigList[1].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
