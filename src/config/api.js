@@ -21,5 +21,8 @@ export default {
   [types.REPAY_SCHEDULE]: '/zeus/bill-list',
   [types.USER_CONTRACT]: '/application/agreement',
   [types.VIP]: '/member/fetch',
-  [types.REGISTER]: '/api/user/channel/register'
+  [types.REGISTER]: '/api/user/channel/register',
+  [types.QUIKPAY]: '/pay/hlb/quikPay',
+  [types.DIRECTPAY]: '/pay/hlb/directPay',
+  [types.BILL_HELIBAO]: '/zeus/bill/helibao'
 }

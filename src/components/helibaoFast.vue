@@ -2,10 +2,10 @@
   <div class="baofu-box">
     <div class="list-view h4">
       <div class="item flex">
-        <div class="title tel">应还款金额：5600元</div>
+        <div class="title tel">应还款金额：{{postData.amount || 0}}元</div>
       </div>
       <div class="item flex">
-        <div class="title tel">账单号：5600YT</div>
+        <div class="title tel">账单号：{{postData.billNo || ''}}</div>
       </div>
       <div class="item flex" @click="binCarsChoose()">
         <span class="flex-grow">银行卡类型：</span>
@@ -15,19 +15,19 @@
       <div class="item flex">
         <div class="title tel">银行卡号：</div>
         <div class="flex-grow">
-          <input type="tel" maxlength="20" placeholder="请正确输入银行卡号"/>
+          <input type="tel" maxlength="20" placeholder="请正确输入银行卡号" v-model="postData.bankNo"/>
         </div>
       </div>
       <div class="item flex">
         <div class="title tel">持卡人姓名：</div>
         <div class="flex-grow">
-          <input type="text" placeholder="请正确输入姓名"/>
+          <input type="text" placeholder="请正确输入姓名" v-model="postData.name"/>
         </div>
       </div>
       <div class="item flex">
         <div class="title tel">身份证号码：</div>
         <div class="flex-grow">
-          <input type="text" placeholder="请正确输入身份证号码"/>
+          <input type="text" placeholder="请正确输入身份证号码" v-model="postData.idCard"/>
         </div>
       </div>
     </div>
@@ -51,22 +51,42 @@
         postData: {
           bankNo: '',
           name: '',
-          idCard: ''
+          idCard: '',
+          billNo: '',
+          amount: ''
         },
         binName: ''
       }
     },
     created() {
+      let {payAmount, billNo} = this.$route.query
+      this.postData.billNo = billNo
+      this.postData.amount = payAmount
+      this.init()
       this._handBins()
       this._initBinPicker()
     },
     methods: {
       init() {
-
+        doPost(types.BILL_HELIBAO, {billNo: this.postData.billNo}, {
+          success: function(oData) {
+            let {billNo, name, curRepayAmount, idNumber} = oData.data
+            this.postData.billNo = billNo
+            this.postData.name = name
+            this.postData.idCard = idNumber
+            this.postData.amount = curRepayAmount
+          },
+          error: function(oData) {
+            popup(null, null, oData.msg || '信息获取失败！')
+          }
+        })
       },
       submit() {
         if (this._validate()) {
-          doPost(types.xxxx, {}, {
+          let {bankNo, name, idCard, billNo, amount} = this.postData
+          let platformType = navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
+          let params = {platformType, billNo, bankNo, amount, name, idCard}
+          doPost(types.DIRECTPAY, params, {
             success: function() {
               dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
                 success: function(oData) {

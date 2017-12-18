@@ -206,7 +206,8 @@ export const pageIdentity = {
   'ABOUT_US': '/#/about-us',                                          // 活动列表
   'QUESTION': '/#/question',                                          // 常见问题
   'BAOFUFAST': '/#/baofu-fast',                                       // 快捷支付
-  'VIP_PROTOCOL': '/#/vip-protocol'                                   // 会员协议
+  'VIP_PROTOCOL': '/#/vip-protocol',                                  // 会员协议
+  'HELIBAO_PAY': '/#/helibao-fast'                                    // 合利宝快捷支付
 }
 
 export const positionItems = {

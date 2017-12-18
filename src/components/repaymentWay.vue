@@ -18,9 +18,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT} from 'common/js/drivers'
+  import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT, dialog, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
-  import {unionpayPath} from 'common/js/constants'
+  import {unionpayPath, pageIdentity} from 'common/js/constants'
   import { Base64 } from 'js-base64'
 
   export default {
@@ -28,19 +28,9 @@
       return {
         payAmount: '',
         staticPayWay: [{
-          iconClass: 'icon-house',
-          payWayName: '微信支付',
-          type: 'wechat',
-          isChose: false
-        }, {
           iconClass: 'icon-102',
-          payWayName: '宝付快捷支付',
-          type: 'baofu',
-          isChose: false
-        }, {
-          iconClass: 'icon-161',
-          payWayName: '银联',
-          type: 'unionPay',
+          payWayName: '合利宝快捷支付',
+          type: 'helibao',
           isChose: false
         }],
         confirmPayWay: {}
@@ -84,10 +74,8 @@
         if (type === 'wechat') {
           weChatPay({payAmount, billNo}, {
             success: function(oData) {
-
             },
             error: function(oData) {
-
             }
           })
         } else if (type === 'alipay') {
@@ -95,7 +83,6 @@
             success: function(oData) {
             },
             error: function(oData) {
-
             }
           })
         } else if (type === 'unionPay') {
@@ -104,10 +91,34 @@
           let url = `${unionpayPath}?${Base64.encode(param)}`
           navigate('UNIONPAY', '中国银联', {url: url, param: '', type: 'TARGET'}, null)
         } else if (bankAccount) {
-          // 直接代扣
-          doPost()
+          doPost(types.QUIKPAY, {
+            billNo: billNo,
+            bankNo: bankAccount,
+            amount: payAmount,
+            platformType: navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
+          }, {
+            success: function() {
+              dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
+                success: function(oData) {
+                  if (oData.status === '0' && oData.data.result === '1') {
+                    endPage({url: '', param: ''}, 'ROOT')
+                  }
+                },
+                error: function(oData) {
+                  popup(null, null, oData.msg || '还款提交失败！')
+                }
+              })
+            },
+            error: function(oData) {
+              popup(null, null, oData.msg || '还款提交失败！')
+            }
+          })
         } else if (type === 'baofu') {
           // 宝付
+        } else if (type === 'helibao') {
+          let {payAmount, billNo} = this.$route.query
+          let param = `billNo=${billNo}&payAmount=${payAmount}`
+          navigate('HELIBAO_PAY', '合利宝快捷支付', {url: pageIdentity.HELIBAO_PAY, param: param}, null)
         }
       },
       chosepayment: function(res) {
