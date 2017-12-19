@@ -234,9 +234,9 @@
 
         let {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, p2pId} = this.loanInfo
         let {bankName, bankAccount} = this.bankCard
-        let {type, realFee} = this.vipData
+        let {type, discountFee} = this.vipData
         eeLogUBT('LoanPage.Action.Submit', 'click')
-        let param = {borrowTime, interest, loanPurpose, mobile, productCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: realFee}
+        let param = {borrowTime, interest, loanPurpose, mobile, productCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: discountFee}
         if (p2pSendFlag) {
           param.msgCode = msgCode
         }

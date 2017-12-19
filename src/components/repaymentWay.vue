@@ -91,7 +91,7 @@
           let url = `${unionpayPath}?${Base64.encode(param)}`
           navigate('UNIONPAY', '中国银联', {url: url, param: '', type: 'TARGET'}, null)
         } else if (bankAccount) {
-          doPost(types.QUIKPAY, {
+          doPost(types.DIRECTPAY, {
             billNo: billNo,
             bankNo: bankAccount,
             amount: payAmount,

@@ -86,7 +86,7 @@
           let {bankNo, name, idCard, billNo, amount} = this.postData
           let platformType = navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
           let params = {platformType, billNo, bankNo, amount, name, idCard}
-          doPost(types.DIRECTPAY, params, {
+          doPost(types.QUIKPAY, params, {
             success: function() {
               dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
                 success: function(oData) {

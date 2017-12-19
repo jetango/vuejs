@@ -20,8 +20,8 @@
             <div class="date">{{vipData.memberConfigList[0].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
-            <div class="actual">¥{{vipData.memberConfigList[0].realFee}}</div>
-            <div class="fake">¥{{vipData.memberConfigList[0].discountFee}}</div>
+            <div class="actual">¥{{vipData.memberConfigList[0].discountFee}}</div>
+            <div class="fake">¥{{vipData.memberConfigList[0].realFee}}</div>
           </div>
         </div>
         <!-- 月卡 -->
@@ -32,8 +32,8 @@
             <div class="date">{{vipData.memberConfigList[1].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
-            <div class="actual">¥{{vipData.memberConfigList[1].realFee}}</div>
-            <div class="fake">¥{{vipData.memberConfigList[1].discountFee}}</div>
+            <div class="actual">¥{{vipData.memberConfigList[1].discountFee}}</div>
+            <div class="fake">¥{{vipData.memberConfigList[1].realFee}}</div>
           </div>
         </div>
         <div  v-if="vipData.memberConfigList[2]" class="item flex-grow flex flex-item flex-justify" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[2].type)}' @click="selectedVipType(vipData.memberConfigList[2])">
@@ -43,12 +43,13 @@
             <div class="date">{{vipData.memberConfigList[2].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
-            <div class="actual">¥{{vipData.memberConfigList[2].realFee}}</div>
-            <div class="fake">¥{{vipData.memberConfigList[2].discountFee}}</div>
+            <div class="actual">¥{{vipData.memberConfigList[2].discountFee}}</div>
+            <div class="fake">¥{{vipData.memberConfigList[2].realFee}}</div>
           </div>
         </div>
       </div>
     </div>
+    <div class="text-center protocol-tip text-gary">会员费将在放款成功后扣款，具体见会员协议</div>
     <p class="comfirm-protocol flex flex-item flex-justify text-gary">
       <span @click="agreeProtocols()">
         <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>我已阅读并同意<span @click.stop="checkServicesProtocols()">《会员协议》</span>
@@ -211,10 +212,12 @@
         font-size: .18rem
         color: #696969
         padding-top: .08rem
-
-  .comfirm-protocol
+  .protocol-tip
     font-size: .2rem
     margin-top: .6rem
+    margin-bottom: .05rem
+  .comfirm-protocol
+    font-size: .2rem
     margin-bottom: .4rem
     i
       color: green
