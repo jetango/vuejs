@@ -1,17 +1,17 @@
 <template>
   <div class="loan-comforim">
     <div class="loan-info">
-      <div class="loan-info-item flex flex-item active" @click="loanAmountClicked()">
+      <div class="loan-info-item flex flex-item active focus" @click="loanAmountClicked()">
         <span>借款金额：</span>
         <span class="flex-grow">{{loanInfo.loanAmount || 0}}元</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active" @click="loanDayClicked()">
+      <div class="loan-info-item flex flex-item active focus" @click="loanDayClicked()">
         <span>借款时间：</span>
         <span class="flex-grow">{{loanInfo.borrowTime || 0}}天</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active" @click="loanPurposeClicked()">
+      <div class="loan-info-item flex flex-item active focus" @click="loanPurposeClicked()">
         <span>借款用途：</span>
         <span class="flex-grow">{{loanInfo.loanPurpose}}</span>
         <i class="iconfont icon-117"></i>
@@ -21,13 +21,13 @@
         <span class="flex-grow gray-text">无可抵用券</span>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item item-bank flex flex-item flex-grow active" @click="choseBankCard()">
+      <div class="loan-info-item item-bank flex flex-item flex-grow active focus" @click="choseBankCard()">
         <span>到账账户：</span>
         <span class="flex-grow bank-none" v-if="!bankCard.flag">请选择到账银行卡</span>
         <span v-html="bankCard.bankName+'&nbsp;&nbsp;'+bankCard.bankAccount.substring(bankCard.bankAccount.length-4,bankCard.bankAccount.length)" class="flex-grow" v-if="bankCard.flag"></span>
         <i class="icon iconfont icon-117"></i>
       </div>
-      <div class="loan-info-item flex flex-item active" @click="chooseVip()">
+      <div class="loan-info-item flex flex-item active focus" @click="chooseVip()">
         <span>会员：</span>
         <span class="flex-grow">{{loanInfo.expireTime ? '到期' + loanInfo.expireTime : (vipData.type ? '' : '请选择')}}<span class="selected-vip">{{vipData.type ? '已选择' + vipData.typeDescribe : ''}}</span></span>
         <i class="iconfont icon-117"></i>
@@ -189,7 +189,7 @@
       closeCaptcha(oData) {
         this.loanInfo.msgCode = oData.code
         if (!this.loanInfo.msgCode) {
-          popup(null, null, '请点击发送验证码！')
+          popup(null, null, '请输入验证码！')
           return
         }
         this.captchaShow = false
@@ -380,6 +380,9 @@
     font-size: .28rem
     padding-left: .4rem
     padding-right: .4rem
+    &.focus
+      &:active
+        background: #e1e1e1
     span
       color: #525252
       &:last-of-type
@@ -412,8 +415,6 @@
         color: #0079ff
         --font-size: .25rem
         margin-top: -.03rem
-
-
   .item-bank
     span
       &:last-of-type
@@ -432,7 +433,6 @@
     span
       span
         color: #008aff
-
   .button
     width:90%
     margin: 0 auto

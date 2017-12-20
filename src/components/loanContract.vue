@@ -1,22 +1,22 @@
 <template>
   <div class="loan-contract">
-    <div @click="checkContract(1)" class="contract-item  flex flex-item">
+    <div @click="checkContract(1)" class="contract-item  flex flex-item focus" style="display:none">
       <p class="flex-grow">自动还款服务协议</p>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="checkContract(2)" class="contract-item flex flex-item">
+    <div @click="checkContract(2)" class="contract-item flex flex-item focus">
       <p class="flex-grow">征信查询授权书</p>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="checkContract(3)" class="contract-item  flex flex-item">
+    <div @click="checkContract(3)" class="contract-item  flex flex-item focus">
       <p class="flex-grow">服务协议-单期</p>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="checkContract(4)" class="contract-item  flex flex-item" style="display:none">
+    <div @click="checkContract(4)" class="contract-item  flex flex-item focus" style="display:none">
       <p class="flex-grow">银行贷款协议-单期-（借款人与银行）</p>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="checkContract(5)" class="contract-item  flex flex-item">
+    <div @click="checkContract(5)" class="contract-item  flex flex-item focus">
       <p class="flex-grow">电子签名授权协议书</p>
       <i class="icon iconfont icon-117"></i>
     </div>
@@ -25,16 +25,22 @@
 
 <script type="text/ecmascript-6">
   import {
-    // doPost,
-    // popup,
+    doPost,
+    popup,
     eeLogUBT,
     navigate
   } from 'common/js/drivers'
-  // import * as types from 'config/api-type'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        protocolUrl: null,
+        protocolUrl: {
+          'elecAuthorization': 'https://h5.nongyaodai.com/#/elec-authorization',    // 电子签名授权协议书
+          'creditAuthorization': 'https://h5.nongyaodai.com/#/credit-authorization', // 征信查询授权书
+          'serverProtocol': 'https://h5.nongyaodai.com/#/server-protocols', // 服务协议-单期
+          'bankLoanProtocol': 'https://h5.nongyaodai.com/#/loan-protocols',  // 银行贷款协议-单期-（借款人与银行）
+          'autoRepayProtocol': 'https://h5.nongyaodai.com/#/autorepay-protocol' // 自动还款服务协议
+        },
         isReturnUrl: false
       }
     },
@@ -44,27 +50,32 @@
     },
     methods: {
       initData: function() {
-        /** 获取用户协议合同URL */
-        // doPost(types.USER_CONTRACT, {}, {
-        //   success: (data) => {
-        //     this.protocolUrl = data.data
-        //     this.isReturnUrl = true
-        //   },
-        //   error: (data) => {
-        //     popup(null, null, data.msg || '获取协议失败，请稍后再试！')
-        //   }
-        // })
-        let self = this
-        setTimeout(function() {
-          self.protocolUrl = {
-            'elecAuthorization': 'https://h5.nongyaodai.com/#/elec-authorization',    // 电子签名授权协议书
-            'creditAuthorization': 'https://h5.nongyaodai.com/#/credit-authorization', // 征信查询授权书
-            'serverProtocol': 'https://h5.nongyaodai.com/#/server-protocols', // 服务协议-单期
-            'bankLoanProtocol': 'https://h5.nongyaodai.com/#/loan-protocols',  // 银行贷款协议-单期-（借款人与银行）
-            'autoRepayProtocol': 'https://h5.nongyaodai.com/#/autorepay-protocol' // 自动还款服务协议
+        let {orderNo} = this.$route.query
+        doPost(types.USER_CONTRACT, {orderId: orderNo}, {
+          success: (oData) => {
+            let {creditAuthorization, elecAuthorization, serverProtocol} = oData.data
+            if (serverProtocol) {
+              this.protocolUrl.creditAuthorization = creditAuthorization
+              this.protocolUrl.elecAuthorization = elecAuthorization
+              this.protocolUrl.serverProtocol = serverProtocol
+            }
+            this.isReturnUrl = true
+          },
+          error: (data) => {
+            popup(null, null, data.msg || '获取协议失败，请稍后再试！')
           }
-          self.isReturnUrl = true
-        }, 500)
+        })
+        // let self = this
+        // setTimeout(function() {
+        //   self.protocolUrl = {
+        //     'elecAuthorization': 'https://h5.nongyaodai.com/#/elec-authorization',    // 电子签名授权协议书
+        //     'creditAuthorization': 'https://h5.nongyaodai.com/#/credit-authorization', // 征信查询授权书
+        //     'serverProtocol': 'https://h5.nongyaodai.com/#/server-protocols', // 服务协议-单期
+        //     'bankLoanProtocol': 'https://h5.nongyaodai.com/#/loan-protocols',  // 银行贷款协议-单期-（借款人与银行）
+        //     'autoRepayProtocol': 'https://h5.nongyaodai.com/#/autorepay-protocol' // 自动还款服务协议
+        //   }
+        //   self.isReturnUrl = true
+        // }, 500)
       },
       checkContract: function(type) {
         if (!this.isReturnUrl) {
@@ -96,7 +107,7 @@
             })
             break
           case 5:
-            navigate('ELE_AUTHORIZATION', '自动还款服务协议', {
+            navigate('ELE_AUTHORIZATION', '电子签名授权协议书', {
               url: this.protocolUrl.elecAuthorization,
               type: 'TARGET'
             })
@@ -115,6 +126,9 @@
     margin-top: .1rem
     padding: 0 .4rem
     height: 1rem
+    &.focus
+      &:active
+        background: #e1e1e1
     p
       font-size: .3rem
       color: #000000

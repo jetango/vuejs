@@ -71,18 +71,29 @@ body
     color: #fff
     &:active
       background: #f9a712
+  &.disabled
+    background: -moz-linear-gradient(left, #c5c5c5, #aeaeae)
+    background: -webkit-gradient(linear, 0 50%, 100% 50%, from(#c5c5c5), to(#aeaeae))
+    background: -o-linear-gradient(left, #c5c5c5, #aeaeae)
+    background: -webkit-linear-gradient(left, #c5c5c5, #aeaeae)
+    box-shadow: 0 2px 10px #aeaeae
+    &:active
+      background: -moz-linear-gradient(left, #c5c5c5, #aeaeae)
+      background: -webkit-gradient(linear, 0 50%, 100% 50%, from(#c5c5c5), to(#aeaeae))
+      background: -o-linear-gradient(left, #c5c5c5, #aeaeae)
+      background: -webkit-linear-gradient(left, #c5c5c5, #aeaeae)
 .list-view
   background: #fff
   .item
     position: relative
     line-height: 1rem
     height: 1rem
-    margin-left: .4rem
+    padding-left: .4rem
     padding-right: .4rem
     &:after
       position: absolute
       bottom: 0
-      left: 0
+      left: .4rem
       right: 0
       content: ''
       height: 1px
@@ -91,6 +102,10 @@ body
       transform: scaleY(.5)
     &:last-child:after
       height: 0
+    &:active
+      background: #e1e1e1
+    &.inactive:active
+      background: transparent
 .h1
   font-size: .48rem
 .h2
@@ -143,6 +158,48 @@ body
   color: #000
 }
 
+.icon-bg
+  width: .5rem
+  height: .5rem
+  margin-right: .1rem
+  background-size: .5rem
+  background-repeat: no-repeat
+.helibao-bg
+  background-image: url('~common/image/helibao_icon.png')
+.yinlian-bg
+  background-image: url('~common/image/haunkuan_fangshi_icon_006.png')
+.gongshang-bg
+  background-image: url('~common/image/gongshang.png')
+.guangda-bg
+  background-image: url('~common/image/guangda.png')
+.guangfa-bg
+  background-image: url('~common/image/guangfa.png')
+.huaxia-bg
+  background-image: url('~common/image/huaxia.png')
+.jianshe-bg
+  background-image: url('~common/image/jianshe.png')
+.jiaotong-bg
+  background-image: url('~common/image/jiaotong.png')
+.minsheng-bg
+  background-image: url('~common/image/minsheng.png')
+.nongye-bg
+  background-image: url('~common/image/nongye.png')
+.pingan-bg
+  background-image: url('~common/image/pingan.png')
+.pufa-bg
+  background-image: url('~common/image/pufa.png')
+.shanghai-bg
+  background-image: url('~common/image/shanghai.png')
+.xinye-bg
+  background-image: url('~common/image/xinye.png')
+.youju-bg
+  background-image: url('~common/image/youju.png')
+.zhaoshang-bg
+  background-image: url('~common/image/zhaoshang.png')
+.zhongguo-bg
+  background-image: url('~common/image/zhongguo.png')
+.zhongxin-bg
+  background-image: url('~common/image/zhongxin.png')
 // * {
 //   moz-user-select: -moz-none;
 //   -moz-user-select: none;

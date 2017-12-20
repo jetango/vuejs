@@ -46,7 +46,7 @@
         <div>{{fullAddress ? fullAddress : '省市区'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="item">
+      <div class="item inactive">
         <input type="text" placeholder="请填写详细信息" v-model="identityInfo.livingAddress">
       </div>
       <div class="item flex" @click="educationalChanged()">

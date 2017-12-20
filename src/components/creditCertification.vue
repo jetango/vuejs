@@ -6,17 +6,28 @@
             <span v-if="!creditStatus.zmxyFlag" @click="sesameCertification">{{creditStatus.zmxyTextName}}</span>
             <i class="icon iconfont icon-117"></i>
           </div> -->
-    <div @click="tbCertification" class="credit-item flex flex-item">
+    <div @click="tbCertification" class="credit-item flex flex-item focus">
       <span class="flex-grow">淘宝认证</span>
       <span v-if="creditStatus.tbFlag" :class="{'credit': creditStatus.tbFlag}">{{creditStatus.tbTextName}}</span>
       <span v-if="!creditStatus.tbFlag">{{creditStatus.tbTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="phoneCertification" class="credit-item flex flex-item">
+    <div @click="phoneCertification" class="credit-item flex flex-item focus">
       <span class="flex-grow">手机运营商认证</span>
       <span v-if="creditStatus.mobileFlag" :class="{'credit': creditStatus.mobileFlag}">{{creditStatus.mobileTextName}}</span>
       <span v-if="!creditStatus.mobileFlag">{{creditStatus.mobileTextName}}</span>
       <i class="icon iconfont icon-117"></i>
+    </div>
+    <div class="text-center tip">
+      <div class="line"></div>
+      <span>至少认证一项</span>
+    </div>
+    <div class="footer" :class="{'input-footer':isInput}">
+      <p class="product-name">侬要贷</p>
+      <p class="loan-notice flex flex-item flex-justify">
+        <i class="icon iconfont icon-yirenzheng"></i>
+        <span>国安级数据加密防护</span>
+      </p>
     </div>
     <!-- <div class="credit-item flex flex-item">
             <span class="flex-grow">网银认证</span>
@@ -28,6 +39,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import FooterNotice from 'base/footerNotice/footer-notice'
   import {
     certification,
     sesameCertification,
@@ -45,14 +57,24 @@
           mobileTextName: null,
           tbFlag: false,
           tbTextName: null
-        }
+        },
+        isInput: false
       }
     },
     created: function() {
       this.init()
     },
+    components: {
+      FooterNotice
+    },
     mounted() {
       eeLogUBT('CreditAuth.Load.Goin', 'goin')
+      let componentHeight = document.querySelector('.credit-certification').offsetHeight
+      let buttonHeight = document.querySelector('.tip').offsetHeight
+      let buttonTop = document.querySelector('.tip').offsetTop
+      let footerHeight = document.querySelector('.footer').offsetHeight
+      var marginTop = componentHeight - buttonHeight - buttonTop - footerHeight
+      document.querySelector('.footer').style.marginTop = marginTop + 'px'
     },
     methods: {
       init: function() {
@@ -157,11 +179,19 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .credit-certification
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
   .credit-item
     height: 1rem
-    background-color: #ffffff
+    background-color: #fff
     padding: 0 .4rem
     margin-top: .1rem
+    &.focus
+      &:active
+        background: #e1e1e1
     span
       display: block
       font-size: .3rem
@@ -176,5 +206,39 @@
 
   .credit
     color: #2ec200 !important
+
+  .tip
+    margin-top: 1rem
+    font-size: .22rem
+    color: #9d9d9d
+    position: relative
+    .line
+      position: absolute
+      left: .4rem
+      right: .4rem
+      height: 1px
+      top: 50%
+      background-color: #9d9d9d
+      -webkit-transform: scaleY(.5)
+      transform: scaleY(.5)
+    > span
+      position: relative
+      background: #f6f6f6
+      padding: 0 0.1rem
+
+  .footer
+    width: 100%
+    .product-name
+      text-align: center
+      font-size: .3rem
+      color: #8d959c
+
+  .loan-notice
+    height: .5rem
+    font-size: .2rem
+    i
+      color: green
+      font-size: .34rem
+      margin-top: -.01rem
 
 </style>

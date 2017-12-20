@@ -5,7 +5,7 @@
         <div class="flex-grow title">职业类型</div>
         <div>{{workInfo.industry ? (workInfo.industry + '-' +  workInfo.profession) : ''}}</div>
       </div>
-      <div class="item flex">
+      <div class="item inactive flex">
         <div class="flex-grow">
           <input type="text" v-model="workInfo.company" readonly>
         </div>
@@ -14,12 +14,12 @@
         <div class="flex-grow title">单位地址</div>
         <div>{{fullName}}</div>
       </div>
-      <div class="item flex">
+      <div class="item inactive flex">
         <div class="flex-grow">
           <input type="text" v-model="workInfo.companyAddress" readonly>
         </div>
       </div>
-      <div class="item flex">
+      <div class="item inactive flex">
         <div class="title tel">单位电话</div>
         <div class="flex-grow">
           <input type="text" placeholder="(可选填)" v-model="workInfo.telephone" readonly>

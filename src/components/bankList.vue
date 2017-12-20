@@ -2,7 +2,7 @@
   <div class="bank-list">
     <div class="bank-item" v-for="bank in bankList" :key="bank.bankList">
       <div class="bank-name  flex flex-item active">
-        <i class="icon iconfont icon-161"></i>
+        <span class="icon-bg" :class="[_getBgClass(bank.bankName)]"></span>
         <p class="flex-grow" v-html="bank.bankName"></p>
         <!-- <i class="icon iconfont icon-117"></i> -->
       </div>
@@ -26,7 +26,7 @@
   import NoData from 'base/noData/noData'
   import {doPost, popup, navigate, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
-  import {pageIdentity} from 'common/js/constants'
+  import {pageIdentity, binsMap} from 'common/js/constants'
   export default {
     data() {
       return {
@@ -40,6 +40,16 @@
       document.title = '银行卡列表'
     },
     methods: {
+      _getBgClass(key) {
+        if (!key) {
+          return 'yilian-bg'
+        } else if (key === 'helibao') {
+          return 'helibao-bg'
+        } else {
+          let name = binsMap[key]
+          return `${name}-bg`
+        }
+      },
       init: function() {
         doPost(types.BANK_LIST, {}, {
           success: (oData) => {

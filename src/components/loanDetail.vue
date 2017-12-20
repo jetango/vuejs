@@ -40,7 +40,7 @@
       <span>状态说明</span>
       <span :class="{'text-danger': ([40, 70].indexOf(loanInfo.orderStatus) > -1), 'text-success': ([10, 20, 30, 50].indexOf(loanInfo.orderStatus) > -1)}">{{getOrderStatusStr(loanInfo.orderStatus)}}</span>
     </div>
-    <p class="check-contract flex flex-item flex-justify">
+    <p class="check-contract flex flex-item flex-justify" v-if="loanInfo.orderStatus == 50">
       <span @click="checkContract">查看合同</span>
       <i class="icon iconfont icon-117"></i>
     </p>

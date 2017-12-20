@@ -6,7 +6,7 @@
         <div>{{workInfo.industry ? (workInfo.industry + '-' + workInfo.profession) : '请选择'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="item flex">
+      <div class="item inactive flex">
         <div class="flex-grow">
           <input type="text" placeholder="请填写单位名称" v-model="workInfo.company">
         </div>
@@ -16,12 +16,12 @@
         <div>{{fullName}}</div>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="item flex">
+      <div class="item inactive flex">
         <div class="flex-grow">
           <input type="text" placeholder="请填写单位详细地址" v-model="workInfo.companyAddress">
         </div>
       </div>
-      <div class="item flex">
+      <div class="item inactive flex">
         <div class="title tel">单位电话</div>
         <div class="flex-grow">
           <input type="text" placeholder="(可选填)" v-model="workInfo.telephone">

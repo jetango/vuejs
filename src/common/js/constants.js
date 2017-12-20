@@ -39,7 +39,8 @@ export const orderStatus = {
   '50': '已放款',
   '60': '待还款',
   '70': '逾期中',
-  '80': '已还清'
+  '80': '已还清',
+  '1000': '审核未通过'
 }
 
 export const loanPurposeStatus = [
@@ -418,7 +419,7 @@ export const bins = {
     ],
     'name': '中国工商银行'
   },
-  'zhaohang': {
+  'zhaoshang': {
     'bin': [
       '690755', '95555', '402658', '410062', '468203', '512425', '524011', '621286', '621483',
       '621485', '621486', '622580', '622588', '622598', '622609', '690755', '623126', '623136', '623262', '621299'
@@ -466,6 +467,23 @@ export const bins = {
     ],
     'name': '上海银行'
   }
+}
+
+export const binsMap = {
+  '上海银行': 'shanghai',
+  '广发银行': 'guangfa',
+  '交通银行': 'jiaotong',
+  '平安银行': 'pingan',
+  '浦发银行': 'pufa',
+  '兴业银行': 'xinye',
+  '招商银行': 'zhaoshang',
+  '中国工商银行': 'gongshang',
+  '中国光大银行': 'guangda',
+  '中国建设银行': 'jianshe',
+  '中国农业银行': 'nongye',
+  '中国银行': 'zhongguo',
+  '中国邮储银行': 'youju',
+  '中信银行': 'zhongxin'
 }
 
 export const provinces = [{

@@ -33,7 +33,11 @@
       init: function() {
         doPost(types.REPAY_SCHEDULE, {}, {
           success: (oData) => {
-            this.items = oData.data
+            if (!oData.data || (oData.data && oData.data.length === 0)) {
+              this.items = []
+            } else {
+              this.items = oData.data
+            }
           },
           error: (oData) => {
             popup(null, null, oData.msg || '获取数据失败，请稍后再试！')

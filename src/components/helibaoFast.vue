@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="button-box">
-      <a class="button button-primary" @click="submit">确认还款</a>
+      <a class="button button-primary" @click="submit" :class="{'disabled': payLoading}">确认还款</a>
     </div>
   </div>
 </template>
@@ -55,7 +55,8 @@
           billNo: '',
           amount: ''
         },
-        binName: ''
+        binName: '',
+        payLoading: false
       }
     },
     created() {
@@ -82,12 +83,18 @@
         })
       },
       submit() {
+        var self = this
         if (this._validate()) {
+          if (this.payLoading) {
+            return
+          }
+          this.payLoading = true
           let {bankNo, name, idCard, billNo, amount} = this.postData
           let platformType = navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
           let params = {platformType, billNo, bankNo, amount, name, idCard}
           doPost(types.QUIKPAY, params, {
             success: function() {
+              self.payLoading = false
               dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
                 success: function(oData) {
                   if (oData.status === '0' && oData.data.result === '1') {
@@ -100,6 +107,7 @@
               })
             },
             error: function(oData) {
+              self.payLoading = false
               popup(null, null, oData.msg || '还款提交失败！')
             }
           })

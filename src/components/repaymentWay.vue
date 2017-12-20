@@ -6,13 +6,13 @@
     </div>
     <div class="pay-way-list">
       <div v-for="item in staticPayWay" :key="item.isChose" class="list-item flex flex-item active" @click="chosepayment(item)">
-        <i class="iconfont" :class="item.iconClass"></i>
+        <span class="icon-bg" :class="[_getBgClass(item.iconClass)]"></span>
         <p class="flex-grow" v-html="item.payWayName"></p>
         <i :class="{'chosed': item.isChose}" class="iconfont icon-correct-marked"></i>
       </div>
     </div>
     <div class="button-box">
-      <a class="button button-primary" @click="payLoan">确认还款</a>
+      <a class="button button-primary" @click="payLoan" :class="{'disabled': payLoading}">确认还款</a>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
 <script type="text/ecmascript-6">
   import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT, dialog, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
-  import {unionpayPath, pageIdentity} from 'common/js/constants'
+  import {unionpayPath, pageIdentity, binsMap} from 'common/js/constants'
   import { Base64 } from 'js-base64'
 
   export default {
@@ -28,12 +28,13 @@
       return {
         payAmount: '',
         staticPayWay: [{
-          iconClass: 'icon-102',
+          iconClass: 'helibao',
           payWayName: '合利宝快捷支付',
           type: 'helibao',
           isChose: false
         }],
-        confirmPayWay: {}
+        confirmPayWay: {},
+        payLoading: false
       }
     },
     created: function() {
@@ -46,6 +47,16 @@
       eeLogUBT('RepayWay.Load.Goin', 'goin')
     },
     methods: {
+      _getBgClass(key) {
+        if (!key) {
+          return 'yilian-bg'
+        } else if (key === 'helibao') {
+          return 'helibao-bg'
+        } else {
+          let name = binsMap[key]
+          return `${name}-bg`
+        }
+      },
       init: function() {
         doPost(types.BANK_LIST, {}, {
           success: (oData) => {
@@ -54,7 +65,7 @@
             payWayList.reverse().forEach((element, index) => {
               let bankAccount = element.bankAccount
               this.staticPayWay.unshift({
-                iconClass: 'icon-140',
+                iconClass: element.bankName,
                 payWayName: element.bankName + '&nbsp;&nbsp;' + bankAccount.substring(bankAccount.length - 4, bankAccount.length),
                 bankAccount: bankAccount,
                 isChose: (index === len)
@@ -68,6 +79,7 @@
         })
       },
       payLoan: function() {
+        let self = this
         let {type, bankAccount} = this.confirmPayWay
         let {payAmount, billNo} = this.$route.query
         eeLogUBT('RepayWay.Action.Submit', 'click')
@@ -91,6 +103,10 @@
           let url = `${unionpayPath}?${Base64.encode(param)}`
           navigate('UNIONPAY', '中国银联', {url: url, param: '', type: 'TARGET'}, null)
         } else if (bankAccount) {
+          if (self.payLoading) {
+            return
+          }
+          self.payLoading = true
           doPost(types.DIRECTPAY, {
             billNo: billNo,
             bankNo: bankAccount,
@@ -98,6 +114,7 @@
             platformType: navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
           }, {
             success: function() {
+              self.payLoading = false
               dialog('还款提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
                 success: function(oData) {
                   if (oData.status === '0' && oData.data.result === '1') {
@@ -110,6 +127,7 @@
               })
             },
             error: function(oData) {
+              self.payLoading = false
               popup(null, null, oData.msg || '还款提交失败！')
             }
           })
@@ -137,7 +155,6 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-
   .pay-amount
     height: 1rem
     line-height: 1rem

@@ -1,6 +1,6 @@
 <template>
   <div class="bind-debit-card">
-    <div class="input-item flex flex-item active" @click="binCarsChoose()">
+    <div class="input-item flex flex-item active focus" @click="binCarsChoose()">
       <span class="flex-grow">银行卡类型：</span>
       <span>{{bankInfo.bankName ? bankInfo.bankName : '请选择'}}</span>
       <i class="iconfont icon-117"></i>
@@ -229,7 +229,9 @@
     background-color: #fff
     width: 100%
     height: 100%
-
+    .focus
+      &:active
+        background: #e1e1e1
   .input-item
     height: 1rem
     font-size: .3rem
