@@ -108,6 +108,7 @@
           },
           error: function(oData) {
             self.visibility = true
+            self.loadResult = null
             popup('', '', oData.msg || '获取信息失败')
           }
         })
