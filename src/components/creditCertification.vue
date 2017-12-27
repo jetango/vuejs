@@ -18,6 +18,12 @@
       <span v-if="!creditStatus.mobileFlag">{{creditStatus.mobileTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
+    <div @click="gxbCertification" class="credit-item flex flex-item focus">
+      <span class="flex-grow">公信宝认证</span>
+      <span v-if="creditStatus.gxbFlag" :class="{'credit': creditStatus.gxbFlag}">{{creditStatus.gxbTextName}}</span>
+      <span v-if="!creditStatus.gxbFlag">{{creditStatus.gxbTextName}}</span>
+      <i class="icon iconfont icon-117"></i>
+    </div>
     <div class="text-center tip">
       <div class="line"></div>
       <span>至少认证一项</span>
@@ -44,7 +50,7 @@
     certification,
     sesameCertification,
     doPost,
-    popup, eeLogUBT
+    popup, eeLogUBT, navigate
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -56,7 +62,9 @@
           mobileFlag: false,
           mobileTextName: null,
           tbFlag: false,
-          tbTextName: null
+          tbTextName: null,
+          gxbFlag: false,
+          gxbTextName: null
         },
         isInput: false
       }
@@ -87,7 +95,9 @@
               mobileFlag: !!Number.parseInt(status.mobileFlag),
               mobileTextName: status.mobileFlag === '1' ? '已认证' : '去认证',
               tbFlag: !!Number.parseInt(status.tbFlag),
-              tbTextName: status.tbFlag === '1' ? '已认证' : '去认证'
+              tbTextName: status.tbFlag === '1' ? '已认证' : '去认证',
+              gxbFlag: !!Number.parseInt(status.gxbFlag),
+              gxbTextName: status.gxbFlag === '1' ? '已认证' : '去认证'
             }
             this.creditStatus = showInfo
           }
@@ -171,6 +181,20 @@
           },
           error: (data) => {
             popup(null, null, '认证服务器异常，请稍后再试！')
+          }
+        })
+      },
+      gxbCertification() { // 公信宝认证
+        // let self = this
+        doPost(types.GXB_TOKEN, {
+          success(oData) {
+            if (oData && status.status === '0') {
+              let url = 'https://prod.gxb.io/v2/auth?returnUrl=http%3A%2F%2Fwww.baidu.com&token=0001400001000PleJrOj3oMxTW4XGoUt'
+              navigate('GONGXINBAO', '公信宝认证', {url: url, param: '', type: 'TARGET'}, null)
+            }
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '获取信息失败，请重试！')
           }
         })
       }

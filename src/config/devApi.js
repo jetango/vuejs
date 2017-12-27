@@ -24,5 +24,6 @@ export default {
   [types.REGISTER]: '/api/user/channel/register',
   [types.QUIKPAY]: '/pay/hlb/quikPay',
   [types.DIRECTPAY]: '/pay/hlb/directPay',
-  [types.BILL_HELIBAO]: '/zeus/bill/helibao'
+  [types.BILL_HELIBAO]: '/zeus/bill/helibao',
+  [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token'
 }
