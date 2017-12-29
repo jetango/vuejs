@@ -181,10 +181,12 @@
       _handBins() {
         let binText = []
         for (let key in bins) {
-          binText.push({
-            value: key,
-            text: bins[key].name
-          })
+          if (['jiaotong', 'shanghai', 'youju'].indexOf(key) === -1) {
+            binText.push({
+              value: key,
+              text: bins[key].name
+            })
+          }
         }
         this.binText = binText
       },
