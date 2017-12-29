@@ -89,7 +89,7 @@
             if (Number(oData.status) === 0) {
               let {name, tel} = oData.data
               self.directContactName = name
-              self.directContactMobile = tel
+              self.directContactMobile = tel.replace(/-|_|\s+/g, '')
             }
           }
         })
@@ -103,7 +103,7 @@
             if (Number(oData.status) === 0) {
               let {name, tel} = oData.data
               self.majorContactName = name
-              self.majorContactMobile = tel
+              self.majorContactMobile = tel.replace(/-|_|\s+/g, '')
             }
           }
         })
@@ -169,18 +169,19 @@
         // this.majorContactPicker.hide()
       },
       _validate(params) {
+        let re = /^1\d{10}$/
         let {directContactRelation, directContactMobile, majorContactRelation, majorContactMobile} = params
         if (!directContactRelation) {
           popup('', '', '请选择直接联系人！')
           return false
-        } else if (!directContactMobile) {
-          popup('', '', '请选择直接联系人！')
+        } else if (!directContactMobile || !re.test(directContactMobile)) {
+          popup('', '', '请正确选择直接联系人手机号码！')
           return false
         } else if (!majorContactRelation) {
           popup('', '', '请选择重要联系人！')
           return false
-        } else if (!majorContactMobile) {
-          popup('', '', '请选择重要联系人！')
+        } else if (!majorContactMobile || !re.test(majorContactMobile)) {
+          popup('', '', '请正确选择重要联系人手机号码！')
           return false
         } else if (majorContactMobile === directContactMobile) {
           popup('', '', '手机号码不可以相同！')
