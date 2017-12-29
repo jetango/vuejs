@@ -185,12 +185,14 @@
         })
       },
       gxbCertification() { // 公信宝认证
-        // let self = this
         doPost(types.GXB_TOKEN, {
           success(oData) {
+            let returnUrl = 'https://h5android.nongyaodai.com/#/credit-certification'
             if (oData && status.status === '0') {
-              let url = 'https://prod.gxb.io/v2/auth?returnUrl=http%3A%2F%2Fwww.baidu.com&token=0001400001000PleJrOj3oMxTW4XGoUt'
+              let url = `https://prod.gxb.io/v2/auth?returnUrl=${encodeURIComponent(returnUrl)}&token=${oData.data}`
               navigate('GONGXINBAO', '公信宝认证', {url: url, param: '', type: 'TARGET'}, null)
+            } else {
+              popup(null, null, '获取信息失败，请重试！')
             }
           },
           error(oData) {
