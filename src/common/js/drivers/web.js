@@ -284,6 +284,13 @@ export default class Driver {
     })
   }
 
+  gxbCertification(param, cb) {
+    let name = this.proxy.registCB(cb)
+    window.callback(name, {
+      status: '0' // 0 认证失败   1认证成功
+    })
+  }
+
   // 银联支付
   unionPay(param, cb) {
     let name = this.proxy.registCB(cb)

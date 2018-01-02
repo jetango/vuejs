@@ -434,6 +434,13 @@ export default class Driver {
     this._iosCall(url)
   }
 
+  // 公信宝
+  gxbCertification(param, cb) {
+    let name = this.proxy.registCB(cb)
+    let url = `plugin://gxbCertification?callback=${encodeURIComponent(name)}&param=${JSON.stringify(param)}`
+    this._iosCall(url)
+  }
+
   // 银联支付
   unionPay(param, cb) {
     let name = this.proxy.registCB(cb)

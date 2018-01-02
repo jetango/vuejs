@@ -184,6 +184,10 @@ export default class Proxy {
     this.__current__.certification(param, cb)
   }
 
+  gxbCertification(param, cb) {
+    this.__current__.gxbCertification(param, cb)
+  }
+
   unionPay(param, cb) {
     this.__current__.unionPay(param, cb)
   }

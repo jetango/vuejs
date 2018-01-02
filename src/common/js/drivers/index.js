@@ -160,6 +160,10 @@ export function certification(param, cb) {
   _proxy.certification(param, cb)
 }
 
+export function gxbCertification(param, cb) {
+  _proxy.gxbCertification(param, cb)
+}
+
 export function unionPay(param, cb) {
   _proxy.unionPay(cb)
 }
