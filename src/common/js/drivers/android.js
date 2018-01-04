@@ -159,6 +159,12 @@ export default class Driver {
     window.android.plugin('certification', JSON.stringify({ callback: name, param: param }))
   }
 
+  // 公信宝
+  gxbCertification(param, cb) {
+    let name = this.proxy.registCB(cb)
+    window.android.plugin('gxbCertification', JSON.stringify({ callback: name, param: param }))
+  }
+
   // 银联支付
   unionPay(param, cb) {
     let name = this.proxy.registCB(cb)

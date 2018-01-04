@@ -255,6 +255,9 @@ const Question = (resolve) => { import('components/question').then((module) => {
 // 合利宝
 const Helibao = (resolve) => { import('components/helibaoFast').then((module) => { resolve(module) }) }
 
+// 公信宝
+const GXBPass = (resolve) => { import('components/authenticatepass').then((module) => { resolve(module) }) }
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -430,6 +433,10 @@ export default new Router({
       path: '/helibao-fast',
       name: 'helibao',
       component: Helibao
+    }, {
+      path: '/gxb-pass',
+      name: 'GXBPass',
+      component: GXBPass
     }
   ]
 })
