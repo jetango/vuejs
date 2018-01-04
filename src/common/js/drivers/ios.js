@@ -437,6 +437,7 @@ export default class Driver {
   // 公信宝
   gxbCertification(param, cb) {
     let name = this.proxy.registCB(cb)
+    param.url = encodeURIComponent(param.url)
     let url = `plugin://gxbCertification?callback=${encodeURIComponent(name)}&param=${JSON.stringify(param)}`
     this._iosCall(url)
   }

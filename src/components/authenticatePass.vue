@@ -6,9 +6,20 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { doPost, popup } from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     mounted() {
       document.title = '认证通过'
+      doPost(types.SCORE, {
+        gxbFlag: '1'
+      }, {
+        success: (data) => {
+        },
+        error: (data) => {
+          popup(null, null, data.msg || '认证服务器异常，请稍后再试！')
+        }
+      })
     }
   }
 </script>

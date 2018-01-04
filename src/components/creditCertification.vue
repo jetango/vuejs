@@ -188,28 +188,25 @@
         if (this.creditStatus.gxbFlag) {
           return
         }
-        // let self = this
-        let url = 'https://prod.gxb.io/v2/auth/ecommerce/detail?loginType=loginForm&returnUrl=http%3A%2F%2Fwww.baidu.com&token=00135001810005S8406vKZ2RAHT8AwXX&website=alipay.com_server'
-        gxbCertification({url: url}, {
+        let self = this
+        doPost(types.GXB_TOKEN, {}, {
+          success(oData) {
+            let returnUrl = 'http://dev.h5.nongyaodai.com/#/gxb-pass'
+            if (oData && oData.status === '0') {
+              let url = `https://prod.gxb.io/v2/auth?returnUrl=${encodeURIComponent(returnUrl)}&token=${oData.data}&loginType=loginForm`
+              gxbCertification({url: url}, {
+                success() {
+                  self.init()
+                }
+              })
+            } else {
+              popup(null, null, '获取信息失败，请重试！')
+            }
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '获取信息失败，请重试！')
+          }
         })
-
-        // doPost(types.GXB_TOKEN, {
-        //   success(oData) {
-        //     popup(null, null, oData.data)
-        //     // let returnUrl = 'https://h5android.nongyaodai.com/#/credit-certification'
-        //     if (oData && oData.status === '0') {
-        //       // let url = `https://prod.gxb.io/v2/auth?returnUrl=${encodeURIComponent(returnUrl)}&token=${oData.data}&loginType=loginForm`
-        //       let url = 'https://prod.gxb.io/v2/auth/ecommerce/detail?loginType=loginForm&returnUrl=http%3A%2F%2Fwww.baidu.com&token=00135001810005S8406vKZ2RAHT8AwXX&website=alipay.com_server'
-        //       gxbCertification({url: url}, {
-        //       })
-        //     } else {
-        //       popup(null, null, '获取信息失败，请重试！')
-        //     }
-        //   },
-        //   error(oData) {
-        //     popup(null, null, oData.msg || '获取信息失败，请重试！')
-        //   }
-        // })
       }
     }
   }
