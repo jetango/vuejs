@@ -181,7 +181,8 @@
       _handBins() {
         let binText = []
         for (let key in bins) {
-          if (['jiaotong', 'shanghai', 'youju'].indexOf(key) === -1) {
+          if (['zhongxin', 'zhongguo', 'nongye', 'jianshe', 'guangda', 'gongshang', 'xinye'].indexOf(key) > -1) {
+          // if (['jiaotong', 'shanghai', 'youju'].indexOf(key) === -1) {
             binText.push({
               value: key,
               text: bins[key].name
