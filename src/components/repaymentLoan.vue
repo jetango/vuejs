@@ -3,11 +3,16 @@
     <div v-for="loanInfo in items" :key="loanInfo.repayTime" class="item-content flex flex-item flex-grow" @click="toPage(loanInfo)">
       <div class="flex-grow">
         <p v-html="'需要还款：&nbsp;' + loanInfo.waitRepayAmount + '元'"></p>
+        <!--
         <p :class="{'overdue': loanInfo.billStatus == '70', 'text-success': loanInfo.repayStatus == '80'}">
           {{loanInfo.repayStatus == '70' ? '逾期中' : (loanInfo.repayStatus == '80' ? '已还清' : ('还款日:' + loanInfo.promiseRepaymentDate))}}
         </p>
+        -->
+        <p :class="{'overdue': loanInfo.billStatus == 'B002', 'text-success': loanInfo.billStatus == 'B003'}">
+          {{loanInfo.billStatus == 'B002' ? '逾期中' : (loanInfo.billStatus == 'B003' ? '已结清' : ('还款日：' + loanInfo.promiseRepaymentDate))}}
+        </p>
       </div>
-      <i class="icon iconfont icon-117"></i>
+      <i class="icon iconfont icon-117" v-if="loanInfo.billStatus != 'B003'"></i>
     </div>
     <div v-if="items && items.length == 0">
       <no-data title="暂无借款记录"></no-data>
@@ -45,7 +50,10 @@
         })
       },
       toPage: function(loanInfo) {
-        let {billNo} = loanInfo
+        let {billNo, billStatus} = loanInfo
+        if (billStatus === 'B003') {
+          return
+        }
         navigate('REPAYMENT_TIP', '发起还款', {url: pageIdentity.REPAYMENT_TIP, param: `billNo=${billNo}`})
       }
     },
