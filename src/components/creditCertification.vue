@@ -191,7 +191,7 @@
         let self = this
         doPost(types.GXB_TOKEN, {}, {
           success(oData) {
-            let returnUrl = 'http://dev.h5.nongyaodai.com/#/gxb-pass'
+            let returnUrl = 'https://h5android.nongyaodai.com/#/gxb-pass'
             if (oData && oData.status === '0') {
               let url = `https://prod.gxb.io/v2/auth?returnUrl=${encodeURIComponent(returnUrl)}&token=${oData.data}&loginType=loginForm`
               gxbCertification({url: url}, {
