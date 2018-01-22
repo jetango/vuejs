@@ -209,28 +209,37 @@
           popup(null, null, '请选择银行卡！')
           return
         }
-        if (!this.loanInfo.memberExpireDay) {
-          if (!this.vipData.type) {
-            popup(null, null, '请购买会员！')
-            return
-          }
-          if (Number(this.vipData.effectTime) < Number(this.loanInfo.borrowTime)) {
-            popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
-            return
-          }
-        } else {
-          if (!this.vipData.type) {
-            if (Number(this.loanInfo.memberExpireDay) < Number(this.loanInfo.borrowTime)) {
-              popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
-              return
-            }
-          } else {
-            if ((Number(this.loanInfo.memberExpireDay) + Number(this.vipData.effectTime)) < Number(this.loanInfo.borrowTime)) {
-              popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
-              return
-            }
-          }
+        /**
+         * [if description]
+         * @param  {[Number]} memberExpireDay 有效天数
+         * @param {[Number]} effectTime
+         */
+        if (Number(this.loanInfo.memberExpireDay) <= 0 && !this.vipData.type) {
+          popup(null, null, '请购买会员！')
+          return
         }
+        // if (Number(this.loanInfo.memberExpireDay) <= 0) {
+        //   if (!this.vipData.type) {
+        //     popup(null, null, '请购买会员！')
+        //     return
+        //   }
+        //   if (Number(this.vipData.effectTime) < Number(this.loanInfo.borrowTime)) {
+        //     popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
+        //     return
+        //   }
+        // } else {
+        //   if (!this.vipData.type) {
+        //     if (Number(this.loanInfo.memberExpireDay) < Number(this.loanInfo.borrowTime)) {
+        //       popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
+        //       return
+        //     }
+        //   } else {
+        //     if ((Number(this.loanInfo.memberExpireDay) + Number(this.vipData.effectTime)) < Number(this.loanInfo.borrowTime)) {
+        //       popup(null, null, '您的会员即将到期，为保证您的会员权益请续费！')
+        //       return
+        //     }
+        //   }
+        // }
 
         let {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, p2pId} = this.loanInfo
         let {bankName, bankAccount} = this.bankCard
