@@ -186,6 +186,20 @@ const PrivacyPolicies = (resolve) => {
   })
 }
 
+// 个人借款用途承诺书
+const LetterCommitment = (resolve) => {
+  import('base/protocols/letterOfCommitment').then((module) => {
+    resolve(module)
+  })
+}
+
+// 抵押合同
+const MortgageProtocols = (resolve) => {
+  import('base/protocols/mortgage').then((module) => {
+    resolve(module)
+  })
+}
+
 // 认证授权
 const RegisterAndPrivacy = (resolve) => {
   import('components/registerAndPrivacy').then((module) => {
@@ -257,6 +271,15 @@ const Helibao = (resolve) => { import('components/helibaoFast').then((module) =>
 
 // 公信宝
 const GXBPass = (resolve) => { import('components/authenticatepass').then((module) => { resolve(module) }) }
+
+// 会员介绍
+const VipIntroduction = (resolve) => { import('components/VipIntroduction').then((module) => { resolve(module) }) }
+
+// 借款流程
+const PayFlow = (resolve) => { import('components/payFlow').then((module) => { resolve(module) }) }
+
+// 手机抵押
+const MortgagePhone = (resolve) => { import('components/mortgagePhone').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -437,6 +460,26 @@ export default new Router({
       path: '/gxb-pass',
       name: 'GXBPass',
       component: GXBPass
+    }, {
+      path: '/vip-introduction',
+      name: 'vipIntroduction',
+      component: VipIntroduction
+    }, {
+      path: '/pay-flow',
+      name: 'payFlow',
+      component: PayFlow
+    }, {
+      path: '/letter-commitment',
+      name: 'letterCommitment',
+      component: LetterCommitment
+    }, {
+      path: '/mortgage-phone',
+      name: 'mortgagePhone',
+      component: MortgagePhone
+    }, {
+      path: '/mortgage-protocols',
+      name: 'mortgageProtocols',
+      component: MortgageProtocols
     }
   ]
 })

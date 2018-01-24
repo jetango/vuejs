@@ -32,6 +32,11 @@
         <span class="flex-grow">{{loanInfo.expireTime ? '到期' + loanInfo.expireTime : (vipData.type ? '' : '请选择')}}<span class="selected-vip">{{vipData.type ? '已选择' + vipData.typeDescribe : ''}}</span></span>
         <i class="iconfont icon-117"></i>
       </div>
+      <div class="loan-info-item flex flex-item active focus" @click="confirmMortgagePhone()">
+        <span>手机抵押：</span>
+        <span class="flex-grow">{{mortgagePhoneData.model ? '已抵押' : ''}}</span>
+        <i class="iconfont icon-117"></i>
+      </div>
       <!-- <div class="loan-info-item flex flex-item">
         <span>验证码：</span>
         <span class="flex-grow"><input class="identify-code-input"  v-model="loanInfo.msgCode" type="tel" placeholder="短信验证码" maxlength="6"></span>
@@ -68,7 +73,7 @@
 <script type="text/ecmascript-6">
   import AlertItem from 'base/alertItem/alert-item'
   import Captcha from 'base/captcha/captcha'
-  import {doPost, popup, navigate, eeLogUBT, toast, log} from 'common/js/drivers'
+  import {doPost, popup, navigate, eeLogUBT, toast} from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {pageIdentity, loanPurposeStatus} from 'common/js/constants'
   import Picker from 'better-picker'
@@ -106,6 +111,7 @@
         isSend: false,
         delayTime: 0,
         vipData: {},
+        mortgagePhoneData: {},
         captchaShow: false
       }
     },
@@ -218,6 +224,11 @@
           popup(null, null, '请购买会员！')
           return
         }
+
+        if (!this.mortgagePhoneData.brand) {
+          popup(null, null, '请确定手机抵押！')
+          return
+        }
         // if (Number(this.loanInfo.memberExpireDay) <= 0) {
         //   if (!this.vipData.type) {
         //     popup(null, null, '请购买会员！')
@@ -244,8 +255,9 @@
         let {borrowTime, interest, loanPurpose, mobile, productCode, msgCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, p2pId} = this.loanInfo
         let {bankName, bankAccount} = this.bankCard
         let {type, discountFee} = this.vipData
+        let {model, brand} = this.mortgagePhoneData
         eeLogUBT('LoanPage.Action.Submit', 'click')
-        let param = {borrowTime, interest, loanPurpose, mobile, productCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: discountFee}
+        let param = {borrowTime, interest, loanPurpose, mobile, productCode, loanAmount, annualizedRate, realLoanAmount, repayTotalAmount, bankName, bankAccount, type, memberFee: discountFee, model, brand}
         if (p2pSendFlag) {
           param.msgCode = msgCode
         }
@@ -320,13 +332,25 @@
         let self = this
         navigate('VIP', '会员', {url: pageIdentity.VIP}, {
           success(oData) {
-            log('', JSON.stringify(oData))
             let {type, discountFee, effectTime, typeDescribe} = oData.data
             console.log(type, discountFee, effectTime, typeDescribe)
             self.vipData = oData.data
           },
           error(oData) {
             popup(null, null, oData.msg || '会员选择失败，请稍后再试！')
+          }
+        })
+      },
+      confirmMortgagePhone() {
+        let self = this
+        navigate('MORTGAGE_PHONE', '手机抵押', {url: pageIdentity.MORTGAGE_PHONE}, {
+          success(oData) {
+            let {brand, model} = oData.data
+            console.log(brand, model)
+            self.mortgagePhoneData = oData.data
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '确认手机抵押失败！')
           }
         })
       },

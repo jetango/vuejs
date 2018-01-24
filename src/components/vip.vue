@@ -12,11 +12,11 @@
     </div>
     <div class="vip-category-box">
       <div class="vip-category flex flex-item">
-        <!-- 办月卡 -->
+        <!-- 单月 -->
         <div v-if="vipData.memberConfigList[0]" class="item flex-grow flex flex-item" :class='{selected: (selectedType == vipData.memberConfigList[0].type || !selectedType)}' @click="selectedVipType(vipData.memberConfigList[0])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
-            <img src="~/common/image/banyeuka_ka_002.png"/>
+            <img src="~/common/image/yueka_ka_001.png"/>
             <div class="date">{{vipData.memberConfigList[0].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
@@ -24,11 +24,11 @@
             <div class="fake">¥{{vipData.memberConfigList[0].realFee}}</div>
           </div>
         </div>
-        <!-- 月卡 -->
+        <!-- 双周 -->
         <div v-if="vipData.memberConfigList[1]" class="item flex-grow flex flex-item" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[1].type)}' @click="selectedVipType(vipData.memberConfigList[1])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
-            <img src="~/common/image/yeuka_ka_001.png"/>
+            <img src="~/common/image/yueka_ka_002.png"/>
             <div class="date">{{vipData.memberConfigList[1].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
@@ -36,10 +36,11 @@
             <div class="fake">¥{{vipData.memberConfigList[1].realFee}}</div>
           </div>
         </div>
+        <!-- 月卡 -->
         <div  v-if="vipData.memberConfigList[2]" class="item flex-grow flex flex-item flex-justify" :class='{selected: (selectedType && selectedType == vipData.memberConfigList[2].type)}' @click="selectedVipType(vipData.memberConfigList[2])">
           <div class="bang"></div>
           <div class="flex-grow flex column flex-justify flex-item date-box">
-            <img src="~/common/image/yeuka_ka_003.png"/>
+            <img src="~/common/image/yueka_ka_003.png"/>
             <div class="date">{{vipData.memberConfigList[2].effectTime}}天</div>
           </div>
           <div class="flex-grow flex column flex-justify flex-item price-box">
@@ -49,7 +50,16 @@
         </div>
       </div>
     </div>
-    <div class="text-center protocol-tip text-gary">会员费将在放款成功后扣款，具体见会员协议</div>
+    <div class="vip-desc-box">
+      <h3 class="text-center">会员介绍</h3>
+      <p class="text-gary">1、7天会员是指在购买会员日起7天内可以发起借款申请；</p>
+      <p class="text-gary">2、14天会员是指在购买会员日起14天内可以发起借款申请；</p>
+      <p>3、会员期限不等于借款期限；</p>
+      <p class="text-gary">4、会员期限内，如正常还款，可以多次借款；</p>
+      <p class="text-gary">5、未按时足额还款，会员资格会失效；</p>
+      <p class="text-gary">6、会员费将在放款成功后扣取，具体见会员协议；</p>
+      <p class="text-gary">7、会员服务最终解析权归公司所有；</p>
+    </div>
     <p class="comfirm-protocol flex flex-item flex-justify text-gary">
       <span @click="agreeProtocols()">
         <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>我已阅读并同意<span @click.stop="checkServicesProtocols()">《会员协议》</span>
@@ -145,7 +155,7 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .vip-header
-    padding: 0.05rem .05rem 1.02rem
+    padding: 0.05rem .05rem .44rem
     .vip-header-box
       position: relative
     .number
@@ -212,10 +222,6 @@
         font-size: .18rem
         color: #696969
         padding-top: .08rem
-  .protocol-tip
-    font-size: .2rem
-    margin-top: .6rem
-    margin-bottom: .05rem
   .comfirm-protocol
     font-size: .2rem
     margin-bottom: .4rem
@@ -227,11 +233,19 @@
     span
       span
         color: #008aff
-
+  .vip-desc-box
+    padding-top: .3rem
+    padding-bottom: .4rem
+    > h3
+      font-size: .22rem
+      padding-bottom: .15rem
+      font-weight: bold
+    > p
+      font-size: .2rem
+      line-height: .36rem
+      padding: 0 .2rem
   .button-box
     padding: 0 .4rem .4rem
-
   .icon-not-chose
     color: lightgrey !important
-
 </style>
