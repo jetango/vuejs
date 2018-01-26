@@ -54,17 +54,17 @@ export const loanPurposeStatus = [
     text: '就医缴费',
     value: '就医缴费'
   }, {
-    text: '留学缴费',
-    value: '留学缴费'
-  }, {
-    text: '旅游缴费',
-    value: '旅游缴费'
+    text: '旅行缴费',
+    value: '旅行缴费'
   }, {
     text: '租房缴费',
     value: '租房缴费'
   }, {
     text: '培训缴费',
     value: '培训缴费'
+  }, {
+    text: '其他',
+    value: '其他'
   }
 ]
 
@@ -208,7 +208,11 @@ export const pageIdentity = {
   'QUESTION': '/#/question',                                          // 常见问题
   'BAOFUFAST': '/#/baofu-fast',                                       // 快捷支付
   'VIP_PROTOCOL': '/#/vip-protocol',                                  // 会员协议
-  'HELIBAO_PAY': '/#/helibao-fast'                                    // 合利宝快捷支付
+  'HELIBAO_PAY': '/#/helibao-fast',                                   // 合利宝快捷支付
+  'PAY_FLOW': '/#/pay-flow',                                          // 借款流程
+  'VIP_INTRODUCTION': '/#/vip-introduction',                          // 会员介绍
+  'MORTGAGE_PHONE': '/#/mortgage-phone',                              // 手机抵押
+  'MORTGAGE_PROTOCOLS': '/#/mortgage-protocols'                       // 抵押合同
 }
 
 export const positionItems = {

@@ -214,6 +214,24 @@
     </div>
 
     <div class="list-view">
+      <router-link to="/pay-flow">
+        <div class="item flex">
+          <p class="flex-grow">借款流程</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
+      <router-link to="/vip-introduction">
+        <div class="item flex">
+          <p class="flex-grow">会员介绍</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="list-view">
       <router-link to="/raise-credit">
         <div class="item flex">
           <p class="flex-grow">提额</p>
