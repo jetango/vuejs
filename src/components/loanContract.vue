@@ -20,6 +20,10 @@
       <p class="flex-grow">电子签名授权协议书</p>
       <i class="icon iconfont icon-117"></i>
     </div>
+    <div @click="checkContract(6)" class="contract-item  flex flex-item focus">
+      <p class="flex-grow">抵押协议</p>
+      <i class="icon iconfont icon-117"></i>
+    </div>
   </div>
 </template>
 
@@ -35,11 +39,12 @@
     data() {
       return {
         protocolUrl: {
-          'elecAuthorization': 'https://h5.nongyaodai.com/#/elec-authorization',    // 电子签名授权协议书
-          'creditAuthorization': 'https://h5.nongyaodai.com/#/credit-authorization', // 征信查询授权书
-          'serverProtocol': 'https://h5.nongyaodai.com/#/server-protocols', // 服务协议-单期
-          'bankLoanProtocol': 'https://h5.nongyaodai.com/#/loan-protocols',  // 银行贷款协议-单期-（借款人与银行）
-          'autoRepayProtocol': 'https://h5.nongyaodai.com/#/autorepay-protocol' // 自动还款服务协议
+          'elecAuthorization': 'https://h5android.nongyaodai.com/#/elec-authorization',    // 电子签名授权协议书
+          'creditAuthorization': 'https://h5android.nongyaodai.com/#/credit-authorization', // 征信查询授权书
+          'serverProtocol': 'https://h5android.nongyaodai.com/#/server-protocols', // 服务协议-单期
+          'bankLoanProtocol': 'https://h5android.nongyaodai.com/#/loan-protocols',  // 银行贷款协议-单期-（借款人与银行）
+          'autoRepayProtocol': 'https://h5android.nongyaodai.com/#/autorepay-protocol', // 自动还款服务协议
+          'mortgageProtocol': 'https://h5android.nongyaodai.com/#/mortgage-protocols'  // 抵押协议
         },
         isReturnUrl: false
       }
@@ -53,11 +58,12 @@
         let {orderNo} = this.$route.query
         doPost(types.USER_CONTRACT, {orderId: orderNo}, {
           success: (oData) => {
-            let {creditAuthorization, elecAuthorization, serverProtocol} = oData.data
+            let {creditAuthorization, elecAuthorization, serverProtocol, mortgage} = oData.data
             if (serverProtocol) {
               this.protocolUrl.creditAuthorization = creditAuthorization
               this.protocolUrl.elecAuthorization = elecAuthorization
               this.protocolUrl.serverProtocol = serverProtocol
+              this.protocolUrl.mortgageProtocol = mortgage
             }
             this.isReturnUrl = true
           },
@@ -109,6 +115,12 @@
           case 5:
             navigate('ELE_AUTHORIZATION', '电子签名授权协议书', {
               url: this.protocolUrl.elecAuthorization,
+              type: 'TARGET'
+            })
+            break
+          case 6:
+            navigate('MORTGAGE_PROTOCOLS', '抵押协议', {
+              url: this.protocolUrl.mortgageProtocol,
               type: 'TARGET'
             })
             break
