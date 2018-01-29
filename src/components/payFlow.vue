@@ -4,6 +4,16 @@
     <img src="~/common/image/JKLC_02.jpg"/>
   </div>
 </template>
+<script type="text/ecmascript-6">
+  export default {
+    beforeCreate() {
+      document.getElementsByTagName('html')[0].className = 'add-bg'
+    },
+    beforeDestroy() {
+      document.getElementsByTagName('html')[0].removeAttribute('class', 'add-bg')
+    }
+  }
+</script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .pay-flow-box
     img
