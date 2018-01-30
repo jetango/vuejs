@@ -20,4 +20,5 @@
       max-width: 100%
       vertical-align: bottom
       display: block
+      float: left
 </style>
