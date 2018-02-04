@@ -77,8 +77,6 @@ const CreditCertification = (resolve) => {
 
 // 关于我们
 const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
-// 常见问题
-const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -135,10 +133,6 @@ export default new Router({
       path: '/about-us',
       name: 'aboutus',
       component: AboutUs
-    }, {
-      path: '/question',
-      name: 'question',
-      component: Question
     }
   ]
 })
