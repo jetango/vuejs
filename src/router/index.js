@@ -8,18 +8,6 @@ const TestList = (resolve) => {
     resolve(module)
   })
 }
-// 还款提示
-const RepaymentTip = (resolve) => {
-  import('components/repaymentTip').then((module) => {
-    resolve(module)
-  })
-}
-// 还款方式
-const RepaymentWay = (resolve) => {
-  import('components/repaymentWay').then((module) => {
-    resolve(module)
-  })
-}
 // 借记卡列表
 const BankList = (resolve) => {
   import('components/bankList').then((module) => {
@@ -86,152 +74,11 @@ const CreditCertification = (resolve) => {
     resolve(module)
   })
 }
-// 服务与协议页面
-const ServicesProtocols = (resolve) => {
-  import('components/servicesProtocols').then((module) => {
-    resolve(module)
-  })
-}
 
-// 借款记录
-const BorrowList = (resolve) => {
-  import('components/borrowList').then((module) => {
-    resolve(module)
-  })
-}
-
-// 借款合同
-const LoanContract = (resolve) => {
-  import('components/loanContract').then((module) => {
-    resolve(module)
-  })
-}
-
-// 代扣款协议
-const AutoRepayment = (resolve) => {
-  import('base/protocols/autoRepayment').then((module) => {
-    resolve(module)
-  })
-}
-
-// 电子签名授权协议
-const ElecAuthorization = (resolve) => {
-  import('base/protocols/elecAuthorization').then((module) => {
-    resolve(module)
-  })
-}
-
-// 认证授权
-const CreditAuthorization = (resolve) => {
-  import('base/protocols/creditAuthorization').then((module) => {
-    resolve(module)
-  })
-}
-
-// 认证授权
-const ServerProtocols = (resolve) => {
-  import('base/protocols/serverProtocols').then((module) => {
-    resolve(module)
-  })
-}
-
-// 认证授权
-const LoanProtocols = (resolve) => {
-  import('base/protocols/loanProtocols').then((module) => {
-    resolve(module)
-  })
-}
-
-// 认证授权
-const RegisterProtocol = (resolve) => {
-  import('base/protocols/registerProtocol').then((module) => {
-    resolve(module)
-  })
-}
-
-// 认证授权
-const PrivacyPolicies = (resolve) => {
-  import('base/protocols/privacyPolicies').then((module) => {
-    resolve(module)
-  })
-}
-
-// 个人借款用途承诺书
-const LetterCommitment = (resolve) => {
-  import('base/protocols/letterOfCommitment').then((module) => {
-    resolve(module)
-  })
-}
-
-// 抵押合同
-const MortgageProtocols = (resolve) => {
-  import('base/protocols/mortgage').then((module) => {
-    resolve(module)
-  })
-}
-
-// 认证授权
-const RegisterAndPrivacy = (resolve) => {
-  import('components/registerAndPrivacy').then((module) => {
-    resolve(module)
-  })
-}
-
-const RegisterAndPrivacyBaoshan = (resolve) => {
-  import('components/registerAndPrivacyBaoshan').then((module) => {
-    resolve(module)
-  })
-}
-
-// 会员服务协议
-const VipProtocol = (resolve) => {
-  import('base/protocols/vipService').then((module) => {
-    resolve(module)
-  })
-}
-
-// 优惠券列表
-const CouponList = (resolve) => {
-  import('components/CouponList').then((module) => {
-    resolve(module)
-  })
-}
-
-// 优惠券
-const Vip = (resolve) => {
-  import('components/vip').then((module) => {
-    resolve(module)
-  })
-}
-
-// 宝付快捷支付
-const BaofuFast = (resolve) => {
-  import('components/baofuFast').then((module) => {
-    resolve(module)
-  })
-}
-
-// 提额
-const RaiseCredit = (resolve) => { import('components/raiseCredit').then((module) => { resolve(module) }) }
 // 关于我们
 const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
-
-// 合利宝
-const Helibao = (resolve) => { import('components/helibaoFast').then((module) => { resolve(module) }) }
-
-// 公信宝
-const GXBPass = (resolve) => { import('components/authenticatepass').then((module) => { resolve(module) }) }
-
-// 会员介绍
-const VipIntroduction = (resolve) => { import('components/VipIntroduction').then((module) => { resolve(module) }) }
-
-// 借款流程
-const PayFlow = (resolve) => { import('components/payFlow').then((module) => { resolve(module) }) }
-
-// 手机抵押
-const MortgagePhone = (resolve) => { import('components/mortgagePhone').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -248,14 +95,6 @@ export default new Router({
       path: '/identity-input',
       name: 'identityInput',
       component: IdentityInput
-    }, {
-      path: '/repayment-tip',
-      name: 'repaymentTip',
-      component: RepaymentTip
-    }, {
-      path: '/repayment-way',
-      name: 'repaymentWay',
-      component: RepaymentWay
     }, {
       path: '/bank-list',
       name: 'bankList',
@@ -293,66 +132,6 @@ export default new Router({
       name: 'creditCertification',
       component: CreditCertification
     }, {
-      path: '/services-protocols',
-      name: 'servicesProtocols',
-      component: ServicesProtocols
-    }, {
-      path: '/borrow-list',
-      name: 'borrowList',
-      component: BorrowList
-    }, {
-      path: '/loan-contract',
-      name: 'loanContract',
-      component: LoanContract
-    }, {
-      path: '/auto-repayment',
-      name: 'autoRepayment',
-      component: AutoRepayment
-    }, {
-      path: '/elec-authorization',
-      name: 'elecAuthorization',
-      component: ElecAuthorization
-    }, {
-      path: '/credit-authorization',
-      name: 'creditAuthorization',
-      component: CreditAuthorization
-    }, {
-      path: '/server-protocols',
-      name: 'serverProtocols',
-      component: ServerProtocols
-    }, {
-      path: '/loan-protocols',
-      name: 'loanProtocols',
-      component: LoanProtocols
-    }, {
-      path: '/register-protocol',
-      name: 'registerProtocol',
-      component: RegisterProtocol
-    }, {
-      path: '/privacy-policies',
-      name: 'privacyPolicies',
-      component: PrivacyPolicies
-    }, {
-      path: '/register-privacy',
-      name: 'registerAndPrivacy',
-      component: RegisterAndPrivacy
-    }, {
-      path: '/register-privacy-baoshan',
-      name: 'registerAndPrivacyBaoshan',
-      component: RegisterAndPrivacyBaoshan
-    }, {
-      path: '/coupon-list',
-      name: 'couponList',
-      component: CouponList
-    }, {
-      path: '/vip',
-      name: 'vip',
-      component: Vip
-    }, {
-      path: '/raise-credit',
-      name: 'raiseCredit',
-      component: RaiseCredit
-    }, {
       path: '/about-us',
       name: 'aboutus',
       component: AboutUs
@@ -360,42 +139,6 @@ export default new Router({
       path: '/question',
       name: 'question',
       component: Question
-    }, {
-      path: '/baofu-fast',
-      name: 'baofuFast',
-      component: BaofuFast
-    }, {
-      path: '/vip-protocol',
-      name: 'VipProtocol',
-      component: VipProtocol
-    }, {
-      path: '/helibao-fast',
-      name: 'helibao',
-      component: Helibao
-    }, {
-      path: '/gxb-pass',
-      name: 'GXBPass',
-      component: GXBPass
-    }, {
-      path: '/vip-introduction',
-      name: 'vipIntroduction',
-      component: VipIntroduction
-    }, {
-      path: '/pay-flow',
-      name: 'payFlow',
-      component: PayFlow
-    }, {
-      path: '/letter-commitment',
-      name: 'letterCommitment',
-      component: LetterCommitment
-    }, {
-      path: '/mortgage-phone',
-      name: 'mortgagePhone',
-      component: MortgagePhone
-    }, {
-      path: '/mortgage-protocols',
-      name: 'mortgageProtocols',
-      component: MortgageProtocols
     }
   ]
 })
