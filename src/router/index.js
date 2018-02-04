@@ -8,30 +8,6 @@ const TestList = (resolve) => {
     resolve(module)
   })
 }
-// 借款确认
-const LoanConfirm = (resolve) => {
-  import('components/loanConfirm').then((module) => {
-    resolve(module)
-  })
-}
-// 借款详情
-const LoanDetail = (resolve) => {
-  import('components/loanDetail').then((module) => {
-    resolve(module)
-  })
-}
-// 借款结果
-const LoanResult = (resolve) => {
-  import('components/loanResult').then((module) => {
-    resolve(module)
-  })
-}
-// 还款计划
-const RepaymentLoan = (resolve) => {
-  import('components/repaymentLoan').then((module) => {
-    resolve(module)
-  })
-}
 // 还款提示
 const RepaymentTip = (resolve) => {
   import('components/repaymentTip').then((module) => {
@@ -107,12 +83,6 @@ const BindDebitCard = (resolve) => {
 // 信用认证
 const CreditCertification = (resolve) => {
   import('components/creditCertification').then((module) => {
-    resolve(module)
-  })
-}
-// 费率查询
-const RateQuery = (resolve) => {
-  import('components/rateQuery').then((module) => {
     resolve(module)
   })
 }
@@ -213,13 +183,6 @@ const RegisterAndPrivacyBaoshan = (resolve) => {
   })
 }
 
-// 自动还款协议
-const AutoRepayProtocol = (resolve) => {
-  import('components/autoRepayProtocol').then((module) => {
-    resolve(module)
-  })
-}
-
 // 会员服务协议
 const VipProtocol = (resolve) => {
   import('base/protocols/vipService').then((module) => {
@@ -241,13 +204,6 @@ const Vip = (resolve) => {
   })
 }
 
-// 引流页
-const Guide = (resolve) => {
-  import('page/guide').then((module) => {
-    resolve(module)
-  })
-}
-
 // 宝付快捷支付
 const BaofuFast = (resolve) => {
   import('components/baofuFast').then((module) => {
@@ -255,14 +211,10 @@ const BaofuFast = (resolve) => {
   })
 }
 
-// 活动
-const Activity = (resolve) => { import('components/activity').then((module) => { resolve(module) }) }
 // 提额
 const RaiseCredit = (resolve) => { import('components/raiseCredit').then((module) => { resolve(module) }) }
 // 关于我们
 const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
-// 关于我们
-const AboutUsBaoshan = (resolve) => { import('components/AboutUsBaoshan').then((module) => { resolve(module) }) }
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
@@ -296,22 +248,6 @@ export default new Router({
       path: '/identity-input',
       name: 'identityInput',
       component: IdentityInput
-    }, {
-      path: '/loan-confirm',
-      name: 'loanConfirm',
-      component: LoanConfirm
-    }, {
-      path: '/loan-detail',
-      name: 'loanDetail',
-      component: LoanDetail
-    }, {
-      path: '/loan-result',
-      name: 'loanResult',
-      component: LoanResult
-    }, {
-      path: '/repayment-loan',
-      name: 'repaymentLoan',
-      component: RepaymentLoan
     }, {
       path: '/repayment-tip',
       name: 'repaymentTip',
@@ -356,10 +292,6 @@ export default new Router({
       path: '/credit-certification',
       name: 'creditCertification',
       component: CreditCertification
-    }, {
-      path: '/rate-query',
-      name: 'rateQuery',
-      component: RateQuery
     }, {
       path: '/services-protocols',
       name: 'servicesProtocols',
@@ -409,10 +341,6 @@ export default new Router({
       name: 'registerAndPrivacyBaoshan',
       component: RegisterAndPrivacyBaoshan
     }, {
-      path: '/autorepay-protocol',
-      name: 'autorepayProtocol',
-      component: AutoRepayProtocol
-    }, {
       path: '/coupon-list',
       name: 'couponList',
       component: CouponList
@@ -421,25 +349,13 @@ export default new Router({
       name: 'vip',
       component: Vip
     }, {
-      path: '/activity',
-      name: 'activity',
-      component: Activity
-    }, {
       path: '/raise-credit',
       name: 'raiseCredit',
       component: RaiseCredit
     }, {
-      path: '/guide',
-      name: 'guide',
-      component: Guide
-    }, {
       path: '/about-us',
       name: 'aboutus',
       component: AboutUs
-    }, {
-      path: '/about-us-baoshan',
-      name: 'aboutusbaoshan',
-      component: AboutUsBaoshan
     }, {
       path: '/question',
       name: 'question',

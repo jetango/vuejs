@@ -1,13 +1,5 @@
 <template>
   <div class="test-list">
-    <div class="list-view">
-      <router-link to="/rate-query">
-        <div class="item flex">
-          <p class="flex-grow">费率查询</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
     <h4>信息录入</h4>
     <div class="list-view">
       <router-link to="/identity-input">
@@ -75,22 +67,6 @@
     </div>
 
     <h4>借款信息</h4>
-    <div class="list-view">
-      <router-link :to="{path: '/loan-confirm', query: {productCode: '01', loanAmount: 1000, borrowTime: 7, mobile: '12312312312'}}">
-        <div class="item flex">
-          <p class="flex-grow">借款确认</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
-    <div class="list-view">
-      <router-link :to="{path: '/loan-result'}">
-        <div class="item flex">
-          <p class="flex-grow">借款结果页面</p>
-          <i class="iconfont icon-117"></i>
-        </div>
-      </router-link>
-    </div>
     <div class="list-view">
       <router-link :to="{path: '/loan-detail', query: {orderNo: '1732822000010120171124'}}">
         <div class="item flex">
