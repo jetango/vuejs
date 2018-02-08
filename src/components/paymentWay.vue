@@ -21,6 +21,7 @@
 
 <script type="text/ecmascript-6">
   import {alipay} from 'common/js/drivers'
+  import {pageIdentity} from 'common/js/constants'
   // import * as types from 'config/api-type'
   // import {unionpayPath} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
@@ -63,7 +64,7 @@
         })
       },
       confirmPay() {
-        alipay({successUrl: '/#/evaluate-flow'}, {
+        alipay({successUrl: pageIdentity.EVALUATE_FLOW}, {
           success() {
           }
         })

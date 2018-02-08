@@ -165,13 +165,13 @@ export function gxbCertification(param, cb) {
 }
 
 export function unionPay(param, cb) {
-  _proxy.unionPay(cb)
+  _proxy.unionPay(param, cb)
 }
 
 export function weChatPay(param, cb) {
-  _proxy.weChatPay(cb)
+  _proxy.weChatPay(param, cb)
 }
 
 export function alipay(param, cb) {
-  _proxy.alipay(cb)
+  _proxy.alipay(param, cb)
 }
