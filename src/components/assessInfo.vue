@@ -24,7 +24,7 @@
       </span>
     </p>
     <div class="button-box">
-      <div class="button button-primary">
+      <div class="button button-primary" @click="confirmPay">
         确定并付款
       </div>
     </div>
@@ -34,6 +34,8 @@
 
 <script type="text/ecmascript-6">
   import FooterNotice from 'base/footerNotice/footer-notice'
+  import {navigate} from 'common/js/drivers'
+  import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
       return {
@@ -50,6 +52,9 @@
       },
       checkProtocols: function() {
         console.log('check protocols')
+      },
+      confirmPay() {
+        navigate('PAYMENT_WAY', '支付方式', {url: pageIdentity.PAYMENT_WAY})
       }
     }
   }

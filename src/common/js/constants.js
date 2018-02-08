@@ -188,6 +188,7 @@ export const pageIdentity = {
   'EXTEND_SHOW': '/#/extend-show',                                    // 扩展信息展示
   'DEBIT_CARD': '/#/debit-card',                                      // 借记卡信息录入
   'BANK_LIST': '/#/bank-list',                                        // 银行卡列表
+  'PAYMENT_WAY': '/#/payment-way',                                    // 支付方式
   'CREDIT_CERTIFICATION': '/#/credit-certification',                  // 信用认证
   'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示
   'EVALUATE_FLOW': '/#/evaluate-flow',                                // 评估流程

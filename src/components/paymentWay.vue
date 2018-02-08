@@ -14,13 +14,13 @@
       </div>
     </div>
     <div class="button-box">
-      <a class="button button-primary">确认</a>
+      <a class="button button-primary" @click="confirmPay">确认</a>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  // import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT} from 'common/js/drivers'
+  import {alipay} from 'common/js/drivers'
   // import * as types from 'config/api-type'
   // import {unionpayPath} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
@@ -33,29 +33,38 @@
           {
             className: 'pay-logo-ali',
             name: '支付宝',
-            isChose: false
+            key: 'alipay',
+            isChose: true
           }, {
             className: 'pay-logo-wechat',
             name: '微信',
+            key: 'wechat',
             isChose: false
           }, {
             className: 'pay-logo-union',
             name: '银联',
+            key: 'union',
             isChose: false
           }
         ],
-        payName: ''
+        payKey: 'alipay'
       }
     },
     methods: {
       chosePayWay: function(item) {
-        let payname = item.name
+        let {key} = item
+        this.payKey = key
         this.payWays.forEach(item => {
-          if (payname === item.name) {
+          if (key === item.key) {
             item.isChose = true
-            this.payName = item.name
           } else {
             item.isChose = false
+          }
+        })
+      },
+      confirmPay() {
+        alipay({successUrl: '/#/evaluate-flow'}, {
+          success() {
           }
         })
       }

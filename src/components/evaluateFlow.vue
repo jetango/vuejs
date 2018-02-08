@@ -55,7 +55,7 @@
           </div>
           <div class="content flex-grow">
             <h1>征信入网信息</h1>
-            <h4>对您的征信记录查询分析！</h4>
+            <h4>{{statusKeys.reference == true ? '征信记录查询分析完成！' : '对您的征信记录查询分析！'}}</h4>
           </div>
         </div>
         <div class="flex block last" :class="{'actived': statusKeys.score == true}">
@@ -64,7 +64,7 @@
           </div>
           <div class="content flex-grow">
             <h1>评估分数</h1>
-            <h4>评估结果</h4>
+            <h4>{{statusKeys.score == true ? '评估分数完成！' : '正在评估分数！'}}</h4>
           </div>
         </div>
       </section>
@@ -73,6 +73,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {navigate} from 'common/js/drivers'
+  import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
       return {
@@ -93,8 +95,9 @@
         let self = this
         let interval = setInterval(function() {
           self.statusKeys[arr[i]] = true
-          if (i > arr.length) {
+          if (i === arr.length - 1) {
             clearInterval(interval)
+            navigate('EVALUATE_DATA', '评估结果', {url: pageIdentity.EVALUATE_DATA}, null, 'ROOT')
           }
           i++
         }, 800)
