@@ -20,7 +20,7 @@
     <p class="protocols">
       <i @click="agreeProtocols" :class="{'icon-not-chose': !isChosed}" class="iconfont icon-correct-marked"></i>
       <span @click="agreeProtocols">我已阅读并同意
-          <span style="color: #008aff" @click.stop="checkProtocols">《推荐服务协议》</span>
+            <span style="color: #008aff" @click.stop="checkProtocols">《推荐服务协议》</span>
       </span>
     </p>
     <div class="button-box">
@@ -34,11 +34,13 @@
 
 <script type="text/ecmascript-6">
   import {
-    popup
+    popup,
+    navigate
   } from 'common/js/drivers'
   import FooterNotice from 'base/footerNotice/footer-notice'
-  import {navigate} from 'common/js/drivers'
-  import {pageIdentity} from 'common/js/constants'
+  import {
+    pageIdentity
+  } from 'common/js/constants'
   export default {
     data() {
       return {
@@ -62,7 +64,10 @@
           flag: '1'
         }))
         if (this.isChosed) {
-          navigate('PAYMENT_WAY', '支付方式', {url: pageIdentity.PAYMENT_WAY, param})
+          navigate('PAYMENT_WAY', '支付方式', {
+            url: pageIdentity.PAYMENT_WAY,
+            param
+          })
         } else {
           popup(null, null, '请阅读并同意推荐服务协议')
         }
