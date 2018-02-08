@@ -358,7 +358,7 @@
       line-height: .54rem
       font-size: .28rem
   .button-box
-    padding: 1rem .4rem .4rem
+    padding: 1rem .4rem 1rem
   input
     outline: none
     border: 0

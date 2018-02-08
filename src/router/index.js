@@ -14,12 +14,6 @@ const BankList = (resolve) => {
     resolve(module)
   })
 }
-// 选择借记卡
-const ChooseBank = (resolve) => {
-  import('components/chooseBank').then((module) => {
-    resolve(module)
-  })
-}
 // 身份信息展示
 const IdentityShow = (resolve) => {
   import('components/identityShow').then((module) => {
@@ -74,9 +68,36 @@ const CreditCertification = (resolve) => {
     resolve(module)
   })
 }
-
-// 关于我们
-const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
+// 支付方式
+const PaymentWay = (resolve) => {
+  import('components/paymentWay').then((module) => {
+    resolve(module)
+  })
+}
+// 其他信息
+const ExtendInform = (resolve) => {
+  import('components/extendInform').then((module) => {
+    resolve(module)
+  })
+}
+// 其他信息展示
+const ExtendShow = (resolve) => {
+  import('components/extendShow').then((module) => {
+    resolve(module)
+  })
+}
+// 智能推荐
+const IntelligentRecommend = (resolve) => {
+  import('components/intelligentRecommend').then((module) => {
+    resolve(module)
+  })
+}
+// 评估
+const AssessInfo = (resolve) => {
+  import('components/assessInfo').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
   // mode: 'history',
@@ -97,10 +118,6 @@ export default new Router({
       path: '/bank-list',
       name: 'bankList',
       component: BankList
-    }, {
-      path: '/choose-bank',
-      name: 'chooseBank',
-      component: ChooseBank
     }, {
       path: '/contactinfo-input',
       name: 'contactInfoInput',
@@ -130,9 +147,25 @@ export default new Router({
       name: 'creditCertification',
       component: CreditCertification
     }, {
-      path: '/about-us',
-      name: 'aboutus',
-      component: AboutUs
+      path: '/payment-way',
+      name: 'paymentWay',
+      component: PaymentWay
+    }, {
+      path: '/extend-inform',
+      name: 'ExtendInform',
+      component: ExtendInform
+    }, {
+      path: '/extend-show',
+      name: 'ExtendShow',
+      component: ExtendShow
+    }, {
+      path: '/intelligent-recommend',
+      name: 'IntelligentRecommend',
+      component: IntelligentRecommend
+    }, {
+      path: '/assess-info',
+      name: 'AssessInfo',
+      component: AssessInfo
     }
   ]
 })

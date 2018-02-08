@@ -339,22 +339,22 @@ apiRoutes.post('/user/bank', function(req, res) {
 /**
  * 借记卡列表展示
  */
-apiRoutes.post('/user/bank-list', function(req, res) {
+apiRoutes.post('/bank-list/auth', function(req, res) {
   var result = {
     status: '0',
     msg: 'success',
     data: [{
       bankName: '工商银行',
       accountType: '借记卡',
-      accountNumber: '6228000666688880000'
+      bankAccount: '6228000666688880000'
     }, {
       bankName: '招商银行',
       accountType: '借记卡',
-      accountNumber: '6228000666688884487'
+      bankAccount: '6228000666688884487'
     }, {
       bankName: '建设银行',
       accountType: '借记卡',
-      accountNumber: '6228000666688882546'
+      bankAccount: '6228000666688882546'
     }]
   }
   responseData(res, result)
@@ -577,6 +577,40 @@ apiRoutes.post('repay/bill', function(req, res) {
       "billStatus": "F006" // 还款状态
     }
   }
+  responseData(res, result)
+})
+/**
+ * 扩展信息保存
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/saveOrUpdate', function(req, res) {
+  var result = {
+    "status": "0",
+    "msg": "success",
+    "data": {}
+  }
+  responseData(res, result)
+})
+/**
+ * 扩展信息查询
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/query', function(req, res) {
+  var result = {
+    "status": "0",
+    "msg": "success",
+    "data": {
+      "email": "448422895@qq.com",
+      "qqNumber": "448422895",
+      "wechatNumber": "15959369312",
+      "userId": "173431600002"
+    }
+  }
+  responseData(res, result)
 })
 
 
@@ -589,19 +623,20 @@ apiRoutes.post('repay/bill', function(req, res) {
 //
 // const apiOrderProxy = proxyMiddleware('/api/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
 
-const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://192.168.10.23:9003', changeOrigin: true})
-const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
-const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
-const apiMemberProxy = proxyMiddleware('/member', {target: 'http://192.168.10.23:9004', changeOrigin: true})
-const apiRepayProxy = proxyMiddleware('/repay', {target: 'http://192.168.10.25:9400', changeOrigin: true})
+// const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://192.168.10.23:9003', changeOrigin: true})
+// const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.10.23:9000', changeOrigin: true})
+// const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.10.23:9001', changeOrigin: true})
+// const apiMemberProxy = proxyMiddleware('/member', {target: 'http://192.168.10.23:9004', changeOrigin: true})
+// const apiRepayProxy = proxyMiddleware('/repay', {target: 'http://192.168.10.25:9400', changeOrigin: true})
 
-app.use('/application', apiUserApplicationProxy)
-app.use('/user', apiUserAPPProxy)
-app.use('/order', apiOrderProxy)
-app.use('/member', apiMemberProxy)
-app.use('/repay', apiRepayProxy)
+// app.use('/application', apiUserApplicationProxy)
+// app.use('/user', apiUserAPPProxy)
+// app.use('/order', apiOrderProxy)
+// app.use('/member', apiMemberProxy)
+// app.use('/repay', apiRepayProxy)
 
-// app.use('/api', apiRoutes)
+app.use('/user', apiRoutes)
+app.use('/userExtend', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,

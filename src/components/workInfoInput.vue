@@ -32,6 +32,11 @@
         <div>{{workInfo.salary ? workInfo.salary : '请选择'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
+      <div class="item flex" @click="hiredateSelected()">
+        <div class="flex-grow title">入职时间</div>
+        <div>{{workInfo.hiredate ? workInfo.hiredate : '请选择'}}</div>
+        <i class="iconfont icon-117"></i>
+      </div>
     </div>
     <div class="button-box">
       <div class="button button-primary" @click="saveWorkInfo()">
@@ -54,7 +59,8 @@
   import {
     doPost,
     popup,
-    endPage, eeLogUBT
+    endPage,
+    eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
@@ -69,7 +75,8 @@
           companyDistrict: '',
           companyAddress: '',
           telephone: '',
-          salary: ''
+          salary: '',
+          hiredate: ''
         }
       }
     },
@@ -129,6 +136,10 @@
       },
       addressSelected() {
         this.addressPicker.show()
+        eeLogUBT('JobInfomation.Action.CompanyAddress', 'click')
+      },
+      hiredateSelected: function() {
+        this.hiredatePicker.show()
         eeLogUBT('JobInfomation.Action.CompanyAddress', 'click')
       },
       _validate(params) {
@@ -212,6 +223,64 @@
             this.addressPicker.refillColumn(2, dists[provinces[this.provinceIdx].value + '$$' + citys[provinces[this.provinceIdx].value][selectedIndex].value])
           }
         })
+      },
+      _initHiredate: function() {
+        let years = []
+        let months = []
+        let days = []
+        let yearIndex = 0
+        let currentYear = Number(new Date().getFullYear())
+        for (let i = 0; i < 49; i++) {
+          let item = currentYear - i
+          years.push({
+            text: item + '年',
+            value: item + '年'
+          })
+          i > 0 && i < 13 && months.push({
+            text: i + '月',
+            value: i + '月'
+          })
+          i > 0 && i < 32 && days.push({
+            text: i + '日',
+            value: i + '日'
+          })
+        }
+        let pickerDays = days.slice(0)
+        this.hiredatePicker = new Picker({
+          'data': [years, months, pickerDays],
+          'selectedIndex': [0, 0, 0]
+        })
+        this.hiredatePicker.on('picker.select', (val, selectedIndex) => {
+          let year = years[selectedIndex[0]].value
+          let month = months[selectedIndex[1]].value
+          month = month.substring(0, month.length - 1)
+          let day = days[selectedIndex[2]].value
+          day = day.substring(0, day.length - 1)
+          let date = `${year.substring(0, year.length - 1)}-${month >= 10 ? month : 0 + month}-${day >= 10 ? day : 0 + day}`
+          this.workInfo.hiredate = date
+        })
+        this.hiredatePicker.on('picker.change', (index, selectedIndex) => {
+          if (index === 0) {
+            let pickerYear = years[selectedIndex].value
+            pickerYear = pickerYear.substring(0, pickerYear.length - 1)
+            yearIndex = selectedIndex
+            pickerYear % 4 === 0 ? this.hiredatePicker.refillColumn(2, days.slice(0, 29)) : this.hiredatePicker.refillColumn(2, days.slice(0, 28))
+          } else if (index === 1) {
+            let month = months[selectedIndex].value
+            month = month.substring(0, month.length - 1)
+            let bigMonth = '135781012'
+            let smallMonth = '46911'
+            if (month === '2') {
+              let pickerYear = years[yearIndex].value
+              pickerYear = pickerYear.substring(0, pickerYear.length - 1)
+              pickerYear % 4 === 0 ? this.hiredatePicker.refillColumn(2, days.slice(0, 29)) : this.hiredatePicker.refillColumn(2, days.slice(0, 28))
+            } else if (bigMonth.indexOf(month) > -1) {
+              this.hiredatePicker.refillColumn(2, days.slice(0, 31))
+            } else if (smallMonth.indexOf(month) > -1) {
+              this.hiredatePicker.refillColumn(2, days.slice(0, 30))
+            }
+          }
+        })
       }
     },
     computed: {
@@ -223,6 +292,7 @@
       this._initPositionPicker()
       this._initSalaryPicker()
       this._initAddress()
+      this._initHiredate()
       eeLogUBT('JobInfomation.Load.Goin', 'goin')
     }
   }

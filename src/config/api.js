@@ -25,5 +25,7 @@ export default {
   [types.QUIKPAY]: '/pay/hlb/quikPay',
   [types.DIRECTPAY]: '/pay/hlb/directPay',
   [types.BILL_HELIBAO]: '/zeus/bill/helibao',
-  [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token'
+  [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token',
+  [types.EXTEND_SAVE]: '/userExtend/saveOrUpdate',
+  [types.EXTEND_QUERY]: '/userExtend/query'
 }

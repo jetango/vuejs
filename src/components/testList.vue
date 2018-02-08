@@ -101,6 +101,46 @@
         </div>
       </router-link>
     </div>
+    <div class="list-view">
+      <router-link to="/payment-way">
+        <div class="item flex">
+          <p class="flex-grow">支付方式</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/extend-inform">
+        <div class="item flex">
+          <p class="flex-grow">扩展信息</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/extend-show">
+        <div class="item flex">
+          <p class="flex-grow">扩展信息展示</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/intelligent-recommend">
+        <div class="item flex">
+          <p class="flex-grow">智能推荐</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link to="/assess-info">
+        <div class="item flex">
+          <p class="flex-grow">评估</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
 
     <div class="list-view">
       <router-link :to="{path: '/about-us', query: {version: '0.0.1'}}">

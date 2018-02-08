@@ -36,9 +36,6 @@
     created: function() {
       this.init()
     },
-    mounted() {
-      document.title = '银行卡列表'
-    },
     methods: {
       _getBgClass(key) {
         if (!key) {
@@ -63,11 +60,13 @@
       addBankCard: function() {
         let self = this
         eeLogUBT('BankCard.Action.Add.Submit', 'click')
-        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=bank_list'}, {
+        navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'}, {
           success: function(oData) {
             self.init()
           },
-          error: function() {}
+          error: function(oData) {
+            popup(null, null, oData.msg || '绑定银行卡失败')
+          }
         })
       }
     },
@@ -88,7 +87,7 @@
     background-color: #ffffff
     padding-left: .4rem
     &:active
-      background-color: #e4e5e7
+      background-color: #e1e1e1
 
   .bank-name
     height: 1rem
@@ -117,6 +116,7 @@
   .button
     width:90%
     margin: 0 auto
+
   .button-box
     padding: 1rem .4rem 0
 
