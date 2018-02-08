@@ -643,7 +643,7 @@ apiRoutes.post('/borrow/auth', function(req, res) {
           maxLoanDay: "1"
         }
       ]
-      
+
     }
   }
   responseData(res, result)
@@ -659,6 +659,37 @@ apiRoutes.post('/ali/appPay', function(req, res) {
     status: "0",
     msg: "success",
     data: {}
+  }
+  responseData(res, result)
+})
+
+/**
+ * 审核流程接口
+ */
+var statusData =  {
+  'one': '0',
+  'two': '0',
+  'three': '0',
+  'four': '0',
+  'five': '0',
+  'six': '0'
+}
+var keyMap = {
+  1: 'one',
+  2: 'two',
+  3: 'three',
+  4: 'four',
+  5: 'five',
+  6: 'six'
+}
+var index = 0
+apiRoutes.post('/audit/flow/auth', function(req, res) {
+  index++
+  statusData[keyMap[index]] = '1'
+  var result = {
+    status: '0',
+    msg: '',
+    data: statusData
   }
   responseData(res, result)
 })
