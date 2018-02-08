@@ -169,6 +169,14 @@
       </router-link>
     </div>
     <div class="list-view">
+      <router-link :to="{path: '/audit-flow'}">
+        <div class="item flex">
+          <p class="flex-grow">审核流程</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
       <router-link :to="{path: '/download-list'}">
         <div class="item flex">
           <p class="flex-grow">下载地址</p>

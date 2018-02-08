@@ -184,35 +184,20 @@ export const pageIdentity = {
   'CONTACTINFO_DETAIL': '/#/contactinfo-detail',                      // 联系人信息显示
   'WORKINFO_INPUT': '/#/workinfo-input',                              // 工作信息录入
   'WORKINFO_DETAIL': '/#/workInfo-detail',                            // 工作信息展示
+  'EXTEND_INFORM': '/#/extend-inform',                                // 扩展信息录入
+  'EXTEND_SHOW': '/#/extend-show',                                    // 扩展信息展示
   'DEBIT_CARD': '/#/debit-card',                                      // 借记卡信息录入
-  'CREDIT_CERTIFICATION': '/#/credit-certification',                  // 信用认证
   'BANK_LIST': '/#/bank-list',                                        // 银行卡列表
-  'CHOOSE_BANK': '/#/choose-bank',                                    // 选择银行卡
-  'LOAN_CONFIRM': '/#/loan-confirm',                                  // 借款确认页面
-  'LOAN_RESULT': '/#/loan-result',                                    // 借款结果页面
-  'LOAN_DETAIL': '/#/loan-detail',                                    // 借款详情页面
-  'LOAN_CONTRACT': '/#/loan-contract',                                // 借款合同
-  'BORROW_LIST': '/#/borrow-list',                                    // 借款记录
-  'REPAYMENT_TIP': '/#/repayment-tip',                                // 发起还款页面
-  'REPAYMENT_LOAN': '/#/repayment-loan',                              // 还款计划
-  'REPAYMENT_WAY': '/#/repayment-way',                                // 还款方式
-  'RATE_QUERY': '/#/rate-query',                                      // 还款费率
-  'SERVICES_PROTOCOLS': '/#/services-protocols',                      // 我同意xxxx协议
-  'AUTOREPAY_PROTOCOL': '/#/autorepay-protocol',                      // 同意代扣协议
-  'REGISTER_PRIVACY': '/#/register-privacy',                          // 用户登录协议
-  'COUPON_LIST': '/#/coupon-list',                                    // 优惠券列表
-  'VIP': '/#/vip',                                                    // 会员
-  'RAISE_CREDIT': '/#/raise-credit',                                  // 提额
-  'ACTIVITY': '/#/activity',                                          // 活动列表
-  'ABOUT_US': '/#/about-us',                                          // 活动列表
-  'QUESTION': '/#/question',                                          // 常见问题
-  'BAOFUFAST': '/#/baofu-fast',                                       // 快捷支付
-  'VIP_PROTOCOL': '/#/vip-protocol',                                  // 会员协议
-  'HELIBAO_PAY': '/#/helibao-fast',                                   // 合利宝快捷支付
-  'PAY_FLOW': '/#/pay-flow',                                          // 借款流程
-  'VIP_INTRODUCTION': '/#/vip-introduction',                          // 会员介绍
-  'MORTGAGE_PHONE': '/#/mortgage-phone',                              // 手机抵押
-  'MORTGAGE_PROTOCOLS': '/#/mortgage-protocols'                       // 抵押合同
+  'CREDIT_CERTIFICATION': '/#/credit-certification',                  // 信用认证
+  'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示
+  'EVALUATE_FLOW': '/#/evaluate-flow',                                // 评估流程
+  'EVALUATE_DATA': '/#/evaluate-data',                                // 评估结果数据
+  'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐
+  'AUDIT_FLOW': '/#/audit-flow',                                      // 审核流程
+  'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
+  'ORDER_LIST': '/#/order-list',                                      // 订单列表
+  'ABOUT_US': '/#/about-us',                                          // 关于我们
+  'QUESTION': '/#/question'                                           // 常见问题
 }
 
 export const positionItems = {

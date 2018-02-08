@@ -7,64 +7,64 @@
           <img class="loading rotate-infinite" src="~common/image/JQR_da_002.png">
         </div>
         <div class="flex flex-justify flex-item">
-          <span>正在对您的征信智能评估...</span>
+          <span>信息推送至银行中...</span>
         </div>
       </div>
     </div>
     <div class="flow-box">
       <section class="time-line">
-        <div class="flex block first" :class="{'actived': statusKeys.indentityInfo == true}">
+        <div class="flex block first" :class="{'actived': statusKeys.one == '1'}">
           <div class="icon">
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>身份信息</h1>
-            <h4>{{statusKeys.indentityInfo ? '身份信息审核成功！' : '正在身份信息审核！'}}</h4>
+            <h1>同步信誉评分</h1>
+            <h4>{{statusKeys.one == '1' ? '同步信誉评分成功！' : '正在同步信誉评分！'}}</h4>
           </div>
         </div>
-        <div class="flex block" :class="{'actived': statusKeys.workInfo == true}">
+        <div class="flex block" :class="{'actived': statusKeys.two == '1'}">
           <div class="icon">
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>工作信息</h1>
-            <h4>{{statusKeys.workInfo ? '工作信息审核成功！' : '正在工作信息审核！'}}</h4>
+            <h1>传输征信数据</h1>
+            <h4>{{statusKeys.two == '1' ? '传输征信数据成功！' : '正在传输征信数据！'}}</h4>
           </div>
         </div>
-        <div class="flex block" :class="{'actived': statusKeys.contactInfo == true}">
+        <div class="flex block" :class="{'actived': statusKeys.three == '1'}">
           <div class="icon">
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>联系人信息</h1>
-            <h4>{{statusKeys.contactInfo ? '联系人信息审核成功！' : '正在联系人信息审核！'}}</h4>
+            <h1>验证征信信息</h1>
+            <h4>{{statusKeys.three == '1' ? '验证征信信息成功！' : '正在验证征信信息！'}}</h4>
           </div>
         </div>
-        <div class="flex block" :class="{'actived': statusKeys.authenticate == true}">
+        <div class="flex block" :class="{'actived': statusKeys.four == '1'}">
           <div class="icon">
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>信用认证</h1>
-            <h4>{{statusKeys.authenticate ? '信用信息评估成功！' : '正在信用信息评估！'}}</h4>
+            <h1>生成验证码信息</h1>
+            <h4>{{statusKeys.three == '1' ? '生成验证码信息成功！' : '正在生成验证码信息！'}}</h4>
           </div>
         </div>
-        <div class="flex block" :class="{'actived': statusKeys.reference == true}">
+        <div class="flex block" :class="{'actived': statusKeys.five == '1'}">
           <div class="icon">
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>征信入网信息</h1>
-            <h4>对您的征信记录查询分析！</h4>
+            <h1>接受验证码</h1>
+            <h4>{{statusKeys.five == '1' ? '接受验证码成功！' : '正在接受验证码！'}}</h4>
           </div>
         </div>
-        <div class="flex block last" :class="{'actived': statusKeys.score == true}">
+        <div class="flex block last" :class="{'actived': statusKeys.six == true}">
           <div class="icon">
             <i class="iconfont icon-correct-marked"></i>
           </div>
           <div class="content flex-grow">
-            <h1>评估分数</h1>
-            <h4>评估结果</h4>
+            <h1>生成订单</h1>
+            <h4>{{statusKeys.six == '1' ? '生成订单成功！' : '正在生成订单！'}}</h4>
           </div>
         </div>
       </section>
@@ -77,18 +77,18 @@
     data() {
       return {
         statusKeys: {
-          indentityInfo: false,
-          workInfo: false,
-          contactInfo: false,
-          authenticate: false,
-          reference: false, // 征信
-          score: false
+          one: '0',
+          two: '0',
+          three: '0',
+          four: '0',
+          five: '0', // 征信
+          six: '0'
         }
       }
     },
     methods: {
       _changeStatus() {
-        let arr = ['indentityInfo', 'workInfo', 'contactInfo', 'authenticate', 'reference', 'score']
+        let arr = ['one', 'two', 'three', 'four', 'five', 'six']
         let i = 0
         let self = this
         let interval = setInterval(function() {

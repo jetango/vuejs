@@ -107,6 +107,12 @@ const EvaluateData = (resolve) => { import('components/EvaluateData').then((modu
 const EvaluateFlow = (resolve) => { import('components/EvaluateFlow').then((module) => { resolve(module) }) }
 // 下载列表
 const DownloadList = (resolve) => { import('components/downloadList').then((module) => { resolve(module) }) }
+// 审核流程
+const AuditFlow = (resolve) => { import('components/auditFlow').then((module) => { resolve(module) }) }
+// 关于我们
+const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
+// 常见问题
+const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -191,6 +197,18 @@ export default new Router({
       path: '/download-list',
       name: 'downloadList',
       component: DownloadList
+    }, {
+      path: '/audit-flow',
+      name: 'auditFlow',
+      component: AuditFlow
+    }, {
+      path: '/about-us',
+      name: 'aboutUs',
+      component: AboutUs
+    }, {
+      path: '/question',
+      name: 'question',
+      component: Question
     }
   ]
 })
