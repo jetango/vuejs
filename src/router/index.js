@@ -99,6 +99,15 @@ const AssessInfo = (resolve) => {
   })
 }
 
+// 订单列表
+const OrderList = (resolve) => { import('components/orderList').then((module) => { resolve(module) }) }
+// 评估数据
+const EvaluateData = (resolve) => { import('components/EvaluateData').then((module) => { resolve(module) }) }
+// 评估流程
+const EvaluateFlow = (resolve) => { import('components/EvaluateFlow').then((module) => { resolve(module) }) }
+// 下载列表
+const DownloadList = (resolve) => { import('components/downloadList').then((module) => { resolve(module) }) }
+
 export default new Router({
   // mode: 'history',
   routes: [
@@ -166,6 +175,26 @@ export default new Router({
       path: '/assess-info',
       name: 'AssessInfo',
       component: AssessInfo
+    }, {
+      path: '/about-us',
+      name: 'aboutus',
+      component: AboutUs
+    }, {
+      path: '/order-list',
+      name: 'orderList',
+      component: OrderList
+    }, {
+      path: '/evaluate-data',
+      name: 'evaluateData',
+      component: EvaluateData
+    }, {
+      path: '/evaluate-flow',
+      name: 'evaluateFlow',
+      component: EvaluateFlow
+    }, {
+      path: '/download-list',
+      name: 'downloadList',
+      component: DownloadList
     }
   ]
 })
