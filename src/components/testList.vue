@@ -151,6 +151,40 @@
       </router-link>
     </div>
 
+    <h4>审核</h4>
+    <div class="list-view">
+      <router-link :to="{path: '/evaluate-flow'}">
+        <div class="item flex">
+          <p class="flex-grow">评估流程</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link :to="{path: '/evaluate-data'}">
+        <div class="item flex">
+          <p class="flex-grow">评估数据</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link :to="{path: '/download-list'}">
+        <div class="item flex">
+          <p class="flex-grow">下载地址</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link :to="{path: '/order-list'}">
+        <div class="item flex">
+          <p class="flex-grow">订单列表</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+
     <div class="list-view">
       <a href="http://120.132.102.112:8768/pay/ali/wapPay">
         <div class="item flex">
