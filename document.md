@@ -42,7 +42,8 @@ export const pageIdentity = {
 
 ### 3. 通知原生APP调用`支付宝`支付
 `iOS API: ` plugin://alipay?callback=${encodeURIComponent(name)}&param=${encodeURIComponent(JSON.stringify(param))}           
-`Android API: ` window.android.plugin('alipay', JSON.stringify({ callback: name, param: param }))
+`Android API: ` window.android.plugin('alipay', JSON.stringify({ callback: name, param: param }))         
+
 `
 param: {
     successUrl: '/#/evaluate-flow'  // 成功回调页面
