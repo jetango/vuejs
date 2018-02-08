@@ -44,6 +44,10 @@ export const pageIdentity = {
 `iOS API: ` plugin://alipay?callback=${encodeURIComponent(name)}&param=${encodeURIComponent(JSON.stringify(param))}           
 `Android API: ` window.android.plugin('alipay', JSON.stringify({ callback: name, param: param }))
 
+param: {
+    successUrl: '/#/evaluate-flow'  // 成功回调页面
+}
+
 **response data**
 
 ```
