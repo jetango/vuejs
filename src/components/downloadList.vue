@@ -1,7 +1,7 @@
 <template>
   <div class="download-list">
     <div class="download-item flex flex-item">
-      <img src="~common/image/Communal_nyd_2x_001.png">
+      <img src="~common/image/tueijian_icon_001.png">
       <div class="flex-grow">
         <div class="title">大行贷（5000元-10000元）</div>
         <div class="desc">放款快，额度高</div>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="download-item flex flex-item">
-      <img src="~common/image/Communal_nyd_2x_001.png">
+      <img src="~common/image/tueijian_icon_001.png">
       <div class="flex-grow">
         <div class="title">大行贷（5000元-10000元）</div>
         <div class="desc">放款快，额度高</div>

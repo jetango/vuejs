@@ -8,7 +8,7 @@
     </div>
 
     <div class="source-item flex flex-item">
-      <img src="~common/image/Communal_nyd_2x_001.png">
+      <img src="~common/image/tueijian_icon_001.png">
       <div class="flex-grow">
         <div class="title">大行贷（5000元-10000元）</div>
         <div class="code">借款验证码 <span>BA31AD4821</span></div>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="source-item flex flex-item">
-      <img src="~common/image/Communal_nyd_2x_001.png">
+      <img src="~common/image/tueijian_icon_001.png">
       <div class="flex-grow">
         <div class="title">大行贷（5000元-10000元）</div>
         <div class="code">借款验证码 <span>BA31AD4821</span></div>

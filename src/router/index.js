@@ -176,10 +176,6 @@ export default new Router({
       name: 'AssessInfo',
       component: AssessInfo
     }, {
-      path: '/about-us',
-      name: 'aboutus',
-      component: AboutUs
-    }, {
       path: '/order-list',
       name: 'orderList',
       component: OrderList
