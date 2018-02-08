@@ -126,7 +126,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link to="/intelligent-recommend">
+      <router-link :to="{path:'/intelligent-recommend',query:{loanAmount: 3000, borrowPeriods: 5}}">
         <div class="item flex">
           <p class="flex-grow">智能推荐</p>
           <i class="iconfont icon-117"></i>

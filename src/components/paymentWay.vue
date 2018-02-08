@@ -5,115 +5,57 @@
       <span v-html="payAmount + '元'"></span>
     </div>
     <div class="pay-way-list">
-      <div v-for="item in staticPayWay" :key="item.payWayName" class="list-item flex flex-item active" @click="chosepayment(item)">
-        <i class="iconfont" :class="item.iconClass"></i>
-        <p class="flex-grow" v-html="item.payWayName"></p>
-        <i :class="{'chosed': item.isChose}" class="iconfont icon-correct-marked"></i>
+      <div class="list-item flex flex-item active" v-for="item in payWays" :key="item.name" @click="chosePayWay(item)">
+        <div :class="item.className"></div>
+        <p class="pay-title flex-grow">{{item.name}}</p>
+        <div class="select-bg">
+          <img v-show="item.isChose" src="~common/image/tueijian_icon_003.png">
+        </div>
       </div>
     </div>
     <div class="button-box">
-      <a class="button button-primary" @click="payLoan">确认还款</a>
+      <a class="button button-primary">确认</a>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT} from 'common/js/drivers'
-  import * as types from 'config/api-type'
-  import {unionpayPath} from 'common/js/constants'
-  import { Base64 } from 'js-base64'
+  // import {doPost, popup, weChatPay, alipay, navigate, eeLogUBT} from 'common/js/drivers'
+  // import * as types from 'config/api-type'
+  // import {unionpayPath} from 'common/js/constants'
+  // import { Base64 } from 'js-base64'
 
   export default {
     data() {
       return {
         payAmount: '',
-        staticPayWay: [{
-          iconClass: 'icon-house',
-          payWayName: '微信支付',
-          type: 'wechat',
-          isChose: false
-        }, {
-          iconClass: 'icon-102',
-          payWayName: '支付宝',
-          type: 'alipay',
-          isChose: false
-        }, {
-          iconClass: 'icon-161',
-          payWayName: '银联',
-          type: 'unionPay',
-          isChose: false
-        }],
-        confirmPayWay: {}
+        payWays: [
+          {
+            className: 'pay-logo-ali',
+            name: '支付宝',
+            isChose: false
+          }, {
+            className: 'pay-logo-wechat',
+            name: '微信',
+            isChose: false
+          }, {
+            className: 'pay-logo-union',
+            name: '银联',
+            isChose: false
+          }
+        ],
+        payName: ''
       }
     },
-    created: function() {
-      let {payAmount, billNo} = this.$route.query
-      this.payAmount = payAmount || 0
-      this.billNo = billNo
-    },
-    mounted() {
-      eeLogUBT('RepayWay.Load.Goin', 'goin')
-    },
     methods: {
-      init: function() {
-        doPost(types.BANK_LIST, {}, {
-          success: (oData) => {
-            let payWayList = oData.data
-            let len = payWayList.length - 1
-            payWayList.reverse().forEach((element, index) => {
-              let bankAccount = element.bankAccount
-              this.staticPayWay.unshift({
-                iconClass: 'icon-140',
-                payWayName: element.bankName + '&nbsp;&nbsp;' + bankAccount.substring(bankAccount.length - 4, bankAccount.length),
-                bankAccount: bankAccount,
-                isChose: (index === len)
-              })
-            })
-            this.confirmPayWay = this.staticPayWay[0]
-          },
-          error: (oData) => {
-            popup(null, null, oData.msg || '获取数据失败，请稍后再试！')
-          }
-        })
-      },
-      payLoan: function() {
-        let {type, bankAccount} = this.confirmPayWay
-        let {payAmount, billNo} = this.$route.query
-        eeLogUBT('RepayWay.Action.Submit', 'click')
-        if (type === 'wechat') {
-          weChatPay({payAmount, billNo}, {
-            success: function(oData) {
-
-            },
-            error: function(oData) {
-
-            }
-          })
-        } else if (type === 'alipay') {
-          alipay({payAmount, billNo}, {
-            success: function(oData) {
-            },
-            error: function(oData) {
-
-            }
-          })
-        } else if (type === 'unionPay') {
-          let {payAmount, billNo, orderNo, userId} = this.$route.query
-          let param = `orderNo=${orderNo}&userId=${userId}&billNo=${billNo}&payAmount=${payAmount}`
-          let url = `${unionpayPath}?${Base64.encode(param)}`
-          navigate('UNIONPAY', '中国银联', {url: url, param: '', type: 'TARGET'}, null)
-        } else if (bankAccount) {
-          // 直接代扣
-          doPost()
-        }
-      },
-      chosepayment: function(res) {
-        this.staticPayWay.forEach(element => {
-          if (res.payWayName === element.payWayName) {
-            element.isChose = true
-            this.confirmPayWay = element
+      chosePayWay: function(item) {
+        let payname = item.name
+        this.payWays.forEach(item => {
+          if (payname === item.name) {
+            item.isChose = true
+            this.payName = item.name
           } else {
-            element.isChose = false
+            item.isChose = false
           }
         })
       }
@@ -131,6 +73,31 @@
 
   .pay-way-list
     background-color: #fff
+    .pay-title
+      padding-left: .2rem
+    .select-bg
+      width: .52rem
+      height: .52rem
+      background: url('~common/image/tueijian_icon_002.png') no-repeat
+      background-size: 100% 100%
+      img
+        width: .52rem
+        height: .52rem
+    .pay-logo-ali
+      width: .74rem
+      height: .74rem
+      background: url('~common/image/haunkuan_fangshi_icon_002.png') no-repeat
+      background-size: 100% 100%
+    .pay-logo-wechat
+      width: .74rem
+      height: .74rem
+      background: url('~common/image/haunkuan_fangshi_icon_003.png') no-repeat
+      background-size: 100% 100%
+    .pay-logo-union
+      width: .74rem
+      height: .74rem
+      background: url('~common/image/haunkuan_fangshi_icon_001.png') no-repeat
+      background-size: 100% 100%
 
   .list-item
     height: 1rem
