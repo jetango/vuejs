@@ -105,4 +105,8 @@
   :focus
     text-align: left
 
+  .item
+    &:active
+      background: #fff !important
+
 </style>

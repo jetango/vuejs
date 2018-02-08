@@ -26,6 +26,8 @@ export default {
   [types.DIRECTPAY]: '/pay/hlb/directPay',
   [types.BILL_HELIBAO]: '/zeus/bill/helibao',
   [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token',
-  [types.EXTEND_SAVE]: '/user/userExtend/saveOrUpdate',
-  [types.EXTEND_QUERY]: '/userExtend/query'
+  [types.EXTEND_SAVE]: '/user/userExtend/saveOrUpdate/auth',
+  [types.EXTEND_QUERY]: '/user/userExtend/query/auth',
+  [types.INTELLIGENT_RECOMMEND]: '/order/borrow/auth',
+  [types.ALI_APPPAY]: '/pay/ali/appPay'
 }

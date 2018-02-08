@@ -3,27 +3,27 @@
     <div class="amount-stage">
       <div class="item active">
         <span>借款金额</span>
-        <span>{{borrowAmount + '元'}}</span>
+        <span>{{loanAmount + '元'}}</span>
       </div>
       <div class="item">
         <span>借款期限</span>
-        <span>{{borrowStage + '期'}}</span>
+        <span>{{borrowPeriods + '期'}}</span>
       </div>
     </div>
     <div class="recommend">
       <div class="product-item flex flex-item" v-for="item in productList" :key="item.productDesc">
         <img class="logo" src="~common/image/tueijian_icon_001.png">
         <div class="item-content flex-grow">
-          <p class="desc-a">(5000元-10000元)1、2、3期</p>
-          <p class="desc-b">{{item.productDesc}}</p>
+          <p class="desc-a">{{'(' + item.minPrincipal + '元-' + item.maxPrincipal + '元)，最高' + item.maxLoanDay + '期'}}</p>
+          <p class="desc-b">{{item.appDescription}}</p>
         </div>
         <div class="select-bg" @click="selectProduct(item)">
-          <img v-show="item.isSelected" src="~common/image/tueijian_icon_003.png">
+          <img src="~common/image/tueijian_icon_003.png">
         </div>
       </div>
     </div>
     <div class="recommend-cost">
-      消耗推荐费：{{recommendCost + '元'}}
+      消耗推荐费：{{recommendCost ? recommendCost + '元' : ''}}
     </div>
     <div class="recommend-intro">
       <div class="recommend-title">
@@ -39,14 +39,14 @@
       </div>
     </div>
     <p class="protocols">
-      <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>
+      <i @click="agreeProtocols" :class="{'icon-not-chose': !isChosed}" class="iconfont icon-correct-marked"></i>
       <span @click="agreeProtocols">我已阅读并同意
         <span style="color: #008aff" @click.stop="checkProtocols">《推荐服务协议》</span>
       </span>
     </p>
     <div class="button-box">
-      <div class="button button-primary">
-        提交
+      <div class="button button-primary" @click="confirm">
+        确认
       </div>
     </div>
 
@@ -54,25 +54,44 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    popup,
+    doPost,
+    log
+  } from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        borrowAmount: '3000',
-        borrowStage: '2',
-        productList: [
-          {
-            productDesc: '放款比较慢，通过率一般',
-            isSelected: false
-          }, {
-            productDesc: '放款比较慢，通过率一般12212',
-            isSelected: false
-          }
-        ],
-        recommendCost: '300',
+        loanAmount: '',
+        borrowPeriods: '',
+        productList: [],
+        recommendCost: '',
         isChosed: false
       }
     },
     methods: {
+      initPage() {
+        doPost(types.INTELLIGENT_RECOMMEND, {
+          loanAmount: this.$route.query.loanAmount,
+          borrowPeriods: this.$route.query.borrowPeriods
+        }, {
+          success: (oData) => {
+            if (oData.status === '0') {
+              this.recommendCost = oData.data.recAmount
+              this.productList = oData.data.appProductInfoList
+            }
+          },
+          error: (oData) => {
+            log('', oData)
+            popup('', '', oData.msg || '保存信息失败')
+          }
+        })
+      },
+      initParamData: function() {
+        this.loanAmount = this.$route.query.loanAmount
+        this.borrowPeriods = this.$route.query.borrowPeriods
+      },
       agreeProtocols: function() {
         this.isChosed = !this.isChosed
       },
@@ -80,8 +99,38 @@
         console.log('check protocols')
       },
       selectProduct: function(item) {
-        item.isSelected = !item.isSelected
+        item.isSelected = item.isSelected
+      },
+      confirm: function() {
+        if (this.isChosed) {
+          doPost(types.ALI_APPPAY, {
+            subject: '银码头XXX',
+            amount: '300',
+            flag: '2',
+            loanAmount: this.loanAmount,
+            borrowPeriods: this.borrowPeriods
+          }, {
+            success: (oData) => {
+              if (oData.status === '0') {
+                popup(null, null, oData.msg)
+              }
+            },
+            error: (oData) => {
+              log('', oData)
+              popup('', '', oData.msg || '保存信息失败')
+            }
+          })
+        } else {
+          popup(null, null, '请阅读并同意推荐服务协议')
+        }
       }
+    },
+    mounted: function() {
+      this.initPage()
+      this.initParamData()
+    },
+    watch: {
+      '$route': 'initParamData'
     }
   }
 </script>

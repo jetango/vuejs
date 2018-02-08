@@ -585,7 +585,7 @@ apiRoutes.post('repay/bill', function(req, res) {
  * @param  {[type]} res [description]
  * @return {[type]}     [description]
  */
-apiRoutes.post('/saveOrUpdate', function(req, res) {
+apiRoutes.post('/userExtend/saveOrUpdate/auth', function(req, res) {
   var result = {
     "status": "0",
     "msg": "success",
@@ -599,7 +599,7 @@ apiRoutes.post('/saveOrUpdate', function(req, res) {
  * @param  {[type]} res [description]
  * @return {[type]}     [description]
  */
-apiRoutes.post('/query', function(req, res) {
+apiRoutes.post('/userExtend/query/auth', function(req, res) {
   var result = {
     "status": "0",
     "msg": "success",
@@ -612,7 +612,56 @@ apiRoutes.post('/query', function(req, res) {
   }
   responseData(res, result)
 })
-
+/**
+ * 只能推荐接口拉取数据
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/borrow/auth', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {
+      recAmount: "300",
+      appProductInfoList: [
+        {
+          appCode: "nyd001", //用户ID
+          appName: "大行贷",
+          appDescription: "放款比较慢，通过率较高",
+          minPrincipal: "3000",
+          maxPrincipal: "5000",
+          minLoanDay: "1",
+          maxLoanDay: "3"
+        }, {
+          appCode: "nyd002", //用户ID
+          appName: "侬要贷",
+          appDescription: "放款速度快，通过率一般",
+          minPrincipal: "500",
+          maxPrincipal: "1000",
+          minLoanDay: "1",
+          maxLoanDay: "1"
+        }
+      ]
+      
+    }
+  }
+  responseData(res, result)
+})
+/**
+ * 支付接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/ali/appPay', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {}
+  }
+  responseData(res, result)
+})
 
 
  // headers:  {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
@@ -636,7 +685,8 @@ apiRoutes.post('/query', function(req, res) {
 // app.use('/repay', apiRepayProxy)
 
 app.use('/user', apiRoutes)
-app.use('/userExtend', apiRoutes)
+app.use('/order', apiRoutes)
+app.use('/pay', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
