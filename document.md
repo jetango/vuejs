@@ -46,7 +46,10 @@ export const pageIdentity = {
 
 `
 param: {
-    successUrl: '/#/evaluate-flow'  // 成功回调页面
+    successUrl: 'EVALUATE_FLOW',  // 成功回调页面
+    title: '评估流程',            // 成功页面的标题
+    key: 'EVALUATE_INFO',         // EVALUATE_INFO: 8元；AUDIT_INFO: 300元
+    param：{}                     // 传给后端
 }
 `
 **response data**
