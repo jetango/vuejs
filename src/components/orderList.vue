@@ -1,7 +1,7 @@
 <template>
   <div class="order-list">
     <div class="order-pick" v-for="item in orderList" :key="item.orderNo">
-      <div class="order-item flex flex-item">
+      <div class="order-item flex flex-item active">
         <div class="flex-grow">
           {{item.createTime}} 订单
         </div>
@@ -115,9 +115,11 @@
   .order-list
     padding-top: .1rem
 
+  .order-pick
+    margin-bottom: .1rem
+
   .order-item, .source-item
     background: #fff
-    margin-bottom: .1rem
     padding-left: .4rem
     padding-right: .4rem
   .order-item

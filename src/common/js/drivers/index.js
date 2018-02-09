@@ -180,6 +180,6 @@ export function copyStr(text) {
   _proxy.copyStr(text)
 }
 
-export function downLoadApp(text) {
-  _proxy.downLoadApp(text)
+export function downLoadApp(url) {
+  _proxy.downLoadApp(url)
 }

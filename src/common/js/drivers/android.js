@@ -189,7 +189,7 @@ export default class Driver {
   }
 
   // 去下载
-  downLoadApp(text) {
-    window.android.plugin('downLoadApp', JSON.stringify({ text }))
+  downLoadApp(url) {
+    window.android.plugin('downLoadApp', JSON.stringify({ url }))
   }
 }

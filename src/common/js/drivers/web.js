@@ -315,13 +315,13 @@ export default class Driver {
     })
   }
 
-  copyStr(title) {
-    console.log(title)
-    alert(title)
+  copyStr(text) {
+    console.log(text)
+    alert(text)
   }
 
-  downLoadApp(title) {
-    console.log(title)
-    alert(title)
+  downLoadApp(url) {
+    console.log(url)
+    alert(url)
   }
 }

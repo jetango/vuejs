@@ -470,8 +470,8 @@ export default class Driver {
    * @param  {String} param  调用画面参数
    * @return {null}
    */
-  copyStr(title) {
-    let url = `plugin://copyStr?title=${encodeURIComponent(title)}`
+  copyStr(text) {
+    let url = `plugin://copyStr?title=${encodeURIComponent(text)}`
     this._iosCall(url)
   }
 
@@ -482,8 +482,8 @@ export default class Driver {
    * @param  {String} param  调用画面参数
    * @return {null}
    */
-  downLoadApp(title) {
-    let url = `plugin://downLoadApp?title=${encodeURIComponent(title)}`
-    this._iosCall(url)
+  downLoadApp(url) {
+    let link = `plugin://downLoadApp?title=${encodeURIComponent(url)}`
+    this._iosCall(link)
   }
 }
