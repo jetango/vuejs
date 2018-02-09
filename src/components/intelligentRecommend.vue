@@ -71,7 +71,7 @@
         borrowPeriods: '',
         productList: [],
         recAmount: '',
-        isChosed: false
+        isChosed: true
       }
     },
     methods: {
@@ -91,10 +91,6 @@
             popup('', '', oData.msg || '保存信息失败')
           }
         })
-      },
-      initParamData: function() {
-        this.loanAmount = this.$route.query.loanAmount
-        this.borrowPeriods = this.$route.query.borrowPeriods
       },
       agreeProtocols: function() {
         this.isChosed = !this.isChosed
@@ -126,10 +122,11 @@
     },
     mounted: function() {
       this.initPage()
-      this.initParamData()
     },
-    watch: {
-      '$route': 'initParamData'
+    created() {
+      let {loanAmount, borrowPeriods} = this.$route.query
+      this.loanAmount = loanAmount
+      this.borrowPeriods = borrowPeriods
     }
   }
 </script>

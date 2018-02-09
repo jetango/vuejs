@@ -73,7 +73,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup} from 'common/js/drivers'
+  import {doPost, popup, navigate} from 'common/js/drivers'
+  import {pageIdentity} from 'common/js/constants'
   import * as types from 'config/api-type'
   export default {
     data() {
@@ -85,36 +86,36 @@
           four: '0',
           five: '0', // 征信
           six: '0'
-        }
+        },
+        orderNo: ''
       }
     },
     methods: {
-      _changeStatus() {
-        let arr = ['one', 'two', 'three', 'four', 'five', 'six']
-        let i = 0
-        let self = this
-        let interval = setInterval(function() {
-          self.statusKeys[arr[i]] = true
-          if (i > arr.length) {
-            clearInterval(interval)
-          }
-          i++
-        }, 800)
-      },
       _fetchStatus() {
         let self = this
-        doPost(types.AUDIT_FLOW, {}, {
-          success(oData) {
-            self.statusKeys = oData.data
-          },
-          error(oData) {
-            popup(null, null, oData.msg || '获取数据有误！')
+        let interval = setInterval(function() {
+          let param = {}
+          if (self.orderNo) {
+            param.orderNo = self.orderNo
           }
-        })
+          doPost(types.AUDIT_FLOW, param, {
+            success(oData) {
+              self.statusKeys = oData.data.flowInfo
+              self.orderNo = oData.data.orderNo
+              if (oData.data.flowInfo.six === '1') {
+                clearInterval(interval)
+                navigate('DOWNLOAD_LIST', '下载列表', {url: pageIdentity.DOWNLOAD_LIST, param: `orderNo=${self.orderNo}`}, null, 'ROOT')
+              }
+            },
+            error(oData) {
+              popup(null, null, oData.msg || '获取数据有误！')
+            }
+          })
+        }, 800)
       }
     },
     created() {
-      this._changeStatus()
+      this._fetchStatus()
     }
   }
 </script>
