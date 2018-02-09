@@ -105,6 +105,8 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
+  .download-list
+    padding-bottom: 1rem
   .download-item
     height: 1.42rem
     background: #fff

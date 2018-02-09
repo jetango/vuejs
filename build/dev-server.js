@@ -735,6 +735,96 @@ apiRoutes.post('/download/auth', function(req, res) {
   }
   responseData(res, result)
 })
+/**
+ * 下载接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/borrow/record/auth', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: [
+      {
+        userId: "173431600002",
+        orderNo: "452345353",
+        loanAmount: "3000",
+        borrowPeriods: "3",
+        orderStatus: '10',
+        createTime: '2018-02-08',
+        appList: [
+          {
+            appCode: 'dahangdai',
+            appName: '大行贷',
+            appDescription: '放款慢，额度高',
+            appInvitationCode: 'BA31A0',
+            appEffectiveTime: '1518233735467',
+            minPrincipal: "3000",
+            maxPrincipal: "5000",
+            appPhotoUrl: 'appPhotoUrl',
+            androidDownloadUrl: "http://www.androidDownloadUrl.com",
+            iosDownloadUrl: "http://www.ios.com"
+          }, {
+            appCode: 'xiao',
+            appName: '小行贷',
+            appDescription: '放款快，额度低',
+            appInvitationCode: 'BA31A0',
+            appEffectiveTime: '1517233735467',
+            minPrincipal: "500",
+            maxPrincipal: "1000",
+            appPhotoUrl: 'appPhotoUrl',
+            androidDownloadUrl: "http://www.androidDownloadUrl.com",
+            iosDownloadUrl: "http://www.ios.com"
+          }
+        ]
+      }, {
+        userId: "173431600002",
+        orderNo: "234353453",
+        loanAmount: "1000",
+        borrowPeriods: "5",
+        orderStatus: '10',
+        createTime: '2018-02-18',
+        appList: [
+          {
+            appCode: 'dahangdai',
+            appName: '小行贷',
+            appDescription: '放款快，额度低',
+            appInvitationCode: 'BA31A0',
+            appEffectiveTime: '1518233735467',
+            minPrincipal: "500",
+            maxPrincipal: "1000",
+            appPhotoUrl: 'appPhotoUrl',
+            androidDownloadUrl: "http://www.androidDownloadUrl.com",
+            iosDownloadUrl: "http://www.ios.com"
+          }
+        ]
+      }, {
+        userId: "173431600002",
+        orderNo: "112345543",
+        loanAmount: "1000",
+        borrowPeriods: "5",
+        orderStatus: '20',
+        createTime: '2018-02-18',
+        appList: [
+          {
+            appCode: 'dahangdai',
+            appName: '小行贷',
+            appDescription: '放款快，额度低',
+            appInvitationCode: 'BA31A0',
+            appEffectiveTime: '1518233735467',
+            minPrincipal: "500",
+            maxPrincipal: "1000",
+            appPhotoUrl: 'appPhotoUrl',
+            androidDownloadUrl: "http://www.androidDownloadUrl.com",
+            iosDownloadUrl: "http://www.ios.com"
+          }
+        ]
+      }
+    ]
+  }
+  responseData(res, result)
+})
 
 
  // headers:  {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
