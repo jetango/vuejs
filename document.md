@@ -14,10 +14,10 @@ export const pageIdentity = {
   'BANK_LIST': '/#/bank-list',                                        // 银行卡列表
   'PAYMENT_WAY': '/#/payment-way',                                    // 支付方式
   'CREDIT_CERTIFICATION': '/#/credit-certification',                  // 信用认证
-  'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示   loanAmount=100&borrowPeriods=3
+  'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示   
   'EVALUATE_FLOW': '/#/evaluate-flow',                                // 评估流程
   'EVALUATE_DATA': '/#/evaluate-data',                                // 评估结果数据
-  'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐
+  'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐            loanAmount=100&borrowPeriods=3
   'AUDIT_FLOW': '/#/audit-flow',                                      // 审核流程
   'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
   'ORDER_LIST': '/#/order-list',                                      // 订单列表
