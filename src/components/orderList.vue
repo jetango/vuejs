@@ -3,7 +3,7 @@
     <div class="order-pick" v-for="item in orderList" :key="item.orderNo">
       <div class="order-item flex flex-item" :class="{'active': item.isShow}">
         <div class="flex-grow">
-          {{item.createTime}} 订单
+          {{item.loanTime}} 订单
         </div>
         <i @click="showDetail(item)" v-show="item.orderStatus === '10'" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
         <a v-show="item.orderStatus === '20'" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>

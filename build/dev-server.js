@@ -709,7 +709,7 @@ apiRoutes.post('/download/auth', function(req, res) {
         orderNo: "452345353",
         appCode: "dahangdai",
         appName: "大行贷",
-        appPhotoUrl: "dahangdai",
+        appPhotoKey: "dahangdai",
         appDescription: "放款快，额度高",
         minPrincipal: "3000",
         maxPrincipal: "5000",
@@ -725,7 +725,7 @@ apiRoutes.post('/download/auth', function(req, res) {
         appDescription: "放款快，额度高",
         minPrincipal: "500",
         maxPrincipal: "1000",
-        appPhotoUrl: "dahangdai",
+        appPhotoKey: "dahangdai",
         appInvitationCode: "BA31OT",
         appEffectiveTime: "2018-02-15",
         androidDownloadUrl: "http://www.androidDownloadUrl.com",
@@ -752,7 +752,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
         loanAmount: "3000",
         borrowPeriods: "3",
         orderStatus: '10',
-        createTime: '2018-02-08',
+        loanTime: '2018-02-08',
         appList: [
           {
             appCode: 'dahangdai',
@@ -762,7 +762,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1518233735467',
             minPrincipal: "3000",
             maxPrincipal: "5000",
-            appPhotoUrl: 'appPhotoUrl',
+            appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
           }, {
@@ -773,7 +773,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1517233735467',
             minPrincipal: "500",
             maxPrincipal: "1000",
-            appPhotoUrl: 'appPhotoUrl',
+            appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
           }
@@ -784,7 +784,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
         loanAmount: "1000",
         borrowPeriods: "5",
         orderStatus: '10',
-        createTime: '2018-02-18',
+        loanTime: '2018-02-18',
         appList: [
           {
             appCode: 'dahangdai',
@@ -794,7 +794,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1518233735467',
             minPrincipal: "500",
             maxPrincipal: "1000",
-            appPhotoUrl: 'appPhotoUrl',
+            appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
           }
@@ -805,7 +805,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
         loanAmount: "1000",
         borrowPeriods: "5",
         orderStatus: '20',
-        createTime: '2018-02-18',
+        loanTime: '2018-02-18',
         appList: [
           {
             appCode: 'dahangdai',
@@ -815,7 +815,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1518233735467',
             minPrincipal: "500",
             maxPrincipal: "1000",
-            appPhotoUrl: 'appPhotoUrl',
+            appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
           }
