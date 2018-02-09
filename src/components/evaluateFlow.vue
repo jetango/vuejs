@@ -142,7 +142,7 @@
         background: #fff
         color: #ccc
     .content
-      padding-bottom: .4rem
+      padding-bottom: .2rem
       padding-left: .28rem
       h1
         font-size: .28rem

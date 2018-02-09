@@ -22,7 +22,7 @@
       <p>2、保持良好信誉，借款额度可以提高</p>
     </div>
     <div class="button-box">
-      <div class="button button-primary">
+      <div class="button button-primary" @click="confirmPay">
         去借款
       </div>
     </div>
@@ -30,6 +30,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {endPage} from 'common/js/drivers'
   export default {
     data() {
       return {
@@ -45,8 +46,6 @@
       }
     },
     methods: {
-      _countUp(elem, endVal, startVal, duration, decimal) {
-      },
       _drawCircle(rangeValue) {
         this.circleContext.restore()
         this.circleContext.clearRect(0, 0, this.circle.width, this.circle.height)
@@ -69,6 +68,9 @@
             clearInterval(interval)
           }
         }, 10)
+      },
+      confirmPay() {
+        endPage({url: '', param: ''}, 'ROOT')
       }
     },
     mounted() {

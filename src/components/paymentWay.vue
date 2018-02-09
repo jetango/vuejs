@@ -21,7 +21,6 @@
 
 <script type="text/ecmascript-6">
   import {alipay} from 'common/js/drivers'
-  import {pageIdentity} from 'common/js/constants'
   // import * as types from 'config/api-type'
   // import {unionpayPath} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
@@ -48,7 +47,9 @@
             isChose: false
           }
         ],
-        payKey: 'alipay'
+        payKey: 'alipay',
+        param: null,
+        key: ''
       }
     },
     methods: {
@@ -64,11 +65,18 @@
         })
       },
       confirmPay() {
-        alipay({successUrl: pageIdentity.EVALUATE_FLOW}, {
+        let param = this.param ? JSON.parse(this.param) : ''
+        alipay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
           success() {
           }
         })
       }
+    },
+    created() {
+      let {data, amount, key} = this.$route.query
+      this.payAmount = amount
+      this.param = decodeURIComponent(data)
+      this.key = key
     }
   }
 </script>

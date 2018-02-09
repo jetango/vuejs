@@ -44,7 +44,7 @@
   export default {
     data() {
       return {
-        isChosed: false
+        isChosed: true
       }
     },
     components: {
@@ -58,11 +58,12 @@
         console.log('check protocols')
       },
       confirmPay: function() {
-        let param = encodeURIComponent(JSON.stringify({
-          subject: '银码头XXX',
+        let value = encodeURIComponent(JSON.stringify({
+          subject: '银码头智能评估',
           amount: '8',
           flag: '1'
         }))
+        let param = `data=${value}&amount=8&key=EVALUATE_INFO`
         if (this.isChosed) {
           navigate('PAYMENT_WAY', '支付方式', {
             url: pageIdentity.PAYMENT_WAY,

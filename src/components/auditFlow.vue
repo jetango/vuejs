@@ -73,6 +73,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {doPost, popup} from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
@@ -98,6 +100,17 @@
           }
           i++
         }, 800)
+      },
+      _fetchStatus() {
+        let self = this
+        doPost(types.AUDIT_FLOW, {}, {
+          success(oData) {
+            self.statusKeys = oData.data
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '获取数据有误！')
+          }
+        })
       }
     },
     created() {
@@ -139,7 +152,7 @@
         background: #fff
         color: #ccc
     .content
-      padding-bottom: .4rem
+      padding-bottom: .2rem
       padding-left: .28rem
       h1
         font-size: .28rem
