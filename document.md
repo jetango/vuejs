@@ -73,3 +73,28 @@ param: {
         msg: ''
     }
 ```
+
+
+
+###  5. 复制字符串到剪切板功能
+
+`IOS API: `  plugin://copyStr?title=${encodeURIComponent(text)}      
+`Android API`  window.android.plugin('copyStr', JSON.stringify({ text }))
+
+** response data **
+
+```
+    null（无返回）
+    
+```
+
+###  6. 去下载
+
+`IOS API: `  plugin://downLoadApp?title=${encodeURIComponent(url)}      
+`Android API`  window.android.plugin('downLoadApp', JSON.stringify({ url }))
+
+** response data **
+
+```
+    null（无返回）
+    
