@@ -14,7 +14,7 @@ export const pageIdentity = {
   'BANK_LIST': '/#/bank-list',                                        // 银行卡列表
   'PAYMENT_WAY': '/#/payment-way',                                    // 支付方式
   'CREDIT_CERTIFICATION': '/#/credit-certification',                  // 信用认证
-  'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示
+  'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示   loanAmount=100&borrowPeriods=3
   'EVALUATE_FLOW': '/#/evaluate-flow',                                // 评估流程
   'EVALUATE_DATA': '/#/evaluate-data',                                // 评估结果数据
   'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐
