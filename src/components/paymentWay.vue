@@ -66,10 +66,17 @@
       },
       confirmPay() {
         let param = this.param ? JSON.parse(this.param) : ''
-        alipay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
-          success() {
-          }
-        })
+        if (this.key == 'EVALUATE_INFO') {
+          alipay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
+            success() {
+            }
+          })
+        } else if (this.key == 'AUDIT_INFO') {
+          alipay({successUrl: 'AUDIT_FLOW', title: '审核流程', key: this.key, param}, {
+            success() {
+            }
+          })
+        }
       }
     },
     created() {

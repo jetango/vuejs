@@ -57,9 +57,13 @@
   import {
     popup,
     doPost,
-    log
+    log,
+    navigate
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import {
+    pageIdentity
+  } from 'common/js/constants'
   export default {
     data() {
       return {
@@ -103,16 +107,18 @@
       },
       confirm: function() {
         if (this.isChosed) {
-          let query = {
-            param: encodeURIComponent(JSON.stringify({
-              subject: '银码头XXX',
-              amount: this.recAmount,
-              flag: '2',
-              loanAmount: this.loanAmount,
-              borrowPeriods: this.borrowPeriods
-            }))
-          }
-          this.$router.push({path: '/payment-way', query: query})
+          let value = encodeURIComponent(JSON.stringify({
+            subject: '银码头智能推荐',
+            amount: this.recAmount,
+            flag: '2',
+            loanAmount: this.loanAmount,
+            borrowPeriods: this.borrowPeriods
+          }))
+          let param = `data=${value}&amount=${this.loanAmount}&key=AUDIT_INFO`
+          navigate('PAYMENT_WAY', '支付方式', {
+            url: pageIdentity.PAYMENT_WAY,
+            param
+          })
         } else {
           popup(null, null, '请阅读并同意推荐服务协议')
         }
@@ -137,14 +143,14 @@
 
   .amount-stage
     background-color: #fff
-    
+
   .item
     height: 1rem
     line-height: 1rem
     padding-left: .4rem
     span
       &:last-of-type
-        position: absolute 
+        position: absolute
         right: .4rem
 
   .recommend
