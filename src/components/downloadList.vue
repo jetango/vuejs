@@ -61,7 +61,9 @@
     },
     methods: {
       initPage: function() {
-        doPost(types.PRODUCT_DOWNLOAD, {}, {
+        doPost(types.PRODUCT_DOWNLOAD, {
+          orderNo: this.$route.query.orderNo
+        }, {
           success: (oData) => {
             if (oData.status === '0') {
               let result = oData.data
@@ -82,7 +84,6 @@
         })
       },
       showDetail: function(item) {
-        console.log('show detail')
         item.isShow = !item.isShow
       },
       copyStr: function(str) {
