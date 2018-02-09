@@ -694,6 +694,17 @@ apiRoutes.post('/audit/flow/auth', function(req, res) {
       orderNo: index > 3 ? '1111' : ''
     }
   }
+  if (index == 6) {
+    statusData = {
+      'one': '0',
+      'two': '0',
+      'three': '0',
+      'four': '0',
+      'five': '0',
+      'six': '0'
+    }
+    index = 0
+  }
   responseData(res, result)
 })
 /**
@@ -718,8 +729,8 @@ apiRoutes.post('/download/auth', function(req, res) {
         maxPrincipal: "5000",
         appInvitationCode: "BA31A0",
         appEffectiveTime: "2018-02-07",
-        androidDownloadUrl: "http://www.androidDownloadUrl.com",
-        iosDownloadUrl: "http://www.ios.com"
+        androidDownloadUrl: "http://app-downloads.nongyaodai.com/nyd_1.0.1.apk",
+        iosDownloadUrl: "https://itunes.apple.com/cn/app/%E4%BE%AC%E8%A6%81%E8%B4%B7/id1326789680?mt=8"
       }, {
         userId: "173431600002",
         orderNo: "452345353",
@@ -731,8 +742,8 @@ apiRoutes.post('/download/auth', function(req, res) {
         appPhotoKey: "dahangdai",
         appInvitationCode: "BA31OT",
         appEffectiveTime: "2018-02-15",
-        androidDownloadUrl: "http://www.androidDownloadUrl.com",
-        iosDownloadUrl: "http://www.ios.com"
+        androidDownloadUrl: "http://app-downloads.nongyaodai.com/nyd_1.0.1.apk",
+        iosDownloadUrl: "https://itunes.apple.com/cn/app/%E4%BE%AC%E8%A6%81%E8%B4%B7/id1326789680?mt=8"
       }
     ]
   }
