@@ -113,23 +113,6 @@
             }))
           }
           this.$router.push({path: '/payment-way', query: query})
-          // doPost(types.ALI_APPPAY, {
-          //   subject: '银码头XXX',
-          //   amount: '300',
-          //   flag: '2',
-          //   loanAmount: this.loanAmount,
-          //   borrowPeriods: this.borrowPeriods
-          // }, {
-          //   success: (oData) => {
-          //     if (oData.status === '0') {
-          //       popup(null, null, oData.msg)
-          //     }
-          //   },
-          //   error: (oData) => {
-          //     log('', oData)
-          //     popup('', '', oData.msg || '保存信息失败')
-          //   }
-          // })
         } else {
           popup(null, null, '请阅读并同意推荐服务协议')
         }

@@ -29,5 +29,6 @@ export default {
   [types.EXTEND_SAVE]: '/user/userExtend/saveOrUpdate/auth',
   [types.EXTEND_QUERY]: '/user/userExtend/query/auth',
   [types.INTELLIGENT_RECOMMEND]: '/order/borrow/auth',
-  [types.ALI_APPPAY]: '/pay/ali/appPay'
+  [types.ALI_APPPAY]: '/pay/ali/appPay',
+  [types.PRODUCT_DOWNLOAD]: '/order/download/auth'
 }

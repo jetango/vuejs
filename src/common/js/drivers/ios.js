@@ -462,4 +462,28 @@ export default class Driver {
     let url = `plugin://alipay?callback=${encodeURIComponent(name)}&param=${encodeURIComponent(JSON.stringify(param))}`
     this._iosCall(url)
   }
+
+  /**
+   * JS调用Native字符串复制
+   * @param  {String} pageId 画面ID，需要预先定义
+   * @param  {String} title  被调用画面显示标题
+   * @param  {String} param  调用画面参数
+   * @return {null}
+   */
+  copyStr(title) {
+    let url = `plugin://copyStr?title=${encodeURIComponent(title)}`
+    this._iosCall(url)
+  }
+
+   /**
+   * JS调用Native去下载
+   * @param  {String} pageId 画面ID，需要预先定义
+   * @param  {String} title  被调用画面显示标题
+   * @param  {String} param  调用画面参数
+   * @return {null}
+   */
+  downLoadApp(title) {
+    let url = `plugin://downLoadApp?title=${encodeURIComponent(title)}`
+    this._iosCall(url)
+  }
 }

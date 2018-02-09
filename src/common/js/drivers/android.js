@@ -182,4 +182,14 @@ export default class Driver {
     let name = this.proxy.registCB(cb)
     window.android.plugin('alipay', JSON.stringify({ callback: name, param: param }))
   }
+
+  // 字符串复制
+  copyStr(text) {
+    window.android.plugin('copyStr', JSON.stringify({ text }))
+  }
+
+  // 去下载
+  downLoadApp(text) {
+    window.android.plugin('downLoadApp', JSON.stringify({ text }))
+  }
 }

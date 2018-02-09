@@ -314,4 +314,14 @@ export default class Driver {
       status: '0'
     })
   }
+
+  copyStr(title) {
+    console.log(title)
+    alert(title)
+  }
+
+  downLoadApp(title) {
+    console.log(title)
+    alert(title)
+  }
 }

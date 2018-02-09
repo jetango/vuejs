@@ -199,4 +199,12 @@ export default class Proxy {
   alipay(param, cb) {
     this.__current__.alipay(param, cb)
   }
+
+  copyStr(title) {
+    this.__current__.copyStr(title)
+  }
+
+  downLoadApp(title) {
+    this.__current__.downLoadApp(title)
+  }
 }

@@ -693,6 +693,48 @@ apiRoutes.post('/audit/flow/auth', function(req, res) {
   }
   responseData(res, result)
 })
+/**
+ * 下载接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/download/auth', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: [
+      {
+        userId: "173431600002",
+        orderNo: "452345353",
+        appCode: "dahangdai",
+        appName: "大行贷",
+        appPhotoUrl: "dahangdai",
+        appDescription: "放款快，额度高",
+        minPrincipal: "3000",
+        maxPrincipal: "5000",
+        appInvitationCode: "BA31A0",
+        appEffectiveTime: "2018-02-07",
+        androidDownloadUrl: "http://www.androidDownloadUrl.com",
+        iosDownloadUrl: "http://www.ios.com"
+      }, {
+        userId: "173431600002",
+        orderNo: "452345353",
+        appCode: "xiaohangdai",
+        appName: "小行贷",
+        appDescription: "放款快，额度高",
+        minPrincipal: "500",
+        maxPrincipal: "1000",
+        appPhotoUrl: "dahangdai",
+        appInvitationCode: "BA31OT",
+        appEffectiveTime: "2018-02-15",
+        androidDownloadUrl: "http://www.androidDownloadUrl.com",
+        iosDownloadUrl: "http://www.ios.com"
+      }
+    ]
+  }
+  responseData(res, result)
+})
 
 
  // headers:  {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}

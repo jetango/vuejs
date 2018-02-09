@@ -175,3 +175,11 @@ export function weChatPay(param, cb) {
 export function alipay(param, cb) {
   _proxy.alipay(param, cb)
 }
+
+export function copyStr(text) {
+  _proxy.copyStr(text)
+}
+
+export function downLoadApp(text) {
+  _proxy.downLoadApp(text)
+}
