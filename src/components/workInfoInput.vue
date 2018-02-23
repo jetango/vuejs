@@ -142,7 +142,7 @@
       },
       hiredateSelected: function() {
         this.hiredatePicker.show()
-        eeLogUBT('JobInfomation.Action.CompanyAddress', 'click')
+        eeLogUBT('JobInfomation.Action.CompanyTime', 'click')
       },
       _validate(params) {
         if (!params.industry) {

@@ -188,6 +188,7 @@
         if (this.creditStatus.gxbFlag) {
           return
         }
+        eeLogUBT('CreditAuth.Action.Gxb', 'click')
         let self = this
         doPost(types.GXB_TOKEN, {}, {
           success(oData) {

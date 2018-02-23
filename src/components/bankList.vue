@@ -35,6 +35,7 @@
     },
     created: function() {
       this.init()
+      eeLogUBT('BankCardList.Load.Goin', 'goin')
     },
     methods: {
       _getBgClass(key) {
@@ -59,7 +60,7 @@
       },
       addBankCard: function() {
         let self = this
-        eeLogUBT('BankCard.Action.Add.Submit', 'click')
+        eeLogUBT('BankCardList.Action.Submit', 'click')
         navigate('DEBIT_CARD', '绑定银行卡', {url: pageIdentity.DEBIT_CARD, param: 'from=choose_bank'}, {
           success: function(oData) {
             self.init()

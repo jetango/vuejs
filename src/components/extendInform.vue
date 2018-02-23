@@ -3,17 +3,17 @@
     <div class="list-view h4">
       <div class="item flex">
         <div class="flex-grow label">常用邮箱</div>
-        <input class="input-css" type="text" v-model="extendInfo.email" placeholder="请输入常用邮箱">
+        <input class="input-css" type="text" v-model="extendInfo.email" placeholder="请输入常用邮箱" @click="extendInfoClick('email')">
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex">
         <div class="flex-grow label">QQ账号</div>
-        <input class="input-css" type="text" v-model="extendInfo.qqNumber" placeholder="请输入QQ账号">
+        <input class="input-css" type="text" v-model="extendInfo.qqNumber" placeholder="请输入QQ账号"  @click="extendInfoClick('qq')">
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex">
         <div class="flex-grow label">微信账号</div>
-        <input class="input-css" type="text" v-model="extendInfo.wechatNumber" placeholder="请输入微信账号">
+        <input class="input-css" type="text" v-model="extendInfo.wechatNumber" placeholder="请输入微信账号"  @click="extendInfoClick('wechat')">
         <i class="iconfont icon-117"></i>
       </div>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup, doPost, endPage} from 'common/js/drivers'
+  import {popup, doPost, endPage, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
@@ -41,6 +41,7 @@
     methods: {
       submitExtendInfo() {
         if (this._validateInfo(this.extendInfo)) {
+          eeLogUBT('OtherInfo.Action.Submit', 'click')
           doPost(types.EXTEND_SAVE, this.extendInfo, {
             success: function(oData) {
               if (oData.status === '0') {
@@ -51,6 +52,15 @@
               popup('', '', oData.msg || '保存信息失败')
             }
           })
+        }
+      },
+      extendInfoClick(type) {
+        if (type === 'wechat') {
+          eeLogUBT('OtherInfo.Action.Wechat', 'click')
+        } else if (type === 'qq') {
+          eeLogUBT('OtherInfo.Action.Qq', 'click')
+        } else if (type === 'email') {
+          eeLogUBT('OtherInfo.Action.Email', 'click')
         }
       },
       _validateInfo: function(item) {
@@ -78,6 +88,9 @@
         }
         return true
       }
+    },
+    created() {
+      eeLogUBT('OtherInfo.Load.Goin', 'goin')
     }
   }
 </script>
