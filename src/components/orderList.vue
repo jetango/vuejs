@@ -19,10 +19,12 @@
         <a v-show="!app.isValid" href="javascript:;" class="btn invalid">已过期</a>
       </div>
     </div>
+    <no-data v-show="orderList.length === 0"></no-data>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import NoData from 'base/noData/noData'
   import {
     popup,
     doPost,
@@ -43,29 +45,31 @@
           success: (oData) => {
             if (oData.status === '0') {
               let result = oData.data
-              result.forEach((item, index) => {
-                if (index === 0) {
-                  item.isShow = true
-                } else {
-                  item.isShow = false
-                }
-                let appList = item.appList
-                appList.forEach(app => {
-                  let currentTime = new Date().getTime()
-                  let validDate = new Date(Number(app.appEffectiveTime))
-                  let year = validDate.getFullYear()
-                  let month = validDate.getMonth() + 1
-                  let day = validDate.getDate()
-                  let validDateStr = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
-                  app.validDate = validDateStr
-                  if (app.appEffectiveTime > currentTime) {
-                    app.isValid = true
+              if (result) {
+                result.forEach((item, index) => {
+                  if (index === 0) {
+                    item.isShow = true
                   } else {
-                    app.isValid = false
+                    item.isShow = false
                   }
+                  let appList = item.appList
+                  appList.forEach(app => {
+                    let currentTime = new Date().getTime()
+                    let validDate = new Date(Number(app.appEffectiveTime))
+                    let year = validDate.getFullYear()
+                    let month = validDate.getMonth() + 1
+                    let day = validDate.getDate()
+                    let validDateStr = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
+                    app.validDate = validDateStr
+                    if (app.appEffectiveTime > currentTime) {
+                      app.isValid = true
+                    } else {
+                      app.isValid = false
+                    }
+                  })
                 })
-              })
-              this.orderList = result
+                this.orderList = result
+              }
             }
           },
           error: (oData) => {
@@ -89,6 +93,9 @@
     },
     mounted: function() {
       this.initPage()
+    },
+    components: {
+      NoData
     }
   }
 </script>

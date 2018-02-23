@@ -177,7 +177,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link :to="{path: '/download-list'}">
+      <router-link :to="{path: '/download-list', query: {orderNo: '101518070387909001'}}">
         <div class="item flex">
           <p class="flex-grow">下载地址</p>
           <i class="iconfont icon-117"></i>

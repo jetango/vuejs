@@ -29,6 +29,10 @@
         <div class="flex-grow title">月收入</div>
         <div>{{workInfo.salary ? workInfo.salary : ''}}</div>
       </div>
+      <div class="item flex">
+        <div class="flex-grow title">入职时间</div>
+        <div>{{workInfo.entryTime ? workInfo.entryTime : ''}}</div>
+      </div>
     </div>
   </div>
 </template>

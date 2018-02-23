@@ -58,13 +58,15 @@
           success: (oData) => {
             if (oData.status === '0') {
               let result = oData.data
-              result.forEach((item, index) => {
-                if (index === 0) {
-                  item.isShow = true
-                } else {
-                  item.isShow = false
-                }
-              })
+              if (result) {
+                result.forEach((item, index) => {
+                  if (index === 0) {
+                    item.isShow = true
+                  } else {
+                    item.isShow = false
+                  }
+                })
+              }
               this.productList = result
             }
           },
