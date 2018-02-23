@@ -5,10 +5,10 @@
         <div class="flex-grow">
           {{item.loanTime}} 订单
         </div>
-        <i @click="showDetail(item)" v-show="item.orderStatus === '10'" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
-        <a v-show="item.orderStatus === '20'" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>
+        <i @click="showDetail(item)" v-show="item.orderStatus !== 10" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
+        <a v-show="item.orderStatus === 10" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>
       </div>
-      <div v-show="item.isShow" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
+      <div v-show="item.isShow && item.orderStatus !== 10" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
         <img src="~common/image/tueijian_icon_001.png">
         <div class="flex-grow">
           <div class="title">{{app.appName + '（' + app.minPrincipal + '元-' + app.maxPrincipal + '元）'}}</div>

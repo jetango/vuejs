@@ -37,7 +37,7 @@
     </p>
     <div @click="submit()" class="button button-primary">提交</div>
     <div class="footer" :class="{'input-footer':isInput}">
-      <p class="product-name">侬要贷</p>
+      <p class="product-name">银码头</p>
       <p class="loan-notice flex flex-item flex-justify">
         <i class="icon iconfont icon-yirenzheng"></i>
         <span>国安级数据加密防护</span>
