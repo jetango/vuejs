@@ -13,7 +13,7 @@
         <div class="flex-grow">
           <div class="title">{{app.appName + '（' + app.minPrincipal + '元-' + app.maxPrincipal + '元）'}}</div>
           <div class="code">借款验证码 <span>{{app.appInvitationCode}}</span></div>
-          <div class="date">有效期至：{{app.validDate}}</div>
+          <div class="date">有效期至：{{app.appEffectiveTime}}</div>
         </div>
         <a v-show="app.isValid" href="javascript:;" @click="downLoadApp(app)" class="btn">去下载</a>
         <a v-show="!app.isValid" href="javascript:;" class="btn invalid">已过期</a>
@@ -29,7 +29,8 @@
     popup,
     doPost,
     log,
-    downLoadApp
+    downLoadApp,
+    eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import util from 'common/js/util.js'
@@ -82,6 +83,7 @@
         item.isShow = !item.isShow
       },
       downLoadApp: function(app) {
+        eeLogUBT('Order.Action.GoDownLoad', 'click')
         if (util.isIos()) {
           downLoadApp(app.iosDownloadUrl)
         } else if (util.isAndroid()) {
@@ -93,6 +95,7 @@
     },
     mounted: function() {
       this.initPage()
+      eeLogUBT('Order.Load.Goin', 'goin')
     },
     components: {
       NoData

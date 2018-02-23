@@ -1,13 +1,13 @@
 <template>
   <div class="download-list">
     <div class="product-item" v-for="item in productList" :key="item.appCode">
-      <div class="download-item flex flex-item">
+      <div class="download-item flex flex-item" @click="showDetail(item)">
         <img src="~common/image/tueijian_icon_001.png">
         <div class="flex-grow">
           <div class="title">{{item.appName + '（' + item.minPrincipal + '元-' + item.maxPrincipal + '元）'}}</div>
           <div class="desc">{{item.appDescription}}</div>
         </div>
-        <i @click="showDetail(item)" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
+        <i :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
       </div>
       <div v-show="item.isShow" class="detail-box">
         <div class="flex flex-item code-info">
@@ -39,7 +39,8 @@
     doPost,
     log,
     copyStr,
-    downLoadApp
+    downLoadApp,
+    eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import util from 'common/js/util.js'
@@ -81,6 +82,7 @@
       },
       copyStr: function(str) {
         copyStr(str)
+        eeLogUBT('RecommendResultPage.Action.CopyText', 'click')
       },
       downLoadApp: function(item) {
         if (util.isIos()) {
@@ -88,10 +90,12 @@
         } else if (util.isAndroid()) {
           downLoadApp(item.androidDownloadUrl)
         }
+        eeLogUBT('RecommendResultPage.Action.GoDownLoad', 'click')
       }
     },
     mounted: function() {
       this.initPage()
+      eeLogUBT('RecommendResultPage.Load.Goin', 'goin')
     }
   }
 </script>

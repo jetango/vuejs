@@ -126,7 +126,7 @@
       </router-link>
     </div>
     <div class="list-view">
-      <router-link :to="{path:'/intelligent-recommend',query:{loanAmount: 3000, borrowPeriods: 5}}">
+      <router-link :to="{path:'/intelligent-recommend',query:{loanAmount: 3000, borrowPeriods: 3}}">
         <div class="item flex">
           <p class="flex-grow">智能推荐</p>
           <i class="iconfont icon-117"></i>
@@ -164,6 +164,14 @@
       <router-link :to="{path: '/evaluate-data'}">
         <div class="item flex">
           <p class="flex-grow">评估数据</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link :to="{path: '/evaluate-score'}">
+        <div class="item flex">
+          <p class="flex-grow">评估积分</p>
           <i class="iconfont icon-117"></i>
         </div>
       </router-link>

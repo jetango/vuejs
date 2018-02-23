@@ -83,7 +83,7 @@
           success: (oData) => {
             if (oData.status === '0') {
               this.recAmount = oData.data.recAmount
-              this.productList = oData.data.appProductInfoList
+              this.productList = oData.data.appProductInfoList || []
             }
           },
           error: (oData) => {
@@ -106,7 +106,7 @@
           let appCodes = this.productList.map((p) => {
             return p.appCode
           })
-          eeLogUBT('Recommend.Action.Submit', 'click', {appCodes: appCodes.join(',') || '12,123'})
+          eeLogUBT('Recommend.Action.Submit', 'click', {appCodes: appCodes.join(',')})
           let value = encodeURIComponent(JSON.stringify({
             subject: '银码头智能推荐',
             amount: this.recAmount,

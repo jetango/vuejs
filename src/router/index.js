@@ -102,7 +102,9 @@ const AssessInfo = (resolve) => {
 // 订单列表
 const OrderList = (resolve) => { import('components/orderList').then((module) => { resolve(module) }) }
 // 评估数据
-const EvaluateData = (resolve) => { import('components/EvaluateData').then((module) => { resolve(module) }) }
+const EvaluateData = (resolve) => { import('components/evaluateData').then((module) => { resolve(module) }) }
+// 评估数据
+const EvaluateScore = (resolve) => { import('components/evaluateScore').then((module) => { resolve(module) }) }
 // 评估流程
 const EvaluateFlow = (resolve) => { import('components/EvaluateFlow').then((module) => { resolve(module) }) }
 // 下载列表
@@ -189,6 +191,10 @@ export default new Router({
       path: '/evaluate-data',
       name: 'evaluateData',
       component: EvaluateData
+    }, {
+      path: '/evaluate-score',
+      name: 'evaluateScore',
+      component: EvaluateScore
     }, {
       path: '/evaluate-flow',
       name: 'evaluateFlow',

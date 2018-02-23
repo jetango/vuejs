@@ -20,7 +20,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {alipay} from 'common/js/drivers'
+  import {alipay, eeLogUBT} from 'common/js/drivers'
   // import * as types from 'config/api-type'
   // import {unionpayPath} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
@@ -67,11 +67,13 @@
       confirmPay() {
         let param = this.param ? JSON.parse(this.param) : ''
         if (this.key === 'EVALUATE_INFO') {
+          eeLogUBT('AssessmentPayPage.Action.Pay', 'click', {payType: this.payKey})
           alipay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
             success() {
             }
           })
         } else if (this.key === 'AUDIT_INFO') {
+          eeLogUBT('RecommendPayPage.Action.Pay', 'click', {payType: this.payKey})
           alipay({successUrl: 'AUDIT_FLOW', title: '审核流程', key: this.key, param}, {
             success() {
             }
@@ -84,6 +86,11 @@
       this.payAmount = amount
       this.param = decodeURIComponent(data)
       this.key = key
+      if (key === 'AUDIT_INFO') {
+        eeLogUBT('RecommendPayPage.Load.Goin', 'goin')
+      } else if (key === 'EVALUATE_INFO') {
+        eeLogUBT('AssessmentPayPage.Load.Goin', 'goin')
+      }
     }
   }
 </script>

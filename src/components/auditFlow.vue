@@ -73,7 +73,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {doPost, popup, navigate} from 'common/js/drivers'
+  import {doPost, popup, navigate, eeLogUBT} from 'common/js/drivers'
   import {pageIdentity} from 'common/js/constants'
   import * as types from 'config/api-type'
   export default {
@@ -87,35 +87,42 @@
           five: '0', // 征信
           six: '0'
         },
-        orderNo: ''
+        orderNo: '',
+        interval: ''
       }
     },
     methods: {
+      _getStatus() {
+        let self = this
+        let param = {}
+        if (self.orderNo) {
+          param.orderNo = self.orderNo
+        }
+        doPost(types.AUDIT_FLOW, param, {
+          success(oData) {
+            self.statusKeys = oData.data.flowInfo
+            self.orderNo = oData.data.orderNo
+            if (oData.data.flowInfo.six === '1') {
+              clearInterval(self.interval)
+              navigate('DOWNLOAD_LIST', '下载列表', {url: pageIdentity.DOWNLOAD_LIST, param: `orderNo=${self.orderNo}`}, null, 'ROOT')
+            }
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '获取数据有误！')
+          }
+        })
+      },
       _fetchStatus() {
         let self = this
-        let interval = setInterval(function() {
-          let param = {}
-          if (self.orderNo) {
-            param.orderNo = self.orderNo
-          }
-          doPost(types.AUDIT_FLOW, param, {
-            success(oData) {
-              self.statusKeys = oData.data.flowInfo
-              self.orderNo = oData.data.orderNo
-              if (oData.data.flowInfo.six === '1') {
-                clearInterval(interval)
-                navigate('DOWNLOAD_LIST', '下载列表', {url: pageIdentity.DOWNLOAD_LIST, param: `orderNo=${self.orderNo}`}, null, 'ROOT')
-              }
-            },
-            error(oData) {
-              popup(null, null, oData.msg || '获取数据有误！')
-            }
-          })
-        }, 800)
+        self.interval = setInterval(function() {
+          self._getStatus()
+        }, 30000)
+        self._getStatus()
       }
     },
     created() {
       this._fetchStatus()
+      eeLogUBT('RecommendLoadingPage.Load.Goin', 'goin')
     }
   }
 </script>

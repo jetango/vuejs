@@ -35,7 +35,8 @@
 <script type="text/ecmascript-6">
   import {
     popup,
-    navigate
+    navigate,
+    eeLogUBT
   } from 'common/js/drivers'
   import FooterNotice from 'base/footerNotice/footer-notice'
   import {
@@ -55,9 +56,10 @@
         this.isChosed = !this.isChosed
       },
       checkProtocols: function() {
-        console.log('check protocols')
+        eeLogUBT('Assessment.Action.Agreement', 'click')
       },
       confirmPay: function() {
+        eeLogUBT('Assessment.Action.Submit', 'click')
         let value = encodeURIComponent(JSON.stringify({
           subject: '银码头智能评估',
           amount: '8',
@@ -73,6 +75,9 @@
           popup(null, null, '请阅读并同意推荐服务协议')
         }
       }
+    },
+    created() {
+      eeLogUBT('Assessment.Load.Goin', 'goin')
     }
   }
 </script>

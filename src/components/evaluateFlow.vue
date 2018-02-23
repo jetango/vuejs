@@ -73,7 +73,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {navigate} from 'common/js/drivers'
+  import {navigate, eeLogUBT} from 'common/js/drivers'
   import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
@@ -105,6 +105,7 @@
     },
     created() {
       this._changeStatus()
+      eeLogUBT('AssessmentLoadingPage.Load.Goin', 'goin')
     }
   }
 </script>
