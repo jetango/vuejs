@@ -19,23 +19,6 @@
         <a v-show="!app.isValid" href="javascript:;" class="btn invalid">已过期</a>
       </div>
     </div>
-
-    <!-- <div class="source-item flex flex-item">
-      <img src="~common/image/tueijian_icon_001.png">
-      <div class="flex-grow">
-        <div class="title">大行贷（5000元-10000元）</div>
-        <div class="code">借款验证码 <span>BA31AD4821</span></div>
-        <div class="date">已过期</div>
-      </div>
-      <a href="javascript:;" class="btn disabled">已过期</a>
-    </div> -->
-
-    <!-- <div class="order-item flex flex-item">
-      <div class="flex-grow">
-        2018/01/30 订单
-      </div>
-      <i class="iconfont icon-117 rotate-270"></i>
-    </div> -->
   </div>
 </template>
 

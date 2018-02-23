@@ -46,6 +46,7 @@
   import {
     popup,
     doPost,
+    log,
     copyStr,
     downLoadApp
   } from 'common/js/drivers'
@@ -77,6 +78,7 @@
             }
           },
           error: (oData) => {
+            log('', oData)
             popup('', '', oData.msg || '保存信息失败')
           }
         })

@@ -784,7 +784,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appName: '小行贷',
             appDescription: '放款快，额度低',
             appInvitationCode: 'BA31A0',
-            appEffectiveTime: '1517233735467',
+            appEffectiveTime: '1527233735467',
             minPrincipal: "500",
             maxPrincipal: "1000",
             appPhotoKey: 'appPhotoUrl',
@@ -820,20 +820,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
         borrowPeriods: "5",
         orderStatus: '20',
         loanTime: '2018-02-18',
-        appList: [
-          {
-            appCode: 'dahangdai',
-            appName: '小行贷',
-            appDescription: '放款快，额度低',
-            appInvitationCode: 'BA31A0',
-            appEffectiveTime: '1518233735467',
-            minPrincipal: "500",
-            maxPrincipal: "1000",
-            appPhotoKey: 'appPhotoUrl',
-            androidDownloadUrl: "http://www.androidDownloadUrl.com",
-            iosDownloadUrl: "http://www.ios.com"
-          }
-        ]
+        appList: []
       }
     ]
   }

@@ -90,12 +90,10 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
-
   .pay-amount
     height: 1rem
     line-height: 1rem
     padding-left: .4rem
-
   .pay-way-list
     background-color: #fff
     .pay-title
@@ -123,7 +121,6 @@
       height: .74rem
       background: url('~common/image/haunkuan_fangshi_icon_001.png') no-repeat
       background-size: 100% 100%
-
   .list-item
     height: 1rem
     padding: 0 .4rem
@@ -132,20 +129,16 @@
       &:first-of-type
         margin-right: .15rem
         font-size: .6rem
-
       &:last-of-type
         color: lightgrey
         font-size: .4rem
     p
       font-size: .28rem
       color: #000000
-
   .chosed
     color: green !important
-
   .button
     margin: 0 auto
   .button-box
     padding: 1rem .4rem
-
 </style>
