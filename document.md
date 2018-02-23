@@ -17,6 +17,7 @@ export const pageIdentity = {
   'ASSESS_INFO': '/#/assess-info',                                    // 智能评估提示   
   'EVALUATE_FLOW': '/#/evaluate-flow',                                // 评估流程
   'EVALUATE_DATA': '/#/evaluate-data',                                // 评估结果数据
+  'EVALUATE_SCORE': '/#/evaluate-score',                              // 信誉积分
   'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐            loanAmount=100&borrowPeriods=3
   'AUDIT_FLOW': '/#/audit-flow',                                      // 审核流程
   'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
