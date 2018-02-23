@@ -627,7 +627,7 @@ apiRoutes.post('/borrow/auth', function(req, res) {
           maxLoanDay: "3"
         }, {
           appCode: "nyd002", //用户ID
-          appName: "侬要贷",
+          appName: "银码头",
           appDescription: "放款速度快，通过率一般",
           minPrincipal: "500",
           maxPrincipal: "1000",

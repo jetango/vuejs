@@ -1,30 +1,34 @@
 <template>
   <div class="intelligent">
-    <div class="amount-stage">
-      <div class="item active">
+    <div class="amount-stage flex flex-item">
+      <!-- <div class="item active">
         <span>借款金额</span>
         <span>{{loanAmount + '元'}}</span>
       </div>
       <div class="item">
         <span>借款期限</span>
         <span>{{borrowPeriods + '期'}}</span>
-      </div>
+      </div> -->
+      <img class="intro-img" src="~common/image/JQR_da_005.png">
+      <p class="intro-desc">为您智能推荐一下优质产品</p>
     </div>
     <div class="recommend">
       <div class="product-item flex flex-item" v-for="item in productList" :key="item.productDesc">
         <img class="logo" src="~common/image/tueijian_icon_001.png">
         <div class="item-content flex-grow">
-          <p class="desc-a">{{'(' + item.minPrincipal + '元-' + item.maxPrincipal + '元)，最高' + item.maxLoanDay + '期'}}</p>
+          <p class="desc-a">{{'(' + item.minPrincipal + '元-' + item.maxPrincipal + '元)，' + item.maxLoanDay + '期'}}</p>
           <p class="desc-b">{{item.appDescription}}</p>
         </div>
         <div class="select-bg" @click="selectProduct(item)">
-          <img src="~common/image/tueijian_icon_003.png">
+          <!-- <img src="~common/image/tueijian_icon_003.png"> -->
+          <p>{{item.recommendAmount}}元</p>
+          <p>{{item.recommendOriginalAmount}}元</p>
         </div>
       </div>
     </div>
-    <div class="recommend-cost">
+    <!-- <div class="recommend-cost">
       消耗推荐费：{{recAmount ? recAmount + '元' : ''}}
-    </div>
+    </div> -->
     <div class="recommend-intro">
       <div class="recommend-title">
         <img class="reverse-logo" src="~common/image/zhaungshi_001.png">
@@ -32,10 +36,8 @@
         <img src="~common/image/zhaungshi_001.png">
       </div>
       <div class="intro">
-        <p>1、年化利率低至20%</p>
-        <p>2、可多平台多次借贷</p>
-        <p>3、借款不成功，退还手续费</p>
-        <p>4、每次推荐有效期为7天</p>
+        <p>1、推荐产品年化利率低至20%</p>
+        <p>2、推荐产品全为合法合规银行产品</p>
       </div>
     </div>
     <p class="protocols">
@@ -145,6 +147,17 @@
 
   .amount-stage
     background-color: #fff
+    height: 1.4rem
+
+    .intro-img
+      width: 1.1rem
+      height: 1.1rem
+      margin-left: .3rem
+    .intro-desc
+      font-size: .36rem
+      color: #caa962
+      font-style: italic
+      margin-left: .1rem
 
   .item
     height: 1rem
@@ -177,13 +190,21 @@
         width: .64rem
         height: .64rem
       .select-bg
-        width: .52rem
         height: .52rem
-        background: url('~common/image/tueijian_icon_002.png') no-repeat
-        background-size: 100% 100%
+        // background: url('~common/image/tueijian_icon_002.png') no-repeat
+        // background-size: 100% 100%
         img
           width: .52rem
           height: .52rem
+        p
+          font-size: .3rem
+          color: #525252
+          text-align: center
+          &:first-of-type
+            color: #a98300
+            font-size: .44rem
+          &:last-of-type
+            text-decoration:line-through
 
   .recommend-cost
     margin-top: .1rem
@@ -216,7 +237,7 @@
   .protocols
     font-size: .2rem
     text-align: center
-    margin-top: .1rem
+    margin-top: .8rem
     i
       color: green
       font-size: .22rem
