@@ -34,7 +34,7 @@
       </div>
       <div class="item flex" @click="hiredateSelected()">
         <div class="flex-grow title">入职时间</div>
-        <div>{{workInfo.hiredate ? workInfo.hiredate : '请选择'}}</div>
+        <div>{{workInfo.entryTime ? workInfo.entryTime : '请选择'}}</div>
         <i class="iconfont icon-117"></i>
       </div>
     </div>
@@ -76,7 +76,7 @@
           companyAddress: '',
           telephone: '',
           salary: '',
-          hiredate: ''
+          entryTime: ''
         }
       }
     },
@@ -257,7 +257,7 @@
           let day = days[selectedIndex[2]].value
           day = day.substring(0, day.length - 1)
           let date = `${year.substring(0, year.length - 1)}-${month >= 10 ? month : 0 + month}-${day >= 10 ? day : 0 + day}`
-          this.workInfo.hiredate = date
+          this.workInfo.entryTime = date
         })
         this.hiredatePicker.on('picker.change', (index, selectedIndex) => {
           if (index === 0) {

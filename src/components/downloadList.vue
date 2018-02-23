@@ -30,15 +30,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="download-item flex flex-item">
-      <img src="~common/image/tueijian_icon_001.png">
-      <div class="flex-grow">
-        <div class="title">大行贷（5000元-10000元）</div>
-        <div class="desc">放款快，额度高</div>
-      </div>
-      <i class="iconfont icon-117 rotate-90"></i>
-    </div> -->
   </div>
 </template>
 

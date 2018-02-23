@@ -22,7 +22,7 @@ export default class Driver {
     // param.userId = '173291700001'
     //  "accountNumber":"18551094526",
     param.deviceId = '00000000-20cc-bf45-ffff-ffffde6c439e'
-    param.userId = '173431600002'
+    param.userId = '11180541000001'
     param.accountNumber = '18551094526'
     axios.post(ApiObj[api], param).then((response) => {
       window.callback(name, response.data)
