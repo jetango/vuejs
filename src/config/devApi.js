@@ -14,6 +14,7 @@ export default {
   [types.SCORE]: '/user/score/auth',
   [types.EXTEND_SAVE]: '/user/userExtend/saveOrUpdate/auth',
   [types.EXTEND_QUERY]: '/user/userExtend/query/auth',
+  [types.FETCH_EVALUATE_SCORE]: '/user/evaluateScore/auth',
   [types.BORROW]: '/order/borrow/auth',
   [types.BORROW_CONFIRM]: '/order/borrow/confirm/auth',
   [types.BORROW_RESULT]: '/order/borrow/result/auth',

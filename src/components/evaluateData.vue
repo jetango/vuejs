@@ -6,7 +6,7 @@
           <img class="score" src="~common/image/XXLR_quan_bg_001.png">
           <canvas class="circle" id="circle" width="150" height="150"></canvas>
           <div class="detail">
-            <p class="score-value"><span style="visibility: hidden">分</span>96<span>分</span></p>
+            <p class="score-value"><span style="visibility: hidden">分</span>{{score}}<span>分</span></p>
             <p class="tip">综合评分</p>
           </div>
         </div>
@@ -30,10 +30,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {endPage} from 'common/js/drivers'
+  import {endPage, doPost, popup} from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
+        score: 0,
         circleContext: null,
         circle: null,
         circleValue: {
@@ -71,6 +73,17 @@
       },
       confirmPay() {
         endPage({url: '', param: ''}, 'ROOT')
+      },
+      fetchEvaluateScore() {
+        let self = this
+        doPost(types.FETCH_EVALUATE_SCORE, {}, {
+          success(oData) {
+            self.score = oData.data
+          },
+          error(oData) {
+            popup('', '', oData.msg || '获取信息失败')
+          }
+        })
       }
     },
     mounted() {
@@ -84,6 +97,7 @@
       this.circleContext.strokeStyle = gradient
       this._drawCircle(0) // 240
       this._progress(90)
+      this.fetchEvaluateScore()
     }
   }
 </script>

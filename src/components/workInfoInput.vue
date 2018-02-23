@@ -92,7 +92,8 @@
           companyAddress,
           telephone,
           salary,
-          profession
+          profession,
+          entryTime
         } = this.workInfo
         let params = {
           industry,
@@ -103,7 +104,8 @@
           companyAddress,
           telephone,
           salary,
-          profession
+          profession,
+          entryTime
         }
         if (this._validate(params)) {
           if (this.loading) {

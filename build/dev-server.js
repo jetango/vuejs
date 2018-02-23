@@ -612,6 +612,22 @@ apiRoutes.post('/userExtend/query/auth', function(req, res) {
   }
   responseData(res, result)
 })
+
+/**
+ * 客户基本信息评估分接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/evaluateScore/auth', function(req, res) {
+  var result = {
+    "status": "0",
+    "msg": "success",
+    "data": 94
+  }
+  responseData(res, result)
+})
+
 /**
  * 只能推荐接口拉取数据
  * @param  {[type]} req [description]
@@ -836,6 +852,7 @@ const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http:/
 const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
 const apiOrderProxy = proxyMiddleware('/order', {target: 'http://10.25.192.4:9001', changeOrigin: true})
 const apiRepayProxy = proxyMiddleware('/pay', {target: 'http://10.25.192.4:9200', changeOrigin: true})
+
 
 app.use('/application', apiUserApplicationProxy)
 app.use('/user', apiUserAPPProxy)

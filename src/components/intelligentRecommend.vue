@@ -58,7 +58,7 @@
     popup,
     doPost,
     log,
-    navigate
+    navigate, eeLogUBT
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import {
@@ -96,13 +96,17 @@
         this.isChosed = !this.isChosed
       },
       checkProtocols: function() {
-        console.log('check protocols')
+        eeLogUBT('Recommend.Action.Agreement', 'click')
       },
       selectProduct: function(item) {
         item.isSelected = item.isSelected
       },
       confirm: function() {
         if (this.isChosed) {
+          let appCodes = this.productList.map((p) => {
+            return p.appCode
+          })
+          eeLogUBT('Recommend.Action.Submit', 'click', {appCodes: appCodes.join(',') || '12,123'})
           let value = encodeURIComponent(JSON.stringify({
             subject: '银码头智能推荐',
             amount: this.recAmount,
@@ -110,7 +114,7 @@
             loanAmount: this.loanAmount,
             borrowPeriods: this.borrowPeriods
           }))
-          let param = `data=${value}&amount=${this.loanAmount}&key=AUDIT_INFO`
+          let param = `data=${value}&amount=${this.recAmount}&key=AUDIT_INFO`
           navigate('PAYMENT_WAY', '支付方式', {
             url: pageIdentity.PAYMENT_WAY,
             param
@@ -122,6 +126,7 @@
     },
     mounted: function() {
       this.initPage()
+      eeLogUBT('Recommend.Load.Goin', 'goin')
     },
     created() {
       let {loanAmount, borrowPeriods} = this.$route.query

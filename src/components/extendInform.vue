@@ -26,7 +26,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup, doPost, log} from 'common/js/drivers'
+  import {popup, doPost, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
@@ -44,11 +44,10 @@
           doPost(types.EXTEND_SAVE, this.extendInfo, {
             success: function(oData) {
               if (oData.status === '0') {
-                popup(null, null, '信息添加成功')
+                endPage({})
               }
             },
             error: function(oData) {
-              log('', oData)
               popup('', '', oData.msg || '保存信息失败')
             }
           })
