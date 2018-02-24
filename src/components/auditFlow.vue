@@ -15,7 +15,9 @@
       <section class="time-line">
         <div class="flex block first" :class="{'actived': statusKeys.one == '1'}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>同步信誉评分</h1>
@@ -24,7 +26,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.two == '1'}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>传输征信数据</h1>
@@ -33,7 +37,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.three == '1'}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>验证征信信息</h1>
@@ -42,7 +48,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.four == '1'}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>生成验证码信息</h1>
@@ -51,7 +59,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.five == '1'}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>接受验证码</h1>
@@ -60,7 +70,9 @@
         </div>
         <div class="flex block last" :class="{'actived': statusKeys.six == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>生成订单</h1>
@@ -153,8 +165,11 @@
     .icon
       width: .44rem
       position: relative
+      > div
+        overflow: hidden
       .iconfont
         position: relative
+        top: -1px
         z-index: 5
         font-size: .44rem
         background: #fff

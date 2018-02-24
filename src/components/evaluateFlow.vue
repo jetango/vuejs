@@ -15,7 +15,9 @@
       <section class="time-line">
         <div class="flex block first" :class="{'actived': statusKeys.indentityInfo == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>身份信息</h1>
@@ -24,7 +26,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.workInfo == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>工作信息</h1>
@@ -33,7 +37,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.contactInfo == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>联系人信息</h1>
@@ -42,7 +48,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.authenticate == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>信用认证</h1>
@@ -51,7 +59,9 @@
         </div>
         <div class="flex block" :class="{'actived': statusKeys.reference == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>征信入网信息</h1>
@@ -60,7 +70,9 @@
         </div>
         <div class="flex block last" :class="{'actived': statusKeys.score == true}">
           <div class="icon">
-            <i class="iconfont icon-correct-marked"></i>
+            <div>
+              <i class="iconfont icon-correct-marked"></i>
+            </div>
           </div>
           <div class="content flex-grow">
             <h1>评估分数</h1>
@@ -136,8 +148,11 @@
     .icon
       width: .44rem
       position: relative
+      > div
+        overflow: hidden
       .iconfont
         position: relative
+        top: -1px
         z-index: 5
         font-size: .44rem
         background: #fff
