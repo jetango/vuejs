@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <p class="tip">
+    <p class="tip-bottom">
       <img class="img-size" src="~common/image/zhushi_tuan_001.png">
       请按时还款，逾期记录将上传人民银行征信中心
       <img class="img-size rotate-180" src="~common/image/zhushi_tuan_001.png">
@@ -160,7 +160,7 @@
       padding-top: .1rem
       padding-bottom: .5rem
 
-  .tip
+  .tip-bottom
     font-size: .22rem
     margin-top: 1rem
     text-align: center
