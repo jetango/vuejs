@@ -30,6 +30,11 @@
         </div>
       </div>
     </div>
+    <p class="tip">
+      <img class="img-size" src="~common/image/zhushi_tuan_001.png">
+      请按时还款，逾期记录将上传人民银行征信中心
+      <img class="img-size rotate-180" src="~common/image/zhushi_tuan_001.png">
+    </p>
   </div>
 </template>
 
@@ -154,4 +159,14 @@
     .time-line
       padding-top: .1rem
       padding-bottom: .5rem
+
+  .tip
+    font-size: .22rem
+    margin-top: 1rem
+    text-align: center
+    color: #2a89c7
+    .img-size
+      width: .4rem
+      height: .24rem
+      vertical-align: middle
 </style>
