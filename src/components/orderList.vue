@@ -62,7 +62,7 @@
                     let day = validDate.getDate()
                     let validDateStr = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
                     app.validDate = validDateStr
-                    if (app.appEffectiveTime > currentTime) {
+                    if (app.appEffectiveTime < currentTime) {
                       app.isValid = true
                     } else {
                       app.isValid = false
