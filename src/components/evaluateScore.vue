@@ -74,7 +74,7 @@
         let self = this
         doPost(types.FETCH_EVALUATE_SCORE, {}, {
           success(oData) {
-            self.score = oData.data
+            self.score = oData.data || 0
           },
           error(oData) {
             popup('', '', oData.msg || '获取信息失败')

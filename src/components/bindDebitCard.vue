@@ -110,7 +110,6 @@
         eeLogUBT('BankCard.Action.ValidCode', 'click')
       },
       submit: function() {
-        let self = this
         let reg = new RegExp('^[0-9]*$')
         if (this.isChosed) {
           popup(null, null, '请同意用户服务协议！')
@@ -154,11 +153,7 @@
           doPost(types.BANK, param, {
             success: (oData) => {
               this.submitStatus = true
-              if (self.from === 'bank_list') {
-                endPage({url: pageIdentity.BANK_LIST, param: ''}, 'BANK_LIST', '-1')
-              } else if (self.from === 'choose_bank') {
-                endPage({url: pageIdentity.CHOOSE_BANK, param: ''}, 'CHOOSE_BANK', '-1')
-              }
+              endPage({url: pageIdentity.BANK_LIST, param: ''}, 'BANK_LIST', '-1')
             },
             error: (oData) => {
               this.submitStatus = true

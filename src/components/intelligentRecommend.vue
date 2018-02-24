@@ -26,9 +26,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="recommend-cost">
-      消耗推荐费：{{recAmount ? recAmount + '元' : ''}}
-    </div> -->
     <div class="recommend-intro">
       <div class="recommend-title">
         <img class="reverse-logo" src="~common/image/zhaungshi_001.png">
@@ -72,7 +69,6 @@
         loanAmount: '',
         borrowPeriods: '',
         productList: [],
-        recAmount: '',
         isChosed: true
       }
     },
@@ -84,7 +80,6 @@
         }, {
           success: (oData) => {
             if (oData.status === '0') {
-              this.recAmount = oData.data.recAmount
               this.productList = oData.data.appProductInfoList || []
             }
           },
@@ -109,14 +104,18 @@
             return p.appCode
           })
           eeLogUBT('Recommend.Action.Submit', 'click', {appCodes: appCodes.join(',')})
+          let recommendAmount = 0
+          if (this.productList.length > 0) {
+            recommendAmount = this.productList[0].recommendAmount
+          }
           let value = encodeURIComponent(JSON.stringify({
             subject: '银码头智能推荐',
-            amount: this.recAmount,
+            amount: recommendAmount,
             flag: '2',
             loanAmount: this.loanAmount,
             borrowPeriods: this.borrowPeriods
           }))
-          let param = `data=${value}&amount=${this.recAmount}&key=AUDIT_INFO`
+          let param = `data=${value}&amount=${recommendAmount}&key=AUDIT_INFO`
           navigate('PAYMENT_WAY', '支付方式', {
             url: pageIdentity.PAYMENT_WAY,
             param
