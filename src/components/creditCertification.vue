@@ -6,10 +6,10 @@
             <span v-if="!creditStatus.zmxyFlag" @click="sesameCertification">{{creditStatus.zmxyTextName}}</span>
             <i class="icon iconfont icon-117"></i>
           </div> -->
-    <div @click="tbCertification" class="credit-item flex flex-item focus">
-      <span class="flex-grow">淘宝认证</span>
-      <span v-if="creditStatus.tbFlag" :class="{'credit': creditStatus.tbFlag}">{{creditStatus.tbTextName}}</span>
-      <span v-if="!creditStatus.tbFlag">{{creditStatus.tbTextName}}</span>
+    <div @click="gxbCertification" class="credit-item flex flex-item focus">
+      <span class="flex-grow">公信宝认证</span>
+      <span v-if="creditStatus.gxbFlag" :class="{'credit': creditStatus.gxbFlag}">{{creditStatus.gxbTextName}}</span>
+      <span v-if="!creditStatus.gxbFlag">{{creditStatus.gxbTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div @click="phoneCertification" class="credit-item flex flex-item focus">
@@ -18,15 +18,15 @@
       <span v-if="!creditStatus.mobileFlag">{{creditStatus.mobileTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
-    <div @click="gxbCertification" class="credit-item flex flex-item focus">
-      <span class="flex-grow">公信宝认证</span>
-      <span v-if="creditStatus.gxbFlag" :class="{'credit': creditStatus.gxbFlag}">{{creditStatus.gxbTextName}}</span>
-      <span v-if="!creditStatus.gxbFlag">{{creditStatus.gxbTextName}}</span>
+    <div @click="tbCertification" class="credit-item flex flex-item focus">
+      <span class="flex-grow">淘宝认证</span>
+      <span v-if="creditStatus.tbFlag" :class="{'credit': creditStatus.tbFlag}">{{creditStatus.tbTextName}}</span>
+      <span v-if="!creditStatus.tbFlag">{{creditStatus.tbTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div class="text-center tip">
-      <div class="line"></div>
-      <span>至少认证一项</span>
+      <!-- <div class="line"></div>
+      <span>至少认证一项</span> -->
     </div>
     <div class="footer" :class="{'input-footer':isInput}">
       <p class="product-name">银码头</p>
@@ -93,11 +93,11 @@
               // zmxyFlag: !!Number.parseInt(status.zmxyFlag),
               // zmxyTextName: status.zmxyFlag === '1' ? '已认证' : '去认证',
               mobileFlag: !!Number.parseInt(status.mobileFlag),
-              mobileTextName: status.mobileFlag === '1' ? '已认证' : '去认证',
+              mobileTextName: status.mobileFlag === '1' ? '已认证' : '必填',
               tbFlag: !!Number.parseInt(status.tbFlag),
-              tbTextName: status.tbFlag === '1' ? '已认证' : '去认证',
+              tbTextName: status.tbFlag === '1' ? '已认证' : '选填',
               gxbFlag: !!Number.parseInt(status.gxbFlag),
-              gxbTextName: status.gxbFlag === '1' ? '已认证' : '去认证'
+              gxbTextName: status.gxbFlag === '1' ? '已认证' : '必填'
             }
             this.creditStatus = showInfo
           }
@@ -241,6 +241,9 @@
 
   .credit
     color: #2ec200 !important
+
+  .text-center
+    height: 1rem
 
   .tip
     margin-top: 1rem
