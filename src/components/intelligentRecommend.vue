@@ -190,7 +190,6 @@
         width: .64rem
         height: .64rem
       .select-bg
-        height: .52rem
         // background: url('~common/image/tueijian_icon_002.png') no-repeat
         // background-size: 100% 100%
         img
@@ -205,6 +204,7 @@
             font-size: .44rem
           &:last-of-type
             text-decoration:line-through
+            margin-top: .06rem
 
   .recommend-cost
     margin-top: .1rem
