@@ -26,6 +26,7 @@ export default {
   [types.GET_REPAYMENT_TIP]: '/zeus/bill',
   [types.REPAY_SCHEDULE]: '/zeus/bill-list',
   [types.USER_CONTRACT]: '/application/agreement',
+  [types.FETCH_ASSESS_FEE]: '/application/fetch/assessFee',
   [types.VIP]: '/member/fetch',
   [types.QUIKPAY]: '/pay/hlb/quikPay',
   [types.DIRECTPAY]: '/pay/hlb/directPay',

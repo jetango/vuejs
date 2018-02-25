@@ -198,7 +198,11 @@ export const pageIdentity = {
   'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
   'ORDER_LIST': '/#/order-list',                                      // 订单列表
   'ABOUT_US': '/#/about-us',                                          // 关于我们
-  'QUESTION': '/#/question'                                           // 常见问题
+  'QUESTION': '/#/question',                                          // 常见问题
+  'REGISTER_PRIVACY': '/#/register-privacy',                          // 用户注册服务协议（Android）
+  'REGISTER_PRIVACY_IOS': '/#/register-privacy-ios',                  // 用户注册服务协议（iOS）
+  'RECOMMEND_PROTOCOL': '/#/recommend-protocol',                      // 推荐服务协议（Android）
+  'RECOMMEND_PROTOCOL_IOS': '/#/recommend-protocol-ios'               // 推荐服务协议（iOS）
 }
 
 export const positionItems = {

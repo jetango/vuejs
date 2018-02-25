@@ -99,6 +99,20 @@ const AssessInfo = (resolve) => {
   })
 }
 
+// 认证授权
+const RegisterAndPrivacy = (resolve) => {
+  import('components/registerAndPrivacy').then((module) => {
+    resolve(module)
+  })
+}
+
+// 推荐服务协议
+const RecommendProtocol = (resolve) => {
+  import('components/recommendProtocol').then((module) => {
+    resolve(module)
+  })
+}
+
 // 订单列表
 const OrderList = (resolve) => { import('components/orderList').then((module) => { resolve(module) }) }
 // 评估数据
@@ -215,6 +229,22 @@ export default new Router({
       path: '/question',
       name: 'question',
       component: Question
+    }, {
+      path: '/register-privacy', // 用户注册服务协议
+      name: 'registerAndPrivacy',
+      component: RegisterAndPrivacy
+    }, {
+      path: '/register-privacy-ios', // 用户注册服务协议
+      name: 'registerAndPrivacyIos',
+      component: RegisterAndPrivacy
+    }, {
+      path: '/recommend-protocol', // 推荐服务协议
+      name: 'recommendProtocol',
+      component: RecommendProtocol
+    }, {
+      path: '/recommend-protocol-ios', // 推荐服务协议
+      name: 'recommendProtocolIos',
+      component: RecommendProtocol
     }
   ]
 })

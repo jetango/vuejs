@@ -10,10 +10,10 @@
       </div>
       <div v-show="item.isShow && item.orderStatus !== 10" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
         <!-- <img src="~common/image/tueijian_icon_001.png"> -->
-        <span class="app-bg" :class="[_getBgClass(item.appPhotoKey)]"></span>
+        <span class="app-bg" :class="[_getBgClass(app.appPhotoKey)]"></span>
         <div class="flex-grow">
           <div class="title">{{app.appName + '（' + app.minPrincipal + '元-' + app.maxPrincipal + '元）'}}</div>
-          <div class="code">借款验证码 <span>{{app.appInvitationCode}}</span></div>
+          <div class="code">借款验证码 <span @click="_copyStr(app.appInvitationCode)">{{app.appInvitationCode}}</span></div>
           <div class="date">有效期至：{{app.appEffectiveTime}}</div>
         </div>
         <a v-show="app.isValid" href="javascript:;" @click="downLoadApp(app)" class="btn">去下载</a>
@@ -31,7 +31,7 @@
     doPost,
     log,
     downLoadApp,
-    eeLogUBT
+    eeLogUBT, copyStr
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
   import util from 'common/js/util.js'
@@ -57,13 +57,13 @@
                   let appList = item.appList
                   appList.forEach(app => {
                     let currentTime = new Date().getTime()
-                    let validDate = new Date(Number(app.appEffectiveTime))
-                    let year = validDate.getFullYear()
-                    let month = validDate.getMonth() + 1
-                    let day = validDate.getDate()
-                    let validDateStr = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
-                    app.validDate = validDateStr
-                    if (app.appEffectiveTime < currentTime) {
+                    // let validDate = new Date(Number(app.appEffectiveTime))
+                    // let year = validDate.getFullYear()
+                    // let month = validDate.getMonth() + 1
+                    // let day = validDate.getDate()
+                    // let validDateStr = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
+                    // app.validDate = validDateStr
+                    if (new Date(app.appEffectiveTime) > currentTime) {
                       app.isValid = true
                     } else {
                       app.isValid = false
@@ -95,6 +95,9 @@
       },
       _getBgClass(key) {
         return `${key}-bg`
+      },
+      _copyStr(str) {
+        copyStr(str)
       }
     },
     mounted: function() {

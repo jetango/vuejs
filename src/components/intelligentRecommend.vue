@@ -94,6 +94,11 @@
       },
       checkProtocols: function() {
         eeLogUBT('Recommend.Action.Agreement', 'click')
+        if (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0) {
+          navigate('RECOMMEND_PROTOCOL_IOS', '推荐服务协议', {url: pageIdentity.RECOMMEND_PROTOCOL_IOS})
+        } else {
+          navigate('RECOMMEND_PROTOCOL', '推荐服务协议', {url: pageIdentity.RECOMMEND_PROTOCOL})
+        }
       },
       selectProduct: function(item) {
         item.isSelected = item.isSelected

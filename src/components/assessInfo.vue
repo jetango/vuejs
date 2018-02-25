@@ -24,7 +24,7 @@
       </span>
     </p>
     <div class="button-box">
-      <div class="button button-primary" @click="confirmPay">
+      <div class="button button-primary" @click="confirmPay" :class="{'disabled': this.assessFee == 0}">
         确定并付款
       </div>
     </div>
@@ -36,16 +36,19 @@
   import {
     popup,
     navigate,
-    eeLogUBT
+    eeLogUBT,
+    doPost
   } from 'common/js/drivers'
   import FooterNotice from 'base/footerNotice/footer-notice'
+  import * as types from 'config/api-type'
   import {
     pageIdentity
   } from 'common/js/constants'
   export default {
     data() {
       return {
-        isChosed: true
+        isChosed: true,
+        assessFee: 0
       }
     },
     components: {
@@ -59,13 +62,16 @@
         eeLogUBT('Assessment.Action.Agreement', 'click')
       },
       confirmPay: function() {
+        if (this.assessFee === 0) {
+          return
+        }
         eeLogUBT('Assessment.Action.Submit', 'click')
         let value = encodeURIComponent(JSON.stringify({
           subject: '银码头智能评估',
-          amount: '8',
+          amount: this.assessFee,
           flag: '1'
         }))
-        let param = `data=${value}&amount=8&key=EVALUATE_INFO`
+        let param = `data=${value}&amount=${this.assessFee}&key=EVALUATE_INFO`
         if (this.isChosed) {
           navigate('PAYMENT_WAY', '支付方式', {
             url: pageIdentity.PAYMENT_WAY,
@@ -74,9 +80,21 @@
         } else {
           popup(null, null, '请阅读并同意推荐服务协议')
         }
+      },
+      _fetchAssessFee() {
+        let self = this
+        doPost(types.FETCH_ASSESS_FEE, {}, {
+          success(oData) {
+            self.assessFee = oData.data || 0
+          },
+          error(oData) {
+            popup(null, null, oData.msg || '获取数据有误！')
+          }
+        })
       }
     },
     created() {
+      this._fetchAssessFee()
       eeLogUBT('Assessment.Load.Goin', 'goin')
     }
   }
