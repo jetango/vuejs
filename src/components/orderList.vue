@@ -9,7 +9,8 @@
         <a v-show="item.orderStatus === 10" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>
       </div>
       <div v-show="item.isShow && item.orderStatus !== 10" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
-        <img src="~common/image/tueijian_icon_001.png">
+        <!-- <img src="~common/image/tueijian_icon_001.png"> -->
+        <span class="app-bg" :class="[_getBgClass(item.appPhotoKey)]"></span>
         <div class="flex-grow">
           <div class="title">{{app.appName + '（' + app.minPrincipal + '元-' + app.maxPrincipal + '元）'}}</div>
           <div class="code">借款验证码 <span>{{app.appInvitationCode}}</span></div>
@@ -91,6 +92,9 @@
         }
       },
       toEvaluateFlow: function() {
+      },
+      _getBgClass(key) {
+        return `${key}-bg`
       }
     },
     mounted: function() {

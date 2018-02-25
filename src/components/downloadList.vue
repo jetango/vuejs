@@ -2,7 +2,8 @@
   <div class="download-list">
     <div class="product-item" v-for="item in productList" :key="item.appCode">
       <div class="download-item flex flex-item" @click="showDetail(item)">
-        <img src="~common/image/tueijian_icon_001.png">
+        <!-- <img src="~common/image/tueijian_icon_001.png"> -->
+        <span class="app-bg" :class="[_getBgClass(item.appPhotoKey)]"></span>
         <div class="flex-grow">
           <div class="title">{{item.appName + '（' + item.minPrincipal + '元-' + item.maxPrincipal + '元）'}}</div>
           <div class="desc">{{item.appDescription}}</div>
@@ -96,6 +97,9 @@
           downLoadApp(item.androidDownloadUrl)
         }
         eeLogUBT('RecommendResultPage.Action.GoDownLoad', 'click')
+      },
+      _getBgClass(key) {
+        return `${key}-bg`
       }
     },
     mounted: function() {
@@ -163,6 +167,7 @@
   .tip-bottom
     font-size: .22rem
     margin-top: 1rem
+    margin-bottom: 1rem
     text-align: center
     color: #2a89c7
     .img-size

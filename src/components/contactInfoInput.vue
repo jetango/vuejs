@@ -56,7 +56,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {relationship} from 'common/js/constants'
+  import {directRelationship, majorRelationship} from 'common/js/constants'
   import Picker from 'better-picker'
   import {doPost, chooseContact, popup, endPage, log, eeLogUBT} from 'common/js/drivers'
   import * as types from 'config/api-type'
@@ -142,25 +142,25 @@
       },
       _initRelationshipPicker() {
         this.directContactPicker = new Picker({
-          'data': [relationship],
+          'data': [directRelationship],
           'selectedIndex': [0]
         })
         this.directContactPicker.on('picker.select', (val, selectedIndex) => {
-          if (this.majorContactRelation && val[0] === this.majorContactRelation) {
-            popup('', '', '联系人关系重复选择！')
-            return false
-          }
+          // if (this.majorContactRelation && val[0] === this.majorContactRelation) {
+          //   popup('', '', '联系人关系重复选择！')
+          //   return false
+          // }
           this.directContactRelation = val[0]
         })
         this.majorContactPicker = new Picker({
-          'data': [relationship],
+          'data': [majorRelationship],
           'selectedIndex': [0]
         })
         this.majorContactPicker.on('picker.select', (val, selectedIndex) => {
-          if (this.directContactRelation && val[0] === this.directContactRelation) {
-            popup('', '', '联系人关系重复选择！')
-            return false
-          }
+          // if (this.directContactRelation && val[0] === this.directContactRelation) {
+          //   popup('', '', '联系人关系重复选择！')
+          //   return false
+          // }
           this.majorContactRelation = val[0]
         })
       },

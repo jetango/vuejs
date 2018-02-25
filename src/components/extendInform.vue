@@ -65,32 +65,32 @@
       },
       _validateInfo: function(item) {
         let reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
-        let {
-          email,
-          qqNumber,
-          wechatNumber
-        } = item
-        if (email === '') {
-          popup(null, null, '邮箱不能为空')
-          return false
-        }
-        if (!reg.test(email)) {
+        let {email} = item
+        if (email && !reg.test(email)) {
           popup(null, null, '邮箱格式有误，请重新输入')
           return false
         }
-        if (qqNumber === '') {
-          popup(null, null, 'QQ号码不能为空')
-          return false
-        }
-        if (wechatNumber === '') {
-          popup(null, null, '微信账号不能为空')
-          return false
-        }
         return true
+      },
+      fetchExtendInfo() {
+        let self = this
+        doPost(types.EXTEND_QUERY, {}, {
+          success: function(oData) {
+            if (oData.status === '0') {
+              self.extendInfo = oData.data
+            }
+          },
+          error: function(oData) {
+            popup('', '', oData.msg || '保存信息失败')
+          }
+        })
       }
     },
     created() {
       eeLogUBT('OtherInfo.Load.Goin', 'goin')
+    },
+    mounted() {
+      this.fetchExtendInfo()
     }
   }
 </script>

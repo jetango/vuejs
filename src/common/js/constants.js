@@ -68,23 +68,26 @@ export const loanPurposeStatus = [
   }
 ]
 
-export const relationship = [
+export const directRelationship = [
+  {
+    text: '父亲',
+    value: '父亲'
+  },
+  {
+    text: '母亲',
+    value: '母亲'
+  },
+  {
+    text: '子女',
+    value: '子女'
+  },
   {
     text: '配偶',
     value: '配偶'
-  },
-  {
-    text: '父母',
-    value: '父母'
-  },
-  {
-    text: '兄妹',
-    value: '兄妹'
-  },
-  {
-    text: '亲戚',
-    value: '亲戚'
-  },
+  }
+]
+
+export const majorRelationship = [
   {
     text: '同事',
     value: '同事'
@@ -92,10 +95,6 @@ export const relationship = [
   {
     text: '朋友',
     value: '朋友'
-  },
-  {
-    text: '其他',
-    value: '其他'
   }
 ]
 
