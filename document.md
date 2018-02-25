@@ -24,6 +24,10 @@ export const pageIdentity = {
   'ORDER_LIST': '/#/order-list',                                      // 订单列表
   'ABOUT_US': '/#/about-us',                                          // 关于我们
   'QUESTION': '/#/question'                                           // 常见问题
+  
+  // 协议列表
+  'REGISTER-PRIVACY': /#/register-privacy'                            // 用户注册服务协议（Android）
+  'REGISTER-PRIVACY-IOS': /#/register-privacy-ios'                    // 用户注册服务协议（iOS）
 }
 
 ```
