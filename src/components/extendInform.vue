@@ -65,7 +65,7 @@
       },
       _validateInfo: function(item) {
         let reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
-        let {email} = item
+        let email = item.email
         if (email && !reg.test(email)) {
           popup(null, null, '邮箱格式有误，请重新输入')
           return false
@@ -77,7 +77,11 @@
         doPost(types.EXTEND_QUERY, {}, {
           success: function(oData) {
             if (oData.status === '0') {
-              self.extendInfo = oData.data
+              if (oData.data) {
+                self.extendInfo.email = oData.data.email || ''
+                self.extendInfo.qqNumber = oData.data.qqNumber || ''
+                self.extendInfo.wechatNumber = oData.data.wechatNumber || ''
+              }
             }
           },
           error: function(oData) {

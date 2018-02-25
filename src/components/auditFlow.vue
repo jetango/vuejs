@@ -114,7 +114,7 @@
           success(oData) {
             self.statusKeys = oData.data.flowInfo
             self.orderNo = oData.data.orderNo
-            if (oData.data.flowInfo.six === '1') {
+            if (Number(oData.data.flowInfo.six) === 1) {
               clearInterval(self.interval)
               navigate('DOWNLOAD_LIST', '下载列表', {url: pageIdentity.DOWNLOAD_LIST, param: `orderNo=${self.orderNo}`}, null, 'ROOT')
             }

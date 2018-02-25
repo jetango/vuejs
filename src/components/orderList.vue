@@ -1,11 +1,11 @@
 <template>
   <div class="order-list">
     <div class="order-pick" v-for="item in orderList" :key="item.orderNo">
-      <div class="order-item flex flex-item" :class="{'active': item.isShow}">
+      <div @click="showDetail(item)" class="order-item flex flex-item" :class="{'active': item.isShow}">
         <div class="flex-grow">
           {{item.loanTime}} 订单
         </div>
-        <i @click="showDetail(item)" v-show="item.orderStatus !== 10" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
+        <i v-show="item.orderStatus !== 10" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
         <a v-show="item.orderStatus === 10" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>
       </div>
       <div v-show="item.isShow && item.orderStatus !== 10" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
@@ -57,13 +57,7 @@
                   let appList = item.appList
                   appList.forEach(app => {
                     let currentTime = new Date().getTime()
-                    // let validDate = new Date(Number(app.appEffectiveTime))
-                    // let year = validDate.getFullYear()
-                    // let month = validDate.getMonth() + 1
-                    // let day = validDate.getDate()
-                    // let validDateStr = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
-                    // app.validDate = validDateStr
-                    if (new Date(app.appEffectiveTime) > currentTime) {
+                    if (new Date(Date.parse(app.appEffectiveTime.replace(/-/g, '/'))).getTime() > currentTime) {
                       app.isValid = true
                     } else {
                       app.isValid = false
