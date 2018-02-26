@@ -148,6 +148,8 @@ const DownloadList = (resolve) => { import('components/downloadList').then((modu
 const AuditFlow = (resolve) => { import('components/auditFlow').then((module) => { resolve(module) }) }
 // 关于我们
 const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { resolve(module) }) }
+
+const AboutUsIos = (resolve) => { import('components/aboutUsIos').then((module) => { resolve(module) }) }
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
 
@@ -246,6 +248,10 @@ export default new Router({
       path: '/about-us',
       name: 'aboutUs',
       component: AboutUs
+    }, {
+      path: '/about-us-ios',
+      name: 'aboutUsIos',
+      component: AboutUsIos
     }, {
       path: '/question',
       name: 'question',

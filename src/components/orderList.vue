@@ -12,7 +12,7 @@
         <!-- <img src="~common/image/tueijian_icon_001.png"> -->
         <span class="app-bg" :class="[_getBgClass(app.appPhotoKey)]"></span>
         <div class="flex-grow">
-          <div class="title">{{app.appName + '（' + app.minPrincipal + '元-' + app.maxPrincipal + '元）'}}</div>
+          <div class="title">{{_getPriceDesc(app)}}</div>
           <div class="code">借款验证码 <span @click="_copyStr(app.appInvitationCode)">{{app.appInvitationCode}}</span></div>
           <div class="date">有效期至：{{app.appEffectiveTime}}</div>
         </div>
@@ -93,6 +93,16 @@
       },
       _copyStr(str) {
         copyStr(str)
+      },
+      _getPriceDesc(item) {
+        let {minPrincipal, maxPrincipal} = item
+        let str = ''
+        if (Number(minPrincipal) === Number(maxPrincipal)) {
+          str = `${maxPrincipal}元`
+        } else {
+          str = `(${minPrincipal}元-${maxPrincipal}元)`
+        }
+        return str
       }
     },
     mounted: function() {

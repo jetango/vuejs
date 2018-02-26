@@ -31,10 +31,10 @@
         <span v-if="isSend" class="input-validate is-send">{{delayTime}}s重新获取</span>
       </div>
     </div>
-    <p class="comfirm-protocol flex flex-item flex-justify text-gary" @click="agreeProtocols()">
+    <!-- <p class="comfirm-protocol flex flex-item flex-justify text-gary" @click="agreeProtocols()">
       <i :class="{'icon-not-chose': isChosed}" class="iconfont icon-correct-marked"></i>
       <span>我已阅读并同意<span @click.stop="checkServicesProtocols">《用户服务协议》</span></span>
-    </p>
+    </p> -->
     <div @click="submit()" class="button button-primary">提交</div>
     <div class="footer" :class="{'input-footer':isInput}">
       <p class="product-name">银码头</p>

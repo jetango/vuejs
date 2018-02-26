@@ -24,7 +24,7 @@
       <div class="item inactive flex">
         <div class="title tel">单位电话</div>
         <div class="flex-grow">
-          <input type="text" placeholder="(可选填)" v-model="workInfo.telephone">
+          <input type="text" placeholder="(可选填)" maxlength="20" v-model="workInfo.telephone">
         </div>
       </div>
       <div class="item flex" @click="salarySelected()">

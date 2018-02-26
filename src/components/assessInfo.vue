@@ -1,6 +1,8 @@
 <template>
   <div class="assess">
-    <img class="header-iamge" src="~common/image/PG_qian_shoufei_001.png">
+    <div class="price-box">
+      <img class="header-iamge" src="~common/image/PG_qian_shoufei_004.png">
+    </div>
     <div class="content">
       <img class="content-img" src="~common/image/JQR_da_004.png">
       <!-- <p class="target">匹配成功率高达到&nbsp;<span>98.3%</span></p> -->
@@ -107,6 +109,8 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "~common/stylus/base"
+  .price-box
+    position: relative
   .assess
     padding: .1rem 0
     color: #525252

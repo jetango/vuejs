@@ -16,7 +16,7 @@
       <div class="product-item flex flex-item" v-for="item in productList" :key="item.productDesc">
         <img class="logo" src="~common/image/tueijian_icon_001.png">
         <div class="item-content flex-grow">
-          <p class="desc-a">{{'(' + item.minPrincipal + '元-' + item.maxPrincipal + '元)，' + item.maxLoanDay + '期'}}</p>
+          <p class="desc-a">{{_getPriceDesc(item)}}</p>
           <p class="desc-b">{{item.appDescription}}</p>
         </div>
         <!-- <div class="select-bg" @click="selectProduct(item)">
@@ -208,6 +208,16 @@
         } else {
           popup(null, null, '请阅读并同意推荐服务协议')
         }
+      },
+      _getPriceDesc(item) {
+        let {minPrincipal, maxPrincipal, maxLoanDay} = item
+        let str = ''
+        if (Number(minPrincipal) === Number(maxPrincipal)) {
+          str = `${maxPrincipal}元，${maxLoanDay}期`
+        } else {
+          str = `(${minPrincipal}元-${maxPrincipal}元)，${maxLoanDay}期`
+        }
+        return str
       }
     },
     mounted: function() {
