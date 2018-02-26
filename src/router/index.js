@@ -107,8 +107,8 @@ const RegisterAndPrivacy = (resolve) => {
 }
 
 // 推荐服务协议
-const RecommendProtocol = (resolve) => {
-  import('components/recommendProtocol').then((module) => {
+const AssessCreditProtocol = (resolve) => {
+  import('components/assessCreditProtocol').then((module) => {
     resolve(module)
   })
 }
@@ -238,13 +238,13 @@ export default new Router({
       name: 'registerAndPrivacyIos',
       component: RegisterAndPrivacy
     }, {
-      path: '/recommend-protocol', // 推荐服务协议
-      name: 'recommendProtocol',
-      component: RecommendProtocol
+      path: '/assess-credit-protocol', // 评估推荐服务协议
+      name: 'assessCredit',
+      component: AssessCreditProtocol
     }, {
-      path: '/recommend-protocol-ios', // 推荐服务协议
-      name: 'recommendProtocolIos',
-      component: RecommendProtocol
+      path: '/assess-credit-protocol-ios', // 评估推荐服务协议
+      name: 'assessCreditIos',
+      component: AssessCreditProtocol
     }
   ]
 })

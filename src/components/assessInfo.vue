@@ -3,7 +3,7 @@
     <img class="header-iamge" src="~common/image/PG_qian_shoufei_001.png">
     <div class="content">
       <img class="content-img" src="~common/image/JQR_da_004.png">
-      <p class="target">匹配成功率高达到&nbsp;<span>98.3%</span></p>
+      <!-- <p class="target">匹配成功率高达到&nbsp;<span>98.3%</span></p> -->
     </div>
     <div class="recommend-intro">
       <div class="recommend-title">
@@ -20,7 +20,7 @@
     <p class="protocols">
       <i @click="agreeProtocols" :class="{'icon-not-chose': !isChosed}" class="iconfont icon-correct-marked"></i>
       <span @click="agreeProtocols">我已阅读并同意
-            <span style="color: #008aff" @click.stop="checkProtocols">《推荐服务协议》</span>
+            <span style="color: #008aff" @click.stop="checkProtocols">《评估推荐服务协议》</span>
       </span>
     </p>
     <div class="button-box">
@@ -60,6 +60,11 @@
       },
       checkProtocols: function() {
         eeLogUBT('Assessment.Action.Agreement', 'click')
+        if (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0) {
+          navigate('ASSESS_CREDIT_PROTOCOL_IOS', '评估推荐服务协议', {url: pageIdentity.ASSESS_CREDIT_PROTOCOL_IOS})
+        } else {
+          navigate('ASSESS_CREDIT_PROTOCOL', '评估推荐服务协议', {url: pageIdentity.ASSESS_CREDIT_PROTOCOL})
+        }
       },
       confirmPay: function() {
         if (this.assessFee === 0) {
@@ -112,7 +117,6 @@
       display: block
       margin: 0 auto
     .content
-      height: 4.5rem
       background-color: #ffffff
       margin-top: .1rem
       .content-img
@@ -152,7 +156,7 @@
   .protocols
     font-size: .2rem
     text-align: center
-    margin-top: .1rem
+    margin-top: .5rem
     i
       color: green
       font-size: .22rem

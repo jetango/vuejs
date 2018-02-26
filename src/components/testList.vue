@@ -200,7 +200,6 @@
         </div>
       </router-link>
     </div>
-
     <div class="list-view">
       <a href="http://120.132.102.112:8768/pay/ali/wapPay">
         <div class="item flex">
@@ -208,6 +207,23 @@
           <i class="iconfont icon-117"></i>
         </div>
       </a>
+    </div>
+    <h4>协议列表</h4>
+    <div class="list-view">
+      <router-link :to="{path: '/register-privacy'}">
+        <div class="item flex">
+          <p class="flex-grow">用户服务协议</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
+    <div class="list-view">
+      <router-link :to="{path: '/assess-credit-protocol'}">
+        <div class="item flex">
+          <p class="flex-grow">评估推荐服务协议</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>

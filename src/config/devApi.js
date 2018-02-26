@@ -23,6 +23,7 @@ export default {
   [types.INTELLIGENT_RECOMMEND]: '/order/borrow/auth',
   [types.PRODUCT_DOWNLOAD]: '/order/download/auth',
   [types.AUDIT_FLOW]: '/order/audit/flow/auth',
+  [types.GENERATE_REPEAT]: '/order/generateRepeat/auth',
   [types.GET_REPAYMENT_TIP]: '/zeus/bill',
   [types.REPAY_SCHEDULE]: '/zeus/bill-list',
   [types.USER_CONTRACT]: '/application/agreement',

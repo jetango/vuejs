@@ -1,17 +1,17 @@
 <template>
   <div class="recommend-ptotocols">
-    <register-protocol></register-protocol>
-    <privacy-policies></privacy-policies>
+    <assess-protocol></assess-protocol>
+    <credit-authorization></credit-authorization>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import RegisterProtocol from 'base/protocols/registerProtocol'
-  import PrivacyPolicies from 'base/protocols/privacyPolicies'
+  import AssessProtocol from 'base/protocols/assessProtocol'
+  import CreditAuthorization from 'base/protocols/creditAuthorization'
   export default {
     components: {
-      RegisterProtocol,
-      PrivacyPolicies
+      AssessProtocol,
+      CreditAuthorization
     }
   }
 </script>
