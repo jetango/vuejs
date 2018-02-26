@@ -346,6 +346,12 @@
       background: #fff
       &.selected
         border-color: #ff8400
+        .left, .right
+          border: 1px solid #ff8400
+        .left
+          border-left-width: 0
+        .right
+          border-right-width: 0
     .line
       width: 100%
       position: relative
@@ -359,6 +365,7 @@
       color: #525252
       width: 100%
       text-align: center
+      position: relative
       .recommend-btn
         height: .26rem
         line-height: .26rem
@@ -371,6 +378,30 @@
         top: .02rem
         right: .08rem
         padding: 0 .1rem
+      .left
+        width: .1rem
+        height: .2rem
+        display: inline-block
+        position: absolute
+        background: #f6f6f6
+        left: -.02rem
+        bottom: -.11rem
+        border-radius: 0 .1rem .1rem 0
+        z-index: 2
+        border: 1px solid #b2b7bb
+        border-left-width: 0
+      .right
+        width: .1rem
+        height: .2rem
+        display: inline-block
+        position: absolute
+        background: #f6f6f6
+        right: -.02rem
+        bottom: -.11rem
+        border-radius: .1rem 0 0 .1rem
+        z-index: 2
+        border: 1px solid #b2b7bb
+        border-right-width: 0
     .r-body
       height: .7rem
       line-height: .7rem
