@@ -18,8 +18,8 @@
     </div>
     <div class="tips-box">
       <h2><img src="~common/image/zhaungshi_001.png" class="rotate-y"><span>评估建议</span><img src="~common/image/zhaungshi_001.png"></h2>
-      <p>1、您的信誉非常好，建议借款额度500-20000区间</p>
-      <p>2、保持良好信誉，借款额度可以提高</p>
+      <p>1、您的信誉非常好，建议借款额度500-20000区间。</p>
+      <p>2、请保持良好信誉，以免影响借款资质。</p>
     </div>
     <div class="button-box">
       <div class="button button-primary" @click="confirmPay">

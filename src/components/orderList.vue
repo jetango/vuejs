@@ -16,8 +16,9 @@
           <div class="code">借款验证码 <span @click="_copyStr(app.appInvitationCode)">{{app.appInvitationCode}}</span></div>
           <div class="date">有效期至：{{app.appEffectiveTime}}</div>
         </div>
-        <a v-show="app.isValid" href="javascript:;" @click="downLoadApp(app)" class="btn">去下载</a>
-        <a v-show="!app.isValid" href="javascript:;" class="btn invalid">已过期</a>
+        <a v-show="app.invitationCodeFlag == 1" href="javascript:;" @click="downLoadApp(app)" class="btn">去下载</a>
+        <a v-show="app.invitationCodeFlag == 2" href="javascript:;" class="btn invalid">已使用</a>
+        <a v-show="app.invitationCodeFlag == 3" href="javascript:;" class="btn invalid">已过期</a>
       </div>
     </div>
     <no-data v-show="orderList.length === 0"></no-data>
@@ -54,15 +55,15 @@
                   } else {
                     item.isShow = false
                   }
-                  let appList = item.appList
-                  appList.forEach(app => {
-                    let currentTime = new Date().getTime()
-                    if (new Date(Date.parse(app.appEffectiveTime.replace(/-/g, '/'))).getTime() > currentTime) {
-                      app.isValid = true
-                    } else {
-                      app.isValid = false
-                    }
-                  })
+                  // let appList = item.appList
+                  // appList.forEach(app => {
+                  //   let currentTime = new Date().getTime()
+                  //   if (new Date(Date.parse(app.appEffectiveTime.replace(/-/g, '/'))).getTime() > currentTime) {
+                  //     app.isValid = true
+                  //   } else {
+                  //     app.isValid = false
+                  //   }
+                  // })
                 })
                 this.orderList = result
               }

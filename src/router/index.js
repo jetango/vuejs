@@ -106,9 +106,30 @@ const RegisterAndPrivacy = (resolve) => {
   })
 }
 
+// 认证授权
+const RegisterAndPrivacyIos = (resolve) => {
+  import('components/registerAndPrivacyIos').then((module) => {
+    resolve(module)
+  })
+}
+
 // 推荐服务协议
 const AssessCreditProtocol = (resolve) => {
   import('components/assessCreditProtocol').then((module) => {
+    resolve(module)
+  })
+}
+
+// 推荐服务协议
+const AssessCreditProtocolIos = (resolve) => {
+  import('components/assessCreditProtocolIos').then((module) => {
+    resolve(module)
+  })
+}
+
+// 协议列表
+const ProtocolList = (resolve) => {
+  import('components/protocolList').then((module) => {
     resolve(module)
   })
 }
@@ -236,7 +257,7 @@ export default new Router({
     }, {
       path: '/register-privacy-ios', // 用户注册服务协议
       name: 'registerAndPrivacyIos',
-      component: RegisterAndPrivacy
+      component: RegisterAndPrivacyIos
     }, {
       path: '/assess-credit-protocol', // 评估推荐服务协议
       name: 'assessCredit',
@@ -244,7 +265,11 @@ export default new Router({
     }, {
       path: '/assess-credit-protocol-ios', // 评估推荐服务协议
       name: 'assessCreditIos',
-      component: AssessCreditProtocol
+      component: AssessCreditProtocolIos
+    }, {
+      path: '/protocol-list',
+      name: 'protocolList',
+      component: ProtocolList
     }
   ]
 })

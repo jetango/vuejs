@@ -63,8 +63,9 @@
         <img src="~common/image/zhaungshi_001.png">
       </div>
       <div class="intro">
-        <p>1、推荐产品年化利率低至20%</p>
-        <p>2、推荐产品全为合法合规银行产品</p>
+        <p>1、推荐产品年化利率低至9%</p>
+        <p>2、推荐产品均为正规银行产品</p>
+        <p>3、推荐验证码有效期为7天</p>
       </div>
     </div>
     <div class="recommend-tip text-center" :class="{'hidden': remainCount == 0}">
@@ -300,6 +301,7 @@
     margin-top: .1rem
     background-color: #fff
     padding-top: .16rem
+    padding-bottom: .2rem
     .recommend-title
       text-align: center
       img

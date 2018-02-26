@@ -225,6 +225,14 @@
         </div>
       </router-link>
     </div>
+    <div class="list-view">
+      <router-link :to="{path: '/protocol-list'}">
+        <div class="item flex">
+          <p class="flex-grow">协议列表</p>
+          <i class="iconfont icon-117"></i>
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 <script style="text/ecmascript-6">
