@@ -23,6 +23,8 @@ export const pageIdentity = {
   'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
   'ORDER_LIST': '/#/order-list',                                      // 订单列表
   'ABOUT_US': '/#/about-us',                                          // 关于我们
+  'ABOUT_US_IOS': '/#/about-us-ios',                                          // 关于我们
+  
   'QUESTION': '/#/question'                                           // 常见问题
   
   // 协议列表
