@@ -28,8 +28,8 @@ export const pageIdentity = {
   // 协议列表
   'REGISTER_PRIVACY': /#/register-privacy'                            // 用户注册服务协议（Android）
   'REGISTER_PRIVACY_IOS': /#/register-privacy-ios'                    // 用户注册服务协议（iOS）
-  'RECOMMEND_PROTOCOL': /#/recommend-protocol'                        // 推荐服务协议（Android）
-  'RECOMMEND_PROTOCOL_IOS': /#/recommend-protocol-ios'                // 推荐服务协议（iOS）
+  'RECOMMEND_PROTOCOL': /#/assess-credit-protocol'                        // 评估推荐服务协议（Android）
+  'RECOMMEND_PROTOCOL_IOS': /#/assess-credit-protocol-ios'                // 评估推荐服务协议（iOS）
 }
 
 ```
