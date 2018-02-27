@@ -12,14 +12,14 @@
         </div>
         <div class="flex flex-justify flex-item">
           <img src="~common/image/JQR_da_005.png" class="rebot">
-          <i class="msg">恭喜您，您的信誉良好！</i>
+          <i class="msg">{{score == 0 ? '请去完善资料并评估' : '恭喜您，您的信誉良好！'}}</i>
         </div>
       </div>
     </div>
-    <div class="tips-box">
+    <div class="tips-box" :class="{'hidden': score == 0}">
       <h2><img src="~common/image/zhaungshi_001.png" class="rotate-y"><span>评估建议</span><img src="~common/image/zhaungshi_001.png"></h2>
-      <p>1、您的信誉非常好，建议借款额度500-20000区间</p>
-      <p>2、保持良好信誉，借款额度可以提高</p>
+      <p>1、您的信誉非常好，建议借款额度500-20000区间。</p>
+      <p>2、请保持良好信誉，以免影响借款资质。</p>
     </div>
   </div>
 </template>
