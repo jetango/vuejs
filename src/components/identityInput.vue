@@ -27,7 +27,11 @@
       <div class="text-center tip" :class="{'v-hide': !(identityInfo.idCardFrontPhoto || identityInfo.idCardBackPhoto)}">请核对以下信息，内容有误请修改</div>
     </div>
     <div class="identity-detail" v-show="identityFrontStatus || identityBackStatus">
-      <p v-show="identityFrontStatus">姓名：{{identityInfo.realName}}</p>
+      <div class="flex flex-justify flex-item name-box">
+        <div v-show="identityFrontStatus">姓名：</div>
+        <input class="flex-grow" type="text" placeholder="请正确填写姓名" v-model="identityInfo.realName">
+        <div></div>
+      </div>
       <p v-show="identityFrontStatus">身份证号：{{identityInfo.idNumber}}</p>
       <p v-show="identityFrontStatus">出生年月：{{identityInfo.birth}}</p>
       <p v-show="identityFrontStatus">民族：{{identityInfo.nation}}</p>
@@ -209,13 +213,17 @@
         })
       },
       _validate() {
-        let {idCardFrontPhoto, idCardBackPhoto, faceRecognition, livingProvince, livingAddress, highestDegree, maritalStatus} = this.identityInfo
+        let {idCardFrontPhoto, idCardBackPhoto, faceRecognition, livingProvince, livingAddress, highestDegree, maritalStatus, realName} = this.identityInfo
         if (!idCardFrontPhoto) {
           popup('', '', '请验证身份证人像面！')
           return false
         }
         if (!idCardBackPhoto) {
           popup('', '', '请验证身份证国徽面！')
+          return false
+        }
+        if (!realName) {
+          popup('', '', '请正确填写姓名！')
           return false
         }
         if (faceRecognition === '') {
@@ -354,6 +362,11 @@
     padding: .17rem .4rem
     background: #fff
     margin-bottom: .1rem
+    .name-box
+      height: .54rem
+      input
+        height: .54rem
+        line-height: .54rem
     p
       line-height: .54rem
       font-size: .28rem
