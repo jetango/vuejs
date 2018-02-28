@@ -11,9 +11,9 @@
           <input type="text" placeholder="请填写单位名称" v-model="workInfo.company">
         </div>
       </div>
-      <div class="item flex" @click="addressSelected()">
+      <div class="item flex address" @click="addressSelected()">
         <div class="flex-grow title">单位地址</div>
-        <div>{{fullName}}</div>
+        <div class="d">{{fullName}}</div>
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item inactive flex">
@@ -311,4 +311,11 @@
     outline: none
     border: 0
     width: 100%
+  .address
+    .title
+      min-width: 1.3rem
+    .d
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
 </style>

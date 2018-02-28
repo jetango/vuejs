@@ -35,17 +35,18 @@
             name: '支付宝',
             key: 'alipay',
             isChose: true
-          }, {
-            className: 'pay-logo-wechat',
-            name: '微信',
-            key: 'wechat',
-            isChose: false
-          }, {
-            className: 'pay-logo-union',
-            name: '银联',
-            key: 'union',
-            isChose: false
           }
+          // , {
+          //   className: 'pay-logo-wechat',
+          //   name: '微信',
+          //   key: 'wechat',
+          //   isChose: false
+          // }, {
+          //   className: 'pay-logo-union',
+          //   name: '银联',
+          //   key: 'union',
+          //   isChose: false
+          // }
         ],
         payKey: 'alipay',
         param: null,

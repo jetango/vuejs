@@ -93,6 +93,7 @@
       },
       _copyStr(str) {
         copyStr(str)
+        eeLogUBT('Order.Action.CopyText', 'click')
       },
       _getPriceDesc(item) {
         let {minPrincipal, maxPrincipal} = item
