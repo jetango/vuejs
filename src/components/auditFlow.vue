@@ -7,7 +7,7 @@
           <img class="loading rotate-infinite" src="~common/image/JQR_da_002.png">
         </div>
         <div class="flex flex-justify flex-item">
-          <span>信息推送至银行中...</span>
+          <span>信息推送至金融机构...</span>
         </div>
       </div>
     </div>

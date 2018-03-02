@@ -2,8 +2,8 @@
   <div class="download-list">
     <div class="product-item" v-for="item in productList" :key="item.appCode">
       <div class="download-item flex flex-item" @click="showDetail(item)">
-        <!-- <img src="~common/image/tueijian_icon_001.png"> -->
-        <span class="app-bg" :class="[_getBgClass(item.appPhotoKey)]"></span>
+        <img src="~common/image/tueijian_icon_001.png">
+        <!-- <span class="app-bg" :class="[_getBgClass(item.appPhotoKey)]"></span> -->
         <div class="flex-grow">
           <div class="title">{{item.appName + '（' + item.minPrincipal + '元-' + item.maxPrincipal + '元）'}}</div>
           <div class="desc">{{item.appDescription}}</div>
@@ -22,7 +22,7 @@
             复制验证码
           </div>
         </div>
-        <h2 class="tip">请牢记借款验证码，借款是需要验证</h2>
+        <h2 class="tip">请牢记借款验证码(仅为推荐作用)，借款时需验证</h2>
         <h3 class="time-line">约{{item.appEffectiveTime}}后失效</h3>
         <div class="button-box">
           <div class="button button-primary" @click="downLoadApp(item)">
@@ -156,7 +156,7 @@
         font-size: .28rem
         color: #00a4ff
     .tip, .time-line
-      font-size: .24rem
+      font-size: .22rem
       color: #787878
     .tip
       line-height: .5rem

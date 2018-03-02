@@ -337,6 +337,7 @@
       height: .5rem
       line-height: .5rem
       font-size: .22rem
+      color: red
     p
       font-size: .22rem
       color: #525252

@@ -63,7 +63,7 @@
         <img src="~common/image/zhaungshi_001.png">
       </div>
       <div class="intro">
-        <p>1、推荐产品年化利率低至9%</p>
+        <p>1、推荐产品年化利率低至8%</p>
         <p>2、推荐产品均为正规银行产品</p>
         <p>3、推荐验证码有效期为7天</p>
       </div>

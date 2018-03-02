@@ -1,11 +1,11 @@
 <template>
   <div class="loan-contract">
     <div @click="checkContract('creditAuthorization')" class="contract-item  flex flex-item focus">
-      <p class="flex-grow">评估推荐服务协议</p>
+      <p class="flex-grow">征信查询授权书</p>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div @click="checkContract('assessAuthorization')" class="contract-item flex flex-item focus">
-      <p class="flex-grow">征信查询授权书</p>
+      <p class="flex-grow">评估推荐服务协议</p>
       <i class="icon iconfont icon-117"></i>
     </div>
   </div>
@@ -54,14 +54,14 @@
         }
         switch (type) {
           case 'creditAuthorization':
-            navigate('ASSESS_PROTOCOL', '评估推荐服务协议', {
+            navigate('ASSESS_PROTOCOL', '征信查询授权书', {
               url: this.protocolUrl.creditAuthorization,
               type: 'TARGET'
             })
             break
           case 'assessAuthorization':
-            navigate('CREDIT_AUTHORIZATION', '征信查询授权书', {
-              url: this.protocolUrl.creditAuthorization,
+            navigate('CREDIT_AUTHORIZATION', '评估推荐服务协议', {
+              url: this.protocolUrl.assessAuthorization,
               type: 'TARGET'
             })
             break

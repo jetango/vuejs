@@ -9,10 +9,10 @@
         <a v-show="item.orderStatus === 10" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>
       </div>
       <div v-show="item.isShow && item.orderStatus !== 10" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
-        <!-- <img src="~common/image/tueijian_icon_001.png"> -->
-        <span class="app-bg" :class="[_getBgClass(app.appPhotoKey)]"></span>
+        <img src="~common/image/tueijian_icon_001.png">
+        <!-- <span class="app-bg" :class="[_getBgClass(app.appPhotoKey)]"></span> -->
         <div class="flex-grow">
-          <div class="title">{{_getPriceDesc(app)}}</div>
+          <div class="title">{{app.appName}}{{_getPriceDesc(app)}}</div>
           <div class="code">借款验证码 <span @click="_copyStr(app.appInvitationCode)">{{app.appInvitationCode}}</span></div>
           <div class="date">有效期至：{{app.appEffectiveTime}}</div>
         </div>
