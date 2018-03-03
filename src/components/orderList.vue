@@ -5,14 +5,15 @@
         <div class="flex-grow">
           {{item.loanTime}} 订单
         </div>
-        <i v-show="item.orderStatus !== 10" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
+        <i v-show="item.orderStatus !== 10 && item.orderStatus !== 21" :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
         <a v-show="item.orderStatus === 10" @click="toEvaluateFlow" href="javascript:;" class="examine-and-verify">审核中</a>
+        <a v-show="item.orderStatus === 21" href="javascript:;" class="examine-error">{{item.orderNo}}推荐失败</a>
       </div>
-      <div v-show="item.isShow && item.orderStatus !== 10" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
+      <div v-show="item.isShow && item.orderStatus !== 10 && item.orderStatus !== 21" class="source-item flex flex-item active" v-for="app in item.appList" :key="app.appCode">
         <img src="~common/image/tueijian_icon_001.png">
         <!-- <span class="app-bg" :class="[_getBgClass(app.appPhotoKey)]"></span> -->
         <div class="flex-grow">
-          <div class="title">{{app.appName}}{{_getPriceDesc(app)}}</div>
+          <div class="title">{{item.orderStatus == '50' ? app.appName : ''}}{{_getPriceDesc(app)}}</div>
           <div class="code">借款验证码 <span @click="_copyStr(app.appInvitationCode)">{{app.appInvitationCode}}</span></div>
           <div class="date">有效期至：{{app.appEffectiveTime}}</div>
         </div>
@@ -96,12 +97,12 @@
         eeLogUBT('Order.Action.CopyText', 'click')
       },
       _getPriceDesc(item) {
-        let {minPrincipal, maxPrincipal} = item
+        let {minPrincipal, maxPrincipal, maxLoanDay} = item
         let str = ''
         if (Number(minPrincipal) === Number(maxPrincipal)) {
-          str = `${maxPrincipal}元`
+          str = `${maxPrincipal}元，${maxLoanDay}期`
         } else {
-          str = `(${minPrincipal}元-${maxPrincipal}元)`
+          str = `(${minPrincipal}元-${maxPrincipal}元)，${maxLoanDay}期`
         }
         return str
       }
@@ -132,6 +133,9 @@
     height: .8rem
     .examine-and-verify
       text-decoration:underline
+    .examine-error
+      color: red
+      font-size: .2rem
   .source-item
     img
       margin-right: .1rem

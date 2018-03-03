@@ -153,10 +153,6 @@
           popup('', '', '请填写单位名称')
           return false
         }
-        if (!params.company) {
-          popup('', '', '请填写单位名称')
-          return false
-        }
         if (!params.companyProvince) {
           popup('', '', '请选择单位地址')
           return false
@@ -169,6 +165,11 @@
           popup('', '', '请选择月收入')
           return false
         }
+        if (!params.entryTime) {
+          popup('', '', '请选择入职时间')
+          return false
+        }
+
         return true
       },
       _initPositionPicker() {

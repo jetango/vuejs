@@ -94,7 +94,7 @@
       this._drawCircle(0) // 240
       this._progress(90)
       this.fetchEvaluateScore()
-      eeLogUBT('AssessmentResultPage.Load.Goin', 'goin')
+      // eeLogUBT('AssessmentResultPage.Load.Goin', 'goin')
     }
   }
 </script>

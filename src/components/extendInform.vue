@@ -3,17 +3,17 @@
     <div class="list-view h4">
       <div class="item flex">
         <div class="flex-grow label">常用邮箱</div>
-        <input class="input-css" type="text" v-model="extendInfo.email" placeholder="请输入常用邮箱" @click="extendInfoClick('email')">
+        <input class="input-css" type="text" v-model="extendInfo.email" placeholder="请输入常用邮箱" @click="extendInfoClick('email')" maxlength="50">
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex">
         <div class="flex-grow label">QQ账号</div>
-        <input class="input-css" type="text" v-model="extendInfo.qqNumber" placeholder="请输入QQ账号"  @click="extendInfoClick('qq')">
+        <input class="input-css" type="text" v-model="extendInfo.qqNumber" placeholder="请输入QQ账号"  @click="extendInfoClick('qq')" maxlength="20">
         <i class="iconfont icon-117"></i>
       </div>
       <div class="item flex">
         <div class="flex-grow label">微信账号</div>
-        <input class="input-css" type="text" v-model="extendInfo.wechatNumber" placeholder="请输入微信账号"  @click="extendInfoClick('wechat')">
+        <input class="input-css" type="text" v-model="extendInfo.wechatNumber" placeholder="请输入微信账号"  @click="extendInfoClick('wechat')" maxlength="50">
         <i class="iconfont icon-117"></i>
       </div>
     </div>

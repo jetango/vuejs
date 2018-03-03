@@ -134,6 +134,12 @@ const ProtocolList = (resolve) => {
   })
 }
 
+// 智能推荐失败
+const IntelligentRecommendError = (resolve) => {
+  import('components/intelligentRecommendError').then((module) => {
+    resolve(module)
+  })
+}
 // 订单列表
 const OrderList = (resolve) => { import('components/orderList').then((module) => { resolve(module) }) }
 // 评估数据
@@ -276,6 +282,10 @@ export default new Router({
       path: '/protocol-list',
       name: 'protocolList',
       component: ProtocolList
+    }, {
+      path: '/intelligent-recommend-error',
+      name: 'intelligentRecommendError',
+      component: IntelligentRecommendError
     }
   ]
 })

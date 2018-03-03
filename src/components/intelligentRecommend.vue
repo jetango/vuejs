@@ -26,6 +26,9 @@
         </div> -->
       </div>
     </div>
+    <div class="recommend-other">
+      其他金融产品正在升级中，敬请期待！
+    </div>
     <div class="recommend-price flex flex-item" :class="{hidden: remainCount > 0}">
       <div class="flex flex-item flex-grow flex-justify column" v-for="info in recommendConfigInfoList" @click="selectRecommendPrice(info)" :class="{'selected': info.recommendFlag == 1}">
         <div class="r-title">
@@ -63,9 +66,9 @@
         <img src="~common/image/zhaungshi_001.png">
       </div>
       <div class="intro">
-        <p>1、推荐产品年化利率低至8%</p>
-        <p>2、推荐产品均为正规银行产品</p>
-        <p>3、推荐验证码有效期为7天</p>
+        <p>1、推荐产品年化利率8%-10% </p>
+        <p>2、推荐产品均为正规金融机构产品</p>
+        <p>3、推荐验证码有效期为7天，仅为推荐作用</p>
       </div>
     </div>
     <div class="recommend-tip text-center" :class="{'hidden': remainCount == 0}">
@@ -261,7 +264,13 @@
       &:last-of-type
         position: absolute
         right: .4rem
-
+  .recommend-other
+    font-size: .2rem;
+    text-align: center;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    background: #fff;
+    margin-top: .1rem;
   .recommend
     position: relative
     .product-item

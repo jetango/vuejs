@@ -204,7 +204,8 @@ export const pageIdentity = {
   'REGISTER_PRIVACY_IOS': '/#/register-privacy-ios',                  // 用户注册服务协议（iOS）
   'ASSESS_CREDIT_PROTOCOL': '/#/assess-credit-protocol',              // 评估推荐服务协议（Android）
   'ASSESS_CREDIT_PROTOCOL_IOS': '/#/assess-credit-protocol-ios',      // 评估推荐服务协议（iOS）
-  'PROTOCOL_LIST': '/#/protocol-list'                                 // 协议列表
+  'PROTOCOL_LIST': '/#/protocol-list',                                // 协议列表
+  'INTELLIGENT_RECOMMEND_ERROR': '/#/intelligent-recommend-error'     // 智能推荐失败页面
 }
 
 export const positionItems = {

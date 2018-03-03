@@ -5,7 +5,7 @@
         <img src="~common/image/tueijian_icon_001.png">
         <!-- <span class="app-bg" :class="[_getBgClass(item.appPhotoKey)]"></span> -->
         <div class="flex-grow">
-          <div class="title">{{item.appName + '（' + item.minPrincipal + '元-' + item.maxPrincipal + '元）'}}</div>
+          <div class="title">{{_getPriceDesc(item)}}</div>
           <div class="desc">{{item.appDescription}}</div>
         </div>
         <i :class="{'rotate-270': item.isShow}" class="iconfont icon-117 rotate-90"></i>
@@ -22,7 +22,7 @@
             复制验证码
           </div>
         </div>
-        <h2 class="tip">请牢记借款验证码(仅为推荐作用)，借款时需验证</h2>
+        <h2 class="tip">借款验证码仅为推荐作用，不作为最终放款依据</h2>
         <h3 class="time-line">约{{item.appEffectiveTime}}后失效</h3>
         <div class="button-box">
           <div class="button button-primary" @click="downLoadApp(item)">
@@ -100,6 +100,16 @@
       },
       _getBgClass(key) {
         return `${key}-bg`
+      },
+      _getPriceDesc(item) {
+        let {minPrincipal, maxPrincipal, maxLoanDay} = item
+        let str = ''
+        if (Number(minPrincipal) === Number(maxPrincipal)) {
+          str = `${maxPrincipal}元，${maxLoanDay}期`
+        } else {
+          str = `(${minPrincipal}元-${maxPrincipal}元)，${maxLoanDay}期`
+        }
+        return str
       }
     },
     mounted: function() {

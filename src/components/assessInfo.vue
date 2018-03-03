@@ -1,7 +1,7 @@
 <template>
   <div class="assess">
     <div class="price-box">
-      <img class="header-iamge" src="~common/image/PG_qian_shoufei_006.png">
+      <img class="header-iamge" src="~common/image/PG_qian_shoufei_007.png">
     </div>
     <div class="content">
       <img class="content-img" src="~common/image/JQR_da_004.png">
