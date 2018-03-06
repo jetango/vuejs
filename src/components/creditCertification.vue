@@ -6,16 +6,16 @@
             <span v-if="!creditStatus.zmxyFlag" @click="sesameCertification">{{creditStatus.zmxyTextName}}</span>
             <i class="icon iconfont icon-117"></i>
           </div> -->
-    <div @click="gxbCertification" class="credit-item flex flex-item focus">
-      <span class="flex-grow">公信宝认证</span>
-      <span v-if="creditStatus.gxbFlag" :class="{'credit': creditStatus.gxbFlag}">{{creditStatus.gxbTextName}}</span>
-      <span v-if="!creditStatus.gxbFlag">{{creditStatus.gxbTextName}}</span>
-      <i class="icon iconfont icon-117"></i>
-    </div>
     <div @click="phoneCertification" class="credit-item flex flex-item focus">
       <span class="flex-grow">手机运营商认证</span>
       <span v-if="creditStatus.mobileFlag" :class="{'credit': creditStatus.mobileFlag}">{{creditStatus.mobileTextName}}</span>
       <span v-if="!creditStatus.mobileFlag">{{creditStatus.mobileTextName}}</span>
+      <i class="icon iconfont icon-117"></i>
+    </div>
+    <div @click="gxbCertification" class="credit-item flex flex-item focus">
+      <span class="flex-grow">公信宝认证</span>
+      <span v-if="creditStatus.gxbFlag" :class="{'credit': creditStatus.gxbFlag}">{{creditStatus.gxbTextName}}</span>
+      <span v-if="!creditStatus.gxbFlag">{{creditStatus.gxbTextName}}</span>
       <i class="icon iconfont icon-117"></i>
     </div>
     <div @click="tbCertification" class="credit-item flex flex-item focus">
@@ -97,7 +97,7 @@
               tbFlag: !!Number.parseInt(status.tbFlag),
               tbTextName: status.tbFlag === '1' ? '已认证' : '选填',
               gxbFlag: !!Number.parseInt(status.gxbFlag),
-              gxbTextName: status.gxbFlag === '1' ? '已认证' : '必填'
+              gxbTextName: status.gxbFlag === '1' ? '已认证' : '选填'
             }
             this.creditStatus = showInfo
           }
