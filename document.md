@@ -20,7 +20,7 @@ export const pageIdentity = {
   'EVALUATE_SCORE': '/#/evaluate-score',                              // 信誉积分
   'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐            loanAmount=100&borrowPeriods=3
   'AUDIT_FLOW': '/#/audit-flow',                                      // 审核流程
-  'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
+  'DOWNLOAD_LIST': '/#/download-list',                                // 推送结果
   'ORDER_LIST': '/#/order-list',                                      // 订单列表
   'ABOUT_US': '/#/about-us',                                          // 关于我们
   'ABOUT_US_IOS': '/#/about-us-ios',                                          // 关于我们
