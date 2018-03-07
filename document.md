@@ -33,8 +33,8 @@ export const pageIdentity = {
   'ASSESS_CREDIT_PROTOCOL': '/#/assess-credit-protocol',              // 评估推荐服务协议（Android）
   'ASSESS_CREDIT_PROTOCOL_IOS': '/#/assess-credit-protocol-ios'       // 评估推荐服务协议（iOS）
   'PROTOCOL_LIST': '/#/protocol-list'                                 // 协议列表
-  'ASSESS_PERSONAL_DATA': '/#/personal-data',                         // 完善个人基本资料
-  'PUSH_FAILURE': '/#/push-failure'                                   // 推送失败界面
+  'ASSESS_PERSONAL_DATA': '/#/personal-data',                         // 完善个人资料
+  'PUSH_FAILURE': '/#/push-failure'                                   // 推送结果
 }
 
 ```
