@@ -54,8 +54,8 @@ export function log(type, message) {
   _proxy.log(type, message)
 }
 
-export function dialog(title, desc, type, cb) {
-  _proxy.dialog(title, desc, type, cb)
+export function dialog(title, desc, buttons, cb) {
+  _proxy.dialog(title, desc, buttons, cb)
 }
 
 export function navigate(pageId, title, param, cb, backUrl) {

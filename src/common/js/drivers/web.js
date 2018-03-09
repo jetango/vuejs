@@ -75,7 +75,7 @@ export default class Driver {
   }
 
   navigate(pageId, title, param, cb, backUrl) {
-    //
+    console.log('navigate: ' + pageId)
   }
 
   popup(pageId, title, param) {
@@ -166,8 +166,8 @@ export default class Driver {
         status: 0,
         msg: '',
         data: {
-          name: 'james',
-          tel: '1' + (Math.random() + '').substring(9)
+          name: '啊宝哥',
+          tel: '1' + (Math.random() + '').substring(2, 12)
         }
       })
     }, 500)

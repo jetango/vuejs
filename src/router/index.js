@@ -140,6 +140,28 @@ const IntelligentRecommendError = (resolve) => {
     resolve(module)
   })
 }
+
+// 完善个人资料
+const PersonalData = (resolve) => {
+  import('components/personalData').then((module) => {
+    resolve(module)
+  })
+}
+
+// 完善个人资料展示页
+const PersonalDataShow = (resolve) => {
+  import('components/personalDataShow').then((module) => {
+    resolve(module)
+  })
+}
+
+// 推送失败结果页
+const PushFailure = (resolve) => {
+  import('components/pushFailure').then((module) => {
+    resolve(module)
+  })
+}
+
 // 订单列表
 const OrderList = (resolve) => { import('components/orderList').then((module) => { resolve(module) }) }
 // 评估数据
@@ -286,6 +308,18 @@ export default new Router({
       path: '/intelligent-recommend-error',
       name: 'intelligentRecommendError',
       component: IntelligentRecommendError
+    }, {
+      path: '/personal-data',
+      name: 'personalData',
+      component: PersonalData
+    }, {
+      path: '/push-failure',
+      name: 'pushFailure',
+      component: PushFailure
+    }, {
+      path: '/person-data-show',
+      name: 'personalDataShow',
+      component: PersonalDataShow
     }
   ]
 })

@@ -24,9 +24,22 @@ export default class Driver {
     window.android.plugin('log', JSON.stringify({ type, content }))
   }
 
-  dialog(title, desc, type, cb) {
+  dialog(title, desc, buttons, cb) {
+    if (buttons === null || buttons.length === 0 || buttons === '') {
+      buttons = null
+    }
+    if (title === null || title === '') {
+      title = '提示'
+    }
+    let buttonsParam = buttons || [{
+      text: '确认',
+      key: '0'
+    }, {
+      text: '取消',
+      key: '1'
+    }]
     let name = this.proxy.registCB(cb)
-    window.android.plugin('dialog', JSON.stringify({ 'class': type, callback: name, title, desc }))
+    window.android.plugin('dialog', JSON.stringify({ 'buttons': buttonsParam, callback: name, title, desc }))
   }
 
   navigate(pageId, title, param, cb, backUrl) {

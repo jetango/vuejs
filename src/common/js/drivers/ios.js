@@ -72,9 +72,22 @@ export default class Driver {
    *    YESNO      "是"、"否"         1: 是， 0： 否
    *    YESNOCANCEL "是"、“否”、"取消" 1: 是， 0： 否， -1：取消
    */
-  dialog(title, desc, type, cb) {
+  dialog(title, desc, buttons, cb) {
+    if (buttons === null || buttons.length === 0 || buttons === '') {
+      buttons = null
+    }
+    if (title === null || title === '') {
+      title = '提示'
+    }
+    let buttonsParam = buttons || [{
+      text: '确认',
+      key: '0'
+    }, {
+      text: '取消',
+      key: '1'
+    }]
     let name = this.proxy.registCB(cb)
-    let url = `plugin://dialog?class=${encodeURIComponent(type)}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(desc)}&callback=${encodeURIComponent(name)}`
+    let url = `plugin://dialog?buttons=${encodeURIComponent(JSON.stringify(buttonsParam))}&title=${encodeURIComponent(title)}&desc=${encodeURIComponent(desc)}&callback=${encodeURIComponent(name)}`
     this._iosCall(url)
   }
 
@@ -218,7 +231,7 @@ export default class Driver {
    */
   endPage(param, pageIdentifier) {
     if (!param) {
-      param = {param: '', url: ''}
+      param = { param: '', url: '' }
     }
     let url = `plugin://endPage?param=${encodeURIComponent(JSON.stringify(param))}&pageIdentifier=${pageIdentifier}`
     this._iosCall(url)
@@ -475,13 +488,13 @@ export default class Driver {
     this._iosCall(url)
   }
 
-   /**
-   * JS调用Native去下载
-   * @param  {String} pageId 画面ID，需要预先定义
-   * @param  {String} title  被调用画面显示标题
-   * @param  {String} param  调用画面参数
-   * @return {null}
-   */
+  /**
+  * JS调用Native去下载
+  * @param  {String} pageId 画面ID，需要预先定义
+  * @param  {String} title  被调用画面显示标题
+  * @param  {String} param  调用画面参数
+  * @return {null}
+  */
   downLoadApp(url) {
     let link = `plugin://downLoadApp?title=${encodeURIComponent(url)}`
     this._iosCall(link)

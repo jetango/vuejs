@@ -18,15 +18,27 @@
           <div class="flex-grow text-center code-value">
             <span>{{item.appInvitationCode}}</span>
           </div>
-          <div class="copy" @click="copyStr(item.appInvitationCode)">
+          <div class="copy" v-if="item.invitationCodeFlag == 1" @click="copyStr(item.appInvitationCode)">
             复制验证码
+          </div>
+          <div class="copy" style="color: #939393" v-if="item.invitationCodeFlag == 2">
+            已使用
+          </div>
+          <div class="copy" style="color: #939393" v-if="item.invitationCodeFlag == 3">
+            已过期
           </div>
         </div>
         <h2 class="tip">借款验证码仅为推荐作用，不作为最终放款依据</h2>
         <h3 class="time-line">约{{item.appEffectiveTime}}后失效</h3>
         <div class="button-box">
-          <div class="button button-primary" @click="downLoadApp(item)">
+          <div v-if="item.invitationCodeFlag == 1" class="button button-primary" @click="downLoadApp(item)">
             去下载
+          </div>
+          <div v-if="item.invitationCodeFlag == 2" class="button button-grey">
+            已使用
+          </div>
+          <div v-if="item.invitationCodeFlag == 3" class="button button-grey">
+            已过期
           </div>
         </div>
       </div>
@@ -184,4 +196,9 @@
       width: .4rem
       height: .24rem
       vertical-align: middle
+
+  .button-grey
+    background-color: #939393 !important
+    color: #fff
+    
 </style>

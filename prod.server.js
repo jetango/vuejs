@@ -832,19 +832,32 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
   responseData(res, result)
 })
 
-app.use('/user', apiRoutes)
-app.use('/order', apiRoutes)
-app.use('/pay', apiRoutes)
+// app.use('/user', apiRoutes)
+// app.use('/order', apiRoutes)
+// app.use('/pay', apiRoutes)
 
 // const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://10.25.192.4:9003', changeOrigin: true})
 // const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
 // const apiOrderProxy = proxyMiddleware('/order', {target: 'http://10.25.192.4:9001', changeOrigin: true})
 // const apiRepayProxy = proxyMiddleware('/pay', {target: 'http://10.25.192.4:9200', changeOrigin: true})
-//
+
 // app.use('/application', apiUserApplicationProxy)
 // app.use('/user', apiUserAPPProxy)
 // app.use('/order', apiOrderProxy)
 // app.use('/pay', apiRepayProxy)
+
+const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://10.25.192.4:9003', changeOrigin: true})
+const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
+// const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.2.21:9000', changeOrigin: true}) // 邓伟
+const apiOrderProxy = proxyMiddleware('/order', {target: 'http://10.25.192.4:9001', changeOrigin: true})
+// const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.13:9001', changeOrigin: true}) // 老朱
+const apiRepayProxy = proxyMiddleware('/pay', {target: 'http://10.25.192.4:9200', changeOrigin: true})
+
+
+app.use('/application', apiUserApplicationProxy)
+app.use('/user', apiUserAPPProxy)
+app.use('/order', apiOrderProxy)
+app.use('/pay', apiRepayProxy)
 
 app.use(express.static('./dist'))
 

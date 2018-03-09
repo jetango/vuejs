@@ -1,7 +1,17 @@
 <template>
   <div class="assess">
     <div class="price-box">
-      <img class="header-iamge" src="~common/image/PG_qian_shoufei_007.png">
+      <div class="box-item flex flex-item">
+        <div class="box-left">
+          <p>现价<span>{{assessFee}}</span>元</p>
+          <p>原价<span>{{realFee}}</span>元</p>
+        </div>
+        <div class="box-right">
+          <p>对您的征信智能评估</p>
+          <p>为您精准匹配借款平台</p>
+        </div>
+        <img class="box-img" src="~common/image/icon-xsdz.png">
+      </div>
     </div>
     <div class="content">
       <img class="content-img" src="~common/image/JQR_da_004.png">
@@ -50,7 +60,8 @@
     data() {
       return {
         isChosed: true,
-        assessFee: 0
+        assessFee: null,
+        realFee: null
       }
     },
     components: {
@@ -92,7 +103,8 @@
         let self = this
         doPost(types.FETCH_ASSESS_FEE, {}, {
           success(oData) {
-            self.assessFee = oData.data || 0
+            self.assessFee = oData.data.assessFee || 0
+            self.realFee = oData.data.realFee || 0
           },
           error(oData) {
             popup(null, null, oData.msg || '获取数据有误！')
@@ -111,6 +123,58 @@
   @import "~common/stylus/base"
   .price-box
     position: relative
+    .box-item
+      height: 1.24rem
+      margin: 0 .4rem
+      border-radius: 1.2rem
+      background: -moz-linear-gradient(top, #3ed4fb, #1662ac)
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3ed4fb), color-stop(100%,#1662ac))
+      background: -o-linear-gradient(top, #3ed4fb, #1662ac)
+      background: -webkit-linear-gradient(top, #3ed4fb, #1662ac)
+      position: relative
+      .box-left
+        position: relative
+        margin-left: .15rem
+        p
+          line-height: 1
+          color: #f5d06e
+          text-align: center
+          font-style: italic
+          &:first-of-type
+            font-size: .4rem
+            span
+              color: #fff
+              font-size: .6rem
+              display: inline-block
+              width: .88rem
+          &:last-of-type
+            font-size: .28rem
+            text-decoration: line-through
+            span
+              color: #fff
+              padding: 0 .15rem
+      .box-right
+        position: relative
+        margin-left: .34rem
+        p
+          line-height: 1
+          color: #f5d06e
+          text-align: center
+          font-style: italic
+          font-size: .28rem
+          &:first-of-type
+            padding-left: .3rem
+            margin-top: .15rem
+          &:last-of-type
+            margin-top: .1rem
+      .box-img
+        width: .6rem
+        height: .6rem
+        display: block
+        position: absolute
+        left: 2.32rem
+        top: .06rem
+
   .assess
     padding: .1rem 0
     color: #525252
