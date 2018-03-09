@@ -97,7 +97,7 @@
               tbFlag: !!Number.parseInt(status.tbFlag),
               tbTextName: status.tbFlag === '1' ? '已认证' : '选填',
               gxbFlag: !!Number.parseInt(status.gxbFlag),
-              gxbTextName: status.gxbFlag === '1' ? '已认证' : '选填'
+              gxbTextName: status.gxbFlag === '1' ? '已认证' : '必填'
             }
             this.creditStatus = showInfo
           }
