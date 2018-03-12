@@ -17,9 +17,10 @@
         </div>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="item flex" @click="directContactChoosed()">
+      <div class="item flex">
         <div class="flex-grow">姓名</div>
-        <div>{{directContactName ? directContactName : '直系亲属姓名'}}</div>
+        <div v-if="!directFlag">{{directContactName ? directContactName : '直系亲属姓名'}}</div>
+        <input v-if="directFlag" size="10" class="flex-grow item-input" type="text" v-model="directContactName" placeholder="请填写" />
         <i class="iconfont icon-117"></i>
       </div>
     </div>
@@ -41,9 +42,10 @@
         </div>
         <i class="iconfont icon-117"></i>
       </div>
-      <div class="item flex" @click="majorContactChoosed()">
+      <div class="item flex">
         <div class="flex-grow">姓名</div>
-        <div>{{majorContactName ? majorContactName : '重要亲属姓名'}}</div>
+        <div v-if="!majorFlag">{{majorContactName ? majorContactName : '重要亲属姓名'}}</div>
+        <input v-if="majorFlag" size="10" class="flex-grow item-input" type="text" v-model="majorContactName" placeholder="请填写" />
         <i class="iconfont icon-117"></i>
       </div>
     </div>
@@ -58,7 +60,7 @@
 <script type="text/ecmascript-6">
   import {directRelationship, majorRelationship} from 'common/js/constants'
   import Picker from 'better-picker'
-  import {doPost, chooseContact, popup, endPage, log, eeLogUBT} from 'common/js/drivers'
+  import {doPost, chooseContact, popup, endPage, log, eeLogUBT, dialog} from 'common/js/drivers'
   import * as types from 'config/api-type'
 
   export default {
@@ -67,9 +69,11 @@
         directContactRelation: '',
         directContactName: '',
         directContactMobile: '',
+        directFlag: false,
         majorContactRelation: '',
         majorContactName: '',
-        majorContactMobile: ''
+        majorContactMobile: '',
+        majorFlag: false
       }
     },
     methods: {
@@ -90,6 +94,7 @@
               let {name, tel} = oData.data
               self.directContactName = name
               self.directContactMobile = tel.replace(/-|_|\s+/g, '')
+              self.checkName(name, 'directContact')
             }
           }
         })
@@ -104,6 +109,7 @@
               let {name, tel} = oData.data
               self.majorContactName = name
               self.majorContactMobile = tel.replace(/-|_|\s+/g, '')
+              self.checkName(name, 'majorContact')
             }
           }
         })
@@ -188,6 +194,63 @@
           return false
         }
         return true
+      },
+      checkName: function(name, from) {
+        let rel = /^[\u4e00-\u9fa5]+$/
+        if (name) {
+          if (!rel.test(name) || (rel.test(name) && name.length < 2)) {
+            dialog(null, '请确认填写的是真实姓名', [{
+              text: '确认',
+              key: '0'
+            }, {
+              text: '去修改',
+              key: '1'
+            }], function(oData) {
+            })
+            if (from === 'directContact') {
+              this.directFlag = true
+            } else if (from === 'majorContact') {
+              this.majorFlag = true
+            }
+            return false
+          } else {
+            if (from === 'directContact') {
+              this.directFlag = false
+            } else if (from === 'majorContact') {
+              this.majorFlag = false
+            }
+          }
+          doPost(types.CHECK_NAME, {
+            checkName: name
+          }, {
+            success: (oData) => {
+              if (oData.data.checkStatus !== '0') {
+                dialog(null, oData.data.checkMsg || '请确认联系人填写的是真实姓名！', [{
+                  text: '确认',
+                  key: '0'
+                }, {
+                  text: '去修改',
+                  key: '1'
+                }], function(oData) {
+                })
+                if (from === 'directContact') {
+                  this.directFlag = true
+                } else if (from === 'majorContact') {
+                  this.majorFlag = true
+                }
+              } else if (oData.data.checkStatus === '0') {
+                if (from === 'directContact') {
+                  this.directFlag = false
+                } else if (from === 'majorContact') {
+                  this.majorFlag = false
+                }
+              }
+            },
+            error: function(oData) {}
+          })
+        }
+        // this.directFlag = true
+        // this.majorFlag = true
       }
     },
     mounted() {
@@ -233,4 +296,12 @@
     padding: 1rem .4rem .4rem
   .text-gary
     color: #525252
+
+  .item-input
+    text-align: right
+    line-height: 1
+    outline: none
+    border: 0
+    &:active
+      background-color: #e1e1e1
 </style>
