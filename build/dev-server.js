@@ -792,6 +792,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1518233735467',
             minPrincipal: "3000",
             maxPrincipal: "5000",
+            maxLoanDay: 3,
             appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
@@ -803,6 +804,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1527233735467',
             minPrincipal: "500",
             maxPrincipal: "1000",
+            maxLoanDay: 3,
             appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
@@ -824,6 +826,7 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
             appEffectiveTime: '1518233735467',
             minPrincipal: "500",
             maxPrincipal: "1000",
+            maxLoanDay: 5,
             appPhotoKey: 'appPhotoUrl',
             androidDownloadUrl: "http://www.androidDownloadUrl.com",
             iosDownloadUrl: "http://www.ios.com"
@@ -842,15 +845,83 @@ apiRoutes.post('/borrow/record/auth', function(req, res) {
   }
   responseData(res, result)
 })
-
+/**
+ * 评估金额获取
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/fetch/assessFee', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {
+      assessFee: 58,
+      realFee: 88
+    }
+  }
+  responseData(res, result)
+})
+/**
+ * 推送失败接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/borrow/audit/fail', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {
+      orderNo: '452345353',
+      curRecommendCount: 4,
+      maxRecommendCount: 10
+    }
+  }
+  responseData(res, result)
+})
+/**
+ * 名字校验规则
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/checkName/auth', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {
+      checkStatus: '1',
+      checkMsg: '鳖孙，名字写错了'
+    }
+  }
+  responseData(res, result)
+})
+/**
+ * 客户基本信息保存接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/baseInfo/auth', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {}
+  }
+  responseData(res, result)
+})
 
  // headers:  {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
 
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
 
 const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://10.25.192.4:9003', changeOrigin: true})
-const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
-const apiOrderProxy = proxyMiddleware('/order', {target: 'http://10.25.192.4:9001', changeOrigin: true})
+// const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
+const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.2.21:9000', changeOrigin: true}) // 邓伟
+// const apiOrderProxy = proxyMiddleware('/order', {target: 'http://10.25.192.4:9001', changeOrigin: true})
+// const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.13:9001', changeOrigin: true}) // 老朱
+const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.21:9001', changeOrigin: true}) // 邓伟
 const apiRepayProxy = proxyMiddleware('/pay', {target: 'http://10.25.192.4:9200', changeOrigin: true})
 
 
@@ -861,6 +932,7 @@ app.use('/pay', apiRepayProxy)
 
 // app.use('/user', apiRoutes)
 // app.use('/order', apiRoutes)
+// app.use('/application', apiRoutes)
 // app.use('/pay', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {

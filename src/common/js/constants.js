@@ -195,7 +195,7 @@ export const pageIdentity = {
   'EVALUATE_SCORE': '/#/evaluate-score',                              // 信誉积分
   'INTELLIGENT_RECOMMEND': '/#/intelligent-recommend',                // 智能推荐
   'AUDIT_FLOW': '/#/audit-flow',                                      // 审核流程
-  'DOWNLOAD_LIST': '/#/download-list',                                // 下载列表
+  'DOWNLOAD_LIST': '/#/download-list',                                // 推送结果
   'ORDER_LIST': '/#/order-list',                                      // 订单列表
   'ABOUT_US': '/#/about-us',                                          // 关于我们
   'ABOUT_US_IOS': '/#/about-us-ios',                                  // 关于我们
@@ -205,7 +205,9 @@ export const pageIdentity = {
   'ASSESS_CREDIT_PROTOCOL': '/#/assess-credit-protocol',              // 评估推荐服务协议（Android）
   'ASSESS_CREDIT_PROTOCOL_IOS': '/#/assess-credit-protocol-ios',      // 评估推荐服务协议（iOS）
   'PROTOCOL_LIST': '/#/protocol-list',                                // 协议列表
-  'INTELLIGENT_RECOMMEND_ERROR': '/#/intelligent-recommend-error'     // 智能推荐失败页面
+  'INTELLIGENT_RECOMMEND_ERROR': '/#/intelligent-recommend-error',    // 智能推荐失败页面
+  'ASSESS_PERSONAL_DATA': '/#/personal-data',                         // 完善个人资料
+  'PUSH_FAILURE': '/#/push-failure'                                   // 推送结果
 }
 
 export const positionItems = {
