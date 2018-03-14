@@ -20,7 +20,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {alipay, eeLogUBT} from 'common/js/drivers'
+  import {alipay, eeLogUBT, weChatPay} from 'common/js/drivers'
   // import * as types from 'config/api-type'
   // import {unionpayPath} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
@@ -31,24 +31,24 @@
         payAmount: '',
         payWays: [
           {
+            className: 'pay-logo-wechat',
+            name: '微信',
+            key: 'wechat',
+            isChose: true
+          }, {
             className: 'pay-logo-ali',
             name: '支付宝',
             key: 'alipay',
-            isChose: true
+            isChose: false
           }
           // , {
-          //   className: 'pay-logo-wechat',
-          //   name: '微信',
-          //   key: 'wechat',
-          //   isChose: false
-          // }, {
           //   className: 'pay-logo-union',
           //   name: '银联',
           //   key: 'union',
           //   isChose: false
           // }
         ],
-        payKey: 'alipay',
+        payKey: 'wechat',
         param: null,
         key: ''
       }
@@ -69,16 +69,30 @@
         let param = this.param ? JSON.parse(this.param) : ''
         if (this.key === 'EVALUATE_INFO') {
           eeLogUBT('AssessmentPayPage.Action.Pay', 'click', {payType: this.payKey})
-          alipay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
-            success() {
-            }
-          })
+          if (this.payKey === 'alipay') {
+            alipay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
+              success() {
+              }
+            })
+          } else if (this.payKey === 'wechat') {
+            weChatPay({successUrl: 'EVALUATE_FLOW', title: '评估流程', key: this.key, param}, {
+              success() {
+              }
+            })
+          }
         } else if (this.key === 'AUDIT_INFO') {
           eeLogUBT('RecommendPayPage.Action.Pay', 'click', {payType: this.payKey})
-          alipay({successUrl: 'AUDIT_FLOW', title: '审核流程', key: this.key, param}, {
-            success() {
-            }
-          })
+          if (this.payKey === 'alipay') {
+            alipay({successUrl: 'AUDIT_FLOW', title: '审核流程', key: this.key, param}, {
+              success() {
+              }
+            })
+          } else if (this.payKey === 'wechat') {
+            weChatPay({successUrl: 'AUDIT_FLOW', title: '审核流程', key: this.key, param}, {
+              success() {
+              }
+            })
+          }
         }
       }
     },
