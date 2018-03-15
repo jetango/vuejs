@@ -3,6 +3,7 @@
     <div class="fail-content up-gap">
       <p>{{failTitle}}</p>
       <p>{{failDesc}}</p>
+      <p>如有疑问请联系客服电话 0371-66395059</p>
     </div>
     <div class="fail-tip up-gap" v-show="isShow">
       <p>
