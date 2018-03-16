@@ -33,7 +33,7 @@ export default {
   [types.USER_CONTRACT]: '/application/agreement',
   [types.FETCH_ASSESS_FEE]: '/application/fetch/assessFee',
   [types.VIP]: '/member/fetch',
-  [types.QUIKPAY]: '/pay/hlb/quikPay',
+  [types.QUIKPAY]: '/pay/hlb/quikPayYmt',
   [types.DIRECTPAY]: '/pay/hlb/directPay',
   [types.ALI_APPPAY]: '/pay/ali/appPay',
   [types.BILL_HELIBAO]: '/zeus/bill/helibao',

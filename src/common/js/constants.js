@@ -207,7 +207,8 @@ export const pageIdentity = {
   'PROTOCOL_LIST': '/#/protocol-list',                                // 协议列表
   'INTELLIGENT_RECOMMEND_ERROR': '/#/intelligent-recommend-error',    // 智能推荐失败页面
   'ASSESS_PERSONAL_DATA': '/#/personal-data',                         // 完善个人资料
-  'PUSH_FAILURE': '/#/push-failure'                                   // 推送结果
+  'PUSH_FAILURE': '/#/push-failure',                                  // 推送结果
+  'HELIBAO_PAY': '/#/helibao-fast'                                    // 合利宝快捷支付
 }
 
 export const positionItems = {

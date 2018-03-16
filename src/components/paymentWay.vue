@@ -6,7 +6,7 @@
     </div>
     <div class="pay-way-list">
       <div class="list-item flex flex-item active" v-for="item in payWays" :key="item.name" @click="chosePayWay(item)">
-        <div :class="item.className"></div>
+        <div class="app-bg" :class="item.className"></div>
         <p class="pay-title flex-grow">{{item.name}}</p>
         <div class="select-bg">
           <img v-show="item.isChose" src="~common/image/tueijian_icon_003.png">
@@ -20,9 +20,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {alipay, eeLogUBT, weChatPay} from 'common/js/drivers'
+  import {alipay, eeLogUBT, weChatPay, navigate} from 'common/js/drivers'
   // import * as types from 'config/api-type'
-  // import {unionpayPath} from 'common/js/constants'
+  import {pageIdentity} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
 
   export default {
@@ -36,11 +36,23 @@
             key: 'wechat',
             isChose: true
           }, {
-            className: 'pay-logo-ali',
-            name: '支付宝',
-            key: 'alipay',
+            className: 'helibao-bg',
+            name: '合利宝快捷支付',
+            key: 'helibao',
             isChose: false
           }
+          // , {
+          //   className: 'lianlian-bg',
+          //   name: '连连支付',
+          //   key: 'lianlian',
+          //   isChose: false
+          // }
+          // , {
+          //   className: 'pay-logo-ali',
+          //   name: '支付宝',
+          //   key: 'alipay',
+          //   isChose: false
+          // }
           // , {
           //   className: 'pay-logo-union',
           //   name: '银联',
@@ -67,6 +79,7 @@
       },
       confirmPay() {
         let param = this.param ? JSON.parse(this.param) : ''
+        let {amount, flag, type, loanAmount, borrowPeriods} = param
         if (this.key === 'EVALUATE_INFO') {
           eeLogUBT('AssessmentPayPage.Action.Pay', 'click', {payType: this.payKey})
           if (this.payKey === 'alipay') {
@@ -79,6 +92,18 @@
               success() {
               }
             })
+          } else if (this.payKey === 'helibao') {
+            let para = `amount=${amount}&flag=${flag}`
+            if (type && type !== '') {
+              para += '&type=' + type
+            }
+            if (loanAmount && loanAmount !== '') {
+              para += '&loanAmount=' + loanAmount
+            }
+            if (borrowPeriods && borrowPeriods !== '') {
+              para += '&borrowPeriods=' + borrowPeriods
+            }
+            navigate('HELIBAO_PAY', '合利宝快捷支付', {url: pageIdentity.HELIBAO_PAY, param: para}, null)
           }
         } else if (this.key === 'AUDIT_INFO') {
           eeLogUBT('RecommendPayPage.Action.Pay', 'click', {payType: this.payKey})
@@ -92,6 +117,18 @@
               success() {
               }
             })
+          } else if (this.payKey === 'helibao') {
+            let para = `amount=${amount}&flag=${flag}`
+            if (type && type !== '') {
+              para += '&type=' + type
+            }
+            if (loanAmount && loanAmount !== '') {
+              para += '&loanAmount=' + loanAmount
+            }
+            if (borrowPeriods && borrowPeriods !== '') {
+              para += '&borrowPeriods=' + borrowPeriods
+            }
+            navigate('HELIBAO_PAY', '合利宝快捷支付', {url: pageIdentity.HELIBAO_PAY, param: para}, null)
           }
         }
       }
@@ -129,19 +166,16 @@
         width: .52rem
         height: .52rem
     .pay-logo-ali
-      width: .74rem
-      height: .74rem
       background: url('~common/image/haunkuan_fangshi_icon_002.png') no-repeat
       background-size: 100% 100%
     .pay-logo-wechat
-      width: .74rem
-      height: .74rem
       background: url('~common/image/haunkuan_fangshi_icon_003.png') no-repeat
       background-size: 100% 100%
     .pay-logo-union
-      width: .74rem
-      height: .74rem
       background: url('~common/image/haunkuan_fangshi_icon_001.png') no-repeat
+      background-size: 100% 100%
+    .lianlian-bg
+      background: url('~common/image/lianlian_icon.png') no-repeat
       background-size: 100% 100%
   .list-item
     height: 1rem
