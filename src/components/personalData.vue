@@ -25,7 +25,7 @@
       </div>
       <div class="info-item flex flex-item">
         <span class="title-gap">姓名（请填写真实姓名）</span>
-        <div v-show="!directFlag" class="flex-grow">{{directContactName ? directContactName : '直系亲属姓名'}}</div>
+        <div v-show="!directFlag" class="flex-grow ellipsis-1">{{directContactName ? directContactName : '直系亲属姓名'}}</div>
         <input v-show="directFlag" size="10" class="flex-grow" type="text" v-model="directContactName" placeholder="请填写" />
         <i class="iconfont icon-117"></i>
       </div>
@@ -43,7 +43,7 @@
       </div>
       <div class="info-item flex flex-item">
         <span class="title-gap">姓名（请填写真实姓名）</span>
-        <div v-show="!majorFlag" class="flex-grow">{{majorContactName ? majorContactName : '直系亲属姓名'}}</div>
+        <div v-show="!majorFlag" class="flex-grow ellipsis-1">{{majorContactName ? majorContactName : '直系亲属姓名'}}</div>
         <input v-show="majorFlag" size="10" class="flex-grow" type="text" v-model="majorContactName" placeholder="请填写" />
         <i class="iconfont icon-117"></i>
       </div>
@@ -344,5 +344,10 @@
   input::-ms-input-placeholder {
     color: #525252
   }
+
+  .ellipsis-1
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
     
 </style>
