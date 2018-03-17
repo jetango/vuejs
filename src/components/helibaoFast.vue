@@ -15,19 +15,19 @@
       <div class="item flex">
         <div class="title tel">银行卡号：</div>
         <div class="flex-grow">
-          <input type="tel" maxlength="20" placeholder="请正确输入银行卡号" v-model="postData.bankNo"/>
+          <input class="input-active" type="tel" maxlength="20" placeholder="请正确输入银行卡号" v-model="postData.bankNo"/>
         </div>
       </div>
       <div class="item flex">
         <div class="title tel">持卡人姓名：</div>
         <div class="flex-grow">
-          <input type="text" placeholder="请正确输入姓名" v-model="postData.name"/>
+          <input class="input-active" type="text" placeholder="请正确输入姓名" v-model="postData.name"/>
         </div>
       </div>
       <div class="item flex">
         <div class="title tel">身份证号码：</div>
         <div class="flex-grow">
-          <input type="text" placeholder="请正确输入身份证号码" v-model="postData.idCard"/>
+          <input class="input-active" type="text" placeholder="请正确输入身份证号码" v-model="postData.idCard"/>
         </div>
       </div>
     </div>
@@ -247,4 +247,8 @@
   .identify-code-btn
     color: #0079ff !important
     text-align: center
+  .input-active
+    background-color: #fff
+    &:active
+      background-color: #e1e1e1
 </style>
