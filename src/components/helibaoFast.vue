@@ -97,18 +97,42 @@
           this.payLoading = true
           let {amount, flag, type, loanAmount, borrowPeriods, bankNo, name, idCard} = this.postData
           let platformType = navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
-          let params = {platformType, amount, flag, type, loanAmount, borrowPeriods, bankNo, name, idCard}
+          let params = {platformType, amount, flag, type, bankNo, name, idCard, loanAmount, borrowPeriods}
+          if (flag === '2') {
+            if (platformType === 'ios') {
+              params.loanAmount = loanAmount
+              params.borrowPeriods = borrowPeriods
+            } else {
+              params.loanAmount = loanAmount[0]
+              params.borrowPeriods = borrowPeriods[0]
+            }
+          }
           doPost(types.QUIKPAY, params, {
             success: function() {
               self.payLoading = false
-              dialog('支付提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
+              // dialog('支付提交成功', '系统将进行扣款，并将短信通知您扣款结果。', 'OK', {
+              //   success: function(oData) {
+              //     if (oData.status === '0') {
+              //       if (flag === '1') {
+              //         navigate('EVALUATE_FLOW', '评估流程', {url: pageIdentity.EVALUATE_FLOW})
+              //       } else if (flag === '2') {
+              //         navigate('AUDIT_FLOW', '审核流程', {url: pageIdentity.AUDIT_FLOW})
+              //       }
+              //     }
+              //   },
+              //   error: function(oData) {
+              //     popup(null, null, oData.msg || '支付失败！')
+              //   }
+              // })
+              dialog('支付提交成功', '系统将进行扣款，并将短信通知您扣款结果。', [{
+                text: '确认',
+                key: '0'
+              }], {
                 success: function(oData) {
-                  if (oData.status === '0') {
-                    if (flag === '1') {
-                      navigate('EVALUATE_FLOW', '评估流程', {url: pageIdentity.EVALUATE_FLOW})
-                    } else if (flag === '2') {
-                      navigate('AUDIT_FLOW', '审核流程', {url: pageIdentity.AUDIT_FLOW})
-                    }
+                  if (flag === '1') {
+                    navigate('EVALUATE_FLOW', '评估流程', {url: pageIdentity.EVALUATE_FLOW}, null, 'ROOT')
+                  } else if (flag === '2') {
+                    navigate('AUDIT_FLOW', '审核流程', {url: pageIdentity.AUDIT_FLOW}, null, 'ROOT')
                   }
                 },
                 error: function(oData) {
