@@ -61,7 +61,7 @@
           //   isChose: false
           // }
         ],
-        payKey: 'wechat',
+        payKey: 'alipay',
         param: null,
         key: ''
       }
