@@ -31,20 +31,20 @@
         payAmount: '',
         payWays: [
           {
-            className: 'pay-logo-ali',
-            name: '支付宝',
-            key: 'alipay',
-            isChose: true
-          },
-          {
             className: 'pay-logo-wechat',
             name: '微信',
             key: 'wechat',
-            isChose: false
+            isChose: true
           }, {
             className: 'helibao-bg',
             name: '合利宝快捷支付',
             key: 'helibao',
+            isChose: false
+          },
+          {
+            className: 'pay-logo-ali',
+            name: '支付宝',
+            key: 'alipay',
             isChose: false
           }
           // , {
@@ -61,7 +61,7 @@
           //   isChose: false
           // }
         ],
-        payKey: 'alipay',
+        payKey: 'wechat',
         param: null,
         key: ''
       }
