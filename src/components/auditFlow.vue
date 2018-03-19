@@ -117,7 +117,7 @@
             if (Number(oData.data.flowInfo.six) === 1) {
               clearInterval(self.interval)
               if (Number(oData.data.branchType) === 0) {
-                navigate('INTELLIGENT_RECOMMEND_ERROR', '推荐结果', {url: pageIdentity.INTELLIGENT_RECOMMEND_ERROR}, null, 'ROOT')
+                navigate('PUSH_FAILURE', '推荐结果', {url: pageIdentity.PUSH_FAILURE, param: `orderNo=${self.orderNo}`}, null, 'ROOT')
               } else {
                 navigate('DOWNLOAD_LIST', '下载列表', {url: pageIdentity.DOWNLOAD_LIST, param: `orderNo=${self.orderNo}`}, null, 'ROOT')
               }
