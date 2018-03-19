@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="button-box">
-      <div class="button button-primary" @click="back">返回</div>
+      <div class="button button-primary" @click="back">更多推荐</div>
     </div>
     <p class="tip-bottom">
       <img class="img-size" src="~common/image/zhushi_tuan_001.png">
@@ -34,7 +34,7 @@
     popup,
     doPost,
     log,
-    endPage,
+    navigate,
     eeLogUBT
   } from 'common/js/drivers'
   export default {
@@ -73,8 +73,8 @@
         })
       },
       back: function() {
-        endPage({url: '', param: ''}, 'ROOT')
-        eeLogUBT('PushFailure.Action.GoBack', 'click')
+        eeLogUBT('PushFailure.Action.qunadai', 'click')
+        navigate('MORE_PLATFORM', '更多平台', {url: 'https://wap.qunadai.com/#/qnd?channelCode=nongyaodai', type: 'TARGET'}, null, 'ROOT')
       }
     },
     mounted: function() {
@@ -119,8 +119,6 @@
       height: .3rem
       vertical-align: middle
       margin-top: -.04rem
-
-
   .up-gap
     margin-top: .1rem
   .button-box
