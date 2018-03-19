@@ -30,7 +30,7 @@
       其他金融产品正在升级中，敬请期待！
     </div>
     <div class="recommend-price flex flex-item" :class="{hidden: remainCount > 0}">
-      <div class="flex flex-item flex-grow flex-justify column" v-for="info in recommendConfigInfoList" @click="selectRecommendPrice(info)" :class="{'selected': info.recommendFlag == 1}">
+      <div class="flex flex-item flex-grow flex-justify column" v-for="info in recommendConfigInfoList" :key="info.typeDescribe" @click="selectRecommendPrice(info)" :class="{'selected': info.recommendFlag == 1}">
         <div class="r-title">
           <span class="recommend-btn" :class="{'hidden': info.type != recommendType}">推荐</span>
           <span class="left"></span>

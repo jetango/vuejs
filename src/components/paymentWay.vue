@@ -16,14 +16,18 @@
     <div class="button-box">
       <a class="button button-primary" @click="confirmPay">确认</a>
     </div>
+    <form method="post" action="https://wap.lianlianpay.com/authpay.htm">
+      <input type="hidden" name="req_data" value=''>
+    </form>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {alipay, eeLogUBT, weChatPay, navigate} from 'common/js/drivers'
+  import {alipay, weChatPay, navigate, eeLogUBT, doPost, log, popup} from 'common/js/drivers'
   // import * as types from 'config/api-type'
   import {pageIdentity} from 'common/js/constants'
   // import { Base64 } from 'js-base64'
+  import * as types from 'config/api-type'
 
   export default {
     data() {
@@ -31,29 +35,26 @@
         payAmount: '',
         payWays: [
           {
+            className: 'pay-logo-ali',
+            name: '支付宝',
+            key: 'alipay',
+            isChose: true
+          }, {
             className: 'pay-logo-wechat',
             name: '微信',
             key: 'wechat',
-            isChose: true
+            isChose: false
+          }, {
+            className: 'lianlian-bg',
+            name: '连连支付',
+            key: 'lianlian',
+            isChose: false
           }, {
             className: 'helibao-bg',
             name: '合利宝快捷支付',
             key: 'helibao',
             isChose: false
-          },
-          {
-            className: 'pay-logo-ali',
-            name: '支付宝',
-            key: 'alipay',
-            isChose: false
           }
-          // , {
-          //   className: 'lianlian-bg',
-          //   name: '连连支付',
-          //   key: 'lianlian',
-          //   isChose: false
-          // }
-
           // , {
           //   className: 'pay-logo-union',
           //   name: '银联',
@@ -61,9 +62,10 @@
           //   isChose: false
           // }
         ],
-        payKey: 'wechat',
+        payKey: 'alipay',
         param: null,
-        key: ''
+        key: '',
+        lianlianRequestData: ''
       }
     },
     methods: {
@@ -105,6 +107,36 @@
               para += '&borrowPeriods=' + borrowPeriods
             }
             navigate('HELIBAO_PAY', '合利宝快捷支付', {url: pageIdentity.HELIBAO_PAY, param: para}, null)
+          } else if (this.payKey === 'lianlian') {
+            let urlParam = `amount=${amount}&flag=${flag}`
+            if (type && type !== '') {
+              urlParam += '&type=' + type
+            }
+            if (loanAmount && loanAmount !== '') {
+              urlParam += '&loanAmount=' + loanAmount
+            }
+            if (borrowPeriods && borrowPeriods !== '') {
+              urlParam += '&borrowPeriods=' + borrowPeriods
+            }
+            let para = {
+              subject: '连连支付',
+              flag: flag,
+              amount: amount,
+              loanAmount: loanAmount,
+              borrowPeriods: borrowPeriods,
+              type: type,
+              urlParam: urlParam
+            }
+            doPost(types.WAP_PAY, para, {
+              success: (oData) => {
+                document.getElementsByTagName('form')[0].getElementsByTagName('input')[0].value = oData.data
+                document.getElementsByTagName('form')[0].submit()
+              },
+              error: (oData) => {
+                log('', oData)
+                popup('', '', oData.msg || '支付提交失败')
+              }
+            })
           }
         } else if (this.key === 'AUDIT_INFO') {
           eeLogUBT('RecommendPayPage.Action.Pay', 'click', {payType: this.payKey})
@@ -130,8 +162,57 @@
               para += '&borrowPeriods=' + borrowPeriods
             }
             navigate('HELIBAO_PAY', '合利宝快捷支付', {url: pageIdentity.HELIBAO_PAY, param: para}, null)
+          } else if (this.payKey === 'lianlian') {
+            let urlParam = `amount=${amount}&flag=${flag}`
+            if (type && type !== '') {
+              urlParam += '&type=' + type
+            }
+            if (loanAmount && loanAmount !== '') {
+              urlParam += '&loanAmount=' + loanAmount
+            }
+            if (borrowPeriods && borrowPeriods !== '') {
+              urlParam += '&borrowPeriods=' + borrowPeriods
+            }
+            let para = {
+              subject: '连连支付',
+              flag: flag,
+              amount: amount,
+              loanAmount: loanAmount,
+              borrowPeriods: borrowPeriods,
+              type: type,
+              urlParam: urlParam
+            }
+            doPost(types.WAP_PAY, para, {
+              success: (oData) => {
+                document.getElementsByTagName('form')[0].getElementsByTagName('input')[0].value = oData.data
+                document.getElementsByTagName('form')[0].submit()
+              },
+              error: (oData) => {
+                log('', oData)
+                popup('', '', oData.msg || '支付提交失败')
+              }
+            })
           }
         }
+        // let para = {
+        //   subject: '连连支付',
+        //   flag: 1,
+        //   amount: 0.01,
+        //   loanAmount: 2000,
+        //   borrowPeriods: 3,
+        //   type: 2
+        // }
+        // doPost(types.WAP_PAY, para, {
+        //   success: (oData) => {
+        //     document.getElementsByTagName('form')[0].getElementsByTagName('input')[0].value = oData.data
+        //     console.log(oData.data)
+        //     document.getElementsByTagName('form')[0].submit()
+        //   },
+        //   error: (oData) => {
+        //     log('', oData)
+        //     popup('', '', oData.msg || '支付提交失败')
+        //   }
+        // })
       }
     },
     created() {

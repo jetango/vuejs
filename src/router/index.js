@@ -162,6 +162,13 @@ const PushFailure = (resolve) => {
   })
 }
 
+// 支付失败页
+const PayError = (resolve) => {
+  import('components/payError').then((module) => {
+    resolve(module)
+  })
+}
+
 // 合利宝
 const Helibao = (resolve) => { import('components/helibaoFast').then((module) => { resolve(module) }) }
 // 订单列表
@@ -326,6 +333,10 @@ export default new Router({
       path: '/helibao-fast',
       name: 'helibao',
       component: Helibao
+    }, {
+      path: '/pay-error',
+      name: 'payError',
+      component: PayError
     }
   ]
 })

@@ -36,6 +36,7 @@ export default {
   [types.QUIKPAY]: '/pay/hlb/quikPayYmt',
   [types.DIRECTPAY]: '/pay/hlb/directPay',
   [types.ALI_APPPAY]: '/pay/ali/appPay',
+  [types.WAP_PAY]: '/pay/lianlian/wapPay',
   [types.BILL_HELIBAO]: '/zeus/bill/helibao',
   [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token'
 }
