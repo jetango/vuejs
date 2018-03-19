@@ -209,6 +209,8 @@ const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { r
 const AboutUsIos = (resolve) => { import('components/aboutUsIos').then((module) => { resolve(module) }) }
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
+// 邀请好友
+const InviteFriends = (resolve) => { import('components/inviteFriends').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -349,6 +351,10 @@ export default new Router({
       path: '/person-data-show',
       name: 'personalDataShow',
       component: PersonalDataShow
+    }, {
+      path: '/invite-friends',
+      name: 'inviteFriends',
+      component: InviteFriends
     }, {
       path: '/helibao-fast',
       name: 'helibao',
