@@ -161,10 +161,30 @@ const PushFailure = (resolve) => {
     resolve(module)
   })
 }
-
 // 支付失败页
 const PayError = (resolve) => {
   import('components/payError').then((module) => {
+    resolve(module)
+  })
+}
+
+// 优惠券
+const Coupon = (resolve) => {
+  import('components/coupon').then((module) => {
+    resolve(module)
+  })
+}
+
+// 优惠券展示
+const CouponShow = (resolve) => {
+  import('components/couponShow').then((module) => {
+    resolve(module)
+  })
+}
+
+// 提现
+const WithdrawCash = (resolve) => {
+  import('components/withdrawCash').then((module) => {
     resolve(module)
   })
 }
@@ -337,6 +357,18 @@ export default new Router({
       path: '/pay-error',
       name: 'payError',
       component: PayError
+    }, {
+      path: '/coupon',
+      name: 'coupon',
+      component: Coupon
+    }, {
+      path: '/coupon-show',
+      name: 'couponShow',
+      component: CouponShow
+    }, {
+      path: '/withdraw-cash',
+      name: 'withdrawCash',
+      component: WithdrawCash
     }
   ]
 })
