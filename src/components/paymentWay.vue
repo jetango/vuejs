@@ -129,8 +129,9 @@
             }
             doPost(types.WAP_PAY, para, {
               success: (oData) => {
-                document.getElementsByTagName('form')[0].getElementsByTagName('input')[0].value = oData.data
-                document.getElementsByTagName('form')[0].submit()
+                let formEl = document.getElementsByTagName('form')[0]
+                formEl.getElementsByTagName('input')[0].value = oData.data
+                formEl.submit()
               },
               error: (oData) => {
                 log('', oData)
@@ -184,8 +185,9 @@
             }
             doPost(types.WAP_PAY, para, {
               success: (oData) => {
-                document.getElementsByTagName('form')[0].getElementsByTagName('input')[0].value = oData.data
-                document.getElementsByTagName('form')[0].submit()
+                let formEl = document.getElementsByTagName('form')[0]
+                formEl.getElementsByTagName('input')[0].value = oData.data
+                formEl.submit()
               },
               error: (oData) => {
                 log('', oData)
