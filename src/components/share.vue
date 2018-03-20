@@ -1,7 +1,7 @@
 <template>
   <div class="share-friends">
     <div class="bg-1 item">
-      <p>您的好友{{this.params.fatherNo.substring(0, 4) + '****' + this.params.fatherNo.substring(this.params.fatherNo.length, this.params.fatherNo.length - 4)}}</p>
+      <p>您的好友{{this.params.fatherNo ? this.params.fatherNo.substring(0, 4) + '****' + this.params.fatherNo.substring(this.params.fatherNo.length, this.params.fatherNo.length - 4) : ''}}</p>
     </div>
     <div class="bg-2 item">
       <div class="input-area" style="background-color: #ffffff" v-show="isRegister">
