@@ -5,7 +5,7 @@
       <span @click="allWithDraw">全部提现</span>
     </div>
     <div class="withdraw-item flex flex-item active">
-      <p class="flex-grow">{{bankCard ? bankCard : '暂无绑定银行卡'}}</p>
+      <p class="flex-grow">{{bankCard ? bankCard : '暂无默认银行卡'}}</p>
       <span class="change-c" @click="changeBankCard">更换</span>
       <i class="iconfont icon-117"></i>
     </div>
@@ -123,7 +123,21 @@
         })
       },
       withDraw: function() {
-        doPost(types.WITH_DRAW_SAVE, this.cashInfo, {
+        if (!this.bankCard) {
+          popup('', '', '请选择银行卡！')
+          return false
+        }
+        if (!this.cashInfo.withdrawAmount) {
+          popup('', '', '请输入提现金额！')
+          return false
+        }
+        doPost(types.WITH_DRAW_SAVE, {
+          withdrawBankName: this.cashInfo.withdrawBankName,
+          withdrawBankNo: this.cashInfo.withdrawBankNo,
+          withdrawAmount: this.cashInfo.withdrawAmount,
+          processFee: this.cashInfo.processFee,
+          realArrivalAmount: this.cashInfo.realArrivalAmount
+        }, {
           success: (oData) => {
             if (oData.status === '0') {
               dialog(null, oData.msg || '提现成功，我们将打款到你银行卡，并短信通知您！', [{
