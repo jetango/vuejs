@@ -92,9 +92,10 @@
           return
         }
         eeLogUBT('Assessment.Action.Submit', 'click')
+        let tempFee = this._accSub(this.assessFee, this.couponFee)
         let obj = {
           subject: '银码头智能评估',
-          amount: this.assessFee,
+          amount: tempFee, // this.assessFee,
           flag: '1'
         }
         if (Number(this.couponId) !== -1) {
@@ -102,7 +103,6 @@
           obj.couponFee = this.couponFee
         }
         let value = encodeURIComponent(JSON.stringify(obj))
-        let tempFee = this._accSub(this.assessFee, this.couponFee)
         let param = `data=${value}&amount=${tempFee}&key=EVALUATE_INFO`
         if (this.isChosed) {
           navigate('PAYMENT_WAY', '支付方式', {

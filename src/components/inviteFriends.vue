@@ -107,7 +107,11 @@
         }
       },
       withdrawCash: function() {
-        navigate('WITHDRAW_CASH', '提现', {url: pageIdentity.WITHDRAW_CASH})
+        if (!this.pageData.accountNumber) {
+          popup(null, null, '请先登录！')
+        } else {
+          navigate('WITHDRAW_CASH', '提现', {url: pageIdentity.WITHDRAW_CASH})
+        }
       }
     },
     computed: {
