@@ -18,6 +18,8 @@ export default {
   [types.CHECK_NAME]: '/user/checkName/auth',
   [types.BASEINFO_SAVE]: '/user/baseInfo/auth',
   [types.BASEINFO_QUERY]: '/user/baseInfo/fetch/auth',
+  [types.SMSCODE]: '/user/channel/smscode',
+  [types.INVITE_REGISTER]: '/user/invite/register',
   [types.BORROW]: '/order/borrow/auth',
   [types.BORROW_CONFIRM]: '/order/borrow/confirm/auth',
   [types.BORROW_RESULT]: '/order/borrow/result/auth',
@@ -38,5 +40,9 @@ export default {
   [types.ALI_APPPAY]: '/pay/ali/appPay',
   [types.WAP_PAY]: '/pay/lianlian/wapPay',
   [types.BILL_HELIBAO]: '/zeus/bill/helibao',
-  [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token'
+  [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token',
+  [types.ACTIVITY_INVITATION_DETAIL]: '/activity/invitation/detail',
+  [types.WITH_DRAW]: '/activity/into/withdraw',
+  [types.WITH_DRAW_SAVE]: '/activity/operat/withdraw',
+  [types.COUPON]: '/activity/query/coupon'
 }

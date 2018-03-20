@@ -122,7 +122,7 @@ export default class Driver {
   }
 
   share(title, linkUrl, content) {
-    window.android.plugin('share', JSON.stringify({ title, linkUrl }))
+    window.android.plugin('share', JSON.stringify({title, linkUrl, content}))
   }
 
   showBarButton(pageId, title, position, func, targetUrl, cb, param) {

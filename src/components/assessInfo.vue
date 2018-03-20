@@ -17,6 +17,11 @@
       <img class="content-img" src="~common/image/JQR_da_004.png">
       <!-- <p class="target">匹配成功率高达到&nbsp;<span>98.3%</span></p> -->
     </div>
+    <div class="coupon flex flex-item" :class="{'hidden': couponCount == 0}" @click="goCoupon">
+      <span class="flex-grow">优惠券</span>
+      <div :class="{couponAll: couponFee == 0, couponSelected: couponFee > 0}">{{couponFee > 0 ? `已经优惠${couponFee}元` : `${couponCount}个可用`}}</div>
+      <i class="iconfont icon-117"></i>
+    </div>
     <div class="recommend-intro">
       <div class="recommend-title">
         <img class="reverse-logo" src="~common/image/zhaungshi_001.png">
@@ -32,7 +37,7 @@
     <p class="protocols">
       <i @click="agreeProtocols" :class="{'icon-not-chose': !isChosed}" class="iconfont icon-correct-marked"></i>
       <span @click="agreeProtocols">我已阅读并同意
-            <span style="color: #008aff" @click.stop="checkProtocols">《评估推荐服务协议》</span>
+        <span style="color: #008aff" @click.stop="checkProtocols">《评估推荐服务协议》</span>
       </span>
     </p>
     <div class="button-box">
@@ -61,7 +66,10 @@
       return {
         isChosed: true,
         assessFee: null,
-        realFee: null
+        realFee: null,
+        couponCount: 0,
+        couponId: -1,
+        couponFee: 0
       }
     },
     components: {
@@ -84,12 +92,18 @@
           return
         }
         eeLogUBT('Assessment.Action.Submit', 'click')
-        let value = encodeURIComponent(JSON.stringify({
+        let tempFee = this._accSub(this.assessFee, this.couponFee)
+        let obj = {
           subject: '银码头智能评估',
-          amount: this.assessFee,
+          amount: tempFee, // this.assessFee,
           flag: '1'
-        }))
-        let param = `data=${value}&amount=${this.assessFee}&key=EVALUATE_INFO`
+        }
+        if (Number(this.couponId) !== -1) {
+          obj.couponId = this.couponId
+          obj.couponFee = this.couponFee
+        }
+        let value = encodeURIComponent(JSON.stringify(obj))
+        let param = `data=${value}&amount=${tempFee}&key=EVALUATE_INFO`
         if (this.isChosed) {
           navigate('PAYMENT_WAY', '支付方式', {
             url: pageIdentity.PAYMENT_WAY,
@@ -99,17 +113,58 @@
           popup(null, null, '请阅读并同意推荐服务协议')
         }
       },
+      goCoupon() {
+        let self = this
+        navigate('COUPON', '选择优惠券', {url: pageIdentity.COUPON}, {
+          success: function(oData) {
+            if (oData.status === '0') {
+              let {couponId, couponFee, couponType} = oData.data
+              if (Number(couponType) === -1) {
+                self.couponId = -1
+                self.couponFee = 0
+              } else {
+                self.couponId = couponId
+                self.couponFee = couponFee
+              }
+            }
+          },
+          error: function(oData) {
+            popup(null, null, oData.msg || '请正确选择优惠券!')
+          }
+        })
+      },
       _fetchAssessFee() {
         let self = this
         doPost(types.FETCH_ASSESS_FEE, {}, {
           success(oData) {
-            self.assessFee = oData.data.assessFee || 0
-            self.realFee = oData.data.realFee || 0
+            let {assessFee, realFee, couponCount} = oData.data
+            self.assessFee = assessFee || 0
+            self.realFee = realFee || 0
+            self.couponCount = couponCount || 0
           },
           error(oData) {
             popup(null, null, oData.msg || '获取数据有误！')
           }
         })
+      },
+      _accSub(arg1, arg2) {
+        var r1 = 0
+        var r2 = 0
+        var m = 0
+        var n = 0
+        try {
+          r1 = arg1.toString().split('.')[1].length
+        } catch (e) {
+          r1 = 0
+        }
+        try {
+          r2 = arg2.toString().split('.')[1].length
+        } catch (e) {
+          r2 = 0
+        }
+        m = Math.pow(10, Math.max(r1, r2))
+        n = (r1 >= r2) ? r1 : r2
+        return ((arg1 * m - arg2 * m) / m).toFixed(n)
       }
     },
     created() {
@@ -237,4 +292,20 @@
   .button-box
     padding: .8rem .4rem .8rem
 
+  .coupon
+    height: 1rem
+    background-color: #fff
+    margin-top: .1rem
+    padding: 0 .4rem
+    i
+      font-size: .28rem
+      color: #9d9d9d
+    div.couponAll
+      padding: .05rem .08rem
+      background-color: red
+      border-radius: .1rem
+      font-size: .22rem
+      color: #fff
+    div.couponSelected
+      font-size: .20rem
 </style>

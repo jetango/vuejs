@@ -178,7 +178,7 @@
           font-size: .22rem
           color: #939393
           margin-top: .1rem
-            
+
         &:last-of-type
           font-size: .22rem
           color: #939393
@@ -187,6 +187,6 @@
       font-size: .26rem
       color: #525252
       white-space:nowrap
-    
+
 
 </style>

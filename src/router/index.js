@@ -161,10 +161,30 @@ const PushFailure = (resolve) => {
     resolve(module)
   })
 }
-
 // 支付失败页
 const PayError = (resolve) => {
   import('components/payError').then((module) => {
+    resolve(module)
+  })
+}
+
+// 优惠券
+const Coupon = (resolve) => {
+  import('components/coupon').then((module) => {
+    resolve(module)
+  })
+}
+
+// 优惠券展示
+const CouponShow = (resolve) => {
+  import('components/couponShow').then((module) => {
+    resolve(module)
+  })
+}
+
+// 提现
+const WithdrawCash = (resolve) => {
+  import('components/withdrawCash').then((module) => {
     resolve(module)
   })
 }
@@ -189,6 +209,10 @@ const AboutUs = (resolve) => { import('components/aboutUs').then((module) => { r
 const AboutUsIos = (resolve) => { import('components/aboutUsIos').then((module) => { resolve(module) }) }
 // 常见问题
 const Question = (resolve) => { import('components/question').then((module) => { resolve(module) }) }
+// 邀请好友
+const InviteFriends = (resolve) => { import('components/inviteFriends').then((module) => { resolve(module) }) }
+// 分享结果页面
+const Share = (resolve) => { import('components/share').then((module) => { resolve(module) }) }
 
 export default new Router({
   // mode: 'history',
@@ -330,6 +354,14 @@ export default new Router({
       name: 'personalDataShow',
       component: PersonalDataShow
     }, {
+      path: '/invite-friends',
+      name: 'inviteFriends',
+      component: InviteFriends
+    }, {
+      path: '/share',
+      name: 'share',
+      component: Share
+    }, {
       path: '/helibao-fast',
       name: 'helibao',
       component: Helibao
@@ -337,6 +369,18 @@ export default new Router({
       path: '/pay-error',
       name: 'payError',
       component: PayError
+    }, {
+      path: '/coupon',
+      name: 'coupon',
+      component: Coupon
+    }, {
+      path: '/coupon-show',
+      name: 'couponShow',
+      component: CouponShow
+    }, {
+      path: '/withdraw-cash',
+      name: 'withdrawCash',
+      component: WithdrawCash
     }
   ]
 })
