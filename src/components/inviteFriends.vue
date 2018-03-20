@@ -77,7 +77,8 @@
           directInvite: 0,    // 直接邀请人个数
           directAmount: 0,    // 直接邀请人个数
           indirectInvite: 0,  // 间接邀请人个数
-          indirectAmount: 0   // 间接邀请人奖励金
+          indirectAmount: 0,  // 间接邀请人奖励金
+          accountNumber: ''
         }
       }
     },
@@ -98,7 +99,12 @@
         return `tr-${index + 1}`
       },
       shareClicked() {
-        share('强奸你哈', 'http://channel.ymt.nongyaodai.com/#/ymt/appMarket', 'nngxiong')
+        if (!this.accountNumber) {
+          popup(null, null, '请先登录！')
+          return
+        } else {
+          share(`您的好友${this.accountNumber}邀请您领万元大奖—可提现—`, 'http://106.75.216.201/android/#/share', '一款专业、快捷、方便的借款服务APP,为用户提供精准、优质的借款推荐服务。')
+        }
       }
     },
     computed: {
