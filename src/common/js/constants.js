@@ -208,7 +208,12 @@ export const pageIdentity = {
   'INTELLIGENT_RECOMMEND_ERROR': '/#/intelligent-recommend-error',    // 智能推荐失败页面
   'ASSESS_PERSONAL_DATA': '/#/personal-data',                         // 完善个人资料
   'PUSH_FAILURE': '/#/push-failure',                                  // 推送结果
-  'HELIBAO_PAY': '/#/helibao-fast'                                    // 合利宝快捷支付
+  'HELIBAO_PAY': '/#/helibao-fast',                                   // 合利宝快捷支付
+  'COUPON': '/#/coupon',                                              // 优惠券
+  'COUPON_SHOW': '/#/coupon-show',                                    // 优惠券展示
+  'SHARE': '/#/share',                                                // 分享结果页面
+  'INVITE_FRIENDS': '/#/invite-friends',                              // 邀请好友
+  'WITHDRAW_CASH': '/#/withdraw-cash'                                 // 提现
 }
 
 export const positionItems = {

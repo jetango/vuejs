@@ -180,7 +180,7 @@
       transform: rotateY(180deg)
       -webkit-transform: rotateY(180deg)
       -moz-transform: rotateY(180deg)
-  
+
   .intro
     padding: .1rem 0
     p

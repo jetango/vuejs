@@ -1,9 +1,9 @@
 <template>
   <div class="coupon">
     <div class="coupon-item flex flex-item" v-for="(item, index) in couponList" :key="item.key" @click="choseCoupon(item)">
-      <span v-if="index === 0" class="flex-grow">不使用优惠券</span>
+      <span v-if="index === 0" class="flex-grow">默认不使用优惠券</span>
       <div v-if="index !== 0" class="c-content flex-grow">
-        <p><span>￥</span><span>{{item.couponFee}}</span>优惠券</p>
+        <p><span>￥</span><span>{{item.couponFee}}</span>评估费优惠券</p>
         <p>{{item.couponExpireTime}}日内有效</p>
       </div>
       <div class="chose-bg">
@@ -14,7 +14,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup, doPost, log} from 'common/js/drivers'
+  import {popup, doPost, log, endPage} from 'common/js/drivers'
   import * as types from 'config/api-type'
   export default {
     data() {
@@ -30,6 +30,7 @@
         })
         let choseItem = item
         choseItem.isChose = true
+        endPage({param: item, url: ''}, 'ASSESS_INFO', '-1')
       },
       initPage: function() {
         doPost(types.COUPON, {}, {
@@ -40,7 +41,8 @@
             })
             result.unshift({
               couponFee: '0',
-              isChose: true
+              isChose: true,
+              couponType: -1
             })
             this.couponList = result
           },
