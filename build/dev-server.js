@@ -1001,8 +1001,8 @@ apiRoutes.post('/query/coupon', function(req, res) {
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
 
 const apiUserApplicationProxy = proxyMiddleware('/application', {target: 'http://10.25.192.4:9003', changeOrigin: true})
-// const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
-const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.2.21:9000', changeOrigin: true}) // 邓伟
+const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://10.25.192.4:9000', changeOrigin: true})
+// const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.2.21:9000', changeOrigin: true}) // 邓伟
 // const apiOrderProxy = proxyMiddleware('/order', {target: 'http://10.25.192.4:9001', changeOrigin: true})
 // const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.13:9001', changeOrigin: true}) // 老朱
 const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.21:9001', changeOrigin: true}) // 邓伟

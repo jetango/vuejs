@@ -4,7 +4,7 @@
       <p>您的好友198****2334</p>
     </div>
     <div class="bg-2 item">
-      <div class="input-area">
+      <div class="input-area" style="background-color: #ffffff" v-show="isRegister">
         <div class="input-bg flex flex-item flex-grow">
           <input v-model="params.accountNumber" type="text" name="mobile" placeholder="请输入您的手机号" />
         </div>
@@ -17,9 +17,19 @@
           <input v-model="password" type="password" name="mobile" placeholder="设置密码（6-10位字母数字组合）" />
         </div>
       </div>
+      <div class="input-area" v-show="!isRegister">
+        <img src="~common/image/icon_001.png">
+        <p class="register-success">恭喜您申请成功！</p>
+        <p class="register-success-small">请前往APP进行后续操作</p> 
+      </div>
     </div>
-    <div class="bg-3 item">
+    <div class="bg-3 item" v-show="isRegister">
       <div class="btn-box" @click="register">
+        新用户注册
+      </div>
+    </div>
+    <div class="bg-3 item" v-show="!isRegister">
+      <div class="btn-box" @click="downApp">
         下载领现金
       </div>
     </div>
@@ -32,6 +42,7 @@
     doPost
   } from 'common/js/drivers'
   import * as types from 'config/api-type'
+  import util from 'common/js/util'
   import WebToast from 'base/toast/toast'
   import md5 from 'js-md5'
 
@@ -47,6 +58,7 @@
         password: null,
         isSend: false,
         delayTime: 30,
+        isRegister: true,
         toast: {
           showTitle: '',
           showToast: false
@@ -135,6 +147,14 @@
             }
           }
         })
+      },
+      downApp: function() {
+        if (util.isIos()) {
+          // this.isIos = true
+          location.href = 'user/down/redirect'
+        } else if (util.isAndroid()) {
+          location.href = 'user/down/redirect'
+        }
       }
     },
     components: {
@@ -189,7 +209,6 @@
 
   .input-area
     margin: 0 .4rem
-    background-color: #ffffff
     padding: .4rem 0 .2rem 0
     border-radius: .1rem
     img
@@ -240,4 +259,15 @@
         text-align: center
         line-height: .7rem
         font-size: .26rem
+
+  .register
+    width: 5.84rem
+    height: 1.04rem
+    background: url('~common/image/YLT_bt_01.png') no-repeat
+    background-size: cover
+    margin: 0 auto
+    color: #ffffff
+    line-height: .95rem
+    text-align: center
+    font-size: .3rem
 </style>
