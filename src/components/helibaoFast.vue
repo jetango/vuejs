@@ -54,6 +54,7 @@
           type: '',
           loanAmount: '',
           borrowPeriods: '',
+          couponId: '',
           bankNo: '',
           name: '',
           idCard: ''
@@ -63,12 +64,13 @@
       }
     },
     created() {
-      let {amount, flag, type, loanAmount, borrowPeriods} = this.$route.query
+      let {amount, flag, type, loanAmount, borrowPeriods, couponId} = this.$route.query
       this.postData.flag = flag
       this.postData.amount = amount
       this.postData.type = type
       this.postData.loanAmount = loanAmount
       this.postData.borrowPeriods = borrowPeriods
+      this.postData.couponId = couponId
       // this.init()
       this._handBins()
       this._initBinPicker()
@@ -95,9 +97,9 @@
             return
           }
           this.payLoading = true
-          let {amount, flag, type, loanAmount, borrowPeriods, bankNo, name, idCard} = this.postData
+          let {amount, flag, type, loanAmount, borrowPeriods, bankNo, name, idCard, couponId} = this.postData
           let platformType = navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-IOS') > 0 ? 'ios' : (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0 ? 'android' : 'other')
-          let params = {platformType, amount, flag, type, bankNo, name, idCard, loanAmount, borrowPeriods}
+          let params = {platformType, amount, flag, type, bankNo, name, idCard, loanAmount, borrowPeriods, couponId}
           if (flag === '2') {
             if (platformType === 'ios') {
               params.loanAmount = loanAmount

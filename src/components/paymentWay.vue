@@ -82,7 +82,7 @@
       },
       confirmPay() {
         let param = this.param ? JSON.parse(this.param) : ''
-        let {amount, flag, type, loanAmount, borrowPeriods} = param
+        let {amount, flag, type, loanAmount, borrowPeriods, couponId} = param
         if (this.key === 'EVALUATE_INFO') {
           eeLogUBT('AssessmentPayPage.Action.Pay', 'click', {payType: this.payKey})
           if (this.payKey === 'alipay') {
@@ -106,6 +106,9 @@
             if (borrowPeriods && borrowPeriods !== '') {
               para += '&borrowPeriods=' + borrowPeriods
             }
+            if (couponId) {
+              para += '&couponId=' + couponId
+            }
             navigate('HELIBAO_PAY', '合利宝快捷支付', {url: pageIdentity.HELIBAO_PAY, param: para}, null)
           } else if (this.payKey === 'lianlian') {
             let urlParam = `amount=${amount}&flag=${flag}`
@@ -125,6 +128,7 @@
               loanAmount: loanAmount,
               borrowPeriods: borrowPeriods,
               type: type,
+              couponId: couponId,
               urlParam: urlParam
             }
             doPost(types.WAP_PAY, para, {
