@@ -5,7 +5,7 @@
       <span class="d-d d-p">{{pageData.directInvite}}人</span>
       <span class="d-d d-j">{{pageData.indirectInvite}}人</span>
       <span class="d-d d-cash">{{totalAmount}}元</span>
-      <img src="~common/image/tixian.png" class="tixian">
+      <img src="~common/image/tixian.png" @click="withdrawCash" class="tixian">
     </div>
     <div class="bg-3 item">
       <span class="title">{{this.pageData.firstBonus}}元</span>
@@ -64,7 +64,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup, doPost, share} from 'common/js/drivers'
+  import {popup, doPost, share, navigate} from 'common/js/drivers'
+  import {pageIdentity} from 'common/js/constants'
   import * as types from 'config/api-type'
   export default {
     data() {
@@ -104,6 +105,9 @@
         } else {
           share(`您的好友${this.accountNumber}邀请您领万元大奖—可提现—`, 'http://106.75.216.201/android/#/share', '一款专业、快捷、方便的借款服务APP,为用户提供精准、优质的借款推荐服务。')
         }
+      },
+      withdrawCash: function() {
+        navigate('WITHDRAW_CASH', '提现', {url: pageIdentity.WITHDRAW_CASH})
       }
     },
     computed: {

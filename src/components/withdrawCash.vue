@@ -43,9 +43,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup, doPost, log} from 'common/js/drivers'
+  import {popup, doPost, log, dialog, navigate} from 'common/js/drivers'
   import Picker from 'better-picker'
   import * as types from 'config/api-type'
+  import {pageIdentity} from 'common/js/constants'
   export default {
     data() {
       return {
@@ -122,11 +123,20 @@
         })
       },
       withDraw: function() {
-        console.log(JSON.stringify(this.cashInfo))
         doPost(types.WITH_DRAW_SAVE, this.cashInfo, {
           success: (oData) => {
             if (oData.status === '0') {
-              popup('', '', oData.msg || '提现成功！')
+              dialog(null, oData.msg || '提现成功，我们将打款到你银行卡，并短信通知您！', [{
+                text: '确认',
+                key: '0'
+              }, {
+                text: '取消',
+                key: '1'
+              }], function(oData) {
+                if (oData.result === '0') {
+                  navigate('INVITE_FRIENDS', '邀请好友', {url: pageIdentity.INVITE_FRIENDS}, null, 'ROOT')
+                }
+              })
             } else if (oData.status === '1') {
               popup('', '', oData.msg || '提现异常，请稍后重试！')
             } else if (oData.status === '2') {
