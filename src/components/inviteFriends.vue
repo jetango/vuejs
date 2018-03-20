@@ -2,21 +2,21 @@
   <div class="invite-friends">
     <div class="bg-1 item"></div>
     <div class="bg-2 item">
-      <span class="d-d d-p">8人</span>
-      <span class="d-d d-j">2人</span>
-      <span class="d-d d-cash">2元</span>
+      <span class="d-d d-p">{{pageData.directInvite}}人</span>
+      <span class="d-d d-j">{{pageData.indirectInvite}}人</span>
+      <span class="d-d d-cash">{{totalAmount}}元</span>
       <img src="~common/image/tixian.png" class="tixian">
     </div>
     <div class="bg-3 item">
-      <span class="title">15元</span>
+      <span class="title">{{this.pageData.firstBonus}}元</span>
       <span class="desc">直接邀请奖励</span>
       <p class="d-desc-1">通过您直接邀请好友1位，且好友评估成功，即可获得</p>
-      <p class="d-desc-2">现金<span class="dd-cash">15</span>元，上不封顶。</p>
+      <p class="d-desc-2">现金<span class="dd-cash">{{this.pageData.firstBonus}}</span>元，上不封顶。</p>
       <p class="d-desc-3">注：直接关系如下演示图A到B</p>
-      <span class="j-title">15元</span>
+      <span class="j-title">{{this.pageData.secondBonus}}元</span>
       <span class="j-desc">直接邀请奖励</span>
       <p class="j-desc-1">通过您间接邀请好友1位，且好友评估成功，即可获得</p>
-      <p class="j-desc-2">现金<span class="jj-cash">5</span>元，上不封顶。</p>
+      <p class="j-desc-2">现金<span class="jj-cash">{{this.pageData.secondBonus}}</span>元，上不封顶。</p>
       <p class="j-desc-3">注：间接关系仅限您邀请的下两层，如下演示图A到B</p>
     </div>
     <div class="bg-4 item"></div>
@@ -26,12 +26,12 @@
         <span>获奖人</span>
         <span>赚钱总额</span>
       </p>
-      <p class="tr tr-1">
-        <span>1</span>
-        <span>183****1231</span>
-        <span>8788元</span>
+      <p v-for="(item, index) in this.pageData.rankingList" class="tr" :class="{'tr-1': index == 0, 'tr-2': index == 1, 'tr-3': index == 2, 'tr-4': index == 3, 'tr-5': index == 4}">
+        <span>{{index + 1}}</span>
+        <span>{{item.accountNumber}}</span>
+        <span>{{item.bonusTotal}}元</span>
       </p>
-      <p class="tr tr-2">
+      <!-- <p class="tr tr-2">
         <span>2</span>
         <span>183****1231</span>
         <span>8788元</span>
@@ -50,21 +50,67 @@
         <span>5</span>
         <span>183****1231</span>
         <span>8788元</span>
-      </p>
+      </p> -->
     </div>
     <div class="bg-6 item">
       <span class="s-1">8</span>
       <span class="s-2">8</span>
     </div>
-    <div class="btn-box">
-      <img src="~common/image/theme_btn.png" alt="">
+    <div class="btn-box" @click="shareClicked">
+      <img src="~common/image/theme_btn.png">
       <span class="text">立即邀请</span>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+  import {popup, doPost, share} from 'common/js/drivers'
+  import * as types from 'config/api-type'
+  export default {
+    data() {
+      return {
+        pageData: {
+          firstBonus: 15,     // 第一档邀请奖励金
+          secondBonus: 5,     // 第二档邀请奖励金
+          couponAmount: 8,    // 优惠券总金额8元
+          rankingList: [],    // 邀请人奖励金总额
+          directInvite: 0,    // 直接邀请人个数
+          directAmount: 0,    // 直接邀请人个数
+          indirectInvite: 0,  // 间接邀请人个数
+          indirectAmount: 0   // 间接邀请人奖励金
+        }
+      }
+    },
+    methods: {
+      invitationDetail() {
+        doPost(types.ACTIVITY_INVITATION_DETAIL, {}, {
+          success: (oData) => {
+            if (oData.status === '0') {
+              this.pageData = oData.data
+            }
+          },
+          error: (oData) => {
+            popup('', '', oData.msg || '获取信息失败')
+          }
+        })
+      },
+      getNewClass(index) {
+        return `tr-${index + 1}`
+      },
+      shareClicked() {
+        share('强奸你哈', 'http://channel.ymt.nongyaodai.com/#/ymt/appMarket', 'nngxiong')
+      }
+    },
+    computed: {
+      totalAmount() {
+        let {directAmount, indirectAmount} = this.pageData
+        return Number(directAmount) + Number(indirectAmount)
+      }
+    },
+    mounted() {
+      this.invitationDetail()
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">

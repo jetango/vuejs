@@ -923,12 +923,13 @@ const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.2.21:9
 // const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.13:9001', changeOrigin: true}) // 老朱
 const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.21:9001', changeOrigin: true}) // 邓伟
 const apiRepayProxy = proxyMiddleware('/pay', {target: 'http://10.25.192.4:9200', changeOrigin: true})
-
+const activityProxy = proxyMiddleware('/activity', {target: 'http://10.25.192.4:9004', changeOrigin: true})
 
 app.use('/application', apiUserApplicationProxy)
 app.use('/user', apiUserAPPProxy)
 app.use('/order', apiOrderProxy)
 app.use('/pay', apiRepayProxy)
+app.use('/activity', activityProxy)
 
 // app.use('/user', apiRoutes)
 // app.use('/order', apiRoutes)
