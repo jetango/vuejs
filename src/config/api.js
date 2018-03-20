@@ -39,5 +39,8 @@ export default {
   [types.WAP_PAY]: '/pay/lianlian/wapPay',
   [types.BILL_HELIBAO]: '/zeus/bill/helibao',
   [types.GXB_TOKEN]: '/dsp/api/resource/gxb/token',
-  [types.ACTIVITY_INVITATION_DETAIL]: '/activity/invitation/detail'
+  [types.ACTIVITY_INVITATION_DETAIL]: '/activity/invitation/detail',
+  [types.WITH_DRAW]: '/activity/into/withdraw',
+  [types.WITH_DRAW_SAVE]: '/activity/operat/withdraw',
+  [types.COUPON]: '/activity/query/coupon'
 }

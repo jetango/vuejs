@@ -912,6 +912,90 @@ apiRoutes.post('/baseInfo/auth', function(req, res) {
   responseData(res, result)
 })
 
+/**
+ * 进入提现页面接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/into/withdraw', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {
+      withdrawTotalAmount: '122',
+      processFee: '2',
+      bankList: [
+        {
+          bankName: '农业银行',
+          bankAccount: '623123123132131231',
+          defaultFlag: '1'
+        }, {
+          bankName: '建设银行',
+          bankAccount: '451545121544848555',
+          defaultFlag: '0'
+        }, {
+          bankName: '工商银行',
+          bankAccount: '884515121545151545',
+          defaultFlag: '0'
+        }
+      ]
+    }
+  }
+  responseData(res, result)
+})
+
+/**
+ * 提现操作接口
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/operat/withdraw', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: {}
+  }
+  responseData(res, result)
+})
+
+/**
+ * 根据手机号查询优惠券列表
+ * @param  {[type]} req [description]
+ * @param  {[type]} res [description]
+ * @return {[type]}     [description]
+ */
+apiRoutes.post('/query/coupon', function(req, res) {
+  var result = {
+    status: "0",
+    msg: "success",
+    data: [{
+      "accountNumber":"15959369312",//手机号
+      "couponId":"3123123",//优惠券id
+      "couponType":"1",//优惠券类型
+      "couponDescription":"",//优惠券类型描述
+      "couponFee":"2",//优惠券金额
+      "couponExpireTime":"2018-03-21"//优惠券到期时间
+    }, {
+      "accountNumber":"15959369312",//手机号
+      "couponId":"3123123",//优惠券id
+      "couponType":"1",//优惠券类型
+      "couponDescription":"",//优惠券类型描述
+      "couponFee":"2",//优惠券金额
+      "couponExpireTime":"2018-03-22"//优惠券到期时间
+    }, {
+      "accountNumber":"15959369312",//手机号
+      "couponId":"3123123",//优惠券id
+      "couponType":"1",//优惠券类型
+      "couponDescription":"",//优惠券类型描述
+      "couponFee":"2",//优惠券金额
+      "couponExpireTime":"2018-03-23"//优惠券到期时间
+    }]
+  }
+  responseData(res, result)
+})
+
  // headers:  {accountId: 'ca62d48d-2e08-4e6b-81fa-ff39322d2fd5', userId: '708f2d6b-ee9e-4b89-bcd3-0a29c6945436'}
 
 // userId: '26d3ac8c-ccf5-443d-a96c-71811fe6fc62'
@@ -924,17 +1008,20 @@ const apiUserAPPProxy = proxyMiddleware('/user', {target: 'http://192.168.2.21:9
 const apiOrderProxy = proxyMiddleware('/order', {target: 'http://192.168.2.21:9001', changeOrigin: true}) // 邓伟
 const apiRepayProxy = proxyMiddleware('/pay', {target: 'http://10.25.192.4:9200', changeOrigin: true})
 const activityProxy = proxyMiddleware('/activity', {target: 'http://10.25.192.4:9004', changeOrigin: true})
+// const apiActivityProxy = proxyMiddleware('/pay', {target: 'http://192.168.2.21:9000', changeOrigin: true})
 
 app.use('/application', apiUserApplicationProxy)
 app.use('/user', apiUserAPPProxy)
 app.use('/order', apiOrderProxy)
 app.use('/pay', apiRepayProxy)
 app.use('/activity', activityProxy)
+// app.use('/activity', apiActivityProxy)
 
 // app.use('/user', apiRoutes)
 // app.use('/order', apiRoutes)
 // app.use('/application', apiRoutes)
 // app.use('/pay', apiRoutes)
+// app.use('/activity', apiRoutes)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,

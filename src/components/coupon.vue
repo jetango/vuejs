@@ -1,16 +1,10 @@
 <template>
   <div class="coupon">
-    <!-- <div class="coupon-item flex flex-item">
-      <span class="flex-grow">不使用优惠券</span>
-      <div class="chose-bg">
-        <img src="~common/image/tueijian_icon_003.png">
-      </div>
-    </div> -->
-    <div class="coupon-item flex flex-item" v-for="(item, index) in couponList" :key="item.couponEndDate" @click="choseCoupon(item)">
+    <div class="coupon-item flex flex-item" v-for="(item, index) in couponList" :key="item.key" @click="choseCoupon(item)">
       <span v-if="index === 0" class="flex-grow">不使用优惠券</span>
       <div v-if="index !== 0" class="c-content flex-grow">
-        <p><span>￥</span><span>{{item.couponPrice}}</span>优惠券</p>
-        <p>{{item.couponEndDate}}日内有效</p>
+        <p><span>￥</span><span>{{item.couponFee}}</span>优惠券</p>
+        <p>{{item.couponExpireTime}}日内有效</p>
       </div>
       <div class="chose-bg">
         <img v-show="item.isChose" src="~common/image/tueijian_icon_003.png">
@@ -20,42 +14,45 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {popup, doPost, log} from 'common/js/drivers'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
-        couponList: [
-          {
-            couponPrice: '0',
-            isChose: true
-          }, {
-            couponPrice: 8,
-            couponEndDate: '2018-06-23',
-            isChose: false
-          }, {
-            couponPrice: 2,
-            couponEndDate: '2018-06-25',
-            isChose: false
-          }, {
-            couponPrice: 2,
-            couponEndDate: '2018-06-28',
-            isChose: false
-          }
-        ],
+        couponList: [],
         choseItem: null
       }
     },
     methods: {
       choseCoupon: function(item) {
-        let choseItem = item
         this.couponList.forEach(item => {
-          if (item === choseItem) {
-            item.isChose = true
-            this.choseItem = item
-          } else {
-            item.isChose = false
+          item.isChose = false
+        })
+        let choseItem = item
+        choseItem.isChose = true
+      },
+      initPage: function() {
+        doPost(types.COUPON, {}, {
+          success: (oData) => {
+            let result = oData.data
+            result.forEach(item => {
+              item.isChose = false
+            })
+            result.unshift({
+              couponFee: '0',
+              isChose: true
+            })
+            this.couponList = result
+          },
+          error: (oData) => {
+            log('', oData)
+            popup('', '', oData.msg || '获取优惠券失败！')
           }
         })
       }
+    },
+    mounted: function() {
+      this.initPage()
     }
   }
 </script>

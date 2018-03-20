@@ -1,11 +1,11 @@
 <template>
   <div class="withdraw-cash">
     <div class="withdraw-item flex flex-item active">
-      <p class="flex-grow">可提现金额（元）{{cashInfo.ktAmount}}</p>
+      <p class="flex-grow">可提现金额（元）{{cashInfo.withdrawTotalAmount}}</p>
       <span @click="allWithDraw">全部提现</span>
     </div>
     <div class="withdraw-item flex flex-item active">
-      <p class="flex-grow">{{bankCard ? bankCard : '工商银行尾号4536'}}</p>
+      <p class="flex-grow">{{bankCard ? bankCard : '暂无绑定银行卡'}}</p>
       <span class="change-c" @click="changeBankCard">更换</span>
       <i class="iconfont icon-117"></i>
     </div>
@@ -16,12 +16,12 @@
     <div class="withdraw-item flex flex-item active">
       <p class="flex-grow">手续费</p>
       <!-- <input type="text" placeholder="手续费" v-model="cashInfo.serviceCharge" readonly> -->
-      <span>{{cashInfo.serviceCharge ? cashInfo.serviceCharge + '元' : ''}}</span>
+      <span>{{cashInfo.processFee ? cashInfo.processFee + '元' : ''}}</span>
     </div>
     <div class="withdraw-item flex flex-item">
       <p class="flex-grow">实际到账</p>
       <!-- <input type="text" placeholder="实际到账" v-model="cashInfo.actualAccount" readonly> -->
-      <span>{{cashInfo.actualAccount ? cashInfo.actualAccount + '元' : ''}}</span>
+      <span>{{cashInfo.realArrivalAmount ? cashInfo.realArrivalAmount + '元' : ''}}</span>
     </div>
     <div class="button-box">
       <div class="button prohibit" :class="{'button-primary': true}" @click="withDraw">提现</div>
@@ -43,45 +43,65 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup} from 'common/js/drivers'
+  import {popup, doPost, log} from 'common/js/drivers'
   import Picker from 'better-picker'
+  import * as types from 'config/api-type'
   export default {
     data() {
       return {
         cashInfo: {
-          ktAmount: 123.23,
-          bankCard: null,
+          withdrawTotalAmount: null,
+          withdrawBankName: null,
+          withdrawBankNo: null,
           withdrawAmount: null,
-          serviceCharge: 2,
-          actualAccount: null
+          processFee: null,
+          realArrivalAmount: null
         },
         bankCard: null,
-        bankList: [
-          {
-            text: '工商银行尾号4536',
-            value: '15155454484536'
-          },
-          {
-            text: '建设银行尾号4512',
-            value: '84518451454512'
-          }
-        ]
+        bankList: []
       }
     },
     methods: {
+      initPage: function() {
+        doPost(types.WITH_DRAW, {}, {
+          success: (oData) => {
+            if (oData.status === '0') {
+              this.cashInfo.withdrawTotalAmount = oData.data.withdrawTotalAmount
+              this.cashInfo.processFee = oData.data.processFee
+              let banks = oData.data.bankList
+              banks.forEach(element => {
+                this.bankList.push({
+                  text: element.bankName + '尾号' + element.bankAccount.substring(element.bankAccount.length - 4, element.bankAccount.length),
+                  value: element.bankName + '&' + element.bankAccount
+                })
+                if (element.defaultFlag === '1') {
+                  this.bankCard = element.bankName + '尾号' + element.bankAccount.substring(element.bankAccount.length - 4, element.bankAccount.length)
+                  this.cashInfo.withdrawBankName = element.bankName
+                  this.cashInfo.withdrawBankNo = element.bankAccount
+                }
+              })
+              this._initRelationshipPicker()
+            }
+          },
+          error: (oData) => {
+            log('', oData)
+            popup('', '', oData.msg || '页面初始化失败，请稍后再试！')
+          }
+        })
+      },
       allWithDraw: function() {
-        this.cashInfo.withdrawAmount = this.cashInfo.ktAmount
-        this.cashInfo.actualAccount = this.cashInfo.withdrawAmount - this.cashInfo.serviceCharge
+        this.cashInfo.withdrawAmount = this.cashInfo.withdrawTotalAmount
+        this.cashInfo.realArrivalAmount = this.cashInfo.withdrawAmount - this.cashInfo.processFee
       },
       calculation: function() {
         if (this.cashInfo.withdrawAmount < 100) {
-          this.cashInfo.actualAccount = null
+          this.cashInfo.realArrivalAmount = null
           popup(null, null, '提现金额必须大于等于100！')
         } else {
-          this.cashInfo.actualAccount = this.cashInfo.withdrawAmount - this.cashInfo.serviceCharge
+          this.cashInfo.realArrivalAmount = this.cashInfo.withdrawAmount - this.cashInfo.processFee
         }
-        if (this.cashInfo.withdrawAmount > this.cashInfo.ktAmount) {
-          this.cashInfo.actualAccount = null
+        if (this.cashInfo.withdrawAmount > this.cashInfo.withdrawTotalAmount) {
+          this.cashInfo.realArrivalAmount = null
           popup(null, null, '提现金额必须小于等于可提现金额！')
         }
       },
@@ -95,15 +115,33 @@
         })
         this.bankPicker.on('picker.select', (val, selectedIndex) => {
           this.bankCard = this.bankList[selectedIndex].text
-          this.cashInfo.bankCard = this.bankList[selectedIndex].value
+          let bankInfo = this.bankList[selectedIndex].value
+          let index = bankInfo.indexOf('&')
+          this.cashInfo.withdrawBankName = bankInfo.substring(0, index)
+          this.cashInfo.withdrawBankNo = bankInfo.substring(index + 1, bankInfo.length)
         })
       },
       withDraw: function() {
         console.log(JSON.stringify(this.cashInfo))
+        doPost(types.WITH_DRAW_SAVE, this.cashInfo, {
+          success: (oData) => {
+            if (oData.status === '0') {
+              popup('', '', oData.msg || '提现成功！')
+            } else if (oData.status === '1') {
+              popup('', '', oData.msg || '提现异常，请稍后重试！')
+            } else if (oData.status === '2') {
+              popup('', '', oData.msg || '不符合提现条件！')
+            }
+          },
+          error: (oData) => {
+            log('', oData)
+            popup('', '', oData.msg || '保存信息失败')
+          }
+        })
       }
     },
     mounted: function() {
-      this._initRelationshipPicker()
+      this.initPage()
     }
   }
 </script>

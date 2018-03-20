@@ -17,6 +17,11 @@
       <img class="content-img" src="~common/image/JQR_da_004.png">
       <!-- <p class="target">匹配成功率高达到&nbsp;<span>98.3%</span></p> -->
     </div>
+    <div class="coupon flex flex-item">
+      <span class="flex-grow">优惠券</span>
+      <div>4个可用</div>
+      <i class="iconfont icon-117"></i>
+    </div>
     <div class="recommend-intro">
       <div class="recommend-title">
         <img class="reverse-logo" src="~common/image/zhaungshi_001.png">
@@ -32,7 +37,7 @@
     <p class="protocols">
       <i @click="agreeProtocols" :class="{'icon-not-chose': !isChosed}" class="iconfont icon-correct-marked"></i>
       <span @click="agreeProtocols">我已阅读并同意
-            <span style="color: #008aff" @click.stop="checkProtocols">《评估推荐服务协议》</span>
+        <span style="color: #008aff" @click.stop="checkProtocols">《评估推荐服务协议》</span>
       </span>
     </p>
     <div class="button-box">
@@ -236,5 +241,20 @@
 
   .button-box
     padding: .8rem .4rem .8rem
+
+  .coupon
+    height: 1rem
+    background-color: #fff
+    margin-top: .1rem
+    padding: 0 .4rem
+    i
+      font-size: .28rem
+      color: #9d9d9d
+    div
+      padding: .05rem .08rem
+      background-color: red
+      border-radius: .1rem
+      font-size: .22rem
+      color: #fff
 
 </style>
