@@ -20,7 +20,7 @@
       <div class="input-area" v-show="!isRegister">
         <img src="~common/image/icon_001.png">
         <p class="register-success">恭喜您申请成功！</p>
-        <p class="register-success-small">请前往APP进行后续操作</p> 
+        <p class="register-success-small">请前往APP进行后续操作</p>
       </div>
     </div>
     <div class="bg-3 item" v-show="isRegister">
@@ -151,9 +151,9 @@
       downApp: function() {
         if (util.isIos()) {
           // this.isIos = true
-          location.href = 'user/down/redirect'
+          location.href = 'http://channel.ymt.nongyaodai.com/user/down/redirect'
         } else if (util.isAndroid()) {
-          location.href = 'user/down/redirect'
+          location.href = 'http://channel.ymt.nongyaodai.com/user/down/redirect'
         }
       }
     },
@@ -216,7 +216,7 @@
       margin: 0 auto
       width: 1.19rem
       height: 1.19rem
-    
+
     .register-success
       font-size: .36rem
       color: #00cd05
