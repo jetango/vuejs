@@ -18,6 +18,8 @@ export default {
   [types.CHECK_NAME]: '/user/checkName/auth',
   [types.BASEINFO_SAVE]: '/user/baseInfo/auth',
   [types.BASEINFO_QUERY]: '/user/baseInfo/fetch/auth',
+  [types.SMSCODE]: '/user/channel/smscode',
+  [types.INVITE_REGISTER]: '/user/invite/register',
   [types.BORROW]: '/order/borrow/auth',
   [types.BORROW_CONFIRM]: '/order/borrow/confirm/auth',
   [types.BORROW_RESULT]: '/order/borrow/result/auth',
