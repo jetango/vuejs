@@ -2,8 +2,8 @@
   <div class="invite-friends">
     <div class="bg-1 item"></div>
     <div class="bg-2 item">
-      <span class="d-d d-p">{{pageData.directInvite}}人</span>
-      <span class="d-d d-j">{{pageData.indirectInvite}}人</span>
+      <span class="d-d d-p">{{pageData.directInvite || 0}}人</span>
+      <span class="d-d d-j">{{pageData.indirectInvite || 0}}人</span>
       <span class="d-d d-cash">{{totalAmount}}元</span>
       <img src="~common/image/tixian.png" @click="withdrawCash" class="tixian">
     </div>
@@ -113,6 +113,12 @@
     computed: {
       totalAmount() {
         let {directAmount, indirectAmount} = this.pageData
+        if (!directAmount) {
+          directAmount = 0
+        }
+        if (!indirectAmount) {
+          indirectAmount = 0
+        }
         return Number(directAmount) + Number(indirectAmount)
       }
     },
