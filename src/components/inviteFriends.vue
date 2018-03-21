@@ -103,7 +103,7 @@
         if (!this.pageData.accountNumber) {
           popup(null, null, '请先登录！')
         } else {
-          share(`您的好友${this.pageData.accountNumber}邀请您领万元大奖—可提现—`, `http://106.75.216.201/android/#/share?fatherNo=${this.pageData.accountNumber}`, '一款专业、快捷、方便的借款服务APP,为用户提供精准、优质的借款推荐服务。')
+          share(`您的好友${this.pageData.accountNumber}邀请您领万元大奖—可提现—`, `https://h5.ymt.nongyaodai.com/a/#/share?fatherNo=${this.pageData.accountNumber}`, '一款专业、快捷、方便的借款服务APP,为用户提供精准、优质的借款推荐服务。')
         }
       },
       withdrawCash: function() {
