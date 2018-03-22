@@ -1,6 +1,8 @@
 <template>
   <div class="invite-friends">
-    <div class="bg-1 item"></div>
+    <div class="bg-1 item">
+      <canvas id="qrccode-canvas"></canvas>
+    </div>
     <div class="bg-2 item">
       <span class="d-d d-p">{{pageData.directInvite || 0}}人</span>
       <span class="d-d d-j">{{pageData.indirectInvite || 0}}人</span>
@@ -67,6 +69,8 @@
   import {popup, doPost, share, navigate} from 'common/js/drivers'
   import {pageIdentity} from 'common/js/constants'
   import * as types from 'config/api-type'
+  import QRCode from 'qrcode'
+  let canvas = null
   export default {
     data() {
       return {
@@ -89,6 +93,7 @@
           success: (oData) => {
             if (oData.status === '0') {
               this.pageData = oData.data
+              this.createQrc()
             }
           },
           error: (oData) => {
@@ -112,6 +117,11 @@
         } else {
           navigate('WITHDRAW_CASH', '提现', {url: pageIdentity.WITHDRAW_CASH})
         }
+      },
+      createQrc() {
+        QRCode.toCanvas(canvas, `https://h5.ymt.nongyaodai.com/a/#/share?fatherNo=${this.pageData.accountNumber}`, {margin: 1}, (error) => {
+          console.log(error)
+        })
       }
     },
     computed: {
@@ -128,6 +138,9 @@
     },
     mounted() {
       this.invitationDetail()
+      this.$nextTick(function () {
+        canvas = document.getElementById('qrccode-canvas')
+      })
     }
   }
 </script>
@@ -152,6 +165,14 @@
     height: 3.44rem
     background: url('~common/image/invite_01.jpg') no-repeat center
     background-size: 100% 100%
+    #qrccode-canvas
+      width: 1.6rem !important
+      height: 1.6rem !important
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+      bottom: -0.6rem
+      z-index: 2
   .bg-2
     height: 4.48rem
     background: url('~common/image/invite_02.jpg') no-repeat center

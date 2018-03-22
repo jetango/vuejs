@@ -161,7 +161,12 @@
       WebToast
     },
     mounted: function() {
-      this.params.fatherNo = this.$route.query.fatherNo
+      let {fatherNo} = this.$route.query
+      if (fatherNo) {
+        this.params.fatherNo = fatherNo
+      } else {
+        this.params.fatherNo = '15988888888'
+      }
     }
   }
 </script>
