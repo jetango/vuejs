@@ -62,15 +62,19 @@
       <img src="~common/image/theme_btn.png">
       <span class="text">立即邀请</span>
     </div>
+    <div class="pop-code" @click="hideMask" :class="{'hidden': hideMaskP}">
+      <canvas id="qrccode-canvas-mask"></canvas>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {popup, doPost, share, navigate} from 'common/js/drivers'
+  import {popup, doPost, navigate, share} from 'common/js/drivers'
   import {pageIdentity} from 'common/js/constants'
   import * as types from 'config/api-type'
   import QRCode from 'qrcode'
   let canvas = null
+  let canvasMask = null
   export default {
     data() {
       return {
@@ -84,7 +88,8 @@
           indirectInvite: 0,  // 间接邀请人个数
           indirectAmount: 0,  // 间接邀请人奖励金
           accountNumber: ''
-        }
+        },
+        hideMaskP: true
       }
     },
     methods: {
@@ -108,7 +113,11 @@
         if (!this.pageData.accountNumber) {
           popup(null, null, '请先登录！')
         } else {
-          share(`您的好友${this.pageData.accountNumber}邀请您领万元大奖—可提现—`, `https://h5.ymt.nongyaodai.com/a/#/share?fatherNo=${this.pageData.accountNumber}`, '一款专业、快捷、方便的借款服务APP,为用户提供精准、优质的借款推荐服务。')
+          if (navigator.userAgent.toUpperCase().indexOf('X-CROSS-AGENT-ANDROID') > 0) {
+            share(`您的好友${this.pageData.accountNumber}邀请您领万元大奖—可提现—`, `https://h5.ymt.nongyaodai.com/a/#/share?fatherNo=${this.pageData.accountNumber}`, '一款专业、快捷、方便的借款服务APP,为用户提供精准、优质的借款推荐服务。')
+          } else {
+            this.hideMaskP = false
+          }
         }
       },
       withdrawCash: function() {
@@ -122,6 +131,12 @@
         QRCode.toCanvas(canvas, `https://h5.ymt.nongyaodai.com/a/#/share?fatherNo=${this.pageData.accountNumber}`, {margin: 1}, (error) => {
           console.log(error)
         })
+        QRCode.toCanvas(canvasMask, `https://h5.ymt.nongyaodai.com/a/#/share?fatherNo=${this.pageData.accountNumber}`, {margin: 1}, (error) => {
+          console.log(error)
+        })
+      },
+      hideMask() {
+        this.hideMaskP = true
       }
     },
     computed: {
@@ -140,6 +155,7 @@
       this.invitationDetail()
       this.$nextTick(function () {
         canvas = document.getElementById('qrccode-canvas')
+        canvasMask = document.getElementById('qrccode-canvas-mask')
       })
     }
   }
@@ -319,4 +335,19 @@
       margin-left: -1rem
       font-size: .32rem
       top: .6rem
+  .pop-code
+    position: fixed
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    background: rgba(0,0,0,0.7)
+    z-index: 5
+  #qrccode-canvas-mask
+    width: 3rem !important
+    height: 3rem !important
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
 </style>
