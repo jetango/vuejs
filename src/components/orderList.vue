@@ -72,13 +72,13 @@
         })
       },
       _getPriceDesc(item) {
-        let {appInvitationCode, borrowPeriods, loanAmount, maxRecommendCount, curRecommendCount, orderStatus} = item
-        curRecommendCount = curRecommendCount < maxRecommendCount ? curRecommendCount : maxRecommendCount
+        let {appInvitationCode, borrowPeriods, loanAmount, orderStatus} = item
+        // curRecommendCount = curRecommendCount < maxRecommendCount ? curRecommendCount : maxRecommendCount
         let str = ''
         if (orderStatus === 211) {
-          str = `（${loanAmount}元${borrowPeriods}期,持续推送中${curRecommendCount}/${maxRecommendCount}）`
+          str = `（${loanAmount}元${borrowPeriods}期,持续推送中` // ${curRecommendCount}/${maxRecommendCount}）
         } else if (orderStatus === 212) {
-          str = `（${loanAmount}元${borrowPeriods}期,已全部推送${maxRecommendCount}/${maxRecommendCount}）`
+          str = `（${loanAmount}元${borrowPeriods}期,已全部推送` // ${maxRecommendCount}/${maxRecommendCount}）
         } else if (orderStatus === 203) {
           str = `（${loanAmount}元${borrowPeriods}期,借款验证码<a style="text-decoration: underline">${appInvitationCode}</a>）`
         } else if (orderStatus === 201) {

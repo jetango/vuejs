@@ -6,10 +6,11 @@
       <p>如有疑问请联系客服电话 0371-66395059</p>
     </div>
     <div class="fail-tip up-gap" v-show="isShow">
-      <p>
+      <!-- <p>
         正在为您推送更多的金融机构（{{curRecommendCount}}/{{maxRecommendCount}}）
         <img class="fail-tip-img rotate-infinite" src="~common/image/jaizai_xiao_008.png" />
-      </p>
+      </p> -->
+      <p>30天内会陆续为你推荐新的金融产品</p>
     </div>
     <div class="button-box">
       <div class="button button-primary" @click="back">更多推荐</div>
